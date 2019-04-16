@@ -101,7 +101,7 @@ class StickerController extends Controller
 		$data['rs'] = Sticker::where('sticker_code',$id)->first();
 
 		// SEO
-		SEO::setTitle($data['rs']->title_th . ' - สติ๊กเกอร์ไลน์');
+		SEO::setTitle('สติ๊กเกอร์ไลน์ '.$data['rs']->title_th);
 		SEO::setDescription('สติ๊กเกอร์ไลน์' . $data['rs']->detail);
 		SEO::opengraph()->setUrl(url()->current());
 		SEO::addImages('http://sdl-stickershop.line.naver.jp/products/0/0/' . $data['rs']->version . '/' . $data['rs']->sticker_code . '/LINEStorePC/main.png');

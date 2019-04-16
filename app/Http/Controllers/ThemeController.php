@@ -81,7 +81,7 @@ class ThemeController extends Controller {
 		$data['rs'] = Theme::find($id);
 
 		// SEO
-		SEO::setTitle($data['rs']->title.' - ธีมไลน์');
+		SEO::setTitle('ธีมไลน์ '.$data['rs']->title);
 		SEO::setDescription('ธีมไลน์'.$data['rs']->detail);
 		SEO::opengraph()->setUrl(url()->current());
 		SEO::addImages('https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/'.$data['rs']->theme_code.'/1/WEBSTORE/icon_198x278.png');

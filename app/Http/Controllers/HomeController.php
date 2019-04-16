@@ -34,7 +34,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        SEO::setTitle('ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ ของแท้ ไม่มีหาย');
+        SEO::setTitle('ขายสติ๊กเกอร์ไลน์ของแท้ราคาถูก ส่งไว ติดต่อไอดีไลน์ ratasak1234');
         SEO::setDescription('ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ ของแท้ ไม่มีหาย เชื่อถือได้ 100% ที่เปิดให้บริการมากว่า 8 ปี');
         SEO::opengraph()->setUrl(url()->current());
         SEO::addImages('https://linesticker.in.th/image/qr_ratasak1234.png');

@@ -6,8 +6,8 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "It's Over 9000!", // set false to total remove
-            'description'  => 'For those who helped create the Genki Dama', // set false to total remove
+            'title'        => "line2me.in.th", // set false to total remove
+            'description'  => 'อัพเดทสติ๊กเกอร์ไลน์ใหม่ๆกว่า 2,250,000 ลาย ของแท้ ถูกลิขสิทธิ์ ไม่มีหาย เชื่อถือได้ 100% ติดต่อไอดีไลน์ ratasak1234', // set false to total remove
             'separator'    => ' - ',
             'keywords'     => [],
             'canonical'    => false, // Set null for using Url::current(), set false to total remove

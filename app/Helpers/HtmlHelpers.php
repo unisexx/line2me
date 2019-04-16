@@ -116,3 +116,23 @@ if(!function_exists('getStickerResourctTypeIcon'))
 		}
 	}
 }
+
+if(!function_exists('getStickerResourctTypeName'))
+{
+	function getStickerResourctTypeName($resourceType=false){
+		if($resourceType == "ANIMATION"){
+			return "(ดุ๊กดิ๊ก)";
+		}elseif($resourceType == "SOUND"){
+			return "(มีเสียง)";
+		}elseif($resourceType == "ANIMATION_SOUND"){
+			return "(ดุ๊กดิ๊กและมีเสียง)";
+		}elseif($resourceType == "POPUP"){
+			return "(ป๊อปอัพ)";
+		}elseif($resourceType == "POPUP_SOUND"){
+			return "(ป๊อปอัพและมีเสียง)";
+		}elseif($resourceType == "NAME_TEXT"){
+			return "(เติมคำ)";
+		}elseif($resourceType == "STATIC"){
+		}
+	}
+}

@@ -86,7 +86,7 @@ class EmojiController extends Controller
 		$data['rs'] = Emoji::find($id);
 
 		// SEO
-		SEO::setTitle($data['rs']->title . ' - อิโมจิไลน์');
+		SEO::setTitle('อิโมจิไลน์ '.$data['rs']->title);
 		SEO::setDescription('อิโมจิไลน์' . $data['rs']->detail);
 		SEO::opengraph()->setUrl(url()->current());
 		SEO::addImages('https://stickershop.line-scdn.net/sticonshop/v1/product/'.$data['rs']->emoji_code.'/iphone/main.png');

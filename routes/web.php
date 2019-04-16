@@ -50,9 +50,15 @@ Route::get('emoji/{id}', 'EmojiController@getProduct');
 Route::get('emoji/official/{country}/{type}', 'EmojiController@getOfficial');
 Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
 
-Route::namespace('Admin')
-    ->prefix('admin')
-    ->group(function () {
-    Route::resource('users', 'UsersController');
+
+// admin
+Route::namespace('Admin')->prefix('admin')->group(function () {
+
+    Route::get('ajax/changestatus', 'AjaxController@changestatus')->name('changestatus');
+    Route::get('ajax/changecountry', 'AjaxController@changecountry')->name('changecountry');
     Route::get('home', 'HomeController@index')->name('home');
+
+    Route::resource('sticker', 'StickerController');
+    Route::resource('promote', 'PromoteController');
+
 });
