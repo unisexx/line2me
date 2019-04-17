@@ -146,6 +146,11 @@ return [
             'url'         => 'admin/promote',
             'icon'        => 'file',
         ],
+        [
+            'text'        => 'Post',
+            'url'         => 'admin/post',
+            'icon'        => 'file',
+        ],
         // 'ACCOUNT SETTINGS',
         // [
         //     'text' => 'Profile',

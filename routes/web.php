@@ -63,6 +63,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::resource('theme', 'ThemeController');
     Route::resource('emoji', 'EmojiController');
     Route::resource('promote', 'PromoteController');
+    Route::resource('post', 'PostController');
 
     //Crawler
     Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');

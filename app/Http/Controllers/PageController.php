@@ -38,15 +38,15 @@ class PageController extends Controller
 		// dump(array_unique(Session::get('track_sticker')));
 
 		// SEO
-		// SEO::setTitle($data['rs']->name . ' - สติ๊กเกอร์ไลน์');
-		// SEO::setDescription('สติ๊กเกอร์ไลน์' . $data['rs']->description);
-		// SEO::opengraph()->setUrl(url()->current());
+		SEO::setTitle($data['rs']->title);
+		SEO::setDescription('สติ๊กเกอร์ไลน์' . $data['rs']->description);
+		SEO::opengraph()->setUrl(url()->current());
 		// SEO::addImages('http://sdl-stickershop.line.naver.jp/products/0/0/' . $data['rs']->version . '/' . $data['rs']->sticker_code . '/LINEStorePC/main@2x.png');
-		// SEO::twitter()->setSite('@line2me_th');
-		// SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
-		// SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
-		// OpenGraph::addProperty('image:width', '240');
-		// OpenGraph::addProperty('image:height', '240');
+		SEO::twitter()->setSite('@line2me_th');
+		SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		OpenGraph::addProperty('image:width', '240');
+		OpenGraph::addProperty('image:height', '240');
 
 		return view('page.view', $data);
 	}
