@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Promote;
+use Carbon;
 
 class PromoteController extends Controller
 {
@@ -59,7 +60,12 @@ class PromoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->all();
+        
+        Promote::create($requestData);
+
+        set_notify('success', 'บันทึกข้อมูลสำเร็จ');
+        return redirect('admin/promote');
     }
 
     /**
@@ -112,6 +118,9 @@ class PromoteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Promote::destroy($id);
+
+        set_notify('success', 'ลบข้อมูลสำเร็จ');
+        return redirect('admin/promote');
     }
 }

@@ -31,13 +31,33 @@
         <label for="stamp_end">สแตมป์สิ้นสุด</label>
         <input name="stamp_end" type="text" class="form-control" id="stamp_end" placeholder="stamp_end" value="{{ isset($rs->stamp_end) ? $rs->stamp_end : '' }}">
     </div>
-    <tr>
-        <th>เปิด / ปิดการใช้งาน</th>
-        <td>
-            <input name="status" type="hidden" value="draft" checked="chedked" />
-            <input name="status" type="checkbox" id="status" checked value="approve" {!! (@$rs->status == 'approve' || empty($rs->id)) ? 'checked="checked"' : '' !!} />
-        </td>
-    </tr>
+    <div class="form-group">
+        <label for="status">เปิด / ปิดการใช้งาน</label>
+        <input name="status" type="hidden" value="draft" checked="chedked" />
+        <input name="status" type="checkbox" id="status" checked value="approve" {!! (@$rs->status == 'approve' || empty($rs->id)) ? 'checked="checked"' : '' !!} />
+    </div>
+    <div class="form-group">
+        <textarea class="form-control" rows="10">ทางผมได้นำสติกเกอร์ไลน์ {{ $rs->title_th }} ขึ้นตำแหน่งโปรโมทเรียบร้อยครับผม โดยสติกเกอร์ตำแหน่งนี้จะหมดอายุในวันที่  ขอบคุณมากครับ
+
+ถ้ามีรูปสำหรับโปรโมทส่งให้ผมได้เลยนะครับ ผมจะได้เอาไปโพสต์ที่อื่นให้ด้วย</textarea>
+    </div>
+    <div class="form-group">
+        <textarea class="form-control" rows="10">แนะนำสติ๊กเกอร์ครีเอเทอร์ไทยยอดนิยม 
+
+{{ $rs->title_th }}
+{{ $rs->detail }}
+
+สามารถดูลายสติ๊กเกอร์ได้ที่ 
+http://line.me/S/sticker/{{ $rs->sticker_code }}
+http://www.line2me.in.th/sticker/{{ $rs->sticker_code }}
+
+หากเพื่อนๆคนไหนสนใจทักเข้ามาได้เลยครับที่ไลน์ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
+http://line.me/ti/p/~ratasak1234
+
+ขอบคุณมากครับ ^^
+
+#line2me #ของแท้ไม่มีหาย</textarea>
+    </div>
 </div>
 <!-- /.box-body -->
 

@@ -13,12 +13,13 @@
         <!-- /.box-header -->
         <div class="box-body">
             <!-- form start -->
-            <form class="form-inline" method="GET" action="{{ url('/admin/sticker') }}" accept-charset="UTF-8">
+            <form class="form-inline" method="POST" action="{{ url('/admin/promote') }}" accept-charset="UTF-8" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="รหัส" name="product_code" value="">
                     <input type="text" class="form-control" placeholder="ประเภท" name="product_type" value="">
-                    <input type="text" class="form-control" placeholder="วันที่เริ่ม" name="start_date" value="">
-                    <input type="text" class="form-control" placeholder="วันที่สิ้นสุด" name="end_date" value="">
+                    <input type="date" class="form-control" placeholder="วันที่เริ่ม" name="start_date" value="">
+                    <input type="date" class="form-control" placeholder="วันที่สิ้นสุด" name="end_date" value="">
                     <input type="text" class="form-control" placeholder="อีเมล์" name="email" value="">
                 </div>
                 <button type="submit" class="btn btn-default">บันทึก</button>
@@ -42,6 +43,8 @@
                         <th>วันที่เริ่ม</th>
                         <th>วันที่สิ้นสุด</th>
                         <th>อีเมล์</th>
+                        <th>สถานะ</th>
+                        <th>จัดการ</th>
                     </tr>
                     @foreach($rs as $key=>$row)
                     <tr>
@@ -50,6 +53,16 @@
                         <td>{{ $row->start_date }}</td>
                         <td>{{ $row->end_date }}</td>
                         <td>{{ $row->email }}</td>
+                        <td>{!! $row->end_date >= Carbon::now()->toDateString() ? '<span class="label label-success">โปรโมท</span>' : '<span class="label label-danger">หมดเวลา</span>' !!}</td>
+                        <td>
+                            <form method="POST" action="{{ url('/admin/promote' . '/' . $row->id) }}" accept-charset="UTF-8" style="display:inline">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit" title="Delete StAscc" onclick="return confirm(&quot;Confirm delete?&quot;)" style="border:none; background:none;">
+                                    <i class="fa fa-fw fa-trash-o"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -65,32 +78,12 @@
 @stop
 
 @push('js')
-    <!-- สถานะ -->
-    <!-- switch toggle -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script>
-    $(function() {
-        $(document).on('change', ".switch_status", function () {
-            $.ajax({
-                url: 'ajax/changestatus',
-                data:{ table : 'stickers', status : $(this).prop('checked'), id : $(this).data('switch-id') },
-                dataType: "json",
-            });
-        });
-    });
-    </script>
-
-    <!-- ประเทศ -->
     <script>
     $(document).ready(function(){
-        $('select[name=country]').change(function(){
-            $.ajax({
-                url: 'ajax/changecountry',
-                data:{ table : 'stickers', country : $(this).val(), id : $(this).attr( 'rowid' ) },
-                dataType: "json",
-            });
-        });
+        //Date picker
+        $('.datepicker').datepicker({
+            autoclose: true
+        })
     });
     </script>
 @endpush

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Sticker</h1>
+    <h1>Emoji</h1>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <!-- form start -->
-            <form class="form-inline" method="GET" action="{{ url('/admin/sticker') }}" accept-charset="UTF-8" role="search">
+            <form class="form-inline" method="GET" action="{{ url('/admin/emoji') }}" accept-charset="UTF-8" role="search">
                 <div class="form-group">
                     <select class="form-control" name="category">
                         <option value="">ทั้งหมด</option>
@@ -57,11 +57,11 @@
                                 <option value="indonesia" <?php echo ($row->country == 'indonesia')?'selected=selected':'';?>>อินโดนีเซีย</option>
                             </select>
                         </td>
-                        <td>{{ $row->sticker_code }}</td>
-                        <td><img src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $row->version }}/{{ $row->sticker_code }}/android/thumbnail.png"></td>
+                        <td>{{ $row->emoji_code }}</td>
+                        <td><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->emoji_code }}/iphone/main.png" width="90"></td>
                         <td>
-                            <a href="{{ url('/admin/sticker/' . $row->sticker_code . '/edit') }}">
-                                {{ $row->title_th }} {{ getStickerResourctTypeName($row->stickerresourcetype) }}
+                            <a href="{{ url('/admin/emoji/' . $row->emoji_code . '/edit') }}">
+                                {{ $row->title }}
                             </a>
                         </td>
                     </tr>
@@ -88,7 +88,7 @@
         $(document).on('change', ".switch_status", function () {
             $.ajax({
                 url: 'ajax/changestatus',
-                data:{ table : 'stickers', status : $(this).prop('checked'), id : $(this).data('switch-id') },
+                data:{ table : 'emojis', status : $(this).prop('checked'), id : $(this).data('switch-id') },
                 dataType: "json",
             });
         });
@@ -101,7 +101,7 @@
         $('select[name=country]').change(function(){
             $.ajax({
                 url: 'ajax/changecountry',
-                data:{ table : 'stickers', country : $(this).val(), id : $(this).attr( 'rowid' ) },
+                data:{ table : 'emojis', country : $(this).val(), id : $(this).attr( 'rowid' ) },
                 dataType: "json",
             });
         });

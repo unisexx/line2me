@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Sticker;
+use App\Models\Emoji;
 use DB;
 
-class StickerController extends Controller
+class EmojiController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -34,7 +34,7 @@ class StickerController extends Controller
 
         if (!empty($keyword) || !empty($category)) {
 
-            $rs = Sticker::select('*');
+            $rs = Emoji::select('*');
 
             if (!empty($category)) {
                 $rs = $rs->where('category', $category);
@@ -44,18 +44,18 @@ class StickerController extends Controller
                 $rs = $rs->where(function ($q) use ($keyword) {
                     $q->where('title_th', 'LIKE', "%$keyword%")
                         ->orWhere('title_en', 'LIKE', "%$keyword%")
-                        ->orWhere('sticker_code', 'LIKE', "%$keyword%")
-                        ->orWhere('sticker_code', 'LIKE', "%$keyword%");
+                        ->orWhere('emoji_code', 'LIKE', "%$keyword%")
+                        ->orWhere('emoji_code', 'LIKE', "%$keyword%");
                 });
             }
 
             $rs = $rs->orderBy('id','desc')->simplePaginate($perPage);
 
         } else {
-            $rs = Sticker::orderBy('id','desc')->simplePaginate($perPage);
+            $rs = Emoji::orderBy('id','desc')->simplePaginate($perPage);
         }
 
-        return view('admin.sticker.index', compact('rs'));
+        return view('admin.emoji.index', compact('rs'));
     }
 
     /**
@@ -96,11 +96,11 @@ class StickerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($sticker_code)
+    public function edit($emoji_code)
     {
-        $rs = Sticker::where('sticker_code', $sticker_code)->firstOrFail();
+        $rs = Emoji::where('emoji_code', $emoji_code)->firstOrFail();
 
-        return view('admin.sticker.edit', compact('rs'));
+        return view('admin.emoji.edit', compact('rs'));
     }
 
     /**
@@ -114,11 +114,11 @@ class StickerController extends Controller
     {
         $requestData = $request->all();
 
-        $sticker = Sticker::findOrFail($id);
-        $sticker->update($requestData);
+        $emoji = Emoji::findOrFail($id);
+        $emoji->update($requestData);
 
         set_notify('success', 'แก้ไขข้อมูลสำเร็จ');
-        return redirect('admin/sticker');
+        return redirect('admin/emoji');
     }
 
     /**

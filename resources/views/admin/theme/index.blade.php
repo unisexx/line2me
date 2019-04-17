@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1>Sticker</h1>
+    <h1>Theme</h1>
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <!-- form start -->
-            <form class="form-inline" method="GET" action="{{ url('/admin/sticker') }}" accept-charset="UTF-8" role="search">
+            <form class="form-inline" method="GET" action="{{ url('/admin/theme') }}" accept-charset="UTF-8" role="search">
                 <div class="form-group">
                     <select class="form-control" name="category">
                         <option value="">ทั้งหมด</option>
@@ -57,11 +57,11 @@
                                 <option value="indonesia" <?php echo ($row->country == 'indonesia')?'selected=selected':'';?>>อินโดนีเซีย</option>
                             </select>
                         </td>
-                        <td>{{ $row->sticker_code }}</td>
-                        <td><img src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $row->version }}/{{ $row->sticker_code }}/android/thumbnail.png"></td>
+                        <td>{{ $row->theme_code }}</td>
+                        <td><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/<?=$row->theme_code?>/1/WEBSTORE/icon_198x278.png" width="90"></td>
                         <td>
-                            <a href="{{ url('/admin/sticker/' . $row->sticker_code . '/edit') }}">
-                                {{ $row->title_th }} {{ getStickerResourctTypeName($row->stickerresourcetype) }}
+                            <a href="{{ url('/admin/theme/' . $row->theme_code . '/edit') }}">
+                                {{ $row->title }}
                             </a>
                         </td>
                     </tr>

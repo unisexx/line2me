@@ -59,6 +59,8 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('home', 'HomeController@index')->name('home');
 
     Route::resource('sticker', 'StickerController');
+    Route::resource('theme', 'ThemeController');
+    Route::resource('emoji', 'EmojiController');
     Route::resource('promote', 'PromoteController');
 
 });

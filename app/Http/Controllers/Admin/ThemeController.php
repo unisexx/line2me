@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Sticker;
-use DB;
+use App\Models\Theme;
 
-class StickerController extends Controller
+class ThemeController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,14 +26,13 @@ class StickerController extends Controller
      */
     public function index(Request $request)
     {
-
         $keyword = $request->get('search');
         $category = $request->get('category');
         $perPage = 10;
 
         if (!empty($keyword) || !empty($category)) {
-
-            $rs = Sticker::select('*');
+            
+            $rs = Theme::select('*');
 
             if (!empty($category)) {
                 $rs = $rs->where('category', $category);
@@ -52,10 +50,10 @@ class StickerController extends Controller
             $rs = $rs->orderBy('id','desc')->simplePaginate($perPage);
 
         } else {
-            $rs = Sticker::orderBy('id','desc')->simplePaginate($perPage);
+            $rs = Theme::orderBy('id','desc')->simplePaginate($perPage);
         }
 
-        return view('admin.sticker.index', compact('rs'));
+        return view('admin.theme.index', compact('rs'));
     }
 
     /**
@@ -96,11 +94,11 @@ class StickerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($sticker_code)
+    public function edit($theme_code)
     {
-        $rs = Sticker::where('sticker_code', $sticker_code)->firstOrFail();
+        $rs = Theme::where('theme_code', $theme_code)->firstOrFail();
 
-        return view('admin.sticker.edit', compact('rs'));
+        return view('admin.theme.edit', compact('rs'));
     }
 
     /**
@@ -114,11 +112,11 @@ class StickerController extends Controller
     {
         $requestData = $request->all();
 
-        $sticker = Sticker::findOrFail($id);
-        $sticker->update($requestData);
+        $theme = Theme::findOrFail($id);
+        $theme->update($requestData);
 
         set_notify('success', 'แก้ไขข้อมูลสำเร็จ');
-        return redirect('admin/sticker');
+        return redirect('admin/theme');
     }
 
     /**
