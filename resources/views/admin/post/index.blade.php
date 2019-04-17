@@ -61,7 +61,6 @@ https://line.me/ti/p/~ratasak1234
 ขอบคุณมากครับผม
 
 https://www.line2me.in.th
-https://www.line2me.in.th
 
 #line2me #ของแท้ไม่มีหาย</textarea>
             </div>
@@ -94,7 +93,6 @@ https://line.me/ti/p/~ratasak1234
 https://linesticker.in.th/page/view/8
 
 
-https://www.line2me.in.th
 https://www.line2me.in.th
 
 #line2me #ของแท้ไม่มีหาย</textarea>
