@@ -245,19 +245,19 @@ class HomeController extends Controller
 
         $data['sticker'] = Sticker::where('category','official')
                             ->where('status','approve')
-                            ->whereBetween('created', [$data['new_arrival']
+                            ->whereBetween('created_at', [$data['new_arrival']
                             ->start_date, $data['new_arrival']->end_date])
                             ->get();
 
         $data['theme'] = Theme::where('category','official')
                             ->where('status','approve')
-                            ->whereBetween('created', [$data['new_arrival']
+                            ->whereBetween('created_at', [$data['new_arrival']
                             ->start_date, $data['new_arrival']->end_date])
                             ->get();
 
         $data['emoji'] = Emoji::where('category','official')
                             ->where('status','approve')
-                            ->whereBetween('created', [$data['new_arrival']
+                            ->whereBetween('created_at', [$data['new_arrival']
                             ->start_date, $data['new_arrival']->end_date])
                             ->get();
 
