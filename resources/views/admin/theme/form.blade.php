@@ -29,6 +29,7 @@
     </div>
     <div class="form-group">
         <textarea class="form-control" rows="10">ธีมใหม่มาแล้วจ้ากับ {{ $rs->title }}
+
 {{ $rs->detail }}
 
 หากเพื่อนๆคนไหนสนใจทักเข้ามาได้เลยครับที่ไลน์ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
