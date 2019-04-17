@@ -1,1 +1,1 @@
-@extends('adminlte::register')
+{{-- @extends('adminlte::register') --}}
