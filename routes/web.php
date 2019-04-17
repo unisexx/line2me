@@ -56,6 +56,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 
     Route::get('ajax/changestatus', 'AjaxController@changestatus')->name('changestatus');
     Route::get('ajax/changecountry', 'AjaxController@changecountry')->name('changecountry');
+    Route::get('ajax/changecategory', 'AjaxController@changecategory')->name('changecategory');
     Route::get('home', 'HomeController@index')->name('home');
 
     Route::resource('sticker', 'StickerController');

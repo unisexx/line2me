@@ -29,5 +29,10 @@ class AjaxController extends Controller
     function changecountry()
 	{
         DB::table($_GET['table'])->where('id', $_GET['id'])->update(['country' => $_GET['country']]);
-	}
+    }
+    
+    function changecategory()
+    {
+        DB::table($_GET['table'])->where('id', $_GET['id'])->update(['category' => $_GET['category']]);
+    }
 }

@@ -23,6 +23,8 @@
                 </div>
                 <button type="submit" class="btn btn-default">ค้นหา</button>
             </form>
+
+            <div class="pull-right">https://line2me.in.th/admin/gettheme/{theme_code}</div>
         </div>
     </div>
 
@@ -38,6 +40,7 @@
                 <tbody>
                     <tr>
                         <th>สถานะ</th>
+                        <th>ประเภท</th>
                         <th>ประเทศ</th>
                         <th>รหัส</th>
                         <th>รูป</th>
@@ -47,6 +50,12 @@
                     <tr>
                         <td>
                             <input class="switch_status" type="checkbox" data-toggle="toggle" data-switch-id="<?php echo $row->id?>" <?php echo $row->status == 'approve' ? 'checked' : '' ;?>>
+                        </td>
+                        <td>
+                            <select name="category" rowid=<?=$row->id?>>
+                                <option value="official" <?php echo ($row->category == 'official')?'selected=selected':'';?>>official</option>
+                                <option value="creator" <?php echo ($row->category == 'creator')?'selected=selected':'';?>>creator</option>
+                            </select>
                         </td>
                         <td>
                             <select name="country" rowid=<?=$row->id?>>
@@ -88,7 +97,7 @@
         $(document).on('change', ".switch_status", function () {
             $.ajax({
                 url: 'ajax/changestatus',
-                data:{ table : 'stickers', status : $(this).prop('checked'), id : $(this).data('switch-id') },
+                data:{ table : 'themes', status : $(this).prop('checked'), id : $(this).data('switch-id') },
                 dataType: "json",
             });
         });
@@ -101,7 +110,20 @@
         $('select[name=country]').change(function(){
             $.ajax({
                 url: 'ajax/changecountry',
-                data:{ table : 'stickers', country : $(this).val(), id : $(this).attr( 'rowid' ) },
+                data:{ table : 'themes', country : $(this).val(), id : $(this).attr( 'rowid' ) },
+                dataType: "json",
+            });
+        });
+    });
+    </script>
+
+    <!-- ประเภท -->
+    <script>
+    $(document).ready(function(){
+        $('select[name=category]').change(function(){
+            $.ajax({
+                url: 'ajax/changecategory',
+                data:{ table : 'themes', category : $(this).val(), id : $(this).attr( 'rowid' ) },
                 dataType: "json",
             });
         });
