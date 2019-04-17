@@ -24,24 +24,23 @@ $('ducument').ready(function(){
 
     // อัพเดทยอดวิว
     var productType = "{{ Request::segment(1) }}";
-    var productPage = "{{ Request::segment(2) }}";
-    var productID = "{{ Request::segment(3) }}";
-    // console.log(productID);
-    if(productPage == 'product'){
+    var productID = "{{ Request::segment(2) }}";
+    // console.log(productType);
+    if(productType == 'sticker' || productType == 'theme' || productType == 'emoji'){
         $.ajax({
             url: '{{ url("ajax/updateviewcount") }}',
             data:{ productType : productType, productID : productID }
         });
     }
 
-    if(productType == 'sticker' && ($('.sticker-stamp').length == 0)){
+    // if(productType == 'sticker' && ($('.sticker-stamp').length == 0)){
 
-        // alert('get_stamp');
-        $.ajax({
-            url: '{{ url("ajax/updatestamp") }}',
-            data:{ sticker_code : productID }
-        });
-    }
+    //     // alert('get_stamp');
+    //     $.ajax({
+    //         url: '{{ url("ajax/updatestamp") }}',
+    //         data:{ sticker_code : productID }
+    //     });
+    // }
 
     // เปิด sticker stamp animation ตอนคลิก
     $('.playAnimate').click(function(){

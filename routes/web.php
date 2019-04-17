@@ -21,6 +21,9 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
 
+// ajax
+Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
+
 // aboutus
 Route::get('aboutus', 'HomeController@aboutus');
 
