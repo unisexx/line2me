@@ -110,62 +110,6 @@
 
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
-		<h2 class="fh5co-heading">ธีมไลน์ทางการไทย</h2>
-		<p class="text-right read-more-text"><a href="{{ url('theme/official/thai/top') }}">ดูทั้งหมด ></a></p>
-	</div>
-	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($theme_official_thai as $row)
-		<div class="work-item text-center">
-			{!! new_icon($row->created) !!}
-			<a href="{{ url('theme/'.$row->id) }}">
-				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title_th }}" class="img-fluid">
-				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
-			</a>
-		</div>
-		@endforeach
-	</div>
-</div>
-
-<div class="fh5co-narrow-content">
-	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
-		<h2 class="fh5co-heading">ธีมไลน์ทางการต่างประเทศ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('theme/official/oversea/top') }}">ดูทั้งหมด ></a></p>
-	</div>
-	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($theme_official_oversea as $row)
-		<div class="work-item text-center">
-			{!! new_icon($row->created) !!}
-			<a href="{{ url('theme/'.$row->id) }}">
-				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title_th }}" class="img-fluid">
-				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
-			</a>
-		</div>
-		@endforeach
-	</div>
-</div>
-
-<div class="fh5co-narrow-content">
-	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
-		<h2 class="fh5co-heading">ธีมไลน์ครีเอเตอร์</h2>
-		<p class="text-right read-more-text"><a href="{{ url('theme/creator/top') }}">ดูทั้งหมด ></a></p>
-	</div>
-	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($theme_creator as $row)
-		<div class="work-item text-center">
-			<a href="{{ url('theme/'.$row->id) }}">
-				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title_th }}" class="img-fluid">
-				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
-			</a>
-		</div>
-		@endforeach
-	</div>
-</div>
-
-<div class="fh5co-narrow-content">
-	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">อิโมจิไลน์ทางการไทย</h2>
 		<p class="text-right read-more-text"><a href="{{ url('emoji/official/thai/top') }}">ดูทั้งหมด ></a></p>
 	</div>
@@ -212,6 +156,62 @@
 		<div class="work-item text-center">
 			<a href="{{ url('emoji/'.$row->id) }}">
 				<img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $row->title }}" class="img-fluid">
+				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
+				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
+
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">ธีมไลน์ทางการไทย</h2>
+		<p class="text-right read-more-text"><a href="{{ url('theme/official/thai/top') }}">ดูทั้งหมด ></a></p>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($theme_official_thai as $row)
+		<div class="work-item text-center">
+			{!! new_icon($row->created) !!}
+			<a href="{{ url('theme/'.$row->id) }}">
+				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title_th }}" class="img-fluid">
+				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
+				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
+
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">ธีมไลน์ทางการต่างประเทศ</h2>
+		<p class="text-right read-more-text"><a href="{{ url('theme/official/oversea/top') }}">ดูทั้งหมด ></a></p>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($theme_official_oversea as $row)
+		<div class="work-item text-center">
+			{!! new_icon($row->created) !!}
+			<a href="{{ url('theme/'.$row->id) }}">
+				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title_th }}" class="img-fluid">
+				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
+				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
+
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">ธีมไลน์ครีเอเตอร์</h2>
+		<p class="text-right read-more-text"><a href="{{ url('theme/creator/top') }}">ดูทั้งหมด ></a></p>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($theme_creator as $row)
+		<div class="work-item text-center">
+			<a href="{{ url('theme/'.$row->id) }}">
+				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title_th }}" class="img-fluid">
 				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
 				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
 			</a>
