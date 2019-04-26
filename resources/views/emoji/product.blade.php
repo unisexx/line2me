@@ -24,8 +24,7 @@
 	<!-- ปุ่มสั่งซื้อ -->
 	<div class="text-center animate-box" data-animate-effect="fadeInLeft">
 		<hr>
-			<a href="https://line.me/ti/p/~ratasak1234" target="_blank"><button type="button" class="btn btn-success">สั่งซื้อคลิก</button></a>
-			<a href="https://line.me/S/emoji/?id={{ $rs->emoji_code }}" target="_blank"><button type="button" class="btn btn-secondary">ดูตัวอย่างในแอพไลน์</button></a>
+			<a href="https://line.me/ti/p/~ratasak1234" target="_blank"><button type="button" class="btn btn-success btn-block">สั่งซื้อคลิก</button></a>
 		<hr>
 	</div>
 	<!-- ปุ่มสั่งซื้อ -->
@@ -54,6 +53,9 @@
 		</li>
 		<li class="list-inline-item">
 			<a href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}" target="_blank"><i class="fab fa-2x fa-facebook-square"></i></a>
+		</li>
+		<li class="list-inline-item">
+			<a href="https://line.me/S/emoji/?id={{ $rs->emoji_code }}" target="_blank"><i class="fas fa-2x fa-share"></i></a>
 		</li>
 	</ul>
 	<!-- Social Share -->
