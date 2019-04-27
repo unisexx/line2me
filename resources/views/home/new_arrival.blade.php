@@ -1,10 +1,10 @@
 @extends('layouts.front') @section('content')
 
 <div class="fh5co-narrow-content">
-	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+	<div class="d-flex justify-content-start align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์อัพเดท <small class="text-black-50">({{ DBToDate($new_arrival->created_at) }})</small></h2>
 	</div>
-	<div class="animate-box d-flex flex-wrap justify-content-around" data-animate-effect="fadeInLeft">
+	<div class="animate-box d-flex flex-wrap justify-content-start" data-animate-effect="fadeInLeft">
 		@foreach($sticker as $row)
 		<div class="work-item text-center">
 			{!! new_icon($row->created_at) !!}
@@ -23,10 +23,10 @@
 </div>
 
 <div class="fh5co-narrow-content">
-	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+	<div class="d-flex justify-content-start align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">ธีมไลน์อัพเดท <small class="text-black-50">({{ DBToDate($new_arrival->created_at) }})</small></h2>
 	</div>
-	<div class="animate-box d-flex flex-wrap justify-content-around" data-animate-effect="fadeInLeft">
+	<div class="animate-box d-flex flex-wrap justify-content-start" data-animate-effect="fadeInLeft">
 		@foreach($theme as $row)
 		<div class="work-item text-center">
 			{!! new_icon($row->created_at) !!}
@@ -42,10 +42,10 @@
 </div>
 
 <div class="fh5co-narrow-content">
-	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+	<div class="d-flex justify-content-start align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">อิโมจิไลน์อัพเดท <small class="text-black-50">({{ DBToDate($new_arrival->created_at) }})</small></h2>
 	</div>
-	<div class="animate-box d-flex flex-wrap justify-content-around" data-animate-effect="fadeInLeft">
+	<div class="animate-box d-flex flex-wrap justify-content-start" data-animate-effect="fadeInLeft">
 		@foreach($emoji as $row)
 		<div class="work-item text-center">
 			{!! new_icon($row->created_at) !!}
