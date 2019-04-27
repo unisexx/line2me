@@ -42,6 +42,15 @@ class PostController extends Controller
             ->take(30)
             ->get();
 
+        // ธีมไลน์โปรโมท
+        $data['theme_promote'] = DB::table('promotes')
+            ->join('themes', 'promotes.product_code', '=', 'themes.id')
+            ->select('themes.*')
+            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+            ->inRandomOrder()
+            ->take(30)
+            ->get();
+
         // new arrival
         $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
 

@@ -73,12 +73,24 @@ https://www.line2me.in.th
 สติ๊กเกอร์ไลน์แนะนำยอดนิยมมาแล้วจ้า
 
 <?foreach($sticker_promote as $row):?>
-<?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
+- <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
 
 https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 
 
 <?endforeach;?>
+
+<?if($theme_promote):?>
+===== ธีมไลน์ =====
+
+<?foreach($theme_promote as $row):?>
+- <?php echo $row->title?>
+
+https://www.line2me.in.th/theme/<?=$row->id?>
+
+<?endforeach;?>
+<?endif;?>
+
 
 สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
 https://linesticker.in.th
