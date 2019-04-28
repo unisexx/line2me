@@ -28,8 +28,8 @@ class StickerController extends Controller
 	public function getOfficial($country,$type)
 	{
 		// SEO
-		SEO::setTitle('สติ๊กเกอร์ไลน์ยอดนิยม');
-		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+		SEO::setTitle('สติ๊กเกอร์ไลน์ทางการ'.($country == 'thai' ? 'ไทย' : 'ต่างประเทศ').'ยอดนิยม');
+		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ทางการ'.($country == 'thai' ? 'ไทย' : 'ต่างประเทศ').'ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
 		// ประเภท : top, new
 		if($type == 'top'){
@@ -61,8 +61,8 @@ class StickerController extends Controller
 	public function getCreator($type)
 	{
 		// SEO
-		SEO::setTitle('สติ๊กเกอร์ไลน์ยอดนิยม');
-		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+		SEO::setTitle('สติ๊กเกอร์ไลน์ครีเอเตอร์ยอดนิยม');
+		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ไลน์ครีเอเตอร์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
 		if($type == 'top'){
 			$orderByField = 'threedays';
@@ -106,8 +106,8 @@ class StickerController extends Controller
 		SEO::opengraph()->setUrl(url()->current());
 		SEO::addImages('http://sdl-stickershop.line.naver.jp/products/0/0/' . $data['rs']->version . '/' . $data['rs']->sticker_code . '/LINEStorePC/main.png');
 		SEO::twitter()->setSite('@line2me_th');
-		SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
-		SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		SEOMeta::setKeywords(str_replace(" ",", ",$data['rs']->title_th).', line, sticker, theme, emoji, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, อิโมจิ, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ', 'เติมคำ');
+		// SEOMeta::addKeyword(str_replace(" ",", ",$data['rs']->title_th));
 		OpenGraph::addProperty('image:width', '240');
 		OpenGraph::addProperty('image:height', '240');
 

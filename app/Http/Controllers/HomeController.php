@@ -181,6 +181,9 @@ class HomeController extends Controller
                                     ->orderBy('id', 'desc')
                                     ->simplePaginate(30);
             }
+
+            SEO::setTitle(@$type.' '.@$_GET['q']);
+            SEO::setDescription('สติกเกอร์ ธีม อีโมจิไลน์ '.@$_GET['q'].' ติดต่อไอดีไลน์ ratasak1234');
             
             return view('home.search_type', $data);
 
@@ -211,8 +214,10 @@ class HomeController extends Controller
             }
             $data['emoji'] = $data['emoji']->orderBy('id', 'desc')->take(12)->get();
 
-            return view('home.search', $data);
+            SEO::setTitle('ค้นหาสติกเกอร์ ธีม อีโมจิไลน์ '.@$_GET['q']);
+            SEO::setDescription('สติกเกอร์ ธีม อีโมจิไลน์ '.@$_GET['q'].' ติดต่อไอดีไลน์ ratasak1234');
 
+            return view('home.search', $data);
         }
     }
 
@@ -240,6 +245,13 @@ class HomeController extends Controller
     // }
 
     public function new_arrival($id=false){
+        SEO::setTitle('สติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ อัพเดทล่าสุดประจำสัปดาห์');
+        SEO::setDescription('ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ ของแท้ ไม่มีหาย เชื่อถือได้ 100% ติดต่อไอดี ratasak1234');
+        SEO::opengraph()->setUrl(url()->current());
+        SEO::addImages('https://linesticker.in.th/image/qr_ratasak1234.png');
+        SEO::twitter()->setSite('@line2me_th');
+        SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, อัพเดท, เติมคำ');
+        SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, อัพเดท, เติมคำ');
         
         $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
 
@@ -267,7 +279,7 @@ class HomeController extends Controller
     public function aboutus()
     {
         SEO::setTitle('เกี่ยวกับเรา');
-        SEO::setDescription('ข้อมูลเกี่ยวกับเว็บไซต์ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ linesticker.in.th');
+        SEO::setDescription('ข้อมูลเกี่ยวกับเว็บไซต์ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ line2me.in.th ติดต่อไอดี ratasak1234');
         // SEO::opengraph()->setUrl(url()->current());
         // SEO::addImages('https://i.imgur.com/M1FvcTu.png');
         // SEO::twitter()->setSite('@line2me_th');

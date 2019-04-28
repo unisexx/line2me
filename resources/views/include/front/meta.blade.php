@@ -11,25 +11,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 {!! SEO::generate() !!}
-<title>Linesticker.in.th &mdash; ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ราคาถูก</title>
+<title>Linesticker.in.th &mdash; ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ราคาถูก ติดต่อไอดีไลน์ ratasak1234</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ซื้อง่าย ราคาถูก" />
-<meta name="keywords" content="line, stickerline, themeline, emojiline, sticker, theme, emoji" />
-<meta name="author" content="FreeHTML5.co" />
-
-<!-- 
-//////////////////////////////////////////////////////
-
-FREE HTML5 TEMPLATE 
-DESIGNED & DEVELOPED by FreeHTML5.co
-    
-Website: 		http://freehtml5.co/
-Email: 			info@freehtml5.co
-Twitter: 		http://twitter.com/fh5co
-Facebook: 		https://www.facebook.com/fh5co
-
-//////////////////////////////////////////////////////
--->
+<meta name="description" content="ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ซื้อง่าย ราคาถูก ติดต่อไอดีไลน์ ratasak1234" />
+<meta name="keywords" content="line, sticker, theme, emoji, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, อิโมจิ, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, เติมคำ, ratasak1234" />
+<meta name="author" content="line2me.in.th" />
 
 <!-- Facebook and Twitter integration -->
 <meta property="og:title" content=""/>

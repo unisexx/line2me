@@ -27,8 +27,8 @@ class EmojiController extends Controller
 	public function getOfficial($country,$type)
 	{
 		// SEO
-		SEO::setTitle('สติ๊กเกอร์ไลน์ยอดนิยม');
-		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+		SEO::setTitle('อีโมจิไลน์ทางการ'.($country == 'thai' ? 'ไทย' : 'ต่างประเทศ').'ยอดนิยม');
+		SEO::setDescription('รวมอิโมจิไลน์ทางการ'.($country == 'thai' ? 'ไทย' : 'ต่างประเทศ').'ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
 		if($type == 'top'){
 			$orderByField = 'threedays';
@@ -58,8 +58,8 @@ class EmojiController extends Controller
 	public function getCreator($type)
 	{
 		// SEO
-		SEO::setTitle('สติ๊กเกอร์ไลน์ยอดนิยม');
-		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+		SEO::setTitle('อิโมจิครีเอเตอร์ยอดนิยม');
+		SEO::setDescription('รวมอิโมจิไลน์ไลน์ครีเอเตอร์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
 		if($type == 'top'){
 			$orderByField = 'threedays';
@@ -91,8 +91,8 @@ class EmojiController extends Controller
 		SEO::opengraph()->setUrl(url()->current());
 		SEO::addImages('https://stickershop.line-scdn.net/sticonshop/v1/product/'.$data['rs']->emoji_code.'/iphone/main.png');
 		SEO::twitter()->setSite('@line2me_th');
-		SEOMeta::setKeywords('line, emoji, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
-		SEOMeta::addKeyword('line, emoji, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		SEOMeta::setKeywords(str_replace(" ",", ",$data['rs']->title).', line, emoji, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		// SEOMeta::addKeyword('line, emoji, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
 		OpenGraph::addProperty('image:width', '240');
 		OpenGraph::addProperty('image:height', '240');
 

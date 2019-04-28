@@ -23,8 +23,8 @@ class ThemeController extends Controller {
 	public function getOfficial($country,$type)
 	{
 		// SEO
-		SEO::setTitle('สติ๊กเกอร์ไลน์ยอดนิยม');
-		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+		SEO::setTitle('ธีมไลน์ทางการ'.($country == 'thai' ? 'ไทย' : 'ต่างประเทศ').'ยอดนิยม');
+		SEO::setDescription('รวมธีมไลน์ทางการ'.($country == 'thai' ? 'ไทย' : 'ต่างประเทศ').'ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
 		if($type == 'top'){
 			$orderByField = 'threedays';
@@ -54,8 +54,8 @@ class ThemeController extends Controller {
 	public function getCreator($type)
 	{
 		// SEO
-		SEO::setTitle('สติ๊กเกอร์ไลน์ยอดนิยม');
-		SEO::setDescription('รวมสติ๊กเกอร์ไลน์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+		SEO::setTitle('ธีมไลน์ครีเอเตอร์ยอดนิยม');
+		SEO::setDescription('รวมธีมไลน์ไลน์ครีเอเตอร์ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
 		if($type == 'top'){
 			$orderByField = 'threedays';
@@ -82,12 +82,12 @@ class ThemeController extends Controller {
 
 		// SEO
 		SEO::setTitle('ธีมไลน์ '.$data['rs']->title);
-		SEO::setDescription('ธีมไลน์'.$data['rs']->detail);
+		SEO::setDescription('ธีมไลน์ '.$data['rs']->detail);
 		SEO::opengraph()->setUrl(url()->current());
 		SEO::addImages('https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/'.$data['rs']->theme_code.'/1/WEBSTORE/icon_198x278.png');
 		SEO::twitter()->setSite('@line2me_th');
-		SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
-		SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		SEOMeta::setKeywords(str_replace(" ",", ",$data['rs']->title).', line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
+		// SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
 		OpenGraph::addProperty('image:width', '198');
 		OpenGraph::addProperty('image:height', '278');
 		
