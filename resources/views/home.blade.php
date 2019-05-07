@@ -1,5 +1,6 @@
 @extends('layouts.front') @section('content')
 
+@if(count($sticker_promote) != 0)
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์แนะนำ</h2>
@@ -21,8 +22,10 @@
 		@endforeach
 	</div>
 </div>
+@endif
 
 
+@if(count($theme_promote) != 0)
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">ธีมไลน์แนะนำ</h2>
@@ -40,6 +43,7 @@
 		@endforeach
 	</div>
 </div>
+@endif
 
 
 <div class="fh5co-narrow-content">
