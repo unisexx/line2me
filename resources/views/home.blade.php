@@ -24,6 +24,26 @@
 </div>
 @endif
 
+@if(count($emoji_promote) != 0)
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">อิโมจิไลน์แนะนำ</h2>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($emoji_promote as $row)
+		<div class="work-item text-center">
+			{!! new_icon($row->created_at) !!}
+			<a href="{{ url('emoji/'.$row->id) }}">
+				<img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $row->title }}" class="img-fluid">
+				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
+				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
+@endif
+
 
 @if(count($theme_promote) != 0)
 <div class="fh5co-narrow-content">

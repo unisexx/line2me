@@ -46,6 +46,7 @@ class HomeController extends Controller
         $data['sticker_promote'] = DB::table('promotes')
             ->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
             ->select('stickers.*')
+            ->where('promotes.product_type','=','sticker')
             ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
             ->inRandomOrder()
             ->take(30)
@@ -55,6 +56,17 @@ class HomeController extends Controller
         $data['theme_promote'] = DB::table('promotes')
             ->join('themes', 'promotes.product_code', '=', 'themes.id')
             ->select('themes.*')
+            ->where('promotes.product_type','=','theme')
+            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+            ->inRandomOrder()
+            ->take(30)
+            ->get();
+
+        // อิโมจิไลน์โปรโมท
+        $data['emoji_promote'] = DB::table('promotes')
+            ->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
+            ->select('emojis.*')
+            ->where('promotes.product_type','=','emoji')
             ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
             ->inRandomOrder()
             ->take(30)
