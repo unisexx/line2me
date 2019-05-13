@@ -72,6 +72,7 @@ https://www.line2me.in.th
             <textarea class="form-control" rows="20">
 สติ๊กเกอร์ไลน์แนะนำยอดนิยมมาแล้วจ้า
 
+@if(count($sticker_promote) != 0)
 <?foreach($sticker_promote as $row):?>
 - <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
 
@@ -79,8 +80,9 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 
 
 <?endforeach;?>
+@endif
 
-<?if($theme_promote):?>
+@if(count($theme_promote) != 0)
 ===== ธีมไลน์ =====
 
 <?foreach($theme_promote as $row):?>
@@ -89,7 +91,18 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 https://www.line2me.in.th/theme/<?=$row->id?>
 
 <?endforeach;?>
-<?endif;?>
+@endif
+
+@if(count($emoji_promote) != 0)
+===== อิโมจิไลน์ =====
+
+<?foreach($emoji_promote as $row):?>
+- <?php echo $row->title?>
+
+https://www.line2me.in.th/theme/<?=$row->id?>
+
+<?endforeach;?>
+@endif
 
 
 สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
