@@ -72,6 +72,29 @@ class HomeController extends Controller
             ->take(30)
             ->get();
 
+
+        $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
+        // สตื๊กเกอร์ไลน์อัพเดท
+        $data['sticker_update'] = Sticker::where('category','official')
+                            ->where('status','approve')
+                            ->whereBetween('created_at', [$data['new_arrival']
+                            ->start_date, $data['new_arrival']->end_date])
+                            ->get();
+
+        // ธีมไลน์อัพเดท
+        $data['theme_update'] = Theme::where('category','official')
+                            ->where('status','approve')
+                            ->whereBetween('created_at', [$data['new_arrival']
+                            ->start_date, $data['new_arrival']->end_date])
+                            ->get();
+
+        // อิโมจิอัพเดท
+        $data['emoji_update'] = Emoji::where('category','official')
+                            ->where('status','approve')
+                            ->whereBetween('created_at', [$data['new_arrival']
+                            ->start_date, $data['new_arrival']->end_date])
+                            ->get();
+
         // สติ๊กเกอร์ไลน์ทางการ (ไทย)
         $data['sticker_official_thai'] = new Sticker;
         $data['sticker_official_thai'] = $data['sticker_official_thai']

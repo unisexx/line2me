@@ -28,7 +28,7 @@
 	<!-- ปุ่มสั่งซื้อ -->
 	<div class="text-center animate-box" data-animate-effect="fadeInLeft">
 		<hr>
-			<a href="https://line.me/ti/p/~ratasak1234" target="_blank"><button type="button" class="btn btn-success btn-block">สั่งซื้อคลิก</button></a>
+			<a href="https://line.me/ti/p/@line2me.in.th" target="_blank"><button type="button" class="btn btn-success btn-block">สั่งซื้อคลิก</button></a>
 		<hr>
 	</div>
 	<!-- ปุ่มสั่งซื้อ -->
