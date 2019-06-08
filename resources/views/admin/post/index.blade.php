@@ -29,23 +29,23 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 <?endforeach;?>
 
 
-===== ธีมไลน์ =====
-
-<?foreach($theme as $row):?>
-- [<?php echo $row->country?>] <?php echo $row->title?>
-
-https://www.line2me.in.th/theme/<?=$row->id?>
-
-
-<?endforeach;?>
-
-
 ===== อีโมจิไลน์ =====
 
 <?foreach($emoji as $row):?>
 - [<?php echo $row->country?>] <?php echo $row->title?>
 
 https://www.line2me.in.th/emoji/<?=$row->id?>
+
+
+<?endforeach;?>
+
+
+===== ธีมไลน์ =====
+
+<?foreach($theme as $row):?>
+- [<?php echo $row->country?>] <?php echo $row->title?>
+
+https://www.line2me.in.th/theme/<?=$row->id?>
 
 
 <?endforeach;?>
@@ -82,10 +82,10 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 <?endforeach;?>
 @endif
 
-@if(count($theme_promote) != 0)
-===== ธีมไลน์ =====
+@if(count($emoji_promote) != 0)
+===== อิโมจิไลน์ =====
 
-<?foreach($theme_promote as $row):?>
+<?foreach($emoji_promote as $row):?>
 - <?php echo $row->title?>
 
 https://www.line2me.in.th/theme/<?=$row->id?>
@@ -93,10 +93,10 @@ https://www.line2me.in.th/theme/<?=$row->id?>
 <?endforeach;?>
 @endif
 
-@if(count($emoji_promote) != 0)
-===== อิโมจิไลน์ =====
+@if(count($theme_promote) != 0)
+===== ธีมไลน์ =====
 
-<?foreach($emoji_promote as $row):?>
+<?foreach($theme_promote as $row):?>
 - <?php echo $row->title?>
 
 https://www.line2me.in.th/theme/<?=$row->id?>
