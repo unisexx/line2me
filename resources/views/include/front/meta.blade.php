@@ -11,6 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="content-language" content="th" />
+<meta name="robots" content="index, follow" />
 {!! SEO::generate() !!}
 <title>line2me.in.th &mdash; ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ราคาถูก ติดต่อไอดีไลน์ ratasak1234</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
