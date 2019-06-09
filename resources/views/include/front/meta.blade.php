@@ -12,7 +12,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="content-language" content="th" />
 {!! SEO::generate() !!}
-<title>Linesticker.in.th &mdash; ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ราคาถูก ติดต่อไอดีไลน์ ratasak1234</title>
+<title>line2me.in.th &mdash; ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ราคาถูก ติดต่อไอดีไลน์ ratasak1234</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="ขายสติ๊กเกอร์ไลน์ ธีมไลน์ อิโมจิไลน์ของแท้ ซื้อง่าย ราคาถูก ติดต่อไอดีไลน์ ratasak1234" />
 <meta name="keywords" content="line, sticker, theme, emoji, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, อิโมจิ, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, เติมคำ, ratasak1234, โปรโมทไลน์, เพิ่มยอดขายไลน์" />
