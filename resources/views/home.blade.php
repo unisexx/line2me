@@ -1,5 +1,10 @@
 @extends('layouts.front') @section('content')
 
+<div class="fh5co-narrow-content">
+	<a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a>
+</div>
+
+
 @if(count($sticker_promote) != 0)
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">

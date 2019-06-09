@@ -32,7 +32,7 @@
         <p>
             <small>
                 <span>&copy; 2019 Lin2me.in.th All Rights Reserved.</span> 
-                <span>Designed by <a href="https://line2me.in.th/" target="_blank">Linesticker.in.th</a> </span> 
+                <span>Designed by <a href="https://line2me.in.th/" target="_blank">line2me.in.th</a> </span> 
                 <!-- <span>Demo Images: <a href="http://unsplash.com/" target="_blank">Unsplash</a></span> -->
             </small>
         </p>
