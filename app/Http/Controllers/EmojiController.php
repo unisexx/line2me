@@ -15,6 +15,7 @@ use SEOMeta;
 use Session;
 use OpenGraph;
 use Cache;
+use Carbon;
 
 
 class EmojiController extends Controller
@@ -78,6 +79,37 @@ class EmojiController extends Controller
 
 	public function getProduct($id)
 	{
+
+		// สติ๊กเกอร์ไลน์โปรโมท
+        $data['sticker_promote'] = DB::table('promotes')
+            ->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
+            ->select('stickers.*')
+            ->where('promotes.product_type','=','sticker')
+            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+            ->inRandomOrder()
+            ->take(30)
+            ->get();
+
+        // ธีมไลน์โปรโมท
+        $data['theme_promote'] = DB::table('promotes')
+            ->join('themes', 'promotes.product_code', '=', 'themes.id')
+            ->select('themes.*')
+            ->where('promotes.product_type','=','theme')
+            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+            ->inRandomOrder()
+            ->take(30)
+            ->get();
+
+        // อิโมจิไลน์โปรโมท
+        $data['emoji_promote'] = DB::table('promotes')
+            ->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
+            ->select('emojis.*')
+            ->where('promotes.product_type','=','emoji')
+            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+            ->inRandomOrder()
+            ->take(30)
+			->get();
+
 		// cache file
 		// $data['rs'] = Cache::rememberForever('emoji_'.$id, function() use ($id) {
 		// 	return DB::table('emojis')->find($id);

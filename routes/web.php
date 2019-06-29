@@ -62,6 +62,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('ajax/changecategory', 'AjaxController@changecategory')->name('changecategory');
     Route::get('home', 'HomeController@index')->name('home');
 
+    Route::resource('page', 'PageController');
     Route::resource('sticker', 'StickerController');
     Route::resource('theme', 'ThemeController');
     Route::resource('emoji', 'EmojiController');
