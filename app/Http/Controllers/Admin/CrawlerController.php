@@ -140,7 +140,7 @@ class CrawlerController extends Controller
             $detail = trim($crawler_page->filter('p.mdCMN08Desc')->text());
             $author = trim($crawler_page->filter('p.mdCMN08Copy')->text());
             $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
-            $price = substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3);
+            // $price = substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3);
 
             // insert ลง db
             DB::table('themes')->insert(
@@ -153,7 +153,7 @@ class CrawlerController extends Controller
                     'created_at' => date("Y-m-d H:i:s"),
                     'category'   => 'creator',
                     'country'    => 'thai',
-                    'price'      => $price,
+                    // 'price'      => $price,
                     'status'     => 'approve',
                 ]
             );
