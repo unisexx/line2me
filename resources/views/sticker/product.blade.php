@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="sticker-infomation">
-			<h3>{{ $rs->title_th }}</h3>
+			<h3>{{ $rs->title_th }} {{ getStickerResourctTypeName($rs->stickerresourcetype) }}</h3>
 			<ul>
 				<li>ราคา : {{ convert_line_coin_2_money($rs->price) }} บาท</li>
 				<li>ประเภท : {{ $rs->category }}</li>
