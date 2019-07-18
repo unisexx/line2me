@@ -24,7 +24,7 @@
 					{!! getStickerResourctTypeIcon($row->stickerresourcetype) !!}
 				</div>
 				<h3 class="fh5co-work-title">{{ $row->title_th }}</h3>
-				<p>{{ ucfirst($row->category) }}, {{ convert_line_coin_2_money($row->price) }} บาท</p>
+				<p>{{ ucfirst($row->country) }}, {{ convert_line_coin_2_money($row->price) }} บาท</p>
 			</a>
 		</div>
 		@endforeach
