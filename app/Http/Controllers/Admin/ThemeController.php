@@ -40,10 +40,8 @@ class ThemeController extends Controller
 
             if (!empty($keyword)) {
                 $rs = $rs->where(function ($q) use ($keyword) {
-                    $q->where('title_th', 'LIKE', "%$keyword%")
-                        ->orWhere('title_en', 'LIKE', "%$keyword%")
-                        ->orWhere('sticker_code', 'LIKE', "%$keyword%")
-                        ->orWhere('sticker_code', 'LIKE', "%$keyword%");
+                    $q->where('title', 'LIKE', "%$keyword%")
+                        ->orWhere('theme_code', 'LIKE', "%$keyword%");
                 });
             }
 

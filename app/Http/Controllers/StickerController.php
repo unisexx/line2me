@@ -132,6 +132,10 @@ class StickerController extends Controller
 
 		$data['rs'] = Sticker::where('sticker_code',$id)->first();
 
+		if(empty($data['rs'])){
+			return abort(404);
+		}
+
 		// SEO
 		SEO::setTitle('สติ๊กเกอร์ไลน์ '.$data['rs']->title_th);
 		SEO::setDescription('สติ๊กเกอร์ไลน์' . $data['rs']->detail);

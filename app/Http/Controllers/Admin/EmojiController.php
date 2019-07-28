@@ -42,8 +42,7 @@ class EmojiController extends Controller
 
             if (!empty($keyword)) {
                 $rs = $rs->where(function ($q) use ($keyword) {
-                    $q->where('title_th', 'LIKE', "%$keyword%")
-                        ->orWhere('title_en', 'LIKE', "%$keyword%")
+                    $q->where('title', 'LIKE', "%$keyword%")
                         ->orWhere('emoji_code', 'LIKE', "%$keyword%")
                         ->orWhere('emoji_code', 'LIKE', "%$keyword%");
                 });

@@ -205,7 +205,9 @@ class HomeController extends Controller
             $data['type'] = $type;
 
             if (!empty($_GET['q'])) {
-                $data['search'] = DB::table($type.'s')->where(function($q) use ($type){
+                $data['search'] = DB::table($type.'s')
+                                    ->where('status','approve')
+                                    ->where(function($q) use ($type){
                                         if($type == 'sticker'){
                                             $q->where('title_th', 'like', '%'.$_GET['q'].'%')
                                             ->orWhere('title_en', 'like', '%'.$_GET['q'].'%');
@@ -228,8 +230,11 @@ class HomeController extends Controller
             $data['sticker'] = new Sticker;
             if (!empty($_GET['q'])) {
                 $data['sticker'] = $data['sticker']
-                                    ->where('title_th', 'like', '%'.$_GET['q'].'%')
-                                    ->orWhere('title_en', 'like', '%'.$_GET['q'].'%');
+                                    ->where('status','approve')
+                                    ->where(function($q){
+                                        $q->where('title_th', 'like', '%'.$_GET['q'].'%')
+                                        ->orWhere('title_en', 'like', '%'.$_GET['q'].'%');
+                                    });
             }
             $data['sticker'] = $data['sticker']->orderBy('id', 'desc')->take(12)->get();
 
@@ -237,7 +242,8 @@ class HomeController extends Controller
             $data['theme'] = new Theme;
             if (!empty($_GET['q'])) {
                 $data['theme'] = $data['theme']
-                                    ->where('title', 'like', '%'.$_GET['q'].'%');
+                                ->where('status','approve')
+                                ->where('title', 'like', '%'.$_GET['q'].'%');
             }
             $data['theme'] = $data['theme']->orderBy('id', 'desc')->take(12)->get();
 
@@ -245,7 +251,8 @@ class HomeController extends Controller
             $data['emoji'] = new Emoji;
             if (!empty($_GET['q'])) {
                 $data['emoji'] = $data['emoji']
-                                    ->where('title', 'like', '%'.$_GET['q'].'%');
+                                ->where('status','approve')
+                                ->where('title', 'like', '%'.$_GET['q'].'%');
             }
             $data['emoji'] = $data['emoji']->orderBy('id', 'desc')->take(12)->get();
 
