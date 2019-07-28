@@ -112,6 +112,10 @@ class ThemeController extends Controller {
 		
 		$data['rs'] = Theme::find($id);
 
+		if(empty($data['rs'])){
+			return abort(404);
+		}
+
 		// SEO
 		SEO::setTitle('ธีมไลน์ '.$data['rs']->title);
 		SEO::setDescription('ธีมไลน์ '.$data['rs']->detail);

@@ -117,6 +117,10 @@ class EmojiController extends Controller
 
 		$data['rs'] = Emoji::find($id);
 
+		if(empty($data['rs'])){
+			return abort(404);
+		}
+
 		// SEO
 		SEO::setTitle('อิโมจิไลน์ '.$data['rs']->title);
 		SEO::setDescription('อิโมจิไลน์' . $data['rs']->detail);
