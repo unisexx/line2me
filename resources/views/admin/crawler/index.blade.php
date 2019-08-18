@@ -37,6 +37,23 @@
                             <button id="GetEmojiBtn" type="button" class="btn btn-primary">GetEmoji</button>
                         </td>
                     </tr>
+                    <tr>
+                        <td>ค้นหา</td>
+                        <td>
+                            <input class="form-control" type="text" name="txtSearch" placeholder="คำค้นหา">
+                            <button id="GetStickerSearch" type="button" class="btn btn-primary">GetStickerSearch</button>
+                            <button id="GetThemeSearch" type="button" class="btn btn-primary">GetThemeSearch</button>
+                            <button id="GetEmojiSearch" type="button" class="btn btn-primary">GetEmojiSearch</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>อัพเดท สติ๊กเกอร์,ธีม,อิโมจิ ทางการ</td>
+                        <td>
+                            <button id="GetOfficialSticker" type="button" class="btn btn-primary">GetOfficialSticker</button>
+                            <button id="GetOfficialTheme" type="button" class="btn btn-primary">GetOfficialTheme</button>
+                            <button id="GetOfficialEmoji" type="button" class="btn btn-primary">GetOfficialEmoji</button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </form>
@@ -62,6 +79,24 @@ $(document).ready(function(){
     // getEmoji
     $("#GetEmojiBtn").click(function(){
         window.open("{{ url('/') }}/admin/getemoji/"+$('input[name=emoji_code]').val(), '_blank').focus();
+    });
+
+    // getOfficial
+    $("#GetOfficialSticker").click(function(){
+        window.open("{{ url('/') }}/admin/getstickerstore/1/new/3", '_blank');
+    });
+
+    $("#GetOfficialTheme").click(function(){
+         window.open("{{ url('/') }}/admin/getthemestore/1/new/3", '_blank');
+    });
+
+    $("#GetOfficialEmoji").click(function(){
+        window.open("{{ url('/') }}/admin/getemojistore/1/new/3", '_blank');
+    });
+
+    // GetStickerSearch
+    $("#GetStickerSearch").click(function(){
+        window.open("{{ url('/') }}/admin/getstickerstoresearch/"+$('input[name=txtSearch]').val(), '_blank');
     });
 });
 </script>

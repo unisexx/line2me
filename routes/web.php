@@ -75,4 +75,10 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('gettheme/{theme_code}', 'CrawlerController@gettheme');
     Route::get('getemoji/{emoji_code}', 'CrawlerController@getemoji');
 
+    Route::get('getstickerstore/{type}/{category}/{page}', 'CrawlerController@getstickerstore');
+    Route::get('getthemestore/{type}/{category}/{page}', 'CrawlerController@getthemestore');
+    Route::get('getemojistore/{type}/{category}/{page}', 'CrawlerController@getemojistore');
+
+    Route::get('getstickerstoresearch/{txtsearch}', 'CrawlerController@getstickerstoresearch');
+
 });
