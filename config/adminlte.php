@@ -151,6 +151,11 @@ return [
             'url'         => 'admin/post',
             'icon'        => 'file',
         ],
+        [
+            'text'        => 'Crawler',
+            'url'         => 'admin/crawler',
+            'icon'        => 'file',
+        ],
         // 'ACCOUNT SETTINGS',
         // [
         //     'text' => 'Profile',

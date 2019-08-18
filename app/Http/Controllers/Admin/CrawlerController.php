@@ -29,6 +29,12 @@ class CrawlerController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request)
+    {
+        return view('admin.crawler.index');
+    }
+
+
     public function getTest(){
         $crawler = Goutte::request('GET', 'https://yabeline.tw/Homepage.php');
         print_r($crawler);
@@ -124,6 +130,8 @@ class CrawlerController extends Controller
             unset($data);
 
             dump($title_th);
+        }else{
+            dump("มีสติ๊กเกอร์ชุดนี้ในระบบแล้ว!!!");
         }// endif
     }
 
@@ -159,6 +167,8 @@ class CrawlerController extends Controller
             );
 
             dump($title);
+        }else{
+            dump("มีธีมชุดนี้ในระบบแล้ว!!!");
         }// endif
     }
 
@@ -193,6 +203,8 @@ class CrawlerController extends Controller
             );
 
             dump($title);
+        }else{
+            dump("มีอิโมจิชุดนี้ในระบบแล้ว!!!");
         }// endif
     }
 }

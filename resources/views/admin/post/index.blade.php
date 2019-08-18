@@ -17,7 +17,7 @@
             <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ
 <?=DBToDate($new_arrival->created_at)?>
 
-
+@if(count($sticker) != 0)
 ===== สติ๊กเกอร์ไลน์ =====
 
 <?foreach($sticker as $row):?>
@@ -27,8 +27,9 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 
 
 <?endforeach;?>
+@endif
 
-
+@if(count($emoji) != 0)
 ===== อีโมจิไลน์ =====
 
 <?foreach($emoji as $row):?>
@@ -38,8 +39,9 @@ https://www.line2me.in.th/emoji/<?=$row->id?>
 
 
 <?endforeach;?>
+@endif
 
-
+@if(count($theme) != 0)
 ===== ธีมไลน์ =====
 
 <?foreach($theme as $row):?>
@@ -49,6 +51,7 @@ https://www.line2me.in.th/theme/<?=$row->id?>
 
 
 <?endforeach;?>
+@endif
 
 
 สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
