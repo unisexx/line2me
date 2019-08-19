@@ -98,6 +98,16 @@ $(document).ready(function(){
     $("#GetStickerSearch").click(function(){
         window.open("{{ url('/') }}/admin/getstickerstoresearch/"+$('input[name=txtSearch]').val(), '_blank');
     });
+
+    // GetThemeSearch
+    $("#GetThemeSearch").click(function(){
+        window.open("{{ url('/') }}/admin/getthemestoresearch/"+$('input[name=txtSearch]').val(), '_blank');
+    });
+
+    // GetEmojiSearch
+    $("#GetEmojiSearch").click(function(){
+        window.open("{{ url('/') }}/admin/getemojistoresearch/"+$('input[name=txtSearch]').val(), '_blank');
+    });
 });
 </script>
 @stop

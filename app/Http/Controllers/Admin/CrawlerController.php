@@ -330,7 +330,7 @@ class CrawlerController extends Controller
                         'author_th'           => $author_th,
                         'author_en'           => $author_en,
                         'credit'              => $credit,
-                        'created_at'             => date("Y-m-d H:i:s"),
+                        'created_at'          => date("Y-m-d H:i:s"),
                         'category'            => $category,
                         'country'             => $country,
                         'price'               => $price,
@@ -522,7 +522,7 @@ class CrawlerController extends Controller
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
         $q = array( 'query' => $txtSearch );
-        $api = 'https://store.line.me/api/search/sticker?'.http_build_query($q).'&offset=0&limit=36&type=ALL&includeFacets=true';
+        $api = 'https://store.line.me/api/search/sticker?'.http_build_query($q).'&offset=0&limit=30&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
@@ -565,36 +565,143 @@ class CrawlerController extends Controller
                 $meta = json_decode(file_get_contents($metaUrl), true);
                 // dump($meta);
                 
+                $data[] = [
+                    'sticker_code'        => $row['id'],
+                    'category'            => $categoryArray[$row['subtype']],
+                    'country'             => getCountry($crawler_page->filter('p.mdCMN38Item01Price')->text()),
+                    'title_th'            => @$meta['title']['th'] ? $meta['title']['th'] : $meta['title']['en'],
+                    'title_en'            => $meta['title']['en'],
+                    'author_th'           => @$meta['author']['th'] ? $meta['author']['th'] : $meta['author']['en'],
+                    'author_en'           => $meta['author']['en'],
+                    'detail'              => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                    'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
+                    'price'               => @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()),0,-3)),
+                    'version'             => $version,
+                    'onsale'              => $meta['onSale'],
+                    'validdays'           => $meta['validDays'],
+                    'hasanimation'        => @$meta['hasAnimation'],
+                    'hassound'            => @$meta['hasSound'],
+                    'stickerresourcetype' => @$meta['stickerResourceType'],
+                    'status'              => 'approve',
+                    'created_at'          => date("Y-m-d H:i:s"),
+                    'updated_at'          => date("Y-m-d H:i:s"),
+                    'stamp_start'         => reset($stamp)['stamp_code'],
+                    'stamp_end'           => end($stamp)['stamp_code'],
+                    ];
 
             }
 
-            // $data[] = [
-            //     'sticker_code'        => $row['id'],
-            //     'category'            => $categoryArray[$row['subtype']],
-            //     'title_th'            => 
-            //     'title_en'            => 
-            //     'author_th'           => 
-            //     'author_en'           => 
-            //     'detail'              => 
-            //     'credit'              => 
-            //     'price'               => 
-            //     'version'             => 
-            //     'onsale'              => 
-            //     'validdays'           => 
-            //     'hasanimation'        => 
-            //     'hassound'            => 
-            //     'stickerresourcetype' => 
-            //     'status'              => 
-            //     'created_at'          => 
-            //     'updated_at'          => 
-            //     'threedays'           => 
-            //     'stamp_start'         => 
-            //     'stamp_end'           => 
-            //     ];
         }
-        // DB::table('stickers')->insert($data);
-        
+
+        DB::table('stickers')->insert($data);
+        dump($data);
+
+    }
+
+
+    /**
+     * ดึงธีมไลน์จากเว็บ store.line ตามคำค้นหา
+     * 
+     * 
+     * 
+     */
+    public function getthemestoresearch($txtSearch)
+    {
+        // หมวดหมู่
+        $categoryArray = array('GENERAL'=>'official','CREATORS'=>'creator');
+
+        // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
+        $q = array( 'query' => $txtSearch );
+        $api = 'https://store.line.me/api/search/theme?'.http_build_query($q).'&offset=0&limit=30&type=ALL&includeFacets=true';
+        $json = json_decode(file_get_contents($api), true);
         // dd($json);
+
+        $data = array();
+        foreach($json['items'] as $row){
+            // dump($row);
+
+            // รหัสธีม
+            $theme_code = $row['id'];
+
+            // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ายังไม่มีให้ทำงานต่อ
+            $rs = Theme::select('id')->where('theme_code',$theme_code)->first();
+            if (empty($rs->id)){
+
+                $crawler_page = Goutte::request('GET','https://store.line.me/themeshop/product/'.$theme_code.'/th');
+
+                $data[] = [
+                    'theme_code' => $theme_code,
+                    'title'      => trim($crawler_page->filter('h3.mdCMN08Ttl')->text()),
+                    'detail'     => trim($crawler_page->filter('p.mdCMN08Desc')->text()),
+                    'author'     => trim($crawler_page->filter('p.mdCMN08Copy')->text()),
+                    'credit'     => trim($crawler_page->filter('p.mdCMN09Copy')->text()),
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
+                    'category'   => $categoryArray[$row['subtype']],
+                    'country'    => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
+                    'price'      => @substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3),
+                    'status'     => 'approve',
+                    ];
+
+            }
+
+        }
+
+        DB::table('themes')->insert($data);
+        dump($data);
+
+    }
+
+
+    /**
+     * ดึงอิโมจิไลน์จากเว็บ store.line ตามคำค้นหา
+     * 
+     * 
+     * 
+     */
+    public function getemojistoresearch($txtSearch)
+    {
+        // หมวดหมู่
+        $categoryArray = array('GENERAL'=>'official','CREATORS'=>'creator');
+
+        // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
+        $q = array( 'query' => $txtSearch );
+        $api = 'https://store.line.me/api/search/emoji?'.http_build_query($q).'&offset=0&limit=30&type=ALL&includeFacets=true';
+        $json = json_decode(file_get_contents($api), true);
+        // dd($json);
+
+        $data = array();
+        foreach($json['items'] as $row){
+            // dump($row);
+
+            // รหัสธีม
+            $emoji_code = $row['id'];
+
+            // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ายังไม่มีให้ทำงานต่อ
+            $rs = Emoji::select('id')->where('emoji_code',$emoji_code)->first();
+            if (empty($rs->id)){
+
+                $crawler_page = Goutte::request('GET','https://store.line.me/emojishop/product/'.$emoji_code.'/th');
+
+                $data[] = [
+                    'emoji_code'   => $emoji_code,
+                    'title'        => trim($crawler_page->filter('h3.mdCMN08Ttl')->text()),
+                    'detail'       => trim($crawler_page->filter('p.mdCMN08Desc')->text()),
+                    'creator_name' => trim($crawler_page->filter('p.mdCMN08Copy')->text()),
+                    'created_at'   => date("Y-m-d H:i:s"),
+                    'updated_at'   => date("Y-m-d H:i:s"),
+                    'category'     => $categoryArray[$row['subtype']],
+                    'country'      => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
+                    'price'        => @substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3),
+                    'status'       => 'approve',
+                    ];
+
+            }
+
+        }
+
+        DB::table('emojis')->insert($data);
+        dump($data);
 
     }
 }
