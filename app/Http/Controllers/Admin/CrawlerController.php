@@ -476,7 +476,8 @@ class CrawlerController extends Controller
                 $creator_name = trim($crawler_page->filter('p.mdCMN08Copy')->text());
                 $detail = trim($crawler_page->filter('p.mdCMN08Desc')->text());
                 $country = "global";
-                $price = substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3);
+                $txtprice = trim($crawler_page->filter('p.mdCMN08Price')->text());
+                $price = (int) filter_var($txtprice, FILTER_SANITIZE_NUMBER_INT);
 
                 // insert ลง db
                 DB::table('emojis')->insert(
