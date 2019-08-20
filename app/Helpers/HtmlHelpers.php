@@ -136,3 +136,18 @@ if(!function_exists('getStickerResourctTypeName'))
 		}
 	}
 }
+
+if(!function_exists('getCountry'))
+{
+	function getCountry($txt){
+		if (strpos($txt, 'THB') !== false) {
+			return 'thai';
+		}elseif (strpos($txt, '￥') !== false) {
+			return 'japan';
+		}elseif (strpos($txt, 'NT') !== false) {
+			return 'taiwan';
+		}elseif (strpos($txt, 'Rp') !== false) {
+			return 'indonesia';
+		}
+	}
+}

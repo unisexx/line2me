@@ -24,7 +24,7 @@
                 <button type="submit" class="btn btn-default">ค้นหา</button>
             </form>
 
-            <div class="pull-right">https://line2me.in.th/admin/getsticker/{sticker_code}</div>
+            <div class="pull-right">{{ url('/') }}/admin/getsticker/{sticker_code}</div>
         </div>
     </div>
 

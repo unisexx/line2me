@@ -68,10 +68,19 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::resource('emoji', 'EmojiController');
     Route::resource('promote', 'PromoteController');
     Route::resource('post', 'PostController');
+    Route::resource('crawler', 'CrawlerController');
 
     //Crawler
     Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');
     Route::get('gettheme/{theme_code}', 'CrawlerController@gettheme');
     Route::get('getemoji/{emoji_code}', 'CrawlerController@getemoji');
+
+    Route::get('getstickerstore/{type}/{category}/{page}', 'CrawlerController@getstickerstore');
+    Route::get('getthemestore/{type}/{category}/{page}', 'CrawlerController@getthemestore');
+    Route::get('getemojistore/{type}/{category}/{page}', 'CrawlerController@getemojistore');
+
+    Route::get('getstickerstoresearch/{txtsearch}', 'CrawlerController@getstickerstoresearch');
+    Route::get('getthemestoresearch/{txtsearch}', 'CrawlerController@getthemestoresearch');
+    Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
 
 });
