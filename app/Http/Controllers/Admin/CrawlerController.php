@@ -42,10 +42,10 @@ class CrawlerController extends Controller
 
 
     /**
-     * 
-     * 
+     *
+     *
      * ดึงสติ๊กเกอร์ไลน์จากเว็บ store.line ตาม sticker_code ที่กรอกข้อมูล
-     * 
+     *
      */
     public function getsticker($sticker_code){
         // นำ sticker_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
@@ -144,10 +144,10 @@ class CrawlerController extends Controller
 
 
     /**
-     * 
-     * 
+     *
+     *
      * ดึงธีมไลน์จากเว็บ store.line ตาม theme_code ที่กรอกข้อมูล
-     * 
+     *
      */
     public function gettheme($theme_code){
         // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
@@ -188,10 +188,10 @@ class CrawlerController extends Controller
 
 
     /**
-     * 
-     * 
+     *
+     *
      * ดึงอิโมจิไลน์จากเว็บ store.line ตาม emoji_code ที่กรอกข้อมูล
-     * 
+     *
      */
     public function getemoji($emoji_code){
         // นำ emoji_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
@@ -253,7 +253,7 @@ class CrawlerController extends Controller
 
             // หา url ของสติ๊กเกอร์
             $url = $node->filter('a')->attr('href');
-            
+
             // เอาลิ้งค์ สติ๊กเกอร์ที่ได้มา หาค่า sticker_code
             $sticker_code = explode("/",$url);
             $sticker_code = $sticker_code[3];
@@ -459,7 +459,7 @@ class CrawlerController extends Controller
 
             // หา url ของอโมจิ
             $url = $node->filter('a')->attr('href');
-            
+
             // เอาลิ้งค์ อิโมจิที่ได้มา หาค่า emoji_code
             $emoji_code = explode("/",$url);
             $emoji_code = $emoji_code[3];
@@ -512,9 +512,9 @@ class CrawlerController extends Controller
 
     /**
      * ดึงสติ๊กเกอร์ไลน์จากเว็บ store.line ตามคำค้นหา
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     public function getstickerstoresearch($txtSearch)
     {
@@ -565,7 +565,7 @@ class CrawlerController extends Controller
                 $metaUrl = 'http://dl.stickershop.line.naver.jp/products/0/0/'.$version.'/'.$sticker_code.'/LINEStorePC/productInfo.meta';
                 $meta = json_decode(file_get_contents($metaUrl), true);
                 // dump($meta);
-                
+
                 $data[] = [
                     'sticker_code'        => $row['id'],
                     'category'            => $categoryArray[$row['subtype']],
@@ -602,9 +602,9 @@ class CrawlerController extends Controller
 
     /**
      * ดึงธีมไลน์จากเว็บ store.line ตามคำค้นหา
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     public function getthemestoresearch($txtSearch)
     {
@@ -640,7 +640,7 @@ class CrawlerController extends Controller
                     'updated_at' => date("Y-m-d H:i:s"),
                     'category'   => $categoryArray[$row['subtype']],
                     'country'    => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
-                    'price'      => @substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3),
+                    'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                     'status'     => 'approve',
                     ];
 
@@ -656,9 +656,9 @@ class CrawlerController extends Controller
 
     /**
      * ดึงอิโมจิไลน์จากเว็บ store.line ตามคำค้นหา
-     * 
-     * 
-     * 
+     *
+     *
+     *
      */
     public function getemojistoresearch($txtSearch)
     {
@@ -693,7 +693,7 @@ class CrawlerController extends Controller
                     'updated_at'   => date("Y-m-d H:i:s"),
                     'category'     => $categoryArray[$row['subtype']],
                     'country'      => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
-                    'price'        => @substr(trim($crawler_page->filter('p.mdCMN08Price')->text()),0,-3),
+                    'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                     'status'       => 'approve',
                     ];
 
