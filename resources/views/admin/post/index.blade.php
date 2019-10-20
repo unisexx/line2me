@@ -12,7 +12,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            
+
             <div class="form-group">
             <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ
 <?=DBToDate($new_arrival->created_at)?>
@@ -64,6 +64,10 @@ https://line.me/ti/p/~ratasak1234
 ขอบคุณมากครับผม
 
 https://www.line2me.in.th
+
+===== โปรโมชั่นสำหรับครีเอเตอร์ =====
+สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
+https://line2me.in.th/page/view/8
 
 #line2me #ของแท้ไม่มีหาย</textarea>
             </div>
@@ -117,9 +121,9 @@ https://line.me/ti/p/~ratasak1234
 สนใจชุดไหนสอบถามได้เลยนะครับ ^^
 ขอบคุณมากครับผม
 
-สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านคลิ๊ก
-https://linesticker.in.th/page/view/8
-
+===== โปรโมชั่นสำหรับครีเอเตอร์ =====
+สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
+https://line2me.in.th/page/view/8
 
 https://www.line2me.in.th
 
