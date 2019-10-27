@@ -1,6 +1,6 @@
 @extends('layouts.front') @section('content')
 <div class="fh5co-narrow-content">
-    <form class="bd-search d-flex align-items-center" method="get" action="{{ url('search') }}">
+    <form class="bd-search d-flex align-items-center" method="get" action="{{ url('search2') }}">
         <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="ค้นหา" name="q" value="{{ @$_GET['q'] }}">
             <div class="input-group-append">

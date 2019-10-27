@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\Sitemap\SitemapGenerator;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +16,14 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+// sitemap
+Route::get('sitemap', function () {
+    SitemapGenerator::create('https://line2me.in.th')
+        ->setMaximumCrawlCount(500)
+        ->writeToFile('sitemap.xml');
+    return 'sitemap created';
+});
 
 Auth::routes();
 
@@ -33,6 +43,8 @@ Route::get('page/view/{id}', 'PageController@getView');
 // search
 Route::get('search', 'HomeController@search');
 Route::get('search/{param}', 'HomeController@search');
+
+// Route::get('search2', 'HomeController@search2');
 
 // new arrival
 Route::get('new_arrival', 'HomeController@new_arrival');
