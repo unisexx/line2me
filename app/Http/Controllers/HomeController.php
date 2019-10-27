@@ -216,7 +216,7 @@ class HomeController extends Controller
             }
 
             if (!empty($_GET['q'])) {
-                $data['search'] = DB::table($type . 's')
+                $data['search'] = $data['search']
                     ->where('status', 'approve')
                     ->where(function ($q) use ($type) {
                         if ($type == 'sticker') {
@@ -225,10 +225,10 @@ class HomeController extends Controller
                         } else {
                             $q->where('title', 'like', '%' . $_GET['q'] . '%');
                         }
-                    })
-                    ->orderBy('id', 'desc')
-                    ->simplePaginate(30);
+                    });
             }
+
+            $data['search'] = $data['search']->orderBy('id', 'desc')->simplePaginate(30);
 
             SEO::setTitle(@$type . ' ' . @$_GET['q']);
             SEO::setDescription('สติกเกอร์ ธีม อีโมจิไลน์ ' . @$_GET['q'] . ' ติดต่อไอดีไลน์ ratasak1234');
@@ -300,27 +300,6 @@ class HomeController extends Controller
 
             return view('home.search', $data);
         }
-    }
-
-
-    public function search2($type = false)
-    {
-        // หมวดหมู่
-        $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
-
-        // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q = array('query' => $_GET['q']);
-        $api = 'https://store.line.me/api/search/sticker?' . http_build_query($q) . '&offset=0&limit=30&type=ALL&includeFacets=true';
-        $json = json_decode(file_get_contents($api), true);
-        // dd($json);
-
-        $data = array();
-        foreach ($json['items'] as $row) {
-            dd($row);
-            $emoji_code = $row['id'];
-        }
-
-        return view('home.search2', $data);
     }
 
     // public function author($user_id)
