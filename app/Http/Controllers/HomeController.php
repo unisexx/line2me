@@ -205,6 +205,16 @@ class HomeController extends Controller
 
             $data['type'] = $type;
 
+            $data['search'] = DB::table($type . 's');
+
+            if (!empty($_GET['country'])) {
+                $data['search'] = $data['search']->where('country', $_GET['country']);
+            }
+
+            if (!empty($_GET['category'])) {
+                $data['search'] = $data['search']->where('category', $_GET['category']);
+            }
+
             if (!empty($_GET['q'])) {
                 $data['search'] = DB::table($type . 's')
                     ->where('status', 'approve')
@@ -228,6 +238,15 @@ class HomeController extends Controller
 
             // ค้นหา sticker
             $data['sticker'] = new Sticker;
+
+            if (!empty($_GET['country'])) {
+                $data['sticker'] = $data['sticker']->where('country', $_GET['country']);
+            }
+
+            if (!empty($_GET['category'])) {
+                $data['sticker'] = $data['sticker']->where('category', $_GET['category']);
+            }
+
             if (!empty($_GET['q'])) {
                 $data['sticker'] = $data['sticker']
                     ->where('status', 'approve')
@@ -236,24 +255,44 @@ class HomeController extends Controller
                             ->orWhere('title_en', 'like', '%' . $_GET['q'] . '%');
                     });
             }
+
             $data['sticker'] = $data['sticker']->orderBy('id', 'desc')->take(12)->get();
 
             // ค้นหา theme
             $data['theme'] = new Theme;
+
+            if (!empty($_GET['country'])) {
+                $data['theme'] = $data['theme']->where('country', $_GET['country']);
+            }
+
+            if (!empty($_GET['category'])) {
+                $data['theme'] = $data['theme']->where('category', $_GET['category']);
+            }
+
             if (!empty($_GET['q'])) {
                 $data['theme'] = $data['theme']
                     ->where('status', 'approve')
                     ->where('title', 'like', '%' . $_GET['q'] . '%');
             }
+
             $data['theme'] = $data['theme']->orderBy('id', 'desc')->take(12)->get();
 
             // ค้นหา emoji
             $data['emoji'] = new Emoji;
+            if (!empty($_GET['country'])) {
+                $data['emoji'] = $data['emoji']->where('country', $_GET['country']);
+            }
+
+            if (!empty($_GET['category'])) {
+                $data['emoji'] = $data['emoji']->where('category', $_GET['category']);
+            }
+
             if (!empty($_GET['q'])) {
                 $data['emoji'] = $data['emoji']
                     ->where('status', 'approve')
                     ->where('title', 'like', '%' . $_GET['q'] . '%');
             }
+
             $data['emoji'] = $data['emoji']->orderBy('id', 'desc')->take(12)->get();
 
             SEO::setTitle('ค้นหาสติกเกอร์ ธีม อีโมจิไลน์ ' . @$_GET['q']);
