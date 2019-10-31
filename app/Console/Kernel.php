@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+// use Illuminate\Support\Facades\DB;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\GenerateSitemap::class,
+        Commands\DeleteStickerView::class,
     ];
 
     /**
@@ -24,8 +27,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('sitemap:generate')->daily();
-        $schedule->command('command:deletestickerview')->dailyAt('23:00');
+        $schedule->command('cron:sitemap-generate')->dailyAt('2:00')->runInBackground();
+        $schedule->command('cron:delete-stickerview')->weekly()->runInBackground();
+
+        // $schedule->call(function () {
+        //     DB::delete("DELETE FROM sticker_views WHERE created < DATE_SUB(NOW(), INTERVAL 7 DAY)");
+        // })->daily();
     }
 
     /**

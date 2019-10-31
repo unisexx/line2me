@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use DB;
+use Illuminate\Console\Command;
 
 class DeleteStickerView extends Command
 {
@@ -12,7 +12,7 @@ class DeleteStickerView extends Command
      *
      * @var string
      */
-    protected $signature = 'command:deletestickerview';
+    protected $signature = 'cron:delete-stickerview';
 
     /**
      * The console command description.
@@ -20,16 +20,6 @@ class DeleteStickerView extends Command
      * @var string
      */
     protected $description = 'Delete Sticker_View';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Execute the console command.
