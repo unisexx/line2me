@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('cron:sitemap-generate')->dailyAt('2:00')->runInBackground();
+        $schedule->command('cron:sitemap-generate')->hourly()->runInBackground();
         $schedule->command('cron:delete-stickerview')->weekly()->runInBackground();
 
         // $schedule->call(function () {
