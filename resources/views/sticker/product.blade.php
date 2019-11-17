@@ -22,7 +22,7 @@
 				<li>ประเทศ : {{ $rs->country }}</li>
 			</ul>
 		</div>
-		
+
 	</div>
 
 	<!-- ปุ่มสั่งซื้อ -->
@@ -33,10 +33,10 @@
 	</div>
 	<!-- ปุ่มสั่งซื้อ -->
 
-	@if($rs->detail) 
+	@if($rs->detail)
 		<p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p>
 	@endif
-	<p class="animate-box" data-animate-effect="fadeInLeft"><small>*** โปรดแตะที่ตัวสติ๊กเกอร์เพื่อดูตัวอย่าง หรือฟังเสียง (ถ้าเป็นสติ๊กเกอร์แบบมีเสียง) ***</small></p> 
+	<p class="animate-box" data-animate-effect="fadeInLeft"><small>*** โปรดแตะที่ตัวสติ๊กเกอร์เพื่อดูตัวอย่าง หรือฟังเสียง (ถ้าเป็นสติ๊กเกอร์แบบมีเสียง) ***</small></p>
 
 	<div class="animate-box" data-animate-effect="fadeInLeft">
 		@if($rs->stamp_start === null)
@@ -59,7 +59,7 @@
 				<ul class="list-inline">
 					@for($x = $rs->stamp_start; $x <= $rs->stamp_end; $x++)
 					@php
-						if($rs->stickerresourcetype == 'SOUND' || $rs->stickerresourcetype == 'STATIC'){
+						if($rs->stickerresourcetype == 'SOUND' || $rs->stickerresourcetype == 'STATIC'  || $rs->stickerresourcetype == 'NAME_TEXT'){
 							$data_animation = "https://stickershop.line-scdn.net/stickershop/v1/sticker/".$x."/android/sticker.png;compress=true";
 						}elseif($rs->stickerresourcetype == 'POPUP' || $rs->stickerresourcetype == 'POPUP_SOUND'){
 							$data_animation = "https://stickershop.line-scdn.net/stickershop/v1/sticker/".$x."/IOS/sticker_popup.png;compress=true";
@@ -85,7 +85,7 @@
 	<!-- Social Share -->
 	<ul class="list-inline">
 		<li class="list-inline-item">
-			แชร์ลิ้งค์ : 
+			แชร์ลิ้งค์ :
 		</li>
 		<li class="list-inline-item">
 			<a href="https://social-plugins.line.me/lineit/share?url={{ Request::url() }}" target="_blank"><i class="fab fa-2x fa-line"></i></a>
@@ -102,7 +102,7 @@
 	</ul>
 	<hr>
 	<!-- Social Share -->
-		
+
 </div>
 
 @if(count($sticker_promote) != 0)
