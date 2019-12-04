@@ -69,7 +69,8 @@ https://www.line2me.in.th
 สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
 https://line2me.in.th/page/view/8
 
-#line2me #ของแท้ไม่มีหาย</textarea>
+ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
+#line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
             </div>
 
 
@@ -127,7 +128,8 @@ https://line2me.in.th/page/view/8
 
 https://www.line2me.in.th
 
-#line2me #ของแท้ไม่มีหาย</textarea>
+ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
+#line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
             </div>
 
 
