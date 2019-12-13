@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Models\Emoji;
 use App\Models\Sticker;
 use App\Models\Theme;
-
 use DB;
 use Goutte;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
 
 class CrawlerController extends Controller
 {
@@ -34,13 +29,11 @@ class CrawlerController extends Controller
         return view('admin.crawler.index');
     }
 
-
     public function getTest()
     {
         $crawler = Goutte::request('GET', 'https://yabeline.tw/Homepage.php');
         print_r($crawler);
     }
-
 
     /**
      *
@@ -61,8 +54,8 @@ class CrawlerController extends Controller
             // หา stamp_start & stamp_end
             for ($i = 0; $i < 40; $i++) {
                 // check node empty
-                if ($crawler_page->filter('span.mdCMN09Image.FnCustomBase')->eq($i)->count() != 0) {
-                    $imgTxt = $crawler_page->filter('span.mdCMN09Image.FnCustomBase')->eq($i)->attr('style');
+                if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
+                    $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
                     $image_path = explode("/", getUrlFromText($imgTxt));
                     $stamp_code = $image_path[6];
                     // dump($imgTxt);
@@ -88,24 +81,24 @@ class CrawlerController extends Controller
             curl_close($ch);
             $productInfo = json_decode($result, true);
 
-            $title_th            = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
-            $title_en            = $productInfo['title']['en'];
-            $author_th           = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
-            $author_en           = $productInfo['author']['en'];
-            $onsale              = $productInfo['onSale'];
-            $hasanimation        = $productInfo['hasAnimation'];
-            $hassound            = $productInfo['hasSound'];
-            $validdays           = $productInfo['validDays'];
+            $title_th = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
+            $title_en = $productInfo['title']['en'];
+            $author_th = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
+            $author_en = $productInfo['author']['en'];
+            $onsale = $productInfo['onSale'];
+            $hasanimation = $productInfo['hasAnimation'];
+            $hassound = $productInfo['hasSound'];
+            $validdays = $productInfo['validDays'];
             $stickerresourcetype = $productInfo['stickerResourceType'];
 
-            $detail              = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-            $credit              = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-            $sticker_code        = $sticker_code;
-            $created             = date("Y-m-d H:i:s");
-            $price               = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
-            $country             = "thai";
-            $stamp_start         = reset($data)['stamp_code'];
-            $stamp_end           = end($data)['stamp_code'];
+            $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
+            $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
+            $sticker_code = $sticker_code;
+            $created = date("Y-m-d H:i:s");
+            $price = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
+            $country = "thai";
+            $stamp_start = reset($data)['stamp_code'];
+            $stamp_end = end($data)['stamp_code'];
 
             // dump($productInfo);
             // dump($price);
@@ -132,7 +125,7 @@ class CrawlerController extends Controller
                     'hassound'            => $hassound,
                     'stickerresourcetype' => $stickerresourcetype,
                     'stamp_start'         => $stamp_start,
-                    'stamp_end'           => $stamp_end
+                    'stamp_end'           => $stamp_end,
                 ]
             );
 
@@ -143,7 +136,6 @@ class CrawlerController extends Controller
             dump("มีสติ๊กเกอร์ชุดนี้ในระบบแล้ว!!!");
         } // endif
     }
-
 
     /**
      *
@@ -188,7 +180,6 @@ class CrawlerController extends Controller
         } // endif
     }
 
-
     /**
      *
      *
@@ -232,7 +223,6 @@ class CrawlerController extends Controller
         } // endif
     }
 
-
     /**
      * ดึงสติ๊กเกอร์ไลน์จากเว็บ store.line
      * Type: 1 = official, 2 = creator
@@ -241,10 +231,12 @@ class CrawlerController extends Controller
      */
     public function getstickerstore($type, $cat, $page = null)
     {
-        if ($type == 1) { // official
+        if ($type == 1) {
+            // official
             $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
             $category = 'official';
-        } elseif ($type == 2) { // creator
+        } elseif ($type == 2) {
+            // creator
             $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
             $category = 'creator';
         }
@@ -269,15 +261,16 @@ class CrawlerController extends Controller
             if (empty($rs->id)) {
 
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
+                // dd($crawler_page);
 
                 // หา stamp_start & stamp_end
                 for ($i = 0; $i < 40; $i++) {
                     // check node empty
-                    if ($crawler_page->filter('span.mdCMN09Image.FnCustomBase')->eq($i)->count() != 0) {
-                        $imgTxt = $crawler_page->filter('span.mdCMN09Image.FnCustomBase')->eq($i)->attr('style');
+                    if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
+                        $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
+                        // dd($imgTxt);
                         $image_path = explode("/", getUrlFromText($imgTxt));
                         $stamp_code = $image_path[6];
-                        // dump($imgTxt);
 
                         $data[] = array(
                             'stamp_code' => $stamp_code,
@@ -300,24 +293,24 @@ class CrawlerController extends Controller
                 curl_close($ch);
                 $productInfo = json_decode($result, true);
 
-                $title_th            = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
-                $title_en            = $productInfo['title']['en'];
-                $author_th           = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
-                $author_en           = $productInfo['author']['en'];
-                $onsale              = $productInfo['onSale'];
-                $hasanimation        = $productInfo['hasAnimation'];
-                $hassound            = $productInfo['hasSound'];
-                $validdays           = $productInfo['validDays'];
+                $title_th = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
+                $title_en = $productInfo['title']['en'];
+                $author_th = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
+                $author_en = $productInfo['author']['en'];
+                $onsale = $productInfo['onSale'];
+                $hasanimation = $productInfo['hasAnimation'];
+                $hassound = $productInfo['hasSound'];
+                $validdays = $productInfo['validDays'];
                 $stickerresourcetype = $productInfo['stickerResourceType'];
 
-                $detail              = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-                $credit              = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-                $sticker_code        = $sticker_code;
-                $created             = date("Y-m-d H:i:s");
-                $price               = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
-                $country             = "thai";
-                $stamp_start         = reset($data)['stamp_code'];
-                $stamp_end           = end($data)['stamp_code'];
+                $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
+                $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
+                $sticker_code = $sticker_code;
+                $created = date("Y-m-d H:i:s");
+                $price = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
+                $country = "thai";
+                $stamp_start = reset($data)['stamp_code'];
+                $stamp_end = end($data)['stamp_code'];
 
                 // dump($productInfo);
                 // dump($price);
@@ -344,7 +337,7 @@ class CrawlerController extends Controller
                         'hassound'            => $hassound,
                         'stickerresourcetype' => $stickerresourcetype,
                         'stamp_start'         => $stamp_start,
-                        'stamp_end'           => $stamp_end
+                        'stamp_end'           => $stamp_end,
                     ]
                 );
 
@@ -364,7 +357,6 @@ class CrawlerController extends Controller
         }
     }
 
-
     /**
      * ดึงธีมจากเว็บ store.line
      * Type: 1 = official, 2 = creator
@@ -373,10 +365,12 @@ class CrawlerController extends Controller
      */
     public function getthemestore($type, $cat, $page = null)
     {
-        if ($type == 1) { // official
+        if ($type == 1) {
+            // official
             $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
             $category = 'official';
-        } elseif ($type == 2) { // creator
+        } elseif ($type == 2) {
+            // creator
             $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
             $category = 'creator';
         }
@@ -437,7 +431,6 @@ class CrawlerController extends Controller
         }
     }
 
-
     /**
      * ดึงอิโมจิจากเว็บ store.line
      * Type: 1 = official, 2 = creator
@@ -446,10 +439,12 @@ class CrawlerController extends Controller
      */
     public function getemojistore($type, $cat, $page = null)
     {
-        if ($type == 1) { // official
+        if ($type == 1) {
+            // official
             $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
             $category = 'official';
-        } elseif ($type == 2) { // creator
+        } elseif ($type == 2) {
+            // creator
             $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
             $category = 'creator';
         }
@@ -510,7 +505,6 @@ class CrawlerController extends Controller
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
     }
-
 
     /**
      * ดึงสติ๊กเกอร์ไลน์จากเว็บ store.line ตามคำค้นหา
@@ -598,7 +592,6 @@ class CrawlerController extends Controller
         dump($data);
     }
 
-
     /**
      * ดึงธีมไลน์จากเว็บ store.line ตามคำค้นหา
      *
@@ -649,7 +642,6 @@ class CrawlerController extends Controller
         dump($data);
     }
 
-
     /**
      * ดึงอิโมจิไลน์จากเว็บ store.line ตามคำค้นหา
      *
@@ -689,7 +681,7 @@ class CrawlerController extends Controller
                     'updated_at'   => date("Y-m-d H:i:s"),
                     'category'     => $categoryArray[$row['subtype']],
                     'country'      => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
-                    'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
+                    'price'        => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                     'status'       => 'approve',
                 ];
             }
