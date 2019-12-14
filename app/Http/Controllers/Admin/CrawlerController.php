@@ -21,7 +21,7 @@ class CrawlerController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function index(Request $request)
@@ -229,7 +229,7 @@ class CrawlerController extends Controller
      * cat : top, new, top_creators, new_top_creators, new_creators
      * Page: หน้าที่จะเข้าไปดึงข้อมูล
      */
-    public function getstickerstore($type, $cat, $page = null)
+    public static function getstickerstore($type, $cat, $page = null)
     {
         if ($type == 1) {
             // official
@@ -363,7 +363,7 @@ class CrawlerController extends Controller
      * cat : top, new, top_creators, new_creators
      * Page: หน้าที่จะเข้าไปดึงข้อมูล
      */
-    public function getthemestore($type, $cat, $page = null)
+    public static function getthemestore($type, $cat, $page = null)
     {
         if ($type == 1) {
             // official
@@ -437,7 +437,7 @@ class CrawlerController extends Controller
      * Cat : top, new, top_creators, new_top_creators, new_creators
      * Page: หน้าที่จะเข้าไปดึงข้อมูล
      */
-    public function getemojistore($type, $cat, $page = null)
+    public static function getemojistore($type, $cat, $page = null)
     {
         if ($type == 1) {
             // official

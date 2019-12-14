@@ -11,7 +11,7 @@ use Spatie\Sitemap\SitemapGenerator;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -65,9 +65,21 @@ Route::get('emoji/{id}', 'EmojiController@getProduct');
 Route::get('emoji/official/{country}/{type}', 'EmojiController@getOfficial');
 Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
 
+//Crawler
+Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');
+Route::get('gettheme/{theme_code}', 'CrawlerController@gettheme');
+Route::get('getemoji/{emoji_code}', 'CrawlerController@getemoji');
+
+Route::get('getstickerstore/{type}/{category}/{page}', 'CrawlerController@getstickerstore');
+Route::get('getthemestore/{type}/{category}/{page}', 'CrawlerController@getthemestore');
+Route::get('getemojistore/{type}/{category}/{page}', 'CrawlerController@getemojistore');
+
+Route::get('getstickerstoresearch/{txtsearch}', 'CrawlerController@getstickerstoresearch');
+Route::get('getthemestoresearch/{txtsearch}', 'CrawlerController@getthemestoresearch');
+Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
 
 // admin
-Route::namespace('Admin')->prefix('admin')->group(function () {
+Route::namespace ('Admin')->prefix('admin')->group(function () {
 
     Route::get('ajax/changestatus', 'AjaxController@changestatus')->name('changestatus');
     Route::get('ajax/changecountry', 'AjaxController@changecountry')->name('changecountry');
