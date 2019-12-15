@@ -81,15 +81,17 @@ class CrawlerController extends Controller
             curl_close($ch);
             $productInfo = json_decode($result, true);
 
+            // dd($productInfo);
+
             $title_th = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
             $title_en = $productInfo['title']['en'];
             $author_th = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
             $author_en = $productInfo['author']['en'];
             $onsale = $productInfo['onSale'];
-            $hasanimation = $productInfo['hasAnimation'];
-            $hassound = $productInfo['hasSound'];
+            $hasanimation = @$productInfo['hasAnimation'];
+            $hassound = @$productInfo['hasSound'];
             $validdays = $productInfo['validDays'];
-            $stickerresourcetype = $productInfo['stickerResourceType'];
+            $stickerresourcetype = @$productInfo['stickerResourceType'];
 
             $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
             $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
@@ -298,10 +300,10 @@ class CrawlerController extends Controller
                 $author_th = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
                 $author_en = $productInfo['author']['en'];
                 $onsale = $productInfo['onSale'];
-                $hasanimation = $productInfo['hasAnimation'];
-                $hassound = $productInfo['hasSound'];
+                $hasanimation = @$productInfo['hasAnimation'];
+                $hassound = @$productInfo['hasSound'];
                 $validdays = $productInfo['validDays'];
-                $stickerresourcetype = $productInfo['stickerResourceType'];
+                $stickerresourcetype = @$productInfo['stickerResourceType'];
 
                 $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
                 $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
@@ -540,8 +542,8 @@ class CrawlerController extends Controller
                 // หา stamp_start & stamp_end
                 for ($i = 0; $i < 40; $i++) {
                     // check node empty
-                    if ($crawler_page->filter('span.mdCMN09Image.FnCustomBase')->eq($i)->count() != 0) {
-                        $imgTxt = $crawler_page->filter('span.mdCMN09Image.FnCustomBase')->eq($i)->attr('style');
+                    if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
+                        $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
                         $image_path = explode("/", getUrlFromText($imgTxt));
                         $stamp_code = $image_path[6];
                         // dump($imgTxt);
