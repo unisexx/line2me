@@ -540,14 +540,13 @@ class CrawlerController extends Controller
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
 
                 // หา stamp_start & stamp_end
-                $stamp = "";
                 for ($i = 0; $i < 40; $i++) {
                     // check node empty
                     if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
                         $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
                         $image_path = explode("/", getUrlFromText($imgTxt));
                         $stamp_code = $image_path[6];
-                        // dump($imgTxt);
+                        // dd($stamp_code);
 
                         $stamp[] = array(
                             'stamp_code' => $stamp_code,
