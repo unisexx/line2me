@@ -26,10 +26,12 @@
 <script>
 $(document).ready(function(){
     $('body').on('click', '.btn-send-lineid', function(e){
-        $(".lineidFrm").LoadingOverlay("show");
         e.preventDefault();
 
         if( $('input[name=lineid]').val() ){
+
+            $(".lineidFrm").LoadingOverlay("show");
+            
             $.get( "{{ url('ajax/linenotify') }}", { 
                 lineid: $('input[name=lineid]').val()
             }).done(function( data ) {
