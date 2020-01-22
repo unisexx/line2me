@@ -17,6 +17,8 @@
         @include('include.front.header')
 		<div id="fh5co-main">
 
+            @include('include.front._line_notify_form')
+
             @yield('content')
 			
 		</div>
@@ -24,6 +26,7 @@
     
     <!-- JavaScripts -->
     @include('include.front.js')
+    @stack('js')
 </body>
 </html>
 

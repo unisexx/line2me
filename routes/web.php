@@ -33,6 +33,7 @@ Route::get('home', 'HomeController@index');
 
 // ajax
 Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
+Route::get('ajax/linenotify', 'AjaxController@linenotify');
 
 // aboutus
 Route::get('aboutus', 'HomeController@aboutus');
