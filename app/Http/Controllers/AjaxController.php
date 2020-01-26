@@ -90,4 +90,14 @@ class AjaxController extends Controller
         }
 
     }
+
+    public function linenotify(){
+        define('LINE_API',"https://notify-api.line.me/api/notify");
+
+        $token = "Jy0xG1Aobu42NniqD0EwA7bOwqCDj16BP69WuED1SlM"; //ใส่Token ที่copy เอาไว้
+        $str = "https://line.me/ti/p/~".$_GET['lineid']; //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
+
+        $res = notify_message($str,$token);
+        print_r($res);
+    }
 }
