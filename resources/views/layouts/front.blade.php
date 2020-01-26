@@ -17,9 +17,11 @@
         @include('include.front.header')
 		<div id="fh5co-main">
 
-            @include('include.front._line_notify_form')
-
             @yield('content')
+
+            <hr>
+            
+            @include('include.front._line_notify_form')
 			
 		</div>
     </div>

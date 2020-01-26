@@ -371,6 +371,13 @@ class HomeController extends Controller
         return view('aboutus');
     }
 
+    public function viewlineid(){
+        SEO::setTitle('วิธีดูไอดีไลน์');
+        SEO::setDescription('วิธีดูไอดีไลน์ของตัวเอง ง่ายๆ สามารถทำได้ด้วยตัวเอง');
+
+        return view('viewlineid');
+    }
+
     // public function info(){
     //     echo phpinfo();
     // }

@@ -1,4 +1,4 @@
-<div class="fh5co-narrow-content">
+<div class="fh5co-narrow-content mb-5">
 
     <!-- form card login -->
     <div class="card rounded-0 lineidFrm">
@@ -8,11 +8,14 @@
         </div>
         <div class="card-body">
             <div class="input-group mb-3">
-                <input name="lineid" type="text" class="form-control" placeholder="ไลน์ไอดีผู้สั่งซื้อ">
+                <input name="lineid" type="text" class="form-control" placeholder="ไอดีไลน์ผู้สั่งซื้อ">
                 <div class="input-group-append">
                     <button class="btn btn-success btn-send-lineid" type="button" style="margin-bottom:0px;">ส่งข้อมูล</button>
                 </div>
             </div>
+            <p>ปล. ถ้าทางร้านไม่ตอบกลับภายใน 30 นาที แสดงว่าเพื่อนๆอาจจะใส่ไอดีไลน์ไม่ถูกนะครับ ทำให้ทางร้านแอดเพื่อนไปไม่ได้ ให้ลองใส่ใหม่อีกครั้งโดยดูวิธีหาไอดีไลน์จากลิ้งค์ด้านล่างนี้นะครับ</p>
+            <p>ปล2. ขอย้ำว่าให้ใส่ไอดีไลน์นะครับ ไม่ใช่ชื่อสติ๊กเกอร์ไลน์ที่ต้องการจะซื้อ เพราะเห็นหลายคนใส่ชื่อสติ๊กเกอร์มา ทางร้านแอดเข้าไปคุยไม่ได้น้า</p>
+            <a href="{{ url('viewlineid') }}">*** วิธีดูไอดีไลน์ของตัวเองคลิกที่นี่ ***</a>
         </div>
         <!--/card-block-->
     </div>

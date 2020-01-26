@@ -38,6 +38,9 @@ Route::get('ajax/linenotify', 'AjaxController@linenotify');
 // aboutus
 Route::get('aboutus', 'HomeController@aboutus');
 
+// ดูไลน์ไอดี
+Route::get('viewlineid', 'HomeController@viewlineid');
+
 // page
 Route::get('page/view/{id}', 'PageController@getView');
 
