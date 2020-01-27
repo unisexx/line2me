@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
-
-use App\Models\Sticker;
-use App\Models\Theme;
 use App\Models\Emoji;
 use App\Models\NewArrival;
-
+use App\Models\Sticker;
+use App\Models\Theme;
+use Carbon;
 use DB;
 use SEO;
 use SEOMeta;
-use Carbon;
 
 class HomeController extends Controller
 {
@@ -73,28 +69,27 @@ class HomeController extends Controller
             ->take(30)
             ->get();
 
-
         $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
         // สตื๊กเกอร์ไลน์อัพเดท
         $data['sticker_update'] = Sticker::where('category', 'official')
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
-                ->start_date, $data['new_arrival']->end_date])
-            ->get();
+                    ->start_date, $data['new_arrival']->end_date])
+                ->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
-                ->start_date, $data['new_arrival']->end_date])
-            ->get();
+                    ->start_date, $data['new_arrival']->end_date])
+                ->get();
 
         // อิโมจิอัพเดท
         $data['emoji_update'] = Emoji::where('category', 'official')
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
-                ->start_date, $data['new_arrival']->end_date])
-            ->get();
+                    ->start_date, $data['new_arrival']->end_date])
+                ->get();
 
         // สติ๊กเกอร์ไลน์ทางการ (ไทย)
         $data['sticker_official_thai'] = new Sticker;
@@ -128,7 +123,6 @@ class HomeController extends Controller
             ->orderBy('threedays', 'desc')
             ->take(12)
             ->get();
-
 
         // ธีมไลน์ทางการ (ไทย)
         $data['theme_official_thai'] = new Theme;
@@ -340,20 +334,20 @@ class HomeController extends Controller
         $data['sticker'] = Sticker::where('category', 'official')
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
-                ->start_date, $data['new_arrival']->end_date])
-            ->get();
+                    ->start_date, $data['new_arrival']->end_date])
+                ->get();
 
         $data['theme'] = Theme::where('category', 'official')
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
-                ->start_date, $data['new_arrival']->end_date])
-            ->get();
+                    ->start_date, $data['new_arrival']->end_date])
+                ->get();
 
         $data['emoji'] = Emoji::where('category', 'official')
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
-                ->start_date, $data['new_arrival']->end_date])
-            ->get();
+                    ->start_date, $data['new_arrival']->end_date])
+                ->get();
 
         return view('home.new_arrival', $data);
     }
@@ -371,11 +365,20 @@ class HomeController extends Controller
         return view('aboutus');
     }
 
-    public function viewlineid(){
+    public function viewlineid()
+    {
         SEO::setTitle('วิธีดูไอดีไลน์');
         SEO::setDescription('วิธีดูไอดีไลน์ของตัวเอง ง่ายๆ สามารถทำได้ด้วยตัวเอง');
 
         return view('viewlineid');
+    }
+
+    public function viewlineqrcode()
+    {
+        SEO::setTitle('วิธีทำคิวอาร์โค้ดไลน์');
+        SEO::setDescription('วิธีทำคิวอาร์โค้ดไลน์ของตัวเอง ง่ายๆ สามารถทำได้ด้วยตัวเอง');
+
+        return view('viewlineqrcode');
     }
 
     // public function info(){

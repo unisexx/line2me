@@ -14,8 +14,10 @@
         "jeroennoten/laravel-adminlte": "^1.25",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "libern/qr-code-reader": "^1.0",
         "spatie/laravel-sitemap": "^5.5",
-        "weidner/goutte": "^1.1"
+        "weidner/goutte": "^1.1",
+        "yish/imgur": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

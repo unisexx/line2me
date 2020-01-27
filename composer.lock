@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "58609a05d5d819eb06cf7ff935f52326",
+    "content-hash": "ade656aca365cc9a464e1d7168b76925",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -1258,6 +1258,48 @@
             "time": "2019-04-03T23:46:42+00:00"
         },
         {
+            "name": "libern/qr-code-reader",
+            "version": "v1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/libern/qr-code-reader.git",
+                "reference": "f5443ef16ca145ceaf21df7d28efee3771989ee5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/libern/qr-code-reader/zipball/f5443ef16ca145ceaf21df7d28efee3771989ee5",
+                "reference": "f5443ef16ca145ceaf21df7d28efee3771989ee5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Libern\\QRCodeReader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Libern Lin",
+                    "email": "libernlin@gmail.com"
+                }
+            ],
+            "description": "Simple PHP QR Code Reader / Decoder",
+            "homepage": "https://github.com/libern/qr-code-reader",
+            "keywords": [
+                "laravel",
+                "qr code decoder",
+                "qr code reader"
+            ],
+            "time": "2017-06-02T12:56:55+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.25.3",
             "source": {
@@ -2051,26 +2093,26 @@
         },
         {
             "name": "spatie/browsershot",
-            "version": "3.26.0",
+            "version": "3.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/browsershot.git",
-                "reference": "42dd2120577d9a4c6937773d7a233fffe72a06c7"
+                "reference": "483f62d03ea8cfc20091b9c2db1ed3f597d659f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/browsershot/zipball/42dd2120577d9a4c6937773d7a233fffe72a06c7",
-                "reference": "42dd2120577d9a4c6937773d7a233fffe72a06c7",
+                "url": "https://api.github.com/repos/spatie/browsershot/zipball/483f62d03ea8cfc20091b9c2db1ed3f597d659f1",
+                "reference": "483f62d03ea8cfc20091b9c2db1ed3f597d659f1",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1",
-                "spatie/image": "^1.4",
+                "spatie/image": "^1.5.3",
                 "spatie/temporary-directory": "^1.1",
-                "symfony/process": "^3.0|^4.0"
+                "symfony/process": "^4.2|^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.1|^7.0",
+                "phpunit/phpunit": "^6.1|^7.5",
                 "spatie/phpunit-snapshot-assertions": "^1.0"
             },
             "type": "library",
@@ -2103,7 +2145,7 @@
                 "screenshot",
                 "webpage"
             ],
-            "time": "2018-10-18T17:24:07+00:00"
+            "time": "2020-01-04T22:37:18+00:00"
         },
         {
             "name": "spatie/crawler",
@@ -2166,29 +2208,31 @@
         },
         {
             "name": "spatie/image",
-            "version": "1.5.2",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "d4cb6afff1b98fd6e17396d91e0e584c3d91bb23"
+                "reference": "74535b5fd67ace75840c00c408666660843e755e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/d4cb6afff1b98fd6e17396d91e0e584c3d91bb23",
-                "reference": "d4cb6afff1b98fd6e17396d91e0e584c3d91bb23",
+                "url": "https://api.github.com/repos/spatie/image/zipball/74535b5fd67ace75840c00c408666660843e755e",
+                "reference": "74535b5fd67ace75840c00c408666660843e755e",
                 "shasum": ""
             },
             "require": {
-                "league/glide": "^1.2",
+                "ext-exif": "*",
+                "ext-mbstring": "*",
+                "league/glide": "^1.4",
                 "php": "^7.0",
                 "spatie/image-optimizer": "^1.0",
                 "spatie/temporary-directory": "^1.0.0",
-                "symfony/process": "^3.0|^4.0"
+                "symfony/process": "^3.0|^4.0|^5.0"
             },
             "require-dev": {
                 "larapack/dd": "^1.1",
                 "phpunit/phpunit": "^6.0|^7.0",
-                "symfony/var-dumper": "^3.2"
+                "symfony/var-dumper": "^3.2|^5.0"
             },
             "type": "library",
             "autoload": {
@@ -2214,7 +2258,7 @@
                 "image",
                 "spatie"
             ],
-            "time": "2018-05-05T21:44:52+00:00"
+            "time": "2020-01-26T18:56:44+00:00"
         },
         {
             "name": "spatie/image-optimizer",
@@ -4184,6 +4228,53 @@
                 "weidner"
             ],
             "time": "2019-09-26T11:55:51+00:00"
+        },
+        {
+            "name": "yish/imgur",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mombuyish/Laravel-Imgur.git",
+                "reference": "fd67f7d8926ae02deb3b2ddde39e66031450cacf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mombuyish/Laravel-Imgur/zipball/fd67f7d8926ae02deb3b2ddde39e66031450cacf",
+                "reference": "fd67f7d8926ae02deb3b2ddde39e66031450cacf",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "laravel": {
+                    "providers": [
+                        "Yish\\Imgur\\UploadServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yish\\Imgur\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Yish",
+                    "email": "mombuartworks@gmail.com"
+                }
+            ],
+            "description": "Imgur upload API with Laravel.",
+            "homepage": "https://github.com/Mombuyish/Laravel-Imgur",
+            "keywords": [
+                "imgur",
+                "laravel",
+                "upload"
+            ],
+            "time": "2017-12-13T07:27:47+00:00"
         }
     ],
     "packages-dev": [
@@ -4235,9 +4326,9 @@
             "authors": [
                 {
                     "name": "Marcel Pociot",
+                    "role": "Developer",
                     "email": "marcel@beyondco.de",
-                    "homepage": "https://beyondco.de",
-                    "role": "Developer"
+                    "homepage": "https://beyondco.de"
                 }
             ],
             "description": "Symfony Var-Dump Server for Laravel",

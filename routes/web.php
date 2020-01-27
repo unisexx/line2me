@@ -33,13 +33,14 @@ Route::get('home', 'HomeController@index');
 
 // ajax
 Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
-Route::get('ajax/linenotify', 'AjaxController@linenotify');
+Route::post('ajaxLinenotify', 'AjaxController@linenotify');
 
 // aboutus
 Route::get('aboutus', 'HomeController@aboutus');
 
 // ดูไลน์ไอดี
 Route::get('viewlineid', 'HomeController@viewlineid');
+Route::get('viewlineqrcode', 'HomeController@viewlineqrcode');
 
 // page
 Route::get('page/view/{id}', 'PageController@getView');
