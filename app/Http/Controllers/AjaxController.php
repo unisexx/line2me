@@ -6,7 +6,6 @@ use App\Models\StickerView;
 use DB;
 use Goutte;
 use Illuminate\Http\Request;
-use Imgur;
 use Libern\QRCodeReader\lib\QrReader;
 use Session;
 
@@ -89,22 +88,15 @@ class AjaxController extends Controller
 
     public function linenotify(Request $request)
     {
-        // dd($request->all());
+        // dd($request->imgUpload->getClientOriginalName());
 
         if ($request->hasFile('imgUpload')) {
-            $image = Imgur::upload($request->imgUpload);
-            // Get imgur image link.
-            $imgur = $image->link(); //"https://i.imgur.com/XN9m1nW.jpg"
-
-            $qrcode = new QrReader($imgur);
+            $qrcode = new QrReader($request->imgUpload);
             $text = $qrcode->text();
-            // echo $qrcode_text;
         }
 
         define('LINE_API', "https://notify-api.line.me/api/notify");
-
         $token = "Jy0xG1Aobu42NniqD0EwA7bOwqCDj16BP69WuED1SlM"; //ใส่Token ที่copy เอาไว้
-        // $str = "https://line.me/ti/p/~" . $_GET['lineid']; //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
 
         if ($text) {
             $res = notify_message($text, $token);
