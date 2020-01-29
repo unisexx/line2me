@@ -2,27 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Models\Sticker;
-
-use DB;
+use OpenGraph;
 use SEO;
 use SEOMeta;
-use Session;
-use OpenGraph;
-use Cache;
-use Redis;
-use Carbon;
-
 
 class StickerController extends Controller
 {
     public function getIndex()
-    { }
+    {}
 
     public function getOfficial($country, $type)
     {
@@ -79,52 +68,21 @@ class StickerController extends Controller
 
     public function getProduct($id = null)
     {
-
-        // สติ๊กเกอร์ไลน์โปรโมท
-        $data['sticker_promote'] = DB::table('promotes')
-            ->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
-            ->select('stickers.*')
-            ->where('promotes.product_type', '=', 'sticker')
-            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-            ->inRandomOrder()
-            ->take(30)
-            ->get();
-
-        // ธีมไลน์โปรโมท
-        $data['theme_promote'] = DB::table('promotes')
-            ->join('themes', 'promotes.product_code', '=', 'themes.id')
-            ->select('themes.*')
-            ->where('promotes.product_type', '=', 'theme')
-            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-            ->inRandomOrder()
-            ->take(30)
-            ->get();
-
-        // อิโมจิไลน์โปรโมท
-        $data['emoji_promote'] = DB::table('promotes')
-            ->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
-            ->select('emojis.*')
-            ->where('promotes.product_type', '=', 'emoji')
-            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-            ->inRandomOrder()
-            ->take(30)
-            ->get();
-
         // ใช้ Cache File
         // $data['rs'] = Cache::rememberForever('stickers_'.$id, function() use ($id) {
-        // 	return DB::table('stickers')->where('sticker_code',$id)->first();
+        //     return DB::table('stickers')->where('sticker_code',$id)->first();
         // });
         // $data['rs'] = Cache::remember('stickers_'.$id, 60, function() use ($id) {
-        // 	return DB::table('stickers')->where('sticker_code',$id)->first();
+        //     return DB::table('stickers')->where('sticker_code',$id)->first();
         // });
 
         // ใช้ Redis Cache
         // $redis = Redis::get('laravel:stickers_'.$id);
         // if ($redis) {
-        // 	$data['rs'] = unserialize($redis);
+        //     $data['rs'] = unserialize($redis);
         // }else{
-        // 	$data['rs'] = DB::table('stickers')->where('sticker_code',$id)->first();
-        // 	Cache::store('redis')->put('stickers_'.$id, $data['rs'], 10);
+        //     $data['rs'] = DB::table('stickers')->where('sticker_code',$id)->first();
+        //     Cache::store('redis')->put('stickers_'.$id, $data['rs'], 10);
         // }
 
         $data['rs'] = Sticker::where('sticker_code', $id)->first();
