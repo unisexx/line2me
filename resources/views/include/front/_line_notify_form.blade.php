@@ -1,4 +1,4 @@
-<div class="fh5co-narrow-content mb-5">
+<div class="fh5co-narrow-content">
 
     <form id="mainForm" method="POST" action="{{ url('ajax/linenotify') }}" accept-charset="UTF-8" enctype="multipart/form-data">
     {{ csrf_field() }}

@@ -18,7 +18,6 @@
 		<div id="fh5co-main">
 
             @include('include.front._line_notify_form')
-            <hr>
             @yield('content')
 			
 		</div>
