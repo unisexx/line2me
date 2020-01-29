@@ -4,7 +4,7 @@
     {{ csrf_field() }}
     <div class="card rounded-0 lineidFrm">
         <div class="card-header text-white bg-danger">
-            <h5 class="mb-0 text-white">สนใจสั่งซื้อสติ๊กเกอร์ แต่แอดเพื่อนไม่ได้ ให้อัพโหลดคิวอาร์โค้ดของท่านไว้เดี๋ยวทางเราจะติดต่อกลับไปครับ</h5>
+            <h5 class="mb-0 text-white"><small>สนใจสั่งซื้อสติ๊กเกอร์ แต่แอดเพื่อนไม่ได้ ให้อัพโหลดคิวอาร์โค้ดของท่านไว้เดี๋ยวทางเราจะติดต่อกลับไปครับ</small></h5>
         </div>
         <div class="card-body">
             <div class="custom-file mb-3">
@@ -12,12 +12,12 @@
                 <label class="custom-file-label" for="customFile">เลือกรูปคิวอาร์โค้ด</label>
             </div>
 
-            <button type="submit" class="btn-send-lineid btn btn-success">อัพโหลดคิวอาร์โค้ด</button>
+            <button type="submit" class="btn-send-lineid btn btn-success btn-sm"><small>อัพโหลดคิวอาร์โค้ด</small></button>
 
             {{-- <p>ปล. ถ้าทางร้านไม่ตอบกลับภายใน 30 นาที แสดงว่าเพื่อนๆอาจจะใส่ไอดีไลน์ไม่ถูกนะครับ ทำให้ทางร้านแอดเพื่อนไปไม่ได้ ให้ลองใส่ใหม่อีกครั้งโดยดูวิธีหาไอดีไลน์จากลิ้งค์ด้านล่างนี้นะครับ</p>
             <p>ปล2. ขอย้ำว่าให้ใส่ไอดีไลน์นะครับ ไม่ใช่ชื่อสติ๊กเกอร์ไลน์ที่ต้องการจะซื้อ เพราะเห็นหลายคนใส่ชื่อสติ๊กเกอร์มา ทางร้านแอดเข้าไปคุยไม่ได้น้า</p>
             <a href="{{ url('viewlineid') }}">*** วิธีดูไอดีไลน์ของตัวเองคลิกที่นี่ ***</a> --}}
-            <div><a href="{{ url('viewlineqrcode') }}">*** วิธีตั้งค่าไลน์และโหลดรูปคิวอาร์โค้ดของตัวเองคลิกที่นี่ ***</a></div>
+            <div><a href="{{ url('viewlineqrcode') }}"><small>*** วิธีตั้งค่าไลน์และโหลดรูปคิวอาร์โค้ดของตัวเองคลิกที่นี่ ***</small></a></div>
         </div>
         <!--/card-block-->
     </div>
@@ -32,12 +32,12 @@
 $(document).ready(function(){
     $('#customFile').on('change', function() { 
         // alert( this.files[0].size + "bytes" );
-        if(this.files[0].size > 500000){
+        if(this.files[0].size > 1000000){
             
             Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: 'ขนาดไฟล์ห้ามเกิน 500kb',
+                title: 'ขนาดไฟล์ห้ามเกิน 1mb',
                 text: 'กรุณาลองใหม่อีกครั้ง',
                 showConfirmButton: true,
             })
