@@ -15,6 +15,7 @@
             <li><a href="{{ url('theme/official/oversea/top') }}">ธีมไลน์ทางการต่างประเทศ</a></li>
             <li><a href="{{ url('theme/creator/top') }}">ธีมไลน์ครีเอเตอร์</a></li>
             <li><a href="{{ url('aboutus') }}">เกี่ยวกับเรา</a></li>
+            <li><a href="{{ url('page/view/8') }}">โปรโมทสติ๊กเกอร์เพื่อเพิ่มยอดขาย</a></li>
             <li><a href="{{ url('search') }}">ค้นหา</a></li>
         </ul>
     </nav>
