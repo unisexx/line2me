@@ -1,4 +1,4 @@
-<div class="fh5co-narrow-content">
+<div class="fh5co-narrow-content mb-5">
 
     <form id="mainForm" method="POST" action="{{ url('ajax/linenotify') }}" accept-charset="UTF-8" enctype="multipart/form-data">
     {{ csrf_field() }}
@@ -12,12 +12,8 @@
                 <label class="custom-file-label" for="customFile">เลือกรูปคิวอาร์โค้ด</label>
             </div>
 
-            <button type="submit" class="btn-send-lineid btn btn-success btn-sm"><small>อัพโหลดคิวอาร์โค้ด</small></button>
-
-            {{-- <p>ปล. ถ้าทางร้านไม่ตอบกลับภายใน 30 นาที แสดงว่าเพื่อนๆอาจจะใส่ไอดีไลน์ไม่ถูกนะครับ ทำให้ทางร้านแอดเพื่อนไปไม่ได้ ให้ลองใส่ใหม่อีกครั้งโดยดูวิธีหาไอดีไลน์จากลิ้งค์ด้านล่างนี้นะครับ</p>
-            <p>ปล2. ขอย้ำว่าให้ใส่ไอดีไลน์นะครับ ไม่ใช่ชื่อสติ๊กเกอร์ไลน์ที่ต้องการจะซื้อ เพราะเห็นหลายคนใส่ชื่อสติ๊กเกอร์มา ทางร้านแอดเข้าไปคุยไม่ได้น้า</p>
-            <a href="{{ url('viewlineid') }}">*** วิธีดูไอดีไลน์ของตัวเองคลิกที่นี่ ***</a> --}}
-            <div><a href="{{ url('viewlineqrcode') }}"><small>*** วิธีตั้งค่าไลน์และโหลดรูปคิวอาร์โค้ดของตัวเองคลิกที่นี่ ***</small></a></div>
+            <button type="submit" class="btn-send-lineid btn btn-success"><small>อัพโหลดคิวอาร์โค้ด</small></button>
+            <div class="text-danger"><u>สำคัญสุดๆ</u> ก่อนอัพโหลดคิวอาร์โค้ด ให้ดูวิธีตั้งค่าไลน์ด้านล่างนี้ก่อนนะครับ ไม่อย่างนั้นพอเราทักเข้าไปหาแล้วเพื่อนๆจะไม่ได้รับข้อความนะครับ</div>
         </div>
         <!--/card-block-->
     </div>
