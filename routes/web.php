@@ -27,6 +27,8 @@ Route::get('sitemap', function () {
 
 Auth::routes();
 
+Route::get('test-email', 'JobController@enqueue');
+
 // home
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
