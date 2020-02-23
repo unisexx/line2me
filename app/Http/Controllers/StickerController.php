@@ -85,7 +85,7 @@ class StickerController extends Controller
         //     Cache::store('redis')->put('stickers_'.$id, $data['rs'], 10);
         // }
 
-        $data['rs'] = Sticker::where('sticker_code', $id)->first();
+        $data['rs'] = Sticker::where('sticker_code', $id)->firstOrFail();
 
         if (empty($data['rs'])) {
             return abort(404);

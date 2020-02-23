@@ -74,11 +74,11 @@ class EmojiController extends Controller
         //     return DB::table('emojis')->find($id);
         // });
 
-        $data['rs'] = Emoji::find($id);
+        $data['rs'] = Emoji::findOrFail($id);
 
-        if (empty($data['rs'])) {
-            return abort(404);
-        }
+        // if (empty($data['rs'])) {
+        //     return abort(404);
+        // }
 
         // SEO
         SEO::setTitle('อิโมจิไลน์ ' . $data['rs']->title);

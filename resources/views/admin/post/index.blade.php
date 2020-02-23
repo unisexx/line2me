@@ -14,12 +14,11 @@
         <div class="box-body">
 
             <div class="form-group">
-            <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ
-<?=DBToDate($new_arrival->created_at)?>
+            <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ <?=DBToDate($new_arrival->created_at)?>
 
 @if(count($sticker) != 0)
-===== สติ๊กเกอร์ไลน์ =====
 
+===== สติ๊กเกอร์ไลน์ =====
 <?foreach($sticker as $row):?>
 - [<?php echo $row->country?>] <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
 
@@ -28,10 +27,8 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 
 <?endforeach;?>
 @endif
-
 @if(count($emoji) != 0)
 ===== อีโมจิไลน์ =====
-
 <?foreach($emoji as $row):?>
 - [<?php echo $row->country?>] <?php echo $row->title?>
 
@@ -40,10 +37,8 @@ https://www.line2me.in.th/emoji/<?=$row->id?>
 
 <?endforeach;?>
 @endif
-
 @if(count($theme) != 0)
 ===== ธีมไลน์ =====
-
 <?foreach($theme as $row):?>
 - [<?php echo $row->country?>] <?php echo $row->title?>
 
@@ -53,15 +48,15 @@ https://www.line2me.in.th/theme/<?=$row->id?>
 <?endforeach;?>
 @endif
 
-
 สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
-https://line2me.in.th/new_arrival
+https://line2me.in.th/new_arrival/<?=$new_arrival->id?>
+
 
 หากเพื่อนๆสนใจสามารถติดต่อได้ที่ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
 https://line.me/ti/p/~ratasak1234
 
-*** สนใจสั่งซื้อแต่แอดไลน์ร้านค้าไม่ได้ เพื่อนเต็ม ***
-ให้ทิ้งคิวอาร์โค้ดไว้ที่เว็บ https://www.line2me.in.th แล้วทางเราจะติดต่อกลับไปไม่เกินครึ่งชั่วโมงครับ (ในเวลาทำการ)
+*** ถ้าแอดไลน์ร้านค้าไม่ได้ ***
+ให้ทิ้งคิวอาร์โค้ดไว้ที่เว็บ https://line2me.in.th/viewlineqrcode แล้วทางเราจะติดต่อกลับไปไม่เกินครึ่งชั่วโมงครับ (ในเวลาทำการ)
 
 สนใจชุดไหนสอบถามได้เลยนะครับ ^^
 ขอบคุณมากครับผม

@@ -329,7 +329,11 @@ class HomeController extends Controller
         SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, อัพเดท, เติมคำ');
         SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, อัพเดท, เติมคำ');
 
-        $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
+        if($id){
+            $data['new_arrival'] = NewArrival::findOrFail($id);
+        }else{
+            $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
+        }
 
         $data['sticker'] = Sticker::where('category', 'official')
             ->where('status', 'approve')

@@ -74,11 +74,11 @@ class ThemeController extends Controller
         //     return DB::table('themes')->find($id);
         // });
 
-        $data['rs'] = Theme::find($id);
+        $data['rs'] = Theme::findOrFail($id);
 
-        if (empty($data['rs'])) {
-            return abort(404);
-        }
+        // if (empty($data['rs'])) {
+        //     return abort(404);
+        // }
 
         // SEO
         SEO::setTitle('ธีมไลน์ ' . $data['rs']->title);
