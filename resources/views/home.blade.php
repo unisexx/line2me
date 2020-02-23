@@ -1,7 +1,8 @@
 @extends('layouts.front') @section('content')
 
-<div class="fh5co-narrow-content">
-	<a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a>
+<div class="fh5co-narrow-content single-item mb-4">
+	<div><a href="#"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="line2me.in.th"></a></div>
+  	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a></div>
 </div>
 
 
@@ -318,3 +319,25 @@
 </div>
 
 @endsection
+
+@push('css')
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+<style>
+.slick-prev:before, .slick-next:before{
+	color:#9e9e9e !important;
+}
+</style>
+@endpush
+
+@push('js')
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('.single-item').slick({
+		dots:true,
+		autoplay:true,
+	});
+});
+</script>
+@endpush

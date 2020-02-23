@@ -9,6 +9,7 @@
     <base href="{{ url('/') }}/"  />
     <!-- Meta & Css -->
     @include('include.front.meta')
+    @stack('css')
 </head>
 
 <body id="app-layout">
