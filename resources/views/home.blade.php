@@ -1,7 +1,7 @@
 @extends('layouts.front') @section('content')
 
 <div class="fh5co-narrow-content single-item mb-4">
-	<div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="line2me.in.th"></a></div>
+	<div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="โปรโมทสติ๊กเกอร์ไลน์"></a></div>
   	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a></div>
 </div>
 
