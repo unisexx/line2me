@@ -5,10 +5,23 @@
 <div class="fh5co-narrow-content">
 	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">สติ๊กเกอร์ไลน์ครีเอเตอร์</h2>
 
-	<select class="custom-select col-md-2 animate-box" data-animate-effect="fadeInLeft" onchange="location = '{{ Request::root() }}/sticker/creator/'+this.value;">
-		<option value="top" {{ Request::segment(3) == 'top' ? 'selected' : '' }}>ฮิต</option>
-		<option value="new" {{ Request::segment(3) == 'new' ? 'selected' : '' }}>ใหม่ล่าสุด</option>
-	</select>
+	<div class="row mb-3">
+		<div class="col">
+			<select class="custom-select animate-box" data-animate-effect="fadeInLeft" onchange="location = '{{ Request::root() }}/sticker/creator/{{ Request::segment(3) }}/'+this.value;">
+				<option value="top" {{ Request::segment(4) == 'top' ? 'selected' : '' }}>ฮิต</option>
+				<option value="new" {{ Request::segment(4) == 'new' ? 'selected' : '' }}>ใหม่ล่าสุด</option>
+			</select>
+		</div>
+		<div class="col">
+			<select class="custom-select animate-box" data-animate-effect="fadeInLeft" onchange="location = '{{ Request::root() }}/sticker/creator/'+this.value+'/{{ Request::segment(4) }}'">
+			<option value="all" {{ Request::segment(3) == 'all' ? 'selected' : '' }}>ทั้งหมด</option>
+				<option value="thai" {{ Request::segment(3) == 'thai' ? 'selected' : '' }}>ไทย</option>
+				<option value="oversea" {{ Request::segment(3) == 'oversea' ? 'selected' : '' }}>ต่างประเทศ</option>
+				<option value="japan" {{ Request::segment(3) == 'japan' ? 'selected' : '' }}>ญุี่ปุ่น</option>
+				<option value="taiwan" {{ Request::segment(3) == 'taiwan' ? 'selected' : '' }}>ไต้หวัน</option>
+			</select>
+		</div>
+	</div>
 
 	<div class="animate-box d-flex flex-wrap justify-content-around" data-animate-effect="fadeInLeft">
 		@foreach($sticker as $row)

@@ -17,7 +17,7 @@ body {
   font-weight: 300;
   font-size: 20px;
   line-height: 1.6;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 992px) {
@@ -142,7 +142,7 @@ figure {
 }
 
 #fh5co-aside #fh5co-main-menu ul li a {
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
   letter-spacing: 0.1em;
   text-transform: uppercase;

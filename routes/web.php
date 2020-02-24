@@ -60,7 +60,7 @@ Route::get('new_arrival/{param}', 'HomeController@new_arrival');
 // sticker
 Route::get('sticker/{id}', 'StickerController@getProduct');
 Route::get('sticker/official/{country}/{type}', 'StickerController@getOfficial');
-Route::get('sticker/creator/{type}', 'StickerController@getCreator');
+Route::get('sticker/creator/{country}/{type}', 'StickerController@getCreator');
 
 // theme
 Route::get('theme/{id}', 'ThemeController@getProduct');

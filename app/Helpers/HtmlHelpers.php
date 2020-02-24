@@ -171,3 +171,18 @@ if (!function_exists('notify_message')) {
         return $res;
     }
 }
+
+if (!function_exists('getCountryTh')) {
+    function getCountryTh($txt)
+    {
+        $countryArray = array(
+            'thai'      => 'ไทย',
+            'japan'     => 'ญี่ปุ่น',
+            'taiwan'    => 'ไต้หวัน',
+            'indonesia' => 'อินโดนีเซีย',
+            'oversea'   => 'ต่างประเทศ',
+        );
+
+        return @$countryArray[$txt];
+    }
+}

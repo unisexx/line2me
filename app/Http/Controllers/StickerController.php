@@ -31,12 +31,13 @@ class StickerController extends Controller
             ->where('status', 'approve')
             ->where('category', 'official')
             ->where(function ($q) use ($country) {
-
                 // ประเทศ : thai, oversea
-                if ($country == 'thai') {
-                    $q->where('country', 'global')->orWhere('country', 'thai');
-                } elseif ($country == 'oversea') {
-                    $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
+                if ($country == 'othercountry') {
+                    $q->whereNotIn('country', ['global','thai','japan','taiwan','indonesia']);
+                } elseif($country == 'oversea') {
+                    $q->whereNotIn('country', ['global','thai']);
+                } else {
+                    $q->where('country', $country);
                 }
             })
             ->orderBy($orderByField, 'desc')
@@ -45,7 +46,7 @@ class StickerController extends Controller
         return view('sticker.official', $data);
     }
 
-    public function getCreator($type)
+    public function getCreator($country, $type)
     {
         // SEO
         SEO::setTitle('สติ๊กเกอร์ไลน์ครีเอเตอร์ยอดนิยม');
@@ -59,8 +60,18 @@ class StickerController extends Controller
 
         $data['sticker'] = new Sticker;
         $data['sticker'] = $data['sticker']
-            ->where('category', 'creator')
             ->where('status', 'approve')
+            ->where(function ($q) use ($country) {
+                // ประเทศ : thai, oversea
+                if($country == 'all'){
+
+                } elseif($country == 'oversea') {
+                    $q->whereNotIn('country', ['global','thai']);
+                } else {
+                    $q->where('country', $country);
+                }
+            })
+            ->where('category', 'creator')
             ->orderBy($orderByField, 'desc')
             ->simplePaginate(30);
         return view('sticker.creator', $data);

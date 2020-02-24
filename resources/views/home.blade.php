@@ -1,7 +1,7 @@
 @extends('layouts.front') @section('content')
 
 <div class="fh5co-narrow-content single-item mb-4">
-	<div><a href="#"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="line2me.in.th"></a></div>
+	<div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="line2me.in.th"></a></div>
   	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a></div>
 </div>
 
@@ -9,8 +9,8 @@
 @if(count($sticker_promote) != 0)
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
-		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์แนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
+		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ขายดีแนะนำ</h2>
+		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
@@ -34,7 +34,7 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">อิโมจิไลน์แนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
+		{{-- <p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์คลิก ></a></p> --}}
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_promote as $row)
@@ -56,7 +56,7 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">ธีมไลน์แนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
+		{{-- <p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์คลิก ></a></p> --}}
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_promote as $row)
@@ -188,7 +188,7 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ครีเอเตอร์</h2>
-		<p class="text-right read-more-text"><a href="{{ url('sticker/creator/top') }}">ดูทั้งหมด ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('sticker/creator/all/top') }}">ดูทั้งหมด ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_creator as $row)
@@ -327,6 +327,9 @@
 .slick-prev:before, .slick-next:before{
 	color:#9e9e9e !important;
 }
+.slick-dots li button:before{
+	font-size: 13px;
+}
 </style>
 @endpush
 
@@ -337,6 +340,8 @@ $(document).ready(function(){
 	$('.single-item').slick({
 		dots:true,
 		autoplay:true,
+		speed: 1000,
+		autoplaySpeed: 5000,
 	});
 });
 </script>
