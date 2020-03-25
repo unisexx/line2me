@@ -100,6 +100,7 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::resource('promote', 'PromoteController');
     Route::resource('post', 'PostController');
     Route::resource('crawler', 'CrawlerController');
+    Route::resource('series', 'SeriesController');
 
     //Crawler
     Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');

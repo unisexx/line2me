@@ -156,6 +156,11 @@ return [
             'url'         => 'admin/crawler',
             'icon'        => 'file',
         ],
+        [
+            'text'        => 'Series',
+            'url'         => 'admin/series',
+            'icon'        => 'file',
+        ],
         // 'ACCOUNT SETTINGS',
         // [
         //     'text' => 'Profile',
