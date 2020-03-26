@@ -72,6 +72,10 @@ Route::get('emoji/{id}', 'EmojiController@getProduct');
 Route::get('emoji/official/{country}/{type}', 'EmojiController@getOfficial');
 Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
 
+// series
+Route::get('series', 'SeriesController@getIndex');
+Route::get('series/{id}', 'SeriesController@getDetail');
+
 //Crawler
 Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');
 Route::get('gettheme/{theme_code}', 'CrawlerController@gettheme');
@@ -100,6 +104,7 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::resource('promote', 'PromoteController');
     Route::resource('post', 'PostController');
     Route::resource('crawler', 'CrawlerController');
+    Route::resource('series', 'SeriesController');
 
     //Crawler
     Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');
