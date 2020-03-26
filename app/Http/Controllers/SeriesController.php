@@ -15,11 +15,12 @@ class SeriesController extends Controller
 		if (!empty($keyword)) {
 			$rs = $rs->where('title', 'LIKE', "%$keyword%");
 		}
-		$rs = $rs->orderBy('id','desc')->simplePaginate(30);
+		$rs = $rs->orderBy('updated_at','desc')->simplePaginate(30);
         return view('series.index', compact('rs'));
     }
 
-    public function getDetail(){
-
+    public function getDetail($id){
+        $rs = Series::firstOrFail($id);
+        return view('series.detail', compact('rs'));
     }
 }

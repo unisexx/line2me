@@ -53,6 +53,7 @@ class SeriesController extends Controller
 						'product_code' => $request->product_code[$i],
 						'product_type' => $request->product_type[$i],
 						'series_id' => $series->id,
+						'order' => ($i+1),
 					]
 				);
 			}
@@ -88,6 +89,7 @@ class SeriesController extends Controller
 						'product_code' => $request->product_code[$i],
 						'product_type' => $request->product_type[$i],
 						'series_id' => $id,
+						'order' => ($i+1),
 					]
 				);
 			}

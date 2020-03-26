@@ -21,6 +21,6 @@ class Series extends Model
 
     public function seriesItem()
     {
-        return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id');
+        return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id')->orderBy('order','asc');
     }
 }

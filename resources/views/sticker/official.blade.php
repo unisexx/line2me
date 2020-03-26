@@ -26,17 +26,7 @@
 
 	<div class="animate-box d-flex flex-wrap justify-content-around" data-animate-effect="fadeInLeft">
 		@foreach($sticker as $row)
-		<div class="work-item text-center">
-			{!! new_icon($row->created_at) !!}
-			<a href="{{ url('sticker/'.$row->sticker_code) }}">
-				<div class="sticker-image-cover">
-					<img src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $row->version }}/{{ $row->sticker_code }}/android/main.png" alt="สติ๊กเกอร์ไลน์ {{ $row->title_th }}" class="img-fluid">
-					{!! getStickerResourctTypeIcon($row->stickerresourcetype) !!}
-				</div>
-				<h3 class="fh5co-work-title">{{ $row->title_th }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ convert_line_coin_2_money($row->price) }} บาท</p>
-			</a>
-		</div>
+			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 		<div class="clearfix visible-md-block"></div>
 		{{ $sticker->appends(@$_GET)->render() }}

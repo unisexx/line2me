@@ -12,6 +12,7 @@ class SeriesItem extends Model
         'series_id',
         'product_code',
         'product_type',
+        'order',
     );
 
     public function sticker()
