@@ -5,7 +5,7 @@
         <ul>
             <li class="fh5co-active"><a href="home">หน้าแรก</a></li>
             <li><a href="{{ url('new_arrival') }}">อัพเดทล่าสุดประจำสัปดาห์</a></li>
-            <li><a href="{{ url('series') }}">รวมเซ็ตน่าสนใจ</a></li>
+            <li><a href="{{ url('series') }}">รวมชุดน่าสนใจ</a></li>
             <li><a href="{{ url('sticker/official/thai/top') }}">สติ๊กเกอร์ไลน์ทางการไทย</a></li>
             <li><a href="{{ url('sticker/official/oversea/top') }}">สติ๊กเกอร์ไลน์ต่างประเทศ</a></li>
             <li><a href="{{ url('sticker/creator/all/top') }}">สติ๊กเกอร์ไลน์ครีเอเตอร์</a></li>

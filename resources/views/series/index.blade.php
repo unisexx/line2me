@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>ลำดับ</th>
-                <th>ชื่อเซ็ต</th>
+                <th>ชุด</th>
                 <th>จำนวน</th>
             </tr>
         </thead>
