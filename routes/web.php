@@ -54,8 +54,8 @@ Route::get('search/{param}', 'HomeController@search');
 // Route::get('search2', 'HomeController@search2');
 
 // new arrival
-Route::get('new_arrival', 'HomeController@new_arrival');
-Route::get('new_arrival/{param}', 'HomeController@new_arrival');
+Route::get('new_arrival', 'NewArrivalController@getIndex');
+Route::get('new_arrival/{param}', 'NewArrivalController@getDetail');
 
 // sticker
 Route::get('sticker/{id}', 'StickerController@getProduct');

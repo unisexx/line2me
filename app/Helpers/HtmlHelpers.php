@@ -96,6 +96,17 @@ if (!function_exists('new_icon')) {
     }
 }
 
+if (!function_exists('new_badge')) {
+    function new_badge($created)
+    {
+        $end = Carbon::parse($created);
+        $now = Carbon::now();
+        $length = $end->diffInDays($now);
+        $new_icon = $length < 7 ? '<span class="badge badge-danger">New</span>' : '';
+        return $new_icon;
+    }
+}
+
 if (!function_exists('getStickerResourctTypeIcon')) {
     function getStickerResourctTypeIcon($resourceType = false)
     {
