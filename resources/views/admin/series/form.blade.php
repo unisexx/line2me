@@ -13,11 +13,11 @@
                 <tr>
                     <td>
                         @if($row->product_type == 'sticker')
-                            <a href="{{ url('sticker/'.@$row->sticker->id) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="45"></a>
+                            <a href="{{ url('sticker/'.@$row->sticker->id) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="45"></a> {{ @$row->sticker->id }}
                         @elseif($row->product_type == 'emoji')
-                            <a href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="45"></a>
+                            <a href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="45"></a> {{ @$row->emoji->id }}
                         @elseif($row->product_type == 'theme')
-                            <a href="{{ url('theme/'.@$row->theme->id) }}" target="_blank"><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png" height="60"></a>
+                            <a href="{{ url('theme/'.@$row->theme->id) }}" target="_blank"><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png" height="60"></a> {{ @$row->theme->id }}
                         @endif
                     </td>
                     <td>

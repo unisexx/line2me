@@ -197,3 +197,35 @@ if (!function_exists('getCountryTh')) {
         return @$countryArray[$txt];
     }
 }
+
+if (!function_exists('getCountryTh')) {
+    function getCountryTh($txt)
+    {
+        $countryArray = array(
+            'thai'      => 'ไทย',
+            'japan'     => 'ญี่ปุ่น',
+            'taiwan'    => 'ไต้หวัน',
+            'indonesia' => 'อินโดนีเซีย',
+            'oversea'   => 'ต่างประเทศ',
+        );
+
+        return @$countryArray[$txt];
+    }
+}
+
+if (!function_exists('getProductCodeFromStoreUrl')) {
+    function getProductCodeFromStoreUrl($url)
+    {
+        // $url = 'https://store.line.me/stickershop/product/7664414/th';
+        // $url = 'https://store.line.me/emojishop/product/5bc843d0031a6704f8cff721/th';
+        // $url = 'https://store.line.me/themeshop/product/7183fd71-6b22-414c-9873-d29c8e8393ed/th';
+
+        // ถ้า $url ที่ส่งเข้ามาเป็น url จริงๆ
+        if (filter_var($url, FILTER_VALIDATE_URL)) { 
+            $arr = explode('/', $url);
+            return $arr[5];
+        }else{
+            return $url;
+        }
+    }
+}

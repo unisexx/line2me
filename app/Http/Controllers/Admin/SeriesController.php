@@ -50,7 +50,7 @@ class SeriesController extends Controller
 						'id' => $request->product_item_id[$i],
 					],
 					[
-						'product_code' => $request->product_code[$i],
+						'product_code' => getProductCodeFromStoreUrl($request->product_code[$i]),
 						'product_type' => $request->product_type[$i],
 						'series_id' => $series->id,
 						'order' => ($i+1),
@@ -60,8 +60,8 @@ class SeriesController extends Controller
 		}
 
         set_notify('success', 'บันทึกข้อมูลสำเร็จ');
-		return redirect()->back();
-        // return redirect('admin/series');
+		// return redirect()->back();
+        return redirect('admin/series');
     }
 
 	public function edit($id)
@@ -86,7 +86,7 @@ class SeriesController extends Controller
 						'id' => $request->product_item_id[$i],
 					],
 					[
-						'product_code' => $request->product_code[$i],
+						'product_code' => getProductCodeFromStoreUrl($request->product_code[$i]),
 						'product_type' => $request->product_type[$i],
 						'series_id' => $id,
 						'order' => ($i+1),

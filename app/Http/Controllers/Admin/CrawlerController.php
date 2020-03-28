@@ -521,7 +521,7 @@ class CrawlerController extends Controller
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
         $q = array('query' => $txtSearch);
-        $api = 'https://store.line.me/api/search/sticker?' . http_build_query($q) . '&offset=0&limit=30&type=ALL&includeFacets=true';
+        $api = 'https://store.line.me/api/search/sticker?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
@@ -607,7 +607,7 @@ class CrawlerController extends Controller
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
         $q = array('query' => $txtSearch);
-        $api = 'https://store.line.me/api/search/theme?' . http_build_query($q) . '&offset=0&limit=30&type=ALL&includeFacets=true';
+        $api = 'https://store.line.me/api/search/theme?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
@@ -657,7 +657,7 @@ class CrawlerController extends Controller
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
         $q = array('query' => $txtSearch);
-        $api = 'https://store.line.me/api/search/emoji?' . http_build_query($q) . '&offset=0&limit=30&type=ALL&includeFacets=true';
+        $api = 'https://store.line.me/api/search/emoji?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
