@@ -5,7 +5,7 @@
         <ul>
             <li class="fh5co-active"><a href="home">หน้าแรก</a></li>
             <li><a href="{{ url('new_arrival') }}">อัพเดทล่าสุดประจำสัปดาห์</a></li>
-            <li><a href="{{ url('series') }}">รวมชุดน่าสนใจ</a></li>
+            <li><a href="{{ url('series') }}">รวมชุดน่าสนใจ <i class="fas fa-star fa-spin" style="color:#dc3545;"></i></a></li>
             <li><a href="{{ url('sticker/official/thai/top') }}">สติ๊กเกอร์ไลน์ทางการไทย</a></li>
             <li><a href="{{ url('sticker/official/oversea/top') }}">สติ๊กเกอร์ไลน์ต่างประเทศ</a></li>
             <li><a href="{{ url('sticker/creator/all/top') }}">สติ๊กเกอร์ไลน์ครีเอเตอร์</a></li>
@@ -39,10 +39,11 @@
             </small>
         </p>
         <ul>
-            <li><a href="https://www.facebook.com/line2me.in.th/" target="_blank"><i class="fab fa-facebook"></i></a></li>
-            <!-- <li><a href="#"><i class="icon-twitter"></i></a></li>
-            <li><a href="#"><i class="icon-instagram"></i></a></li>
-            <li><a href="#"><i class="icon-linkedin"></i></a></li> -->
+            <li><a href="https://www.facebook.com/line2me.in.th/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a></li>
+            <li><a href="https://twitter.com/Line2meT" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+            <li><a href="https://www.instagram.com/line2me.in.th/" target="_blank"><i class="fab fa-instagram fa-2x"></i></a></li>
+            <li><a href="https://www.youtube.com/channel/UC8hy66375UG-reWfJF59-BQ"><i class="fab fa-youtube fa-2x"></i></a></li>
+            <li><a href="https://www.pinterest.com/line2me/sticker-line/"><i class="fab fa-pinterest-square fa-2x"></i></a></li>
         </ul>
     </div>
 
