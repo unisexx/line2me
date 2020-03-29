@@ -23,4 +23,8 @@ class Series extends Model
     {
         return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id')->orderBy('order','asc');
     }
+
+    public function seriesItemFirst() {
+        return $this->hasOne('App\Models\SeriesItem')->orderBy('id','asc');
+    }
 }
