@@ -59,6 +59,9 @@ class SeriesController extends Controller
 			}
 		}
 
+		// ลบรายการที่อาจจะใส่ข้อมูลซ้ำ
+		deleteDuplicateSeriesItem($series->id);
+
         set_notify('success', 'บันทึกข้อมูลสำเร็จ');
 		// return redirect()->back();
         return redirect('admin/series');
@@ -94,6 +97,9 @@ class SeriesController extends Controller
 				);
 			}
 		}
+
+		// ลบรายการที่อาจจะใส่ข้อมูลซ้ำ
+		deleteDuplicateSeriesItem($id);
 
         set_notify('success', 'แก้ไขข้อมูลสำเร็จ');
         return redirect()->back();

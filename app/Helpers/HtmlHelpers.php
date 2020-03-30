@@ -233,3 +233,17 @@ if (!function_exists('getProductCodeFromStoreUrl')) {
         }
     }
 }
+
+if (!function_exists('deleteDuplicateSeriesItem')) {
+    function deleteDuplicateSeriesItem($series_id)
+    {
+        DB::unprepared('DELETE n1
+            FROM
+                series_items n1,
+                series_items n2
+            WHERE
+                n1.id > n2.id
+            AND n1.product_code = n2.product_code
+            AND n1.series_id = '.$series_id);
+    }
+}
