@@ -111,17 +111,19 @@ if (!function_exists('getStickerResourctTypeIcon')) {
     function getStickerResourctTypeIcon($resourceType = false)
     {
         if ($resourceType == "ANIMATION") {
-            return "<div class='iconProperty iconAnimation positionBottomRight icon-size-20'>ดุ๊กดิ๊ก</div>";
+            return "<div class='iconProperty iconAnimation positionBottomRight icon-size-20'>สติกเกอร์ดุ๊กดิ๊ก</div>";
         } elseif ($resourceType == "SOUND") {
-            return "<div class='iconProperty iconSound positionBottomRight icon-size-20'>มีเสียง</div>";
+            return "<div class='iconProperty iconSound positionBottomRight icon-size-20'>สติกเกอร์มีเสียง</div>";
         } elseif ($resourceType == "ANIMATION_SOUND") {
-            return "<div class='iconProperty iconAnimationSound positionBottomRight icon-size-20'>ดุ๊กดิ๊กและมีเสียง</div>";
+            return "<div class='iconProperty iconAnimationSound positionBottomRight icon-size-20'>สติกเกอร์ดุ๊กดิ๊กและมีเสียง</div>";
         } elseif ($resourceType == "POPUP") {
-            return "<div class='iconProperty iconPopup positionBottomRight icon-size-20'>ป๊อปอัพ</div>";
+            return "<div class='iconProperty iconPopup positionBottomRight icon-size-20'>สติกเกอร์ป๊อปอัพ</div>";
         } elseif ($resourceType == "POPUP_SOUND") {
-            return "<div class='iconProperty iconPopupSound positionBottomRight icon-size-20'>ป๊อปอัพและมีเสียง</div>";
+            return "<div class='iconProperty iconPopupSound positionBottomRight icon-size-20'>สติกเกอร์ป๊อปอัพและมีเสียง</div>";
         } elseif ($resourceType == "NAME_TEXT") {
-            return "<div class='iconProperty iconNameText positionBottomRight icon-size-20'>เติมคำ</div>";
+            return "<div class='iconProperty iconNameText positionBottomRight icon-size-20'>สติกเกอร์เติมคำ</div>";
+        } elseif ($resourceType == "PER_STICKER_TEXT") {
+            return "<div class='iconProperty iconNameText positionBottomRight icon-size-20'>สติกเกอร์ข้อความ</div>";
         } elseif ($resourceType == "STATIC") {
         }
     }
@@ -131,17 +133,19 @@ if (!function_exists('getStickerResourctTypeName')) {
     function getStickerResourctTypeName($resourceType = false)
     {
         if ($resourceType == "ANIMATION") {
-            return "(ดุ๊กดิ๊ก)";
+            return "(สติกเกอร์ดุ๊กดิ๊ก)";
         } elseif ($resourceType == "SOUND") {
-            return "(มีเสียง)";
+            return "(สติกเกอร์มีเสียง)";
         } elseif ($resourceType == "ANIMATION_SOUND") {
-            return "(ดุ๊กดิ๊กและมีเสียง)";
+            return "(สติกเกอร์ดุ๊กดิ๊กและมีเสียง)";
         } elseif ($resourceType == "POPUP") {
-            return "(ป๊อปอัพ)";
+            return "(สติกเกอร์ป๊อปอัพ)";
         } elseif ($resourceType == "POPUP_SOUND") {
-            return "(ป๊อปอัพและมีเสียง)";
+            return "(สติกเกอร์ป๊อปอัพและมีเสียง)";
         } elseif ($resourceType == "NAME_TEXT") {
-            return "(เติมคำ)";
+            return "(สติกเกอร์เติมคำ)";
+        } elseif ($resourceType == "PER_STICKER_TEXT") {
+            return "(สติกเกอร์ข้อความ)";
         } elseif ($resourceType == "STATIC") {
         }
     }

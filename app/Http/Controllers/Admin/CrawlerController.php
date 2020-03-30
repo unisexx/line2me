@@ -282,7 +282,7 @@ class CrawlerController extends Controller
 
                 // หาเวอร์ชั่นของสติ๊กเกอร์โดยวิเคราะห์จาก url ของรูปสติ๊กเกอร์
                 // $image = trim($crawler_page->filter('div.mdCMN08Img > img')->attr('src'));
-                $image = trim($crawler_page->filter('img.FnImage')->attr('src'));
+                $image = trim($crawler_page->filter('.mdCMN38Img > img')->attr('src'));
                 $image = explode("/", $image);
                 $version = str_replace('v', '', $image[4]);
 

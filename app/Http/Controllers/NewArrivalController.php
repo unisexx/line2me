@@ -29,7 +29,7 @@ class NewArrivalController extends Controller
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
-                ->get();
+                ->orderBy('title_th', 'desc')->get();
 
         $data['theme'] = Theme::where('category', 'official')
             ->where('status', 'approve')

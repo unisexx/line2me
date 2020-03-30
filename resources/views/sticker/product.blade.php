@@ -55,7 +55,7 @@
 				<ul class="list-inline">
 					@for($x = $rs->stamp_start; $x <= $rs->stamp_end; $x++)
 					@php
-						if($rs->stickerresourcetype == 'SOUND' || $rs->stickerresourcetype == 'STATIC'  || $rs->stickerresourcetype == 'NAME_TEXT'){
+						if($rs->stickerresourcetype == 'SOUND' || $rs->stickerresourcetype == 'STATIC' || $rs->stickerresourcetype == 'NAME_TEXT' || $rs->stickerresourcetype == 'PER_STICKER_TEXT'){
 							$data_animation = "https://stickershop.line-scdn.net/stickershop/v1/sticker/".$x."/android/sticker.png;compress=true";
 						}elseif($rs->stickerresourcetype == 'POPUP' || $rs->stickerresourcetype == 'POPUP_SOUND'){
 							$data_animation = "https://stickershop.line-scdn.net/stickershop/v1/sticker/".$x."/IOS/sticker_popup.png;compress=true";
