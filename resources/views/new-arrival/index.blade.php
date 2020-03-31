@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="fh5co-narrow-content">
-	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">รวมสติ๊กเกอร์ไลน์ทางการอัพเดท</h2>
+	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">รวมสติ๊กเกอร์ไลน์ทางการอัพเดทใหม่ล่าสุด</h2>
 
 	<table class="table table-striped">
         <thead>

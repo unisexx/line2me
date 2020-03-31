@@ -19,6 +19,8 @@ class NewArrivalController extends Controller
 			$rs = $rs->where('title', 'LIKE', "%$keyword%");
 		}
 		$rs = $rs->orderBy('id','desc')->simplePaginate(30);
+
+        SEO::setTitle('รวมสติ๊กเกอร์ไลน์ทางการอัพเดทใหม่ล่าสุด');
         return view('new-arrival.index', compact('rs'));
     }
 
@@ -43,6 +45,7 @@ class NewArrivalController extends Controller
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
 
+        SEO::setTitle('สติ๊กเกอร์ไลน์, อิโมจิไลน์, ธีมไลน์มาใหม่ '. DBToDate($data['new_arrival']->created_at));
         return view('new-arrival.detail', $data);
     }
 }
