@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Series extends Model
 {
     protected $table = 'series';
-    protected $fillable = array('title');
+    protected $fillable = array('title', 'hilight');
 
     // this is a recommended way to declare event handlers
     public static function boot() {

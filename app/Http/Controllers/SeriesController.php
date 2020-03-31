@@ -15,7 +15,7 @@ class SeriesController extends Controller
 		if (!empty($keyword)) {
 			$rs = $rs->where('title', 'LIKE', "%$keyword%");
 		}
-		$rs = $rs->orderBy('updated_at','desc')->simplePaginate(30);
+		$rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at','desc')->simplePaginate(30);
         return view('series.index', compact('rs'));
     }
 

@@ -2,6 +2,12 @@
     <div class="form-group">
         <label for="title">ชื่อ Series</label>
         <input name="title" type="text" class="form-control" id="title" value="{{ @$rs->title }}">
+        <div class="checkbox">
+            <label>
+                <input name="hilight" type="hidden" value="0" checked>
+                <input name="hilight" type="checkbox" value="1" @if(@$rs->hilight == 1) checked @endif> ไฮไลท์
+            </label>
+        </div>
     </div>
     <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ">
 

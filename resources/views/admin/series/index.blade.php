@@ -42,7 +42,10 @@
                     <tr>
                         <td>
                             <a href="{{ url('/admin/series/' . $row->id . '/edit') }}">
-                                {{ $row->title }}
+                                {{ $row->title }} 
+                                @if($row->hilight == 1)
+                                    <i class="fas fa-star fa-spin" style="color:#dc3545;"></i>
+                                @endif
                             </a>
                         </td>
                         <td>{{ $row->seriesItem->count() }}</td>

@@ -27,7 +27,7 @@ class SeriesController extends Controller
 			$rs = $rs->where('title', 'LIKE', "%$keyword%");
 		}
 
-		$rs = $rs->orderBy('id','desc')->simplePaginate(30);
+		$rs = $rs->orderBY('hilight', 'desc')->orderBy('id','desc')->simplePaginate(30);
 
 
         return view('admin.series.index', compact('rs'));
