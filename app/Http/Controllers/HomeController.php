@@ -75,7 +75,7 @@ class HomeController extends Controller
             ->where('status', 'approve')
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
-                ->orderBy('title_th', 'desc')->get();
+                ->orderByRaw("FIELD(country,'thai','japan','taiwan','indonesia') asc")->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
