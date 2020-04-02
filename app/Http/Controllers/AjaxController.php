@@ -6,7 +6,9 @@ use App\Models\StickerView;
 use DB;
 use Goutte;
 use Illuminate\Http\Request;
-use Libern\QRCodeReader\lib\QrReader;
+
+use Zxing\QrReader;
+
 use Session;
 
 class AjaxController extends Controller
