@@ -244,6 +244,7 @@ if (!function_exists('deleteDuplicateSeriesItem')) {
             WHERE
                 n1.id > n2.id
             AND n1.product_code = n2.product_code
-            AND n1.series_id = '.$series_id);
+            AND n1.series_id = '.$series_id.'
+            AND n2.series_id = '.$series_id);
     }
 }
