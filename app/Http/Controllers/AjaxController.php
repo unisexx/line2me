@@ -7,7 +7,7 @@ use DB;
 use Goutte;
 use Illuminate\Http\Request;
 
-use Zxing\QrReader;
+use Libern\QRCodeReader\lib\QrReader;
 
 use Session;
 
