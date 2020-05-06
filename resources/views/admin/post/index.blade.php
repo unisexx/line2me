@@ -58,11 +58,14 @@ https://line.me/ti/p/~@line2me.in.th
 สนใจชุดไหนสอบถามได้เลยนะครับ ^^
 ขอบคุณมากครับผม
 
+===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
+https://line2me.in.th/series/24
+
 ===== โปรโมชั่นสำหรับครีเอเตอร์ =====
 สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
 https://line2me.in.th/page/view/8
 
-ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
+ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS แบบพรีเมี่ยม
 #line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
             </div>
 
@@ -121,7 +124,7 @@ https://line2me.in.th/page/view/8
 
 https://www.line2me.in.th
 
-ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
+ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS แบบพรีเมี่ยม
 #line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
             </div>
 
