@@ -40,8 +40,11 @@ http://line.me/ti/p/~@line2me.in.th
 ขอบคุณมากครับ ^^
 
 สามารถดูลายของธีมได้ที่ 
-line://shop/theme/detail?id={{ $rs->theme_code }}
+{{-- line://shop/theme/detail?id={{ $rs->theme_code }} --}}
 http://www.line2me.in.th/theme/{{ $rs->id }}
+
+===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
+https://line2me.in.th/series/24
 
 ---------------------------
 โสด เหงา หาเพื่อน หาแฟน แลกไอดีไลน์
@@ -68,6 +71,8 @@ http://line.me/ti/p/~@line2me.in.th
 
 ขอบคุณมากครับ ^^
 
+===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
+https://line2me.in.th/series/24
 
 ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
 #line2me #ของแท้ไม่มีหาย #LVS0157

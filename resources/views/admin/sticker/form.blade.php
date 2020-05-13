@@ -56,6 +56,9 @@ http://line.me/ti/p/~@line2me.in.th
 
 ขอบคุณมากครับ ^^
 
+===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
+https://line2me.in.th/series/24
+
 ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
 #line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
     </div>
