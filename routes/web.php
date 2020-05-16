@@ -118,4 +118,7 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::get('getstickerstoresearch/{txtsearch}', 'CrawlerController@getstickerstoresearch');
     Route::get('getthemestoresearch/{txtsearch}', 'CrawlerController@getthemestoresearch');
     Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
+
+    // ปรับปรุงโค้ดใหม่ 2563
+    Route::get('getstickerstore63/{type}/{category}/{page}', 'CrawlerController@getstickerstore63');
 });
