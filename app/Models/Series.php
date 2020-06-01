@@ -14,7 +14,7 @@ class Series extends Model
         parent::boot();
 
         static::deleting(function($series) { // before delete() method call this
-             $series->seriesItem()->delete();
+            $series->seriesItem()->delete();
              // do the rest of the cleanup...
         });
     }

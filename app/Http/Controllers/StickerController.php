@@ -28,7 +28,7 @@ class StickerController extends Controller
 
         $data['sticker'] = new Sticker;
         $data['sticker'] = $data['sticker']
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) use ($country) {
                 // ประเทศ : thai, oversea
@@ -60,7 +60,7 @@ class StickerController extends Controller
 
         $data['sticker'] = new Sticker;
         $data['sticker'] = $data['sticker']
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where(function ($q) use ($country) {
                 // ประเทศ : thai, oversea
                 if($country == 'all'){

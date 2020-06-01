@@ -72,21 +72,21 @@ class HomeController extends Controller
         $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
         // สตื๊กเกอร์ไลน์อัพเดท
         $data['sticker_update'] = Sticker::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->orderByRaw("FIELD(country,'thai','japan','taiwan','indonesia') asc")->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
 
         // อิโมจิอัพเดท
         $data['emoji_update'] = Emoji::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
@@ -94,7 +94,7 @@ class HomeController extends Controller
         // สติ๊กเกอร์ไลน์ทางการ (ไทย)
         $data['sticker_official_thai'] = new Sticker;
         $data['sticker_official_thai'] = $data['sticker_official_thai']
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) {
                 $q->where('country', 'global')->orWhere('country', 'thai');
@@ -106,7 +106,7 @@ class HomeController extends Controller
         // สติ๊กเกอร์ไลน์ทางการ (ต่างประเทศ)
         $data['sticker_official_oversea'] = new Sticker;
         $data['sticker_official_oversea'] = $data['sticker_official_oversea']
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) {
                 $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
@@ -119,7 +119,7 @@ class HomeController extends Controller
         $data['sticker_creator'] = new Sticker;
         $data['sticker_creator'] = $data['sticker_creator']
             ->where('category', 'creator')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->orderBy('threedays', 'desc')
             ->take(12)
             ->get();
@@ -128,7 +128,7 @@ class HomeController extends Controller
         $data['theme_official_thai'] = new Theme;
         $data['theme_official_thai'] = $data['theme_official_thai']
             ->where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where(function ($q) {
                 $q->where('country', 'global')->orWhere('country', 'thai');
             })
@@ -140,7 +140,7 @@ class HomeController extends Controller
         $data['theme_official_oversea'] = new Theme;
         $data['theme_official_oversea'] = $data['theme_official_oversea']
             ->where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where(function ($q) {
                 $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
             })
@@ -152,7 +152,7 @@ class HomeController extends Controller
         $data['theme_creator'] = new Theme;
         $data['theme_creator'] = $data['theme_creator']
             ->where('category', 'creator')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->orderBy('threedays', 'desc')
             ->take(12)
             ->get();
@@ -161,7 +161,7 @@ class HomeController extends Controller
         $data['emoji_official_thai'] = new Emoji;
         $data['emoji_official_thai'] = $data['emoji_official_thai']
             ->where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where(function ($q) {
                 $q->where('country', 'global')->orWhere('country', 'thai');
             })
@@ -173,7 +173,7 @@ class HomeController extends Controller
         $data['emoji_official_oversea'] = new Emoji;
         $data['emoji_official_oversea'] = $data['emoji_official_oversea']
             ->where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where(function ($q) {
                 $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
             })
@@ -185,7 +185,7 @@ class HomeController extends Controller
         $data['emoji_creator'] = new Emoji;
         $data['emoji_creator'] = $data['emoji_creator']
             ->where('category', 'creator')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->orderBy('threedays', 'desc')
             ->take(12)
             ->get();
@@ -211,7 +211,7 @@ class HomeController extends Controller
 
             if (!empty($_GET['q'])) {
                 $data['search'] = $data['search']
-                    ->where('status', 'approve')
+                    ->where('status', 1)
                     ->where(function ($q) use ($type) {
                         if ($type == 'sticker') {
                             $q->where('title_th', 'like', '%' . $_GET['q'] . '%')
@@ -243,7 +243,7 @@ class HomeController extends Controller
 
             if (!empty($_GET['q'])) {
                 $data['sticker'] = $data['sticker']
-                    ->where('status', 'approve')
+                    ->where('status', 1)
                     ->where(function ($q) {
                         $q->where('title_th', 'like', '%' . $_GET['q'] . '%')
                             ->orWhere('title_en', 'like', '%' . $_GET['q'] . '%');
@@ -265,7 +265,7 @@ class HomeController extends Controller
 
             if (!empty($_GET['q'])) {
                 $data['theme'] = $data['theme']
-                    ->where('status', 'approve')
+                    ->where('status', 1)
                     ->where('title', 'like', '%' . $_GET['q'] . '%');
             }
 
@@ -283,7 +283,7 @@ class HomeController extends Controller
 
             if (!empty($_GET['q'])) {
                 $data['emoji'] = $data['emoji']
-                    ->where('status', 'approve')
+                    ->where('status', 1)
                     ->where('title', 'like', '%' . $_GET['q'] . '%');
             }
 
@@ -336,19 +336,19 @@ class HomeController extends Controller
         }
 
         $data['sticker'] = Sticker::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
 
         $data['theme'] = Theme::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
 
         $data['emoji'] = Emoji::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
@@ -388,4 +388,12 @@ class HomeController extends Controller
     // public function info(){
     //     echo phpinfo();
     // }
+
+    public function xxx(){
+        Emoji::where('status', 'approve')->chunk(100, function ($emojis) {
+            foreach ($emojis as $emoji) {
+                $emoji->update(['status' => 1]);
+            }
+        });
+    }
 }

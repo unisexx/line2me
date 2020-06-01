@@ -28,19 +28,19 @@ class NewArrivalController extends Controller
         $data['new_arrival'] = NewArrival::findOrFail($id);
 
         $data['sticker'] = Sticker::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->orderByRaw("FIELD(country,'thai','japan','taiwan','indonesia') asc")->get();
 
         $data['theme'] = Theme::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();
 
         $data['emoji'] = Emoji::where('category', 'official')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
                 ->get();

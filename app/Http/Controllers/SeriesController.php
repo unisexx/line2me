@@ -22,7 +22,7 @@ class SeriesController extends Controller
     }
 
     public function getDetail($id){
-        $rs = Series::findOrFail($id);
+        $rs = Series::with('seriesItem')->findOrFail($id);
         $rs->touch();
 
         // SEO

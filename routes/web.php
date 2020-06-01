@@ -32,6 +32,7 @@ Route::get('test-email', 'JobController@enqueue');
 // home
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
+Route::get('xxx', 'HomeController@xxx');
 
 // ajax
 Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');

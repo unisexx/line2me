@@ -120,7 +120,7 @@ class CrawlerController extends Controller
                     'category'            => 'creator',
                     'country'             => 'thai',
                     'price'               => $price,
-                    'status'              => 'approve',
+                    'status'              => 1,
                     'onsale'              => $onsale,
                     'validdays'           => $validdays,
                     'hasanimation'        => $hasanimation,
@@ -172,7 +172,7 @@ class CrawlerController extends Controller
                     'category'   => 'creator',
                     'country'    => 'thai',
                     'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-                    'status'     => 'approve',
+                    'status'     => 1,
                 ]
             );
 
@@ -215,7 +215,7 @@ class CrawlerController extends Controller
                     'category'     => 'creator',
                     'country'      => 'thai',
                     'price'        => $price,
-                    'status'       => 'approve',
+                    'status'       => 1,
                 ]
             );
 
@@ -333,7 +333,7 @@ class CrawlerController extends Controller
                         'category'            => $category,
                         'country'             => $country,
                         'price'               => $price,
-                        'status'              => 'approve',
+                        'status'              => 1,
                         'onsale'              => $onsale,
                         'validdays'           => $validdays,
                         'hasanimation'        => $hasanimation,
@@ -416,7 +416,7 @@ class CrawlerController extends Controller
                         'category'   => $category,
                         'country'    => 'thai',
                         'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-                        'status'     => 'approve',
+                        'status'     => 1,
                     ]
                 );
 
@@ -491,7 +491,7 @@ class CrawlerController extends Controller
                         'country'      => $country,
                         'slug'         => Str::slug($title, '-'),
                         'price'        => $price,
-                        'status'       => 'approve',
+                        'status'       => 1,
                     ]
                 );
 
@@ -582,7 +582,7 @@ class CrawlerController extends Controller
                     'hasanimation'        => @$meta['hasAnimation'],
                     'hassound'            => @$meta['hasSound'],
                     'stickerresourcetype' => @$meta['stickerResourceType'],
-                    'status'              => 'approve',
+                    'status'              => 1,
                     'created_at'          => date("Y-m-d H:i:s"),
                     'updated_at'          => date("Y-m-d H:i:s"),
                     'stamp_start'         => reset($stamp)['stamp_code'],
@@ -636,7 +636,7 @@ class CrawlerController extends Controller
                     'category'   => $categoryArray[$row['subtype']],
                     'country'    => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
                     'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-                    'status'     => 'approve',
+                    'status'     => 1,
                 ];
             }
         }
@@ -685,7 +685,7 @@ class CrawlerController extends Controller
                     'category'     => $categoryArray[$row['subtype']],
                     'country'      => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
                     'price'        => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-                    'status'       => 'approve',
+                    'status'       => 1,
                 ];
             }
         }
@@ -766,7 +766,7 @@ class CrawlerController extends Controller
                         'category'            => $category,
                         'country'             => "thai",
                         'price'               => @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3)),
-                        'status'              => 'approve',
+                        'status'              => 1,
                         'onsale'              => $productInfo['onSale'],
                         'validdays'           => $productInfo['validDays'],
                         'hasanimation'        => @$productInfo['hasAnimation'],

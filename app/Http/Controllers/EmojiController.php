@@ -29,7 +29,7 @@ class EmojiController extends Controller
 
         $data['emoji'] = new Emoji;
         $data['emoji'] = $data['emoji']
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) use ($country) {
 
@@ -61,7 +61,7 @@ class EmojiController extends Controller
         $data['emoji'] = new Emoji;
         $data['emoji'] = $data['emoji']
             ->where('category', 'creator')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->orderBy($orderByField, 'desc')
             ->simplePaginate(30);
         return view('emoji.creator', $data);

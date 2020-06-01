@@ -29,7 +29,7 @@ class ThemeController extends Controller
 
         $data['theme'] = new Theme;
         $data['theme'] = $data['theme']
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) use ($country) {
 
@@ -61,7 +61,7 @@ class ThemeController extends Controller
         $data['theme'] = new Theme;
         $data['theme'] = $data['theme']
             ->where('category', 'creator')
-            ->where('status', 'approve')
+            ->where('status', 1)
             ->orderBy($orderByField, 'desc')
             ->simplePaginate(30);
         return view('theme.creator', $data);
