@@ -167,8 +167,10 @@ if (!function_exists('getCountry')) {
 }
 
 if (!function_exists('notify_message')) {
-    function notify_message($message,$token)
+    function notify_message($message)
     {
+        define('LINE_API', "https://notify-api.line.me/api/notify");
+        $token = "fgpdbSIKtGe7oFP6kHK7HNs9gAwmErkViRwnMzBajnj";
         $queryData = array('message' => $message);
         $queryData = http_build_query($queryData,'','&');
         $headerOptions = array( 

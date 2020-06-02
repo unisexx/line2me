@@ -97,11 +97,8 @@ class AjaxController extends Controller
             $text = $qrcode->text();
         }
 
-        define('LINE_API', "https://notify-api.line.me/api/notify");
-        $token = "Jy0xG1Aobu42NniqD0EwA7bOwqCDj16BP69WuED1SlM"; //ใส่Token ที่copy เอาไว้
-
         if ($text) {
-            $res = notify_message($text, $token);
+            $res = notify_message($text);
             print_r($res);
         } else {
             return "false";
