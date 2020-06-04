@@ -75,7 +75,7 @@ class HomeController extends Controller
             ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']
                     ->start_date, $data['new_arrival']->end_date])
-                ->orderByRaw("FIELD(country,'thai','japan','taiwan','indonesia') asc")->get();
+                ->orderByRaw("FIELD(country,'th','jp','tw','id') asc")->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
@@ -97,7 +97,7 @@ class HomeController extends Controller
             ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) {
-                $q->where('country', 'global')->orWhere('country', 'thai');
+                $q->where('country', 'gb')->orWhere('country', 'th');
             })
             ->orderBy('threedays', 'desc')
             ->take(12)
@@ -109,7 +109,7 @@ class HomeController extends Controller
             ->where('status', 1)
             ->where('category', 'official')
             ->where(function ($q) {
-                $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
+                $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
             })
             ->orderBy('threedays', 'desc')
             ->take(12)
@@ -130,7 +130,7 @@ class HomeController extends Controller
             ->where('category', 'official')
             ->where('status', 1)
             ->where(function ($q) {
-                $q->where('country', 'global')->orWhere('country', 'thai');
+                $q->where('country', 'gb')->orWhere('country', 'th');
             })
             ->orderBy('threedays', 'desc')
             ->take(12)
@@ -142,7 +142,7 @@ class HomeController extends Controller
             ->where('category', 'official')
             ->where('status', 1)
             ->where(function ($q) {
-                $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
+                $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
             })
             ->orderBy('threedays', 'desc')
             ->take(12)
@@ -163,7 +163,7 @@ class HomeController extends Controller
             ->where('category', 'official')
             ->where('status', 1)
             ->where(function ($q) {
-                $q->where('country', 'global')->orWhere('country', 'thai');
+                $q->where('country', 'gb')->orWhere('country', 'th');
             })
             ->orderBy('threedays', 'desc')
             ->take(12)
@@ -175,7 +175,7 @@ class HomeController extends Controller
             ->where('category', 'official')
             ->where('status', 1)
             ->where(function ($q) {
-                $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
+                $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
             })
             ->orderBy('threedays', 'desc')
             ->take(12)

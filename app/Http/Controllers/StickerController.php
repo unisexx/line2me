@@ -33,9 +33,9 @@ class StickerController extends Controller
             ->where(function ($q) use ($country) {
                 // ประเทศ : thai, oversea
                 if ($country == 'othercountry') {
-                    $q->whereNotIn('country', ['global','thai','japan','taiwan','indonesia']);
+                    $q->whereNotIn('country', ['gb','th','jp','tw','id']);
                 } elseif($country == 'oversea') {
-                    $q->whereNotIn('country', ['global','thai']);
+                    $q->whereNotIn('country', ['gb','th']);
                 } else {
                     $q->where('country', $country);
                 }
@@ -66,7 +66,7 @@ class StickerController extends Controller
                 if($country == 'all'){
 
                 } elseif($country == 'oversea') {
-                    $q->whereNotIn('country', ['global','thai']);
+                    $q->whereNotIn('country', ['gb','th']);
                 } else {
                     $q->where('country', $country);
                 }

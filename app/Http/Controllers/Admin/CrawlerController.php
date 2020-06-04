@@ -98,7 +98,7 @@ class CrawlerController extends Controller
             $sticker_code = $sticker_code;
             $created = date("Y-m-d H:i:s");
             $price = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
-            $country = "thai";
+            $country = "th";
             $stamp_start = reset($data)['stamp_code'];
             $stamp_end = end($data)['stamp_code'];
 
@@ -118,7 +118,7 @@ class CrawlerController extends Controller
                     'credit'              => $credit,
                     'created_at'          => date("Y-m-d H:i:s"),
                     'category'            => 'creator',
-                    'country'             => 'thai',
+                    'country'             => 'th',
                     'price'               => $price,
                     'status'              => 1,
                     'onsale'              => $onsale,
@@ -170,7 +170,7 @@ class CrawlerController extends Controller
                     'credit'     => $credit,
                     'created_at' => date("Y-m-d H:i:s"),
                     'category'   => 'creator',
-                    'country'    => 'thai',
+                    'country'    => 'th',
                     'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                     'status'     => 1,
                 ]
@@ -201,7 +201,7 @@ class CrawlerController extends Controller
             $title = trim($crawler_page->filter('h3.mdCMN08Ttl')->text());
             $creator_name = trim($crawler_page->filter('p.mdCMN08Copy')->text());
             $detail = trim($crawler_page->filter('p.mdCMN08Desc')->text());
-            $country = "global";
+            $country = "gb";
             $price = substr(trim($crawler_page->filter('p.mdCMN08Price')->text()), 0, -3);
 
             // insert ลง db
@@ -213,7 +213,7 @@ class CrawlerController extends Controller
                     'creator_name' => $creator_name,
                     'created_at'   => date("Y-m-d H:i:s"),
                     'category'     => 'creator',
-                    'country'      => 'thai',
+                    'country'      => 'gb',
                     'price'        => $price,
                     'status'       => 1,
                 ]
@@ -311,7 +311,7 @@ class CrawlerController extends Controller
                 $sticker_code = $sticker_code;
                 $created = date("Y-m-d H:i:s");
                 $price = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
-                $country = "thai";
+                $country = "th";
                 $stamp_start = reset($data)['stamp_code'];
                 $stamp_end = end($data)['stamp_code'];
 
@@ -414,7 +414,7 @@ class CrawlerController extends Controller
                         'credit'     => $credit,
                         'created_at' => date("Y-m-d H:i:s"),
                         'category'   => $category,
-                        'country'    => 'thai',
+                        'country'    => 'th',
                         'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                         'status'     => 1,
                     ]
@@ -475,7 +475,7 @@ class CrawlerController extends Controller
                 $title = trim($crawler_page->filter('h3.mdCMN08Ttl')->text());
                 $creator_name = trim($crawler_page->filter('p.mdCMN08Copy')->text());
                 $detail = trim($crawler_page->filter('p.mdCMN08Desc')->text());
-                $country = "global";
+                $country = "gb";
                 $txtprice = trim($crawler_page->filter('p.mdCMN08Price')->text());
                 $price = (int) filter_var($txtprice, FILTER_SANITIZE_NUMBER_INT);
 
@@ -764,7 +764,7 @@ class CrawlerController extends Controller
                         'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
                         'created_at'          => date("Y-m-d H:i:s"),
                         'category'            => $category,
-                        'country'             => "thai",
+                        'country'             => "th",
                         'price'               => @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3)),
                         'status'              => 1,
                         'onsale'              => $productInfo['onSale'],

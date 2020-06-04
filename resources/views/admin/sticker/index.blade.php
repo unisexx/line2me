@@ -49,7 +49,7 @@
                     @foreach($rs as $key=>$row)
                     <tr>
                         <td>
-                            <input class="switch_status" type="checkbox" data-toggle="toggle" data-switch-id="<?php echo $row->id?>" <?php echo $row->status == 'approve' ? 'checked' : '' ;?>>
+                            <input class="switch_status" type="checkbox" data-toggle="toggle" data-switch-id="<?php echo $row->id?>" <?php echo $row->status == '1' ? 'checked' : '' ;?>>
                         </td>
                         <td>
                             <select name="category" rowid=<?=$row->id?>>
@@ -59,11 +59,11 @@
                         </td>
                         <td>
                             <select name="country" rowid=<?=$row->id?>>
-                                <option value="global" <?php echo ($row->country == 'global')?'selected=selected':'';?>>ทั่วโลก</option>
-                                <option value="thai" <?php echo ($row->country == 'thai')?'selected=selected':'';?>>ไทย</option>
-                                <option value="japan" <?php echo ($row->country == 'japan')?'selected=selected':'';?>>ญี่ปุ่น</option>
-                                <option value="taiwan" <?php echo ($row->country == 'taiwan')?'selected=selected':'';?>>ไต้หวัน</option>
-                                <option value="indonesia" <?php echo ($row->country == 'indonesia')?'selected=selected':'';?>>อินโดนีเซีย</option>
+                                <option value="gb" <?php echo ($row->country == 'gb')?'selected=selected':'';?>>ทั่วโลก</option>
+                                <option value="th" <?php echo ($row->country == 'th')?'selected=selected':'';?>>ไทย</option>
+                                <option value="jp" <?php echo ($row->country == 'jp')?'selected=selected':'';?>>ญี่ปุ่น</option>
+                                <option value="tw" <?php echo ($row->country == 'tw')?'selected=selected':'';?>>ไต้หวัน</option>
+                                <option value="id" <?php echo ($row->country == 'id')?'selected=selected':'';?>>อินโดนีเซีย</option>
                             </select>
                         </td>
                         <td>{{ $row->sticker_code }}</td>

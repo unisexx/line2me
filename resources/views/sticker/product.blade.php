@@ -19,7 +19,7 @@
 			<ul>
 				<li>ราคา : {{ convert_line_coin_2_money($rs->price) }} บาท</li>
 				<li>ประเภท : {{ $rs->category }}</li>
-				<li>ประเทศ : {{ $rs->country }}</li>
+				<li>ประเทศ : {{ @countryName($rs->country) }}</li>
 			</ul>
 		</div>
 

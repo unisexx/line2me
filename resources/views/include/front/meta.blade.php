@@ -64,6 +64,9 @@
 <!-- Theme style  -->
 <link rel="stylesheet" href="nitro_theme/css/style.css">
 
+{{-- Country Flag --}}
+<link rel="stylesheet" href="{{ asset('country-frag/css/flags.css') }}">
+
 <!-- Modernizr JS -->
 <script src="nitro_theme/js/modernizr-2.6.2.min.js"></script>
 <!-- FOR IE9 below -->
@@ -72,3 +75,11 @@
 <![endif]-->
 
 <script data-ad-client="ca-pub-6990472968806237" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<style>
+    span.flag{
+        width: 20px !important;
+        height: 13px !important;
+        border: 1px solid lightgray;
+    }
+</style>

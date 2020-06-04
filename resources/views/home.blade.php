@@ -1,6 +1,6 @@
 @extends('layouts.front') @section('content')
 
-<div class="fh5co-narrow-content single-item mb-4">
+<div class="fh5co-narrow-content single-item mb-4 owl-carousel owl-theme">
 	<div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="โปรโมทสติ๊กเกอร์ไลน์"></a></div>
   	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a></div>
 </div>
@@ -204,28 +204,32 @@
 @endsection
 
 @push('css')
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
 <style>
-.slick-prev:before, .slick-next:before{
-	color:#9e9e9e !important;
-}
-.slick-dots li button:before{
-	font-size: 13px;
-}
+	.owl-prev, .owl-next{
+		color: #869791 !important;
+	}
 </style>
 @endpush
 
 @push('js')
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-$(document).ready(function(){
-	$('.single-item').slick({
-		dots:true,
+$(document).ready(function() {
+	$('.owl-carousel').owlCarousel({
+		loop: true,
+		margin: 10,
+		responsiveClass: true,
+		responsive: {
+			0: {
+			items: 1,
+			nav: true
+			}
+		},
 		autoplay:true,
-		speed: 1000,
-		autoplaySpeed: 5000,
-	});
-});
+		autoplayTimeout:5000,
+		autoplayHoverPause:true,
+		animateOut: 'fadeOut',
+		navText : ["<i class='fas fa-chevron-left'></i>","<i class='fas fa-chevron-right'></i>"],
+	})
+})
 </script>
 @endpush

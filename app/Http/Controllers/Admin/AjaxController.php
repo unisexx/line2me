@@ -21,7 +21,7 @@ class AjaxController extends Controller
 
     function changestatus()
 	{
-		$statusArray = array("true"=>"approve", "false"=>"draft");
+		$statusArray = array("true"=>"1", "false"=>"0");
         $status = $statusArray[$_GET['status']];
         DB::table($_GET['table'])->where('id', $_GET['id'])->update(['status' => $status]);
     }

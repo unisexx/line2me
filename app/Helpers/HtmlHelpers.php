@@ -250,3 +250,53 @@ if (!function_exists('deleteDuplicateSeriesItem')) {
             AND n2.series_id = '.$series_id);
     }
 }
+
+if (!function_exists('countryName')) {
+    function countryName($txt)
+    {
+        $countryArray = array(
+            'jp' => 'ญี่ปุ่น',
+            'gb' => 'ทั่วไป',
+            'kr' => 'เกาหลี',
+            'es' => 'สเปน',
+            'in' => 'อินเดีย',
+            'tw' => 'ไต้หวัน',
+            'us' => 'สหรัฐอเมริกา',
+            'cn' => 'จีน',
+            'th' => 'ไทย',
+            'br' => 'บราซิล',
+            'my' => 'มาเลเซีย',
+            'ph' => 'ฟิลิปปินส์',
+            'mx' => 'เม็กซิโก',
+            'id' => 'อินโดนีเซีย',
+            'hk' => 'ฮ่องกง',
+        );
+
+        return @$countryArray[$txt];
+    }
+}
+
+if (!function_exists('countryFlag')) {
+    function countryFlag($txt)
+    {
+        $countryArray = array(
+            'jp' => '<span class="flag flag-jp" alt="ญี่ปุ่น"></span>',
+            'gb' => '',
+            'kr' => '<span class="flag flag-kr" alt="เกาหลี"></span>',
+            'es' => '<span class="flag flag-es" alt="สเปน"></span>',
+            'in' => '<span class="flag flag-in" alt="อินเดีย"></span>',
+            'tw' => '<span class="flag flag-tw" alt="ไต้หวัน"></span>',
+            'us' => '<span class="flag flag-us" alt="สหรัฐอเมริกา"></span>',
+            'cn' => '<span class="flag flag-cn" alt="จีน"></span>',
+            'th' => '',
+            'br' => '<span class="flag flag-br" alt="บราซิล"></span>',
+            'my' => '<span class="flag flag-my" alt="มาเลเซีย"></span>',
+            'ph' => '<span class="flag flag-ph" alt="ฟิลิปปินส์"></span>',
+            'mx' => '<span class="flag flag-mx" alt="เม็กซิโก"></span>',
+            'id' => '<span class="flag flag-id" alt="อินโดนีเซีย"></span>',
+            'hk' => '<span class="flag flag-hk" alt="ฮ่องกง"></span>',
+        );
+
+        return @$countryArray[$txt];
+    }
+}

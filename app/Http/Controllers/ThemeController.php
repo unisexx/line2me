@@ -35,9 +35,9 @@ class ThemeController extends Controller
 
                 // ประเทศ : thai, oversea
                 if ($country == 'thai') {
-                    $q->where('country', 'global')->orWhere('country', 'thai');
+                    $q->where('country', 'gb')->orWhere('country', 'th');
                 } elseif ($country == 'oversea') {
-                    $q->where('country', '!=', 'global')->where('country', '!=', 'thai');
+                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
                 }
 
             })
