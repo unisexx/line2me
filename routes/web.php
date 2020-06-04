@@ -37,6 +37,7 @@ Route::get('xxx', 'HomeController@xxx');
 // ajax
 Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
 Route::post('ajaxLinenotify', 'AjaxController@linenotify');
+Route::get('ajaxChangeStatus', 'AjaxController@ajaxChangeStatus');
 
 // aboutus
 Route::get('aboutus', 'HomeController@aboutus');

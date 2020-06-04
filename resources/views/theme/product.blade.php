@@ -1,6 +1,7 @@
 @extends('layouts.front')
 
 @section('content')
+@include('include.front._auth_change_status', ['table' => 'themes', 'var' => $rs])
 
 <div class="fh5co-narrow-content">
 
@@ -16,6 +17,9 @@
 				<li>ราคา : {{ $rs->price }} บาท</li>
 				<li>ประเภท : {{ $rs->category }}</li>
 				<li>ประเทศ : {{ @countryName($rs->country) }}</li>
+				@if($rs->status == 0)
+				<li>สถานะ : <span class="badge badge-danger">ไม่สามารถซื้อได้เนื่องจากหมดเวลาจำหน่าย</span></li>
+				@endif
 			</ul>
 		</div>
 		 

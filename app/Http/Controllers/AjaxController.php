@@ -104,4 +104,11 @@ class AjaxController extends Controller
             return "false";
         }
     }
+
+    function ajaxChangeStatus()
+	{
+		$statusArray = array("true"=>"1", "false"=>"0");
+        $status = $statusArray[$_GET['status']];
+        DB::table($_GET['table'])->where('id', $_GET['id'])->update(['status' => $status]);
+    }
 }
