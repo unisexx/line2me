@@ -35,9 +35,9 @@ class EmojiController extends Controller
 
                 // ประเทศ : thai, oversea
                 if ($country == 'thai') {
-                    $q->where('country', 'gb')->orWhere('country', 'th');
+                    $q->whereIn('country', ['gb','th']);
                 } elseif ($country == 'oversea') {
-                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                    $q->whereNotIn('country', ['gb','th']);
                 }
 
             })

@@ -6,6 +6,7 @@ use App\Models\Emoji;
 use App\Models\NewArrival;
 use App\Models\Sticker;
 use App\Models\Theme;
+use App\Models\Promote;
 use Carbon;
 use DB;
 use SEO;
@@ -40,56 +41,28 @@ class HomeController extends Controller
         // SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
 
         // สติ๊กเกอร์ไลน์โปรโมท
-        $data['sticker_promote'] = DB::table('promotes')
-            ->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
-            ->select('stickers.*')
-            ->where('promotes.product_type', '=', 'sticker')
-            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-            ->inRandomOrder()
-            ->take(30)
-            ->get();
-
-        // ธีมไลน์โปรโมท
-        $data['theme_promote'] = DB::table('promotes')
-            ->join('themes', 'promotes.product_code', '=', 'themes.id')
-            ->select('themes.*')
-            ->where('promotes.product_type', '=', 'theme')
-            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-            ->inRandomOrder()
-            ->take(30)
-            ->get();
-
-        // อิโมจิไลน์โปรโมท
-        $data['emoji_promote'] = DB::table('promotes')
-            ->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
-            ->select('emojis.*')
-            ->where('promotes.product_type', '=', 'emoji')
-            ->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-            ->inRandomOrder()
-            ->take(30)
-            ->get();
+        $data['sticker_promote'] = Promote::where('product_type','=','sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->inRandomOrder()->get();
+        $data['theme_promote'] = Promote::where('product_type','=','theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->inRandomOrder()->get();
+        $data['emoji_promote'] = Promote::where('product_type','=','emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->inRandomOrder()->get();
 
         $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
         // สตื๊กเกอร์ไลน์อัพเดท
         $data['sticker_update'] = Sticker::where('category', 'official')
             ->where('status', 1)
-            ->whereBetween('created_at', [$data['new_arrival']
-                    ->start_date, $data['new_arrival']->end_date])
-                ->orderByRaw("FIELD(country,'th','jp','tw','id') asc")->get();
+            ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
+            ->orderByRaw("FIELD(country,'th','jp','tw','id') asc")->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
             ->where('status', 1)
-            ->whereBetween('created_at', [$data['new_arrival']
-                    ->start_date, $data['new_arrival']->end_date])
-                ->get();
+            ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
+            ->get();
 
         // อิโมจิอัพเดท
         $data['emoji_update'] = Emoji::where('category', 'official')
             ->where('status', 1)
-            ->whereBetween('created_at', [$data['new_arrival']
-                    ->start_date, $data['new_arrival']->end_date])
-                ->get();
+            ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
+            ->get();
 
         // สติ๊กเกอร์ไลน์ทางการ (ไทย)
         $data['sticker_official_thai'] = new Sticker;

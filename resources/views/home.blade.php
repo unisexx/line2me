@@ -14,7 +14,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row->sticker))
 		@endforeach
 	</div>
 </div>
@@ -24,11 +24,10 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">อิโมจิไลน์แนะนำ</h2>
-		{{-- <p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์คลิก ></a></p> --}}
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_promote as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
+			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row->emoji))
 		@endforeach
 	</div>
 </div>
@@ -39,11 +38,10 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">ธีมไลน์แนะนำ</h2>
-		{{-- <p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์คลิก ></a></p> --}}
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_promote as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
+			@include('include.front.__product_item', array('type'=>'theme','row'=>$row->theme))
 		@endforeach
 	</div>
 </div>

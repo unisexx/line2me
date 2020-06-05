@@ -20,7 +20,7 @@
 
 ===== สติ๊กเกอร์ไลน์ =====
 <?foreach($sticker as $row):?>
-- [<?php echo $row->country?>] <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
+- [<?php echo countryName($row->country)?>] <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
 
 https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 
@@ -30,7 +30,7 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 @if(count($emoji) != 0)
 ===== อีโมจิไลน์ =====
 <?foreach($emoji as $row):?>
-- [<?php echo $row->country?>] <?php echo $row->title?>
+- [<?php echo countryName($row->country)?>] <?php echo $row->title?>
 
 https://www.line2me.in.th/emoji/<?=$row->id?>
 
@@ -40,7 +40,7 @@ https://www.line2me.in.th/emoji/<?=$row->id?>
 @if(count($theme) != 0)
 ===== ธีมไลน์ =====
 <?foreach($theme as $row):?>
-- [<?php echo $row->country?>] <?php echo $row->title?>
+- [<?php echo countryName($row->country)?>] <?php echo $row->title?>
 
 https://www.line2me.in.th/theme/<?=$row->id?>
 
@@ -78,9 +78,9 @@ https://line2me.in.th/page/view/8
 
 @if(count($sticker_promote) != 0)
 <?foreach($sticker_promote as $row):?>
-- <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
+- <?php echo $row->sticker->title_th?> <?=getStickerResourctTypeName($row->sticker->stickerresourcetype)?>
 
-https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
+https://www.line2me.in.th/sticker/<?=$row->sticker->sticker_code?>
 
 
 <?endforeach;?>
@@ -90,9 +90,9 @@ https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
 ===== อิโมจิไลน์ =====
 
 <?foreach($emoji_promote as $row):?>
-- <?php echo $row->title?>
+- <?php echo $row->emoji->title?>
 
-https://www.line2me.in.th/theme/<?=$row->id?>
+https://www.line2me.in.th/theme/<?=$row->emoji->id?>
 
 <?endforeach;?>
 @endif
@@ -101,14 +101,12 @@ https://www.line2me.in.th/theme/<?=$row->id?>
 ===== ธีมไลน์ =====
 
 <?foreach($theme_promote as $row):?>
-- <?php echo $row->title?>
+- <?php echo $row->theme->title?>
 
-https://www.line2me.in.th/theme/<?=$row->id?>
+https://www.line2me.in.th/theme/<?=$row->theme->id?>
 
 <?endforeach;?>
 @endif
-
-
 สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
 https://linesticker.in.th
 

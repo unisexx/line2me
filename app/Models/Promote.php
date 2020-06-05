@@ -6,25 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 class Promote extends Model
 {
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'promotes';
-
-    /**
-    * The database primary key value.
-    *
-    * @var string
-    */
     protected $primaryKey = 'id';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
     protected $fillable = array(
         'product_code',
         'product_type',
@@ -32,5 +15,17 @@ class Promote extends Model
         'end_date',
         'email',
     );
+
+    public function sticker(){
+        return $this->hasOne('App\Models\Sticker', 'sticker_code', 'product_code');
+    }
+
+    public function theme(){
+        return $this->belongsTo('App\Models\Theme', 'theme_code', 'product_code');
+    }
+
+    public function emoji(){
+        return $this->belongsTo('App\Models\Emoji', 'emoji_code', 'product_code');
+    }
     
 }
