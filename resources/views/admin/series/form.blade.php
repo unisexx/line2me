@@ -1,5 +1,23 @@
 <div class="box-body">
     <div class="form-group">
+<textarea class="form-control" rows="5">รวมสติ๊กเกอร์ไลน์ชุด {{ @$rs->title }}
+
+สามารถดูทั้งหมดได้ที่
+https://line2me.in.th/series/{{ @$rs->id }}
+
+หากเพื่อนๆสนใจสามารถติดต่อได้ที่ไอดี @line2me.in.th หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
+https://line.me/ti/p/~@line2me.in.th
+
+สนใจชุดไหนสอบถามได้เลยนะครับ ^^
+ขอบคุณมากครับผม
+
+ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
+#line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
+    </div>
+</div>
+
+<div class="box-body">
+    <div class="form-group">
         <label for="title">ชื่อ Series</label>
         <input name="title" type="text" class="form-control" id="title" value="{{ @$rs->title }}">
         <div class="checkbox">

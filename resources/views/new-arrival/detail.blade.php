@@ -1,7 +1,7 @@
 @extends('layouts.front') @section('content')
 
 <div class="fh5co-narrow-content">
-    <h2>สติ๊กเกอร์ไลน์, อิโมจิไลน์, ธีมไลน์มาใหม่ <small class="text-black-50">({{ DBToDate($new_arrival->created_at) }})</small></h2>
+    <h2>สติ๊กเกอร์ไลน์, อิโมจิไลน์, ธีมไลน์มาใหม่ <small class="text-black-50">({{ ThaiDate($new_arrival->start_date) }})</small></h2>
 </div>
 
 @if(count($sticker) != 0)
