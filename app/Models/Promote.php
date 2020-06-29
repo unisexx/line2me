@@ -17,7 +17,7 @@ class Promote extends Model
     );
 
     public function sticker(){
-        return $this->hasOne('App\Models\Sticker', 'sticker_code', 'product_code');
+        return $this->belongsTo('App\Models\Sticker', 'sticker_code', 'product_code');
     }
 
     public function theme(){

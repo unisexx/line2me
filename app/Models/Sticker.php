@@ -47,5 +47,10 @@ class Sticker extends Model
         'stamp_start',
         'stamp_end',
     );
+
+    public function promote()
+    {
+        return $this->hasOne('App\Models\Promote', 'product_code', 'sticker_code');
+    }
     
 }

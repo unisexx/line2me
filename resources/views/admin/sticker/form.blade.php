@@ -37,7 +37,7 @@
         <input name="status" type="checkbox" id="status" checked value="approve" {!! (@$rs->status == 'approve' || empty($rs->id)) ? 'checked="checked"' : '' !!} />
     </div>
     <div class="form-group">
-        <textarea class="form-control" rows="10">ทางผมได้นำสติกเกอร์ไลน์ {{ $rs->title_th }} ขึ้นตำแหน่งโปรโมทเรียบร้อยครับผม โดยสติกเกอร์ตำแหน่งนี้จะหมดอายุในวันที่  ขอบคุณมากครับ
+        <textarea class="form-control" rows="10">ทางผมได้นำสติกเกอร์ไลน์ {{ $rs->title_th }} ขึ้นตำแหน่งโปรโมทเรียบร้อยครับผม โดยสติกเกอร์ตำแหน่งนี้จะหมดอายุในวันที่ {{ @DBToDate($rs->promote->end_date) }} ขอบคุณมากครับ
 
 ถ้ามีรูปสำหรับโปรโมทส่งให้ผมได้เลยนะครับ ผมจะได้เอาไปโพสต์ที่อื่นให้ด้วย</textarea>
     </div>
