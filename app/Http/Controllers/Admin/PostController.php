@@ -43,7 +43,7 @@ class PostController extends Controller
         $data['sticker'] = Sticker::where('category','official')
                             ->where('status', 1)
                             ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
-                            ->orderByRaw("FIELD(country,'th','jp','tw','id') asc")->get();
+                            ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
 
         $data['theme'] = Theme::where('category','official')
                             ->where('status', 1)

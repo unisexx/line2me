@@ -14,8 +14,7 @@
         <div class="box-body">
 
             <div class="form-group">
-            <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ <?=DBToDate($new_arrival->created_at)?>
-
+            <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ ({{ ThaiDate($new_arrival->start_date) }})
 @if(count($sticker) != 0)
 
 ===== สติ๊กเกอร์ไลน์ =====

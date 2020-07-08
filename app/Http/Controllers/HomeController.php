@@ -50,7 +50,7 @@ class HomeController extends Controller
         $data['sticker_update'] = Sticker::where('category', 'official')
             ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
-            ->orderByRaw("FIELD(country,'th','jp','tw','id') asc")->get();
+            ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
