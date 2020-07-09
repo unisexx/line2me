@@ -398,9 +398,9 @@ class CrawlerController extends Controller
 
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
 
-                $title = trim($crawler_page->filter('h3.mdCMN08Ttl')->text());
-                $detail = trim($crawler_page->filter('p.mdCMN08Desc')->text());
-                $author = trim($crawler_page->filter('p.mdCMN08Copy')->text());
+                $title = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
+                $detail = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
+                $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
                 $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
 
                 // insert ลง db
@@ -415,7 +415,7 @@ class CrawlerController extends Controller
                         'created_at' => date("Y-m-d H:i:s"),
                         'category'   => $category,
                         'country'    => 'th',
-                        'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
+                        'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                         'status'     => 1,
                     ]
                 );
