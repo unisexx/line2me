@@ -16,12 +16,12 @@
         @foreach(@$rs as $row)
         <tr>
             <td class="align-middle">
-                @if($row->seriesItemFirst->product_type == 'sticker')
-                    <img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->seriesItemFirst->product_code }}/android/main.png" height="60">
-                @elseif($row->seriesItemFirst->product_type == 'emoji')
-                    <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->seriesItemFirst->product_code }}/iphone/main.png" height="60">
-                @elseif($row->seriesItemFirst->product_type == 'theme')
-                    <img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->seriesItemFirst->product_code }}/1/WEBSTORE/icon_198x278.png" height="60">
+                @if($row->seriesItem->first()->product_type == 'sticker')
+                    <img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->seriesItem->first()->product_code }}/android/main.png" height="60">
+                @elseif($row->seriesItem->first()->product_type == 'emoji')
+                    <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->seriesItem->first()->product_code }}/iphone/main.png" height="60">
+                @elseif($row->seriesItem->first()->product_type == 'theme')
+                    <img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->seriesItem->first()->product_code }}/1/WEBSTORE/icon_198x278.png" height="60">
                 @endif
             </td>
             <td class="align-middle"><a href="{{ url('series/'. $row->id) }}">{{ $row->title }} @if($row->hilight == 1) <i class="fas fa-star fa-spin" style="color:#dc3545;"></i> @endif</a></td>

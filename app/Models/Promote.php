@@ -16,16 +16,19 @@ class Promote extends Model
         'email',
     );
 
-    public function sticker(){
-        return $this->belongsTo('App\Models\Sticker', 'sticker_code', 'product_code');
+    public function sticker()
+    {
+        return $this->hasone('App\Models\Sticker', 'sticker_code', 'product_code');
     }
 
-    public function theme(){
-        return $this->belongsTo('App\Models\Theme', 'theme_code', 'product_code');
+    public function theme()
+    {
+        return $this->hasone('App\Models\Theme', 'theme_code', 'product_code');
     }
 
-    public function emoji(){
-        return $this->belongsTo('App\Models\Emoji', 'emoji_code', 'product_code');
+    public function emoji()
+    {
+        return $this->hasone('App\Models\Emoji', 'emoji_code', 'product_code');
     }
-    
+
 }

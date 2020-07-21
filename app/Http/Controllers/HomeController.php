@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Emoji;
 use App\Models\NewArrival;
+use App\Models\Promote;
 use App\Models\Sticker;
 use App\Models\Theme;
-use App\Models\Promote;
 use Carbon;
 use DB;
 use SEO;
@@ -41,9 +41,9 @@ class HomeController extends Controller
         // SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ');
 
         // สติ๊กเกอร์ไลน์โปรโมท
-        $data['sticker_promote'] = Promote::where('product_type','=','sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->inRandomOrder()->get();
-        $data['theme_promote'] = Promote::where('product_type','=','theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->inRandomOrder()->get();
-        $data['emoji_promote'] = Promote::where('product_type','=','emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->inRandomOrder()->get();
+        $data['sticker_promote'] = Promote::where('product_type', '=', 'sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->inRandomOrder()->get();
+        $data['theme_promote'] = Promote::where('product_type', '=', 'theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->inRandomOrder()->get();
+        $data['emoji_promote'] = Promote::where('product_type', '=', 'emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->inRandomOrder()->get();
 
         $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
         // สตื๊กเกอร์ไลน์อัพเดท
@@ -302,9 +302,9 @@ class HomeController extends Controller
         SEOMeta::setKeywords('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, อัพเดท, เติมคำ');
         SEOMeta::addKeyword('line, sticker, theme, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, อัพเดท, เติมคำ');
 
-        if($id){
+        if ($id) {
             $data['new_arrival'] = NewArrival::findOrFail($id);
-        }else{
+        } else {
             $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
         }
 
@@ -362,7 +362,8 @@ class HomeController extends Controller
     //     echo phpinfo();
     // }
 
-    public function xxx(){
+    public function xxx()
+    {
         Emoji::where('status', 'approve')->chunk(100, function ($emojis) {
             foreach ($emojis as $emoji) {
                 $emoji->update(['status' => 1]);

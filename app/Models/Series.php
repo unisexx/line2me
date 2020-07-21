@@ -10,21 +10,23 @@ class Series extends Model
     protected $fillable = array('title', 'hilight');
 
     // this is a recommended way to declare event handlers
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($series) { // before delete() method call this
+        static::deleting(function ($series) { // before delete() method call this
             $series->seriesItem()->delete();
-             // do the rest of the cleanup...
+            // do the rest of the cleanup...
         });
     }
 
     public function seriesItem()
     {
-        return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id')->orderBy('order','asc');
+        return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id')->orderBy('order', 'asc');
     }
 
-    public function seriesItemFirst() {
-        return $this->hasOne('App\Models\SeriesItem')->orderBy('id','asc');
+    public function seriesItemFirst()
+    {
+        return $this->hasOne('App\Models\SeriesItem')->orderBy('id', 'asc');
     }
 }
