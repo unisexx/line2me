@@ -464,6 +464,8 @@ class CrawlerController extends Controller
             $emoji_code = explode("/", $url);
             $emoji_code = $emoji_code[3];
 
+            // dd($emoji_code);
+
             // นำ emoji_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
             $rs = Emoji::select('id')->where('emoji_code', $emoji_code)->first();
 
@@ -472,12 +474,14 @@ class CrawlerController extends Controller
 
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/emojishop/product/' . $emoji_code . '/th');
 
-                $title = trim($crawler_page->filter('h3.mdCMN08Ttl')->text());
-                $creator_name = trim($crawler_page->filter('p.mdCMN08Copy')->text());
-                $detail = trim($crawler_page->filter('p.mdCMN08Desc')->text());
+                // dd($crawler_page);
+                $title = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
+                $creator_name = trim($crawler_page->filter('.mdCMN38Item01Author')->text());
+                $detail = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
                 $country = "gb";
-                $txtprice = trim($crawler_page->filter('p.mdCMN08Price')->text());
+                $txtprice = trim($crawler_page->filter('.mdCMN38Item01Price')->text());
                 $price = (int) filter_var($txtprice, FILTER_SANITIZE_NUMBER_INT);
+                // dd($txtprice);
 
                 // insert ลง db
                 DB::table('emojis')->insert(
@@ -694,7 +698,6 @@ class CrawlerController extends Controller
         dump($data);
     }
 
-
     public static function getstickerstore63($type, $cat, $page = null)
     {
         if ($type == 1) {
@@ -720,65 +723,64 @@ class CrawlerController extends Controller
             $sticker_code = $sticker_code[3];
             // dump($sticker_code);
 
+            $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
+            // dd($crawler_page);
 
-                $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
-                // dd($crawler_page);
+            // หา stamp_start & stamp_end
+            for ($i = 0; $i < 40; $i++) {
+                // check node empty
+                if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
+                    $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
+                    // dd($imgTxt);
+                    $image_path = explode("/", getUrlFromText($imgTxt));
+                    $stamp_code = $image_path[6];
 
-                // หา stamp_start & stamp_end
-                for ($i = 0; $i < 40; $i++) {
-                    // check node empty
-                    if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
-                        $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
-                        // dd($imgTxt);
-                        $image_path = explode("/", getUrlFromText($imgTxt));
-                        $stamp_code = $image_path[6];
-
-                        $data[] = array(
-                            'stamp_code' => $stamp_code,
-                        );
-                    }
+                    $data[] = array(
+                        'stamp_code' => $stamp_code,
+                    );
                 }
+            }
 
-                // ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_URL, 'http://dl.stickershop.line.naver.jp/products/0/0/1/' . $sticker_code . '/LINEStorePC/productInfo.meta');
-                $result = curl_exec($ch);
-                curl_close($ch);
-                $productInfo = json_decode($result, true);
+            // ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_URL, 'http://dl.stickershop.line.naver.jp/products/0/0/1/' . $sticker_code . '/LINEStorePC/productInfo.meta');
+            $result = curl_exec($ch);
+            curl_close($ch);
+            $productInfo = json_decode($result, true);
 
-                // dump($productInfo);
-                // dump($price);
+            // dump($productInfo);
+            // dump($price);
 
-                // insert ลง db
-                DB::table('stickers')->insertOrIgnore(
-                    [
-                        'sticker_code'        => $sticker_code,
-                        'version'             => 1,
-                        'title_th'            => @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'],
-                        'title_en'            => @$productInfo['title']['en'],
-                        'detail'              => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
-                        'author_th'           => @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'],
-                        'author_en'           => @$productInfo['author']['en'],
-                        'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
-                        'created_at'          => date("Y-m-d H:i:s"),
-                        'category'            => $category,
-                        'country'             => "th",
-                        'price'               => @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3)),
-                        'status'              => 1,
-                        'onsale'              => $productInfo['onSale'],
-                        'validdays'           => $productInfo['validDays'],
-                        'hasanimation'        => @$productInfo['hasAnimation'],
-                        'hassound'            => @$productInfo['hasSound'],
-                        'stickerresourcetype' => @$productInfo['stickerResourceType'],
-                        'stamp_start'         => @reset($data)['stamp_code'],
-                        'stamp_end'           => @end($data)['stamp_code'],
-                    ]
-                );
+            // insert ลง db
+            DB::table('stickers')->insertOrIgnore(
+                [
+                    'sticker_code'        => $sticker_code,
+                    'version'             => 1,
+                    'title_th'            => @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'],
+                    'title_en'            => @$productInfo['title']['en'],
+                    'detail'              => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                    'author_th'           => @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'],
+                    'author_en'           => @$productInfo['author']['en'],
+                    'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
+                    'created_at'          => date("Y-m-d H:i:s"),
+                    'category'            => $category,
+                    'country'             => "th",
+                    'price'               => @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3)),
+                    'status'              => 1,
+                    'onsale'              => $productInfo['onSale'],
+                    'validdays'           => $productInfo['validDays'],
+                    'hasanimation'        => @$productInfo['hasAnimation'],
+                    'hassound'            => @$productInfo['hasSound'],
+                    'stickerresourcetype' => @$productInfo['stickerResourceType'],
+                    'stamp_start'         => @reset($data)['stamp_code'],
+                    'stamp_end'           => @end($data)['stamp_code'],
+                ]
+            );
 
-                unset($data);
-                dump(@$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en']);
+            unset($data);
+            dump(@$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en']);
 
             // exit();
         }); // endforeach
