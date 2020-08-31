@@ -9,6 +9,7 @@ if (!function_exists('clean_url')) {
         $text = str_replace($code_entities_match, $code_entities_replace, $text);
         $text = @ereg_replace('(--)+', '', $text);
         $text = @ereg_replace('(-)$', '', $text);
+
         return $text;
     }
 }
@@ -27,6 +28,7 @@ if (!function_exists('generateUniqueSlug')) {
             }
             $temp = $newslug;
         }
+
         return $temp;
     }
 }
@@ -37,6 +39,7 @@ if (!function_exists('getUrlFromText')) {
         // $text = 'width: 122px; height: 140px; background-image:url(https://stickershop.line-scdn.net/stickershop/v1/sticker/2428/android/sticker.png;compress=true); background-size: 122px 140px;';
         preg_match('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $text, $matches);
         // print_r($matches);
+
         return $matches[0];
     }
 }
@@ -58,6 +61,7 @@ if (!function_exists('convert_line_coin_2_money')) {
     function convert_line_coin_2_money($coin)
     {
         $bath = array('250' => '150', '200' => '120', '150' => '90', '100' => '60', '50' => '30', '2' => '1');
+
         return @$bath[$coin];
     }
 }
@@ -66,6 +70,7 @@ if (!function_exists('th_2_coin')) {
     function th_2_coin($bath)
     {
         $coin = array('1' => '2', '30' => '50', '60' => '100', '90' => '150', '120' => '200', '150' => '250');
+
         return $coin[$bath];
     }
 }
@@ -92,6 +97,7 @@ if (!function_exists('new_icon')) {
         $now = Carbon::now();
         $length = $end->diffInDays($now);
         $new_icon = $length < 7 ? '<div class="new-product">New</div>' : '';
+
         return $new_icon;
     }
 }
@@ -103,6 +109,7 @@ if (!function_exists('new_badge')) {
         $now = Carbon::now();
         $length = $end->diffInDays($now);
         $new_icon = $length < 7 ? '<span class="badge badge-danger">New</span>' : '';
+
         return $new_icon;
     }
 }
@@ -155,13 +162,13 @@ if (!function_exists('getCountry')) {
     function getCountry($txt)
     {
         if (strpos($txt, 'THB') !== false) {
-            return 'thai';
+            return 'th';
         } elseif (strpos($txt, '￥') !== false) {
-            return 'japan';
+            return 'jp';
         } elseif (strpos($txt, 'NT') !== false) {
-            return 'taiwan';
+            return 'tw';
         } elseif (strpos($txt, 'Rp') !== false) {
-            return 'indonesia';
+            return 'id';
         }
     }
 }
@@ -172,19 +179,20 @@ if (!function_exists('notify_message')) {
         define('LINE_API', "https://notify-api.line.me/api/notify");
         $token = "fgpdbSIKtGe7oFP6kHK7HNs9gAwmErkViRwnMzBajnj";
         $queryData = array('message' => $message);
-        $queryData = http_build_query($queryData,'','&');
-        $headerOptions = array( 
-                'http'=>array(
-                'method'=>'POST',
-                'header'=> "Content-Type: application/x-www-form-urlencoded\r\n"
-                        ."Authorization: Bearer ".$token."\r\n"
-                        ."Content-Length: ".strlen($queryData)."\r\n",
-                'content' => $queryData
-                ),
+        $queryData = http_build_query($queryData, '', '&');
+        $headerOptions = array(
+            'http' => array(
+                'method'  => 'POST',
+                'header'  => "Content-Type: application/x-www-form-urlencoded\r\n"
+                . "Authorization: Bearer " . $token . "\r\n"
+                . "Content-Length: " . strlen($queryData) . "\r\n",
+                'content' => $queryData,
+            ),
         );
         $context = stream_context_create($headerOptions);
-        $result = file_get_contents(LINE_API,FALSE,$context);
+        $result = file_get_contents(LINE_API, false, $context);
         $res = json_decode($result);
+
         return $res;
     }
 }
@@ -227,10 +235,11 @@ if (!function_exists('getProductCodeFromStoreUrl')) {
         // $url = 'https://store.line.me/themeshop/product/7183fd71-6b22-414c-9873-d29c8e8393ed/th';
 
         // ถ้า $url ที่ส่งเข้ามาเป็น url จริงๆ
-        if (filter_var($url, FILTER_VALIDATE_URL)) { 
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
             $arr = explode('/', $url);
+
             return $arr[5];
-        }else{
+        } else {
             return $url;
         }
     }
@@ -246,8 +255,8 @@ if (!function_exists('deleteDuplicateSeriesItem')) {
             WHERE
                 n1.id > n2.id
             AND n1.product_code = n2.product_code
-            AND n1.series_id = '.$series_id.'
-            AND n2.series_id = '.$series_id);
+            AND n1.series_id = ' . $series_id . '
+            AND n2.series_id = ' . $series_id);
     }
 }
 

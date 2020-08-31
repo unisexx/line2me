@@ -629,17 +629,19 @@ class CrawlerController extends Controller
 
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
 
+                // dd(getCountry($crawler_page->filter('p.mdCMN38Item01Price')->text()));
+
                 $data[] = [
                     'theme_code' => $theme_code,
-                    'title'      => trim($crawler_page->filter('h3.mdCMN08Ttl')->text()),
-                    'detail'     => trim($crawler_page->filter('p.mdCMN08Desc')->text()),
-                    'author'     => trim($crawler_page->filter('p.mdCMN08Copy')->text()),
+                    'title'      => trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
+                    'detail'     => trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                    'author'     => trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
                     'credit'     => trim($crawler_page->filter('p.mdCMN09Copy')->text()),
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s"),
                     'category'   => $categoryArray[$row['subtype']],
-                    'country'    => getCountry($crawler_page->filter('p.mdCMN08Price')->text()),
-                    'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN08Price')->text()), FILTER_SANITIZE_NUMBER_INT),
+                    'country'    => getCountry($crawler_page->filter('p.mdCMN38Item01Price')->text()),
+                    'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT),
                     'status'     => 1,
                 ];
             }
