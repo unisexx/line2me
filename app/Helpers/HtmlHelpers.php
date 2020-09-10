@@ -245,6 +245,31 @@ if (!function_exists('getProductCodeFromStoreUrl')) {
     }
 }
 
+if (!function_exists('getProductTypeFromStoreUrl')) {
+    function getProductTypeFromStoreUrl($url)
+    {
+        // $url = 'https://store.line.me/stickershop/product/7664414/th';
+        // $url = 'https://store.line.me/emojishop/product/5bc843d0031a6704f8cff721/th';
+        // $url = 'https://store.line.me/themeshop/product/7183fd71-6b22-414c-9873-d29c8e8393ed/th';
+
+        // ถ้า $url ที่ส่งเข้ามาเป็น url จริงๆ
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            $arr = explode('/', $url);
+
+            if ($arr[3] == 'stickershop') {
+                return 'sticker';
+            } elseif ($arr[3] == 'emojishop') {
+                return 'emoji';
+            } elseif ($arr[3] == 'themeshop') {
+                return 'theme';
+            }
+
+        } else {
+            return $url;
+        }
+    }
+}
+
 if (!function_exists('deleteDuplicateSeriesItem')) {
     function deleteDuplicateSeriesItem($series_id)
     {

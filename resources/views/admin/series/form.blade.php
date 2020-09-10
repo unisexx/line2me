@@ -38,6 +38,9 @@ https://line.me/ti/p/~@line2me.in.th
                     <td>
                         @if($row->product_type == 'sticker')
                             <a href="{{ url('sticker/'.@$row->sticker->id) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="45"></a> {{ @$row->sticker->id }}
+                            @if(@$row->sticker->id == '')
+                                <a href="{{ url('admin/getsticker/'.$row->product_code) }}" class="btn btn-sm btn-warning" target="_blank">อัพเดท</a>
+                            @endif
                         @elseif($row->product_type == 'emoji')
                             <a href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="45"></a> {{ @$row->emoji->id }}
                         @elseif($row->product_type == 'theme')

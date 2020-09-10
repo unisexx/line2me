@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Emoji;
+use App\Models\Series;
+use App\Models\SeriesItem;
 use App\Models\Sticker;
 use App\Models\Theme;
 use DB;
@@ -793,5 +795,104 @@ class CrawlerController extends Controller
             $page_redirect = url('admin/getstickerstore63/' . $type . '/' . $cat . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
+    }
+
+    public function getEditorPick($page = null)
+    {
+        // หน้าเพจเป้าหมาย
+        $pageTarget = 'https://store.line.me/editorspick/th?page=' . $page;
+        $crawler = Goutte::request('GET', $pageTarget);
+
+        // foreach วนลูปหา หัวข้อของ editorpick
+        $crawler->filter('.mdCMN02Li')->each(function ($node) {
+
+            /**
+             * ประกาศตัวแปร
+             */
+            $url = $node->filter('a')->attr('href');
+            $image = $node->filter('img')->attr('src');
+            $title = $node->filter('img')->attr('alt');
+            $sub_title = $node->filter('img')->attr('title');
+            // dump($url);
+            // dump($sub_title);
+
+            // บันทึกลงฐานข้อมูล
+            $series = Series::updateOrCreate(
+                [
+                    'url' => @$url,
+                ],
+                [
+                    'image'     => @$image,
+                    'title'     => @$title,
+                    'sub_title' => @$sub_title,
+                ]
+            );
+
+            // หาไอดีล่าสุด
+            // dd(DB::getPdo()->lastInsertId());
+            $seriesId = $series->id;
+
+            // dd($seriesId);
+
+            for ($i = 0; $i <= 10; $i++) {
+                $this->getEditorPickDetail(@$url, $seriesId, $i);
+            }
+
+            // ดึงข้อมูล sticker ที่ยังไม่มีในฐานข้อมูลลง database
+            $stickerArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+            $dbArray = Sticker::whereIn('sticker_code', $stickerArray)->pluck('sticker_code')->toArray();
+            $differenceArray = array_diff($stickerArray, $dbArray);
+            // dd($differenceArray);
+            if (count($differenceArray)) {
+                foreach ($differenceArray as $product_code) {
+                    // dd($item);
+                    $this->getsticker($product_code);
+                }
+            }
+
+            dump($title);
+
+        }); // endforeach
+    }
+
+    // ดึงข้อมูลหน้าในของ editorpick
+    public function getEditorPickDetail($url, $seriesId, $page = null)
+    {
+        // หน้าเพจเป้าหมาย
+        $pageTarget = 'https://store.line.me' . $url . '?page=' . $page;
+        $crawler = Goutte::request('GET', $pageTarget);
+
+        // foreach วนลูปหา item ของหน้า
+        $crawler->filter('.mdCMN02Li')->each(function ($node, $i) use ($seriesId) {
+            /**
+             * ประกาศตัวแปร
+             */
+            $series_id = $seriesId;
+            $product_code = getProductCodeFromStoreUrl('https://store.line.me' . $node->filter('a')->attr('href'));
+            $product_type = getProductTypeFromStoreUrl('https://store.line.me' . $node->filter('a')->attr('href'));
+            $order = ($i + 1);
+
+            // บันทึกลงฐานข้อมูล
+            SeriesItem::updateOrCreate(
+                [
+                    'series_id'    => $series_id,
+                    'product_code' => $product_code,
+                    'product_type' => $product_type,
+                ],
+                [
+                    'order' => $order,
+                ]
+            );
+
+            // ดึงข้อมูล sticker, theme, emoji ลง database
+            // if ($product_type == 'sticker') {
+            //     $this->getsticker($product_code);
+            // } elseif ($product_type == 'theme') {
+            //     $this->gettheme($product_code);
+            // } elseif ($product_type == 'emoji') {
+            //     $this->getemoji($product_code);
+            // }
+
+        }); // endforeach
     }
 }

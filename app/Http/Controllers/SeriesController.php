@@ -18,7 +18,7 @@ class SeriesController extends Controller
 
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์ชุดน่าสนใจ');
 
-        return view('series.index', compact('rs'));
+        return view('series.index2', compact('rs'));
     }
 
     public function getDetail($id)

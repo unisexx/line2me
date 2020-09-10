@@ -22,6 +22,7 @@ Route::get('sitemap', function () {
     SitemapGenerator::create('https://line2me.in.th')
         ->setMaximumCrawlCount(500)
         ->writeToFile('sitemap.xml');
+
     return 'sitemap created';
 });
 
@@ -120,6 +121,8 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::get('getstickerstoresearch/{txtsearch}', 'CrawlerController@getstickerstoresearch');
     Route::get('getthemestoresearch/{txtsearch}', 'CrawlerController@getthemestoresearch');
     Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
+
+    Route::get('geteditorpick/{page}', 'CrawlerController@getEditorPick');
 
     // ปรับปรุงโค้ดใหม่ 2563
     Route::get('getstickerstore63/{type}/{category}/{page}', 'CrawlerController@getstickerstore63');
