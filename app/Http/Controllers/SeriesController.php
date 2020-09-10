@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Series;
+use App\Models\SeriesItem;
 use SEO;
 
 class SeriesController extends Controller
@@ -23,12 +24,16 @@ class SeriesController extends Controller
 
     public function getDetail($id)
     {
-        $rs = Series::with('seriesItem.sticker', 'seriesItem.theme', 'seriesItem.emoji')->findOrFail($id);
+        // $rs = Series::with('seriesItem.sticker', 'seriesItem.theme', 'seriesItem.emoji')->findOrFail($id);
+        // $rs->touch();
+
+        $rs = Series::findOrFail($id);
         $rs->touch();
+        $series_items = SeriesItem::with('sticker', 'theme', 'emoji')->where('series_id', $id)->simplePaginate(30);
 
         // SEO
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์ชุด' . $rs->title);
 
-        return view('series.detail', compact('rs'));
+        return view('series.detail', compact('rs', 'series_items'));
     }
 }

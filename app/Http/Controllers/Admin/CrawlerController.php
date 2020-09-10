@@ -83,7 +83,10 @@ class CrawlerController extends Controller
             curl_close($ch);
             $productInfo = json_decode($result, true);
 
+            // dd(@(int) $productInfo['price'][0]['price']);
             // dd($productInfo);
+            // dd(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
+            // dd(@money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())));
 
             $title_th = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
             $title_en = $productInfo['title']['en'];
@@ -99,8 +102,8 @@ class CrawlerController extends Controller
             $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
             $sticker_code = $sticker_code;
             $created = date("Y-m-d H:i:s");
-            $price = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
-            $country = "th";
+            $price = @(int) $productInfo['price'][0]['price'];
+            $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
             $stamp_start = reset($data)['stamp_code'];
             $stamp_end = end($data)['stamp_code'];
 
@@ -120,7 +123,7 @@ class CrawlerController extends Controller
                     'credit'              => $credit,
                     'created_at'          => date("Y-m-d H:i:s"),
                     'category'            => 'creator',
-                    'country'             => 'th',
+                    'country'             => $country,
                     'price'               => $price,
                     'status'              => 1,
                     'onsale'              => $onsale,
@@ -797,14 +800,14 @@ class CrawlerController extends Controller
         }
     }
 
-    public function getEditorPick($page = null)
+    public function getEditorPick($page = null, $link_number = null)
     {
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me/editorspick/th?page=' . $page;
         $crawler = Goutte::request('GET', $pageTarget);
 
         // foreach วนลูปหา หัวข้อของ editorpick
-        $crawler->filter('.mdCMN02Li')->each(function ($node) {
+        $crawler->filter('.mdCMN02Li')->each(function ($node) use ($link_number) {
 
             /**
              * ประกาศตัวแปร
@@ -816,41 +819,49 @@ class CrawlerController extends Controller
             // dump($url);
             // dump($sub_title);
 
-            // บันทึกลงฐานข้อมูล
-            $series = Series::updateOrCreate(
-                [
-                    'url' => @$url,
-                ],
-                [
-                    'image'     => @$image,
-                    'title'     => @$title,
-                    'sub_title' => @$sub_title,
-                ]
-            );
+            $url_number = explode("/", $url)[3];
+            if ($link_number == $url_number):
 
-            // หาไอดีล่าสุด
-            // dd(DB::getPdo()->lastInsertId());
-            $seriesId = $series->id;
+                // บันทึกลงฐานข้อมูล
+                $series = Series::updateOrCreate(
+                    [
+                        'url' => @$url,
+                    ],
+                    [
+                        'image'     => @$image,
+                        'title'     => @$title,
+                        'sub_title' => @$sub_title,
+                    ]
+                );
 
-            // dd($seriesId);
+                // หาไอดีล่าสุด
+                // dd(DB::getPdo()->lastInsertId());
+                $seriesId = $series->id;
 
-            for ($i = 0; $i <= 10; $i++) {
-                $this->getEditorPickDetail(@$url, $seriesId, $i);
-            }
+                // dd($seriesId);
 
-            // ดึงข้อมูล sticker ที่ยังไม่มีในฐานข้อมูลลง database
-            $stickerArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-            $dbArray = Sticker::whereIn('sticker_code', $stickerArray)->pluck('sticker_code')->toArray();
-            $differenceArray = array_diff($stickerArray, $dbArray);
-            // dd($differenceArray);
-            if (count($differenceArray)) {
-                foreach ($differenceArray as $product_code) {
-                    // dd($item);
-                    $this->getsticker($product_code);
+                for ($i = 0; $i <= 10; $i++) {
+                    $this->getEditorPickDetail(@$url, $seriesId, $i);
                 }
-            }
 
-            dump($title);
+                // ดึงข้อมูล sticker ที่ยังไม่มีในฐานข้อมูลลง database
+                $stickerArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+                $dbArray = Sticker::whereIn('sticker_code', $stickerArray)->pluck('sticker_code')->toArray();
+                $differenceArray = array_diff($stickerArray, $dbArray);
+                // dd($differenceArray);
+                if (count($differenceArray)) {
+                    foreach ($differenceArray as $product_code) {
+                        // dd($item);
+                        $this->getsticker($product_code);
+                    }
+                }
+
+                dump($title);
+
+            else:
+                dump('จบ');
+                // exit();
+            endif;
 
         }); // endforeach
     }

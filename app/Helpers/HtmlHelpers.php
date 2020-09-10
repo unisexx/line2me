@@ -75,6 +75,15 @@ if (!function_exists('th_2_coin')) {
     }
 }
 
+if (!function_exists('money2country')) {
+    function money2country($currency)
+    {
+        $country = array('￥' => 'jp', 'THB' => 'th', 'NT$' => 'tw', 'Rp' => 'id', '$' => 'us');
+
+        return $country[$currency];
+    }
+}
+
 if (!function_exists('get_sticker_img_url')) {
     function get_sticker_img_url($stickerresourcetype, $version, $sticker_code)
     {
