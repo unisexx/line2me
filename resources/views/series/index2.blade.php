@@ -3,7 +3,8 @@
 @section('content')
 
 <div class="fh5co-narrow-content">
-	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">รวมสติ๊กเกอร์ไลน์ชุดน่าสนใจ</h2>
+	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">แนะนำจากทางร้าน</h2>
+    <p>รวมสติ๊กเกอร์ ธีม อิโมจิไลน์ที่น่าสนใจมาไว้ที่นี่แล้ว</p>
 
     @foreach(@$rs->chunk(3) as $three)
     <div class="row mb-3">
