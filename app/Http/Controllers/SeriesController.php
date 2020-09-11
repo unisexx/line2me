@@ -29,7 +29,7 @@ class SeriesController extends Controller
 
         $rs = Series::findOrFail($id);
         $rs->touch();
-        $series_items = SeriesItem::with('sticker', 'theme', 'emoji')->where('series_id', $id)->simplePaginate(120);
+        $series_items = SeriesItem::with('sticker', 'theme', 'emoji')->where('series_id', $id)->simplePaginate(90);
 
         // SEO
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์ชุด' . $rs->title);

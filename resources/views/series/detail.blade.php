@@ -47,8 +47,6 @@
 
 @endif
 
-<div class="fh5co-narrow-content pt-0 pb-5">
-    {{ $series_items->appends(@$_GET)->render() }}
-</div>
+<div class="d-flex flex-wrap justify-content-around">{{ $series_items->appends(@$_GET)->render() }}</div>
 
 @endsection

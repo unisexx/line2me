@@ -17,8 +17,8 @@
         @endforeach
     </div>
     @endforeach
-
-    {{ $rs->appends(@$_GET)->render() }}
+    
+    <div class="d-flex flex-wrap justify-content-around">{{ $rs->appends(@$_GET)->render() }}</div>
 </div>
 
 @endsection
