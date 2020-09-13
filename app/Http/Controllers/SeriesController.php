@@ -15,7 +15,7 @@ class SeriesController extends Controller
         if (!empty($keyword)) {
             $rs = $rs->where('title', 'LIKE', "%$keyword%");
         }
-        $rs = $rs->orderBY('hilight', 'desc')->orderBy('id', 'desc')->with('seriesItem')->simplePaginate(30);
+        $rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
 
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์ชุดน่าสนใจ');
 
@@ -28,7 +28,7 @@ class SeriesController extends Controller
         // $rs->touch();
 
         $rs = Series::findOrFail($id);
-        // $rs->touch();
+        $rs->touch();
         $series_items = SeriesItem::with('sticker', 'theme', 'emoji')->where('series_id', $id)->orderBy('order', 'asc')->simplePaginate(90);
 
         // SEO

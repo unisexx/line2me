@@ -1438,6 +1438,14 @@ body.offcanvas .fh5co-nav-toggle {
     background-image: url(../../image/ico_nameSticker_m.png);
 }
 
+p.fh5co-work-title {
+    color: #000 !important;
+    font-size: 16px;
+    margin-bottom: 0;
+    line-height: 22px;
+    font-weight: normal;
+}
+
 /* Desktops and laptops ----------- */
 @media only screen and (min-width: 1224px) {
     #fh5co-logo {
@@ -1547,6 +1555,14 @@ body.offcanvas .fh5co-nav-toggle {
 
     .btn {
         padding: 8px 10px !important;
+    }
+
+    p.fh5co-work-title {
+        color: #000 !important;
+        font-size: 10px;
+        margin-bottom: 0;
+        line-height: 15px;
+        font-weight: normal;
     }
 }
 

@@ -24,12 +24,15 @@
 		</div>
 	</div>
 
-	<div class="animate-box d-flex flex-wrap justify-content-around" data-animate-effect="fadeInLeft">
+	<div class="animate-box" data-animate-effect="fadeInLeft">
+		<ul class="list-unstyled row">
 		@foreach($sticker as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+			<li class="col-md-2 col-sm-3 col-4">
+				@include('include.front.__product_item2', array('type'=>'sticker','row'=>$row))
+			</li>
 		@endforeach
-		<div class="clearfix visible-md-block"></div>
-		{{ $sticker->appends(@$_GET)->render() }}
+		</ul>
+		<div class="d-flex flex-wrap justify-content-around">{{ $sticker->appends(@$_GET)->render() }}</div>
 	</div>
 </div>
 
