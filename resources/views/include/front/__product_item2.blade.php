@@ -1,4 +1,4 @@
-@if($type == 'sticker')
+@if($type == 'sticker' && !empty($row->id))
 <div class="text-center">
     {!! @new_icon($row->created_at) !!}
     <a href="{{ url('sticker/'.$row->sticker_code) }}">
@@ -15,7 +15,7 @@
 </div>
 @endif
 
-@if($type == 'emoji')
+@if($type == 'emoji' && !empty($row->id))
 <div class="text-center">
     {!! @new_icon($row->created_at) !!}
     <a href="{{ url('emoji/'.$row->id) }}">
@@ -28,7 +28,7 @@
 </div>
 @endif
 
-@if($type == 'theme')
+@if($type == 'theme' && !empty($row->id))
 <div class="text-center">
     {!! @new_icon($row->created_at) !!}
     <a href="{{ url('theme/'.$row->id) }}">

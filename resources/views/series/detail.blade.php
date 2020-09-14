@@ -53,4 +53,22 @@
 
 <div class="d-flex flex-wrap justify-content-around">{{ $series_items->appends(@$_GET)->render() }}</div>
 
+
+{{-- more series --}}
+<div class="fh5co-narrow-content pt-0">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">ชุดอื่นๆที่น่าสนใจ</h2>
+		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
+	</div>
+	<div class="row mb-5">
+		@foreach($more_series as $row)
+		<div class="col pl-2 pr-2">
+			<a href="{{ url('series/'. $row->id) }}">
+				<img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
+
 @endsection

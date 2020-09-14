@@ -20,6 +20,7 @@
 </div>
 @endif
 
+
 @if(count($emoji_promote) != 0)
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
@@ -89,6 +90,21 @@
 </div>
 @endif
 
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">แนะนำจากทางร้าน</h2>
+		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
+	</div>
+	<div class="row mb-5">
+		@foreach($series as $row)
+		<div class="col pl-2 pr-2">
+			<a href="{{ url('series/'. $row->id) }}">
+				<img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
 
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">

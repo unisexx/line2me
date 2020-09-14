@@ -950,6 +950,7 @@ class CrawlerController extends Controller
             '120' => '30', // jp
             '250' => '60', // jp
             '370' => '90', // jp
+            '490' => '120',
             '610' => '150', // jp
         );
 

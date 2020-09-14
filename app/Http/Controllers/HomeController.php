@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Emoji;
 use App\Models\NewArrival;
 use App\Models\Promote;
+use App\Models\Series;
 use App\Models\Sticker;
 use App\Models\Theme;
 use Carbon;
@@ -51,6 +52,9 @@ class HomeController extends Controller
             ->where('status', 1)
             ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
             ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
+
+        // editorpick
+        $data['series'] = Series::take(3)->inRandomOrder()->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')

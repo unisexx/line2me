@@ -17,7 +17,7 @@ class SeriesController extends Controller
         }
         $rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
 
-        SEO::setTitle('รวมสติ๊กเกอร์ไลน์ชุดน่าสนใจ');
+        SEO::setTitle('รวมสติ๊กเกอร์ไลน์แนะนำชุดน่าสนใจ');
 
         return view('series.index2', compact('rs'));
     }
@@ -31,9 +31,12 @@ class SeriesController extends Controller
         $rs->touch();
         $series_items = SeriesItem::with('sticker', 'theme', 'emoji')->where('series_id', $id)->orderBy('order', 'asc')->simplePaginate(90);
 
-        // SEO
-        SEO::setTitle('รวมสติ๊กเกอร์ไลน์ชุด' . $rs->title);
+        // more
+        $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();
 
-        return view('series.detail', compact('rs', 'series_items'));
+        // SEO
+        SEO::setTitle('รวมสติ๊กเกอร์ไลน์แนะนำชุด' . $rs->title);
+
+        return view('series.detail', compact('rs', 'series_items', 'more_series'));
     }
 }
