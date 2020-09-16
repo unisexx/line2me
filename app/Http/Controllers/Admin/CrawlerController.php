@@ -849,7 +849,7 @@ class CrawlerController extends Controller
                 // dd($seriesId);
 
                 // บันทึก series item ตามหน้าที่ scrap
-                for ($i = 0; $i <= 5; $i++) {
+                for ($i = 0; $i <= 10; $i++) {
                     $this->getEditorPickDetail(@$url, $seriesId, $i);
                 }
 

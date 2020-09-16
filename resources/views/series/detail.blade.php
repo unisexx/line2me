@@ -2,7 +2,7 @@
 
 <div class="fh5co-narrow-content pb-0">
     <h2 class="mb-2">{{ $rs->title }}</h2>
-    {{ @!empty($rs->sub_title) ? '<p>'.$rs->sub_title.'</p>' : '' }}
+    {!! @!empty($rs->sub_title) ? '<p>'.$rs->sub_title.'</p>' : '' !!}
 </div>
 
 @if(@$series_items->where('product_type','sticker')->count() > 0)
