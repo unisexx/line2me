@@ -319,6 +319,31 @@ if (!function_exists('countryName')) {
     }
 }
 
+// if (!function_exists('countryFlag')) {
+//     function countryFlag($txt)
+//     {
+//         $countryArray = array(
+//             'jp' => '<img src="/image/countrys-flags/svg/japan.svg" width="24" alt="ญี่ปุ่น">',
+//             'gb' => '',
+//             'kr' => '<img src="/image/countrys-flags/svg/south-korea.svg" width="24" alt="เกาหลีใต้">',
+//             'es' => '<img src="/image/countrys-flags/svg/spain.svg" width="24" alt="สเปน">',
+//             'in' => '<img src="/image/countrys-flags/svg/india.svg" width="24" alt="อินเดีย">',
+//             'tw' => '<img src="/image/countrys-flags/svg/taiwan.svg" width="24" alt="ไต้หวัน">',
+//             'us' => '<img src="/image/countrys-flags/svg/united-states-of-america.svg" width="24" alt="สหรัฐอเมริกา">',
+//             'cn' => '<img src="/image/countrys-flags/svg/china.svg" width="24" alt="จีน">',
+//             'th' => '',
+//             'br' => '<img src="/image/countrys-flags/svg/brazil.svg" width="24" alt="บราซิล">',
+//             'my' => '<img src="/image/countrys-flags/svg/malaysia.svg" width="24" alt="มาเลเซีย">',
+//             'ph' => '<img src="/image/countrys-flags/svg/philippines.svg" width="24" alt="ฟิลิปปินส์">',
+//             'mx' => '<img src="/image/countrys-flags/svg/mexico.svg" width="24" alt="เม็กซิโก">',
+//             'id' => '<img src="/image/countrys-flags/svg/indonesia.svg" width="24" alt="อินโดนีเซีย">',
+//             'hk' => '<img src="/image/countrys-flags/svg/hong-kong.svg" width="24" alt="ฮ่องกง">',
+//         );
+
+//         return @$countryArray[$txt];
+//     }
+// }
+
 if (!function_exists('countryFlag')) {
     function countryFlag($txt)
     {

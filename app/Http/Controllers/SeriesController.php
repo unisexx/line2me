@@ -29,7 +29,16 @@ class SeriesController extends Controller
 
         $rs = Series::findOrFail($id);
         $rs->touch();
-        $series_items = SeriesItem::with('sticker', 'theme', 'emoji')->where('series_id', $id)->orderBy('order', 'asc')->simplePaginate(90);
+        $series_items = SeriesItem::where('series_id', $id)
+            ->with(['sticker' => function ($q) {
+                $q->orderBy('threedays', 'desc');
+            }])
+            ->with(['theme' => function ($q) {
+                $q->orderBy('threedays', 'desc');
+            }])
+            ->with(['emoji' => function ($q) {
+                $q->orderBy('threedays', 'desc');
+            }])->simplePaginate(90);
 
         // more
         $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();
