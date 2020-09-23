@@ -60,7 +60,7 @@ if (!function_exists('deleteDuplicate')) {
 if (!function_exists('convert_line_coin_2_money')) {
     function convert_line_coin_2_money($coin)
     {
-        $bath = array('250' => '150', '200' => '120', '150' => '90', '100' => '60', '50' => '30', '2' => '1');
+        $bath = array('250' => '150', '200' => '120', '150' => '90', '100' => '60', '50' => '30', '10' => '6', '2' => '1');
 
         return @$bath[$coin];
     }
@@ -69,7 +69,7 @@ if (!function_exists('convert_line_coin_2_money')) {
 if (!function_exists('th_2_coin')) {
     function th_2_coin($bath)
     {
-        $coin = array('1' => '2', '30' => '50', '60' => '100', '90' => '150', '120' => '200', '150' => '250');
+        $coin = array('1' => '2', '6' => '10', '30' => '50', '60' => '100', '90' => '150', '120' => '200', '150' => '250');
 
         return $coin[$bath];
     }

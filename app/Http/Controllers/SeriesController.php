@@ -11,7 +11,7 @@ class SeriesController extends Controller
 {
     public function getIndex()
     {
-        $rs = Series::select('*');
+        $rs = Series::select('*')->where('status', 1);
         if (!empty($keyword)) {
             $rs = $rs->where('title', 'LIKE', "%$keyword%");
         }
@@ -38,7 +38,7 @@ class SeriesController extends Controller
             }])
             ->with(['emoji' => function ($q) {
                 $q->orderBy('threedays', 'desc');
-            }])->simplePaginate(90);
+            }])->orderBy('order', 'asc')->simplePaginate(90);
 
         // more
         $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();

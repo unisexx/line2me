@@ -28,6 +28,9 @@ $emoji_promote = DB::table('promotes')
 	->inRandomOrder()
 	->take(30)
 	->get();
+
+// editorpick
+$series = App\Models\Series::where('status', 1)->take(3)->inRandomOrder()->get();
 @endphp
 
 @if(count($sticker_promote) != 0)
@@ -96,3 +99,20 @@ $emoji_promote = DB::table('promotes')
 	</div>
 </div>
 @endif
+
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">แนะนำจากทางร้าน</h2>
+		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
+	</div>
+	<div class="row mb-5">
+		@foreach($series as $row)
+		<div class="col pl-2 pr-2">
+			<a href="{{ url('series/'. $row->id) }}">
+				<img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
+			</a>
+		</div>
+		@endforeach
+	</div>
+</div>
+

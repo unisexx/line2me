@@ -19,7 +19,9 @@ https://line.me/ti/p/~@line2me.in.th
 <div class="box-body">
     <div class="form-group">
         <label for="title">ชื่อ Series</label>
-        <input name="title" type="text" class="form-control" id="title" value="{{ @$rs->title }}">
+        <div><input name="title" type="text" class="form-control" value="{{ @$rs->title }}" placeholder="หัวข้อหลัก"></div>
+        <div><input name="sub_title" type="text" class="form-control" value="{{ @$rs->sub_title }}" placeholder="หัวข้อรอง"></div>
+        <div><input name="image" type="text" class="form-control" value="{{ @$rs->image }}" placeholder="ลิ้งค์รูป"></div>
         <div class="checkbox">
             <label>
                 <input name="hilight" type="hidden" value="0" checked>
@@ -43,17 +45,23 @@ https://line.me/ti/p/~@line2me.in.th
                             @endif
                         @elseif($row->product_type == 'emoji')
                             <a href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="45"></a> {{ @$row->emoji->id }}
+                            @if(@$row->emoji->id == '')
+                                <a href="{{ url('admin/getemoji/'.$row->product_code) }}" class="btn btn-sm btn-warning" target="_blank">อัพเดท</a>
+                            @endif
                         @elseif($row->product_type == 'theme')
                             <a href="{{ url('theme/'.@$row->theme->id) }}" target="_blank"><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png" height="60"></a> {{ @$row->theme->id }}
+                            @if(@$row->theme->id == '')
+                                <a href="{{ url('admin/gettheme/'.$row->product_code) }}" class="btn btn-sm btn-warning" target="_blank">อัพเดท</a>
+                            @endif
                         @endif
                     </td>
-                    <td>
+                    {{-- <td>
                         <select class='form-control' name='product_type[]'>
                             <option value='sticker' @if($row->product_type == 'sticker') selected @endif>sticker</option>
                             <option value='theme' @if($row->product_type == 'theme') selected @endif>theme</option>
                             <option value='emoji' @if($row->product_type == 'emoji') selected @endif>emoji</option>
                         </select>
-                    </td>
+                    </td> --}}
                     <td><input class='form-control' type='text' name='product_code[]' value="{{ $row->product_code }}"></td>
                     <td>
                         <input class='form-control' type='hidden' name='product_item_id[]' value="{{ $row->id }}">
@@ -92,7 +100,7 @@ $(document).ready(function(){
         var html = "";
         html += "<tr>";
         html += "<td></td>";
-        html += "<td><select class='form-control' name='product_type[]'><option value='sticker'>sticker</option><option value='theme'>theme</option><option value='emoji'>emoji</option></select></td>";
+        // html += "<td><select class='form-control' name='product_type[]'><option value='sticker'>sticker</option><option value='theme'>theme</option><option value='emoji'>emoji</option></select></td>";
         html += "<td><input class='form-control' type='text' name='product_code[]'></td>";
         html += "<td><input class='form-control' type='hidden' name='product_item_id[]'><input class='btn btn-sm btn-danger btnDelete' value='ลบ'></td>";
         html += "</tr>";

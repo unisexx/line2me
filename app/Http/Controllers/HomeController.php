@@ -54,7 +54,7 @@ class HomeController extends Controller
             ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
 
         // editorpick
-        $data['series'] = Series::take(3)->inRandomOrder()->get();
+        $data['series'] = Series::where('status', 1)->take(3)->inRandomOrder()->get();
 
         // ธีมไลน์อัพเดท
         $data['theme_update'] = Theme::where('category', 'official')
