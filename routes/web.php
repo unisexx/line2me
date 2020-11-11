@@ -59,6 +59,7 @@ Route::get('search/{param}', 'HomeController@search');
 // new arrival
 Route::get('new_arrival', 'NewArrivalController@getIndex');
 Route::get('new_arrival/{param}', 'NewArrivalController@getDetail');
+Route::get('new_arrival2/{param}', 'NewArrivalController@getDetail2');
 
 // sticker
 Route::get('sticker/{id}', 'StickerController@getProduct');
@@ -125,5 +126,8 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     // ปรับปรุงโค้ดใหม่ 2563
     Route::get('getstickerstore63/{type}/{category}/{page}', 'CrawlerController@getstickerstore63');
 
-    Route::any('geteditorpick/{page}/{link_number}', 'CrawlerController@getEditorPick');
+    // แบบจับทีละลิ้งค์
+    // Route::any('geteditorpick/{page}/{link_number}', 'CrawlerController@getEditorPick');
+    // แบบจับทีละหน้า
+    Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
 });

@@ -45,6 +45,8 @@ class CrawlerController extends Controller
      */
     public function getsticker($sticker_code)
     {
+        // dd($sticker_code);
+
         // นำ sticker_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
         $rs = Sticker::select('id')->where('sticker_code', $sticker_code)->first();
 
@@ -74,7 +76,10 @@ class CrawlerController extends Controller
             $image = explode("/", $image);
             $version = str_replace('v', '', $image[4]);
 
-            // ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
+            /**
+             * ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
+             */
+            // dd('http://dl.stickershop.line.naver.jp/products/0/0/' . $version . '/' . $sticker_code . '/LINEStorePC/productInfo.meta');
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -97,12 +102,32 @@ class CrawlerController extends Controller
             $hassound = @$productInfo['hasSound'];
             $validdays = $productInfo['validDays'];
             $stickerresourcetype = @$productInfo['stickerResourceType'];
+            $price = @@(int) $productInfo['price'][0]['price'];
 
+            /***************************************************************** */
+
+            /**
+             * ใช้ในกรณีที่ดึงค่าจาก meta ไม่ได้
+             */
+            // $title_th = @trim($crawler_page->filter('[data-test="sticker-name-title"]')->text());
+            // $title_en = $title_th;
+            // $author_th = @trim($crawler_page->filter('[data-test="sticker-author"]')->text());
+            // $author_en = $author_th;
+            // $onsale = 1;
+            // $validdays = 0;
+
+            // $hasanimation = $this->getStickerTypeByIcon($crawler_page, 'hasanimation');
+            // $hassound = $this->getStickerTypeByIcon($crawler_page, 'hassound');
+            // $stickerresourcetype = $this->getStickerTypeByIcon($crawler_page, 'stickerresourcetype');
+            // $price = @th_2_coin(@(int) @trim($crawler_page->filter('[data-test="sticker-price"]')->text()));
+
+            /***************************************************************** */
+
+            $category = $sticker_code > 1000000 ? 'creator' : 'official';
             $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
             $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
             $sticker_code = $sticker_code;
             $created = date("Y-m-d H:i:s");
-            $price = @(int) $productInfo['price'][0]['price'];
             $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
             $stamp_start = reset($data)['stamp_code'];
             $stamp_end = end($data)['stamp_code'];
@@ -122,7 +147,7 @@ class CrawlerController extends Controller
                     'author_en'           => $author_en,
                     'credit'              => $credit,
                     'created_at'          => date("Y-m-d H:i:s"),
-                    'category'            => 'creator',
+                    'category'            => $category,
                     'country'             => $country,
                     'price'               => $price,
                     'status'              => 1,
@@ -139,9 +164,61 @@ class CrawlerController extends Controller
             unset($data);
 
             dump($title_th);
+        }
+        // else {
+        //     dump("มีสติ๊กเกอร์ชุดนี้ในระบบแล้ว!!!");
+        // }
+    }
+
+    public function getStickerTypeByIcon($crawler_page, $key)
+    {
+        if ($crawler_page->filter('.MdIcoAni_b')->count() > 0) {
+            @$txt = @trim($crawler_page->filter('.MdIcoAni_b')->attr('data-test'));
+        }
+        if ($crawler_page->filter('.MdIcoFlashAni_s')->count() > 0) {
+            @$txt = @trim($crawler_page->filter('.MdIcoFlashAni_s')->attr('data-test'));
+        }
+        if ($crawler_page->filter('.MdIcoSound_b')->count() > 0) {
+            @$txt = @trim($crawler_page->filter('.MdIcoSound_b')->attr('data-test'));
+        }
+        if ($crawler_page->filter('.MdIcoFlash_b')->count() > 0) {
+            @$txt = @trim($crawler_page->filter('.MdIcoFlash_b')->attr('data-test'));
+        }
+        if ($crawler_page->filter('.MdIcoPlay_b')->count() > 0) {
+            @$txt = @trim($crawler_page->filter('.MdIcoPlay_b')->attr('data-test'));
+        }
+        if ($crawler_page->filter('.MdIcoPlay_s')->count() > 0) {
+            @$txt = @trim($crawler_page->filter('.MdIcoPlay_s')->attr('data-test'));
+        }
+
+        $data = [];
+        if (@$txt == 'animation-sound-sticker-icon') {
+            $data['hasanimation'] = 1;
+            $data['hassound'] = 1;
+            $data['stickerresourcetype'] = 'ANIMATION_SOUND';
+        } elseif (@txt == 'animation-sticker-icon') {
+            $data['hasanimation'] = 1;
+            $data['hassound'] = 0;
+            $data['stickerresourcetype'] = 'ANIMATION';
+        } elseif (@$txt == 'popup-sticker-icon') {
+            $data['hasanimation'] = 0;
+            $data['hassound'] = 0;
+            $data['stickerresourcetype'] = 'POPUP';
+        } elseif (@$txt == 'sound-sticker-icon') {
+            $data['hasanimation'] = 0;
+            $data['hassound'] = 1;
+            $data['stickerresourcetype'] = 'SOUND';
+        } elseif (@$txt == 'popup-sound-sticker-icon') {
+            $data['hasanimation'] = 0;
+            $data['hassound'] = 0;
+            $data['stickerresourcetype'] = 'POPUP_SOUND';
         } else {
-            dump("มีสติ๊กเกอร์ชุดนี้ในระบบแล้ว!!!");
-        } // endif
+            $data['hasanimation'] = 0;
+            $data['hassound'] = 0;
+            $data['stickerresourcetype'] = 'STATIC';
+        }
+
+        return $data[$key];
     }
 
     /**
@@ -244,7 +321,7 @@ class CrawlerController extends Controller
      * cat : top, new, top_creators, new_top_creators, new_creators
      * Page: หน้าที่จะเข้าไปดึงข้อมูล
      */
-    public static function getstickerstore($type, $cat, $page = null)
+    public function getstickerstore($type, $cat, $page = null)
     {
         if ($type == 1) {
             // official
@@ -269,98 +346,7 @@ class CrawlerController extends Controller
             $sticker_code = $sticker_code[3];
             // dump($sticker_code);
 
-            // นำ sticker_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
-            $rs = Sticker::select('id')->where('sticker_code', $sticker_code)->first();
-
-            // ถ้ายังไม่มีค่าใน DB
-            if (empty($rs->id)) {
-
-                $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
-                // dd($crawler_page);
-
-                // หา stamp_start & stamp_end
-                for ($i = 0; $i < 40; $i++) {
-                    // check node empty
-                    if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
-                        $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
-                        // dd($imgTxt);
-                        $image_path = explode("/", getUrlFromText($imgTxt));
-                        $stamp_code = $image_path[6];
-
-                        $data[] = array(
-                            'stamp_code' => $stamp_code,
-                        );
-                    }
-                }
-
-                // หาเวอร์ชั่นของสติ๊กเกอร์โดยวิเคราะห์จาก url ของรูปสติ๊กเกอร์
-                // $image = trim($crawler_page->filter('div.mdCMN08Img > img')->attr('src'));
-                // $image = trim($crawler_page->filter('.mdCMN38Img > img')->attr('src'));
-                // $image = explode("/", $image);
-                // $version = str_replace('v', '', $image[4]);
-                $version = 1;
-
-                // ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_URL, 'http://dl.stickershop.line.naver.jp/products/0/0/' . $version . '/' . $sticker_code . '/LINEStorePC/productInfo.meta');
-                $result = curl_exec($ch);
-                curl_close($ch);
-                $productInfo = json_decode($result, true);
-
-                $title_th = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
-                $title_en = $productInfo['title']['en'];
-                $author_th = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
-                $author_en = $productInfo['author']['en'];
-                $onsale = $productInfo['onSale'];
-                $hasanimation = @$productInfo['hasAnimation'];
-                $hassound = @$productInfo['hasSound'];
-                $validdays = $productInfo['validDays'];
-                $stickerresourcetype = @$productInfo['stickerResourceType'];
-
-                $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-                $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-                $sticker_code = $sticker_code;
-                $created = date("Y-m-d H:i:s");
-                $price = @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3));
-                $country = "th";
-                $stamp_start = reset($data)['stamp_code'];
-                $stamp_end = end($data)['stamp_code'];
-
-                // dump($productInfo);
-                // dump($price);
-
-                // insert ลง db
-                DB::table('stickers')->insert(
-                    [
-                        'sticker_code'        => $sticker_code,
-                        'version'             => $version,
-                        'title_th'            => $title_th,
-                        'title_en'            => $title_en,
-                        'detail'              => $detail,
-                        'author_th'           => $author_th,
-                        'author_en'           => $author_en,
-                        'credit'              => $credit,
-                        'created_at'          => date("Y-m-d H:i:s"),
-                        'category'            => $category,
-                        'country'             => $country,
-                        'price'               => $price,
-                        'status'              => 1,
-                        'onsale'              => $onsale,
-                        'validdays'           => $validdays,
-                        'hasanimation'        => $hasanimation,
-                        'hassound'            => $hassound,
-                        'stickerresourcetype' => $stickerresourcetype,
-                        'stamp_start'         => $stamp_start,
-                        'stamp_end'           => $stamp_end,
-                    ]
-                );
-
-                unset($data);
-
-                dump($title_th);
-            } // endif
+            $this->getsticker($sticker_code);
 
             // exit();
         }); // endforeach
@@ -827,68 +813,68 @@ class CrawlerController extends Controller
             // dump($url);
             // dump($sub_title);
 
-            $url_number = explode("/", $url)[3];
-            if ($link_number == $url_number):
+            // $url_number = explode("/", $url)[3];
+            // if ($link_number == $url_number):
 
-                // บันทึกลงฐานข้อมูล
-                $series = Series::updateOrCreate(
-                    [
-                        'url' => @$url,
-                    ],
-                    [
-                        'image'     => @$image,
-                        'title'     => @$title,
-                        'sub_title' => @$sub_title,
-                    ]
-                );
+            // บันทึกลงฐานข้อมูล
+            $series = Series::updateOrCreate(
+                [
+                    'url' => @$url,
+                ],
+                [
+                    'image'     => @$image,
+                    'title'     => @$title,
+                    'sub_title' => @$sub_title,
+                ]
+            );
 
-                // หาไอดีล่าสุด
-                // dd(DB::getPdo()->lastInsertId());
-                $seriesId = $series->id;
+            // หาไอดีล่าสุด
+            // dd(DB::getPdo()->lastInsertId());
+            $seriesId = $series->id;
 
-                // dd($seriesId);
+            // dd($seriesId);
 
-                // บันทึก series item ตามหน้าที่ scrap
-                for ($i = 0; $i <= 10; $i++) {
-                    $this->getEditorPickDetail(@$url, $seriesId, $i);
+            // บันทึก series item ตามหน้าที่ scrap
+            for ($i = 0; $i <= 10; $i++) {
+                $this->getEditorPickDetail(@$url, $seriesId, $i);
+            }
+
+            // สติ๊กเกอร์ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
+            $seriesItemArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+            $dbArray = Sticker::whereIn('sticker_code', $seriesItemArray)->pluck('sticker_code')->toArray();
+            $differenceArray = array_diff($seriesItemArray, $dbArray);
+            if (count($differenceArray)) {
+                foreach ($differenceArray as $product_code) {
+                    $this->getsticker($product_code);
                 }
+            }
 
-                // สติ๊กเกอร์ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
-                $seriesItemArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-                $dbArray = Sticker::whereIn('sticker_code', $seriesItemArray)->pluck('sticker_code')->toArray();
-                $differenceArray = array_diff($seriesItemArray, $dbArray);
-                if (count($differenceArray)) {
-                    foreach ($differenceArray as $product_code) {
-                        $this->getsticker($product_code);
-                    }
+            // ธีม :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
+            $seriesItemArray = SeriesItem::where('product_type', 'theme')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+            $dbArray = Theme::whereIn('theme_code', $seriesItemArray)->pluck('theme_code')->toArray();
+            $differenceArray = array_diff($seriesItemArray, $dbArray);
+            if (count($differenceArray)) {
+                foreach ($differenceArray as $product_code) {
+                    $this->gettheme($product_code);
                 }
+            }
 
-                // ธีม :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
-                $seriesItemArray = SeriesItem::where('product_type', 'theme')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-                $dbArray = Theme::whereIn('theme_code', $seriesItemArray)->pluck('theme_code')->toArray();
-                $differenceArray = array_diff($seriesItemArray, $dbArray);
-                if (count($differenceArray)) {
-                    foreach ($differenceArray as $product_code) {
-                        $this->gettheme($product_code);
-                    }
+            // อิโมจิ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
+            $seriesItemArray = SeriesItem::where('product_type', 'emoji')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+            $dbArray = Emoji::whereIn('emoji_code', $seriesItemArray)->pluck('emoji_code')->toArray();
+            $differenceArray = array_diff($seriesItemArray, $dbArray);
+            if (count($differenceArray)) {
+                foreach ($differenceArray as $product_code) {
+                    $this->getemoji($product_code);
                 }
+            }
 
-                // อิโมจิ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
-                $seriesItemArray = SeriesItem::where('product_type', 'emoji')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-                $dbArray = Emoji::whereIn('emoji_code', $seriesItemArray)->pluck('emoji_code')->toArray();
-                $differenceArray = array_diff($seriesItemArray, $dbArray);
-                if (count($differenceArray)) {
-                    foreach ($differenceArray as $product_code) {
-                        $this->getemoji($product_code);
-                    }
-                }
+            dump($title);
 
-                dump($title);
-
-            else:
-                dump('จบ');
-                // exit();
-            endif;
+            // else:
+            //     dump('จบ');
+            //     // exit();
+            // endif;
 
         }); // endforeach
     }
