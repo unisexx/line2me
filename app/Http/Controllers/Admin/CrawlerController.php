@@ -813,68 +813,71 @@ class CrawlerController extends Controller
             // dump($url);
             // dump($sub_title);
 
-            // $url_number = explode("/", $url)[3];
-            // if ($link_number == $url_number):
+            // เปิด 2 บรรทัดนี้ถ้าจะเปลี่ยนเป็นแบบจับทีละลิ้งค์
+            $url_number = explode("/", $url)[3];
+            if ($link_number == $url_number):
 
-            // บันทึกลงฐานข้อมูล
-            $series = Series::updateOrCreate(
-                [
-                    'url' => @$url,
-                ],
-                [
-                    'image'     => @$image,
-                    'title'     => @$title,
-                    'sub_title' => @$sub_title,
-                ]
-            );
+                // บันทึกลงฐานข้อมูล
+                $series = Series::updateOrCreate(
+                    [
+                        'url' => @$url,
+                    ],
+                    [
+                        'image'     => @$image,
+                        'title'     => @$title,
+                        'sub_title' => @$sub_title,
+                        'status'    => 1,
+                    ]
+                );
 
-            // หาไอดีล่าสุด
-            // dd(DB::getPdo()->lastInsertId());
-            $seriesId = $series->id;
+                // หาไอดีล่าสุด
+                // dd(DB::getPdo()->lastInsertId());
+                $seriesId = $series->id;
 
-            // dd($seriesId);
+                // dd($seriesId);
 
-            // บันทึก series item ตามหน้าที่ scrap
-            for ($i = 0; $i <= 10; $i++) {
-                $this->getEditorPickDetail(@$url, $seriesId, $i);
-            }
-
-            // สติ๊กเกอร์ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
-            $seriesItemArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-            $dbArray = Sticker::whereIn('sticker_code', $seriesItemArray)->pluck('sticker_code')->toArray();
-            $differenceArray = array_diff($seriesItemArray, $dbArray);
-            if (count($differenceArray)) {
-                foreach ($differenceArray as $product_code) {
-                    $this->getsticker($product_code);
+                // บันทึก series item ตามหน้าที่ scrap
+                for ($i = 0; $i <= 10; $i++) {
+                    $this->getEditorPickDetail(@$url, $seriesId, $i);
                 }
-            }
 
-            // ธีม :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
-            $seriesItemArray = SeriesItem::where('product_type', 'theme')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-            $dbArray = Theme::whereIn('theme_code', $seriesItemArray)->pluck('theme_code')->toArray();
-            $differenceArray = array_diff($seriesItemArray, $dbArray);
-            if (count($differenceArray)) {
-                foreach ($differenceArray as $product_code) {
-                    $this->gettheme($product_code);
+                // สติ๊กเกอร์ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
+                $seriesItemArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+                $dbArray = Sticker::whereIn('sticker_code', $seriesItemArray)->pluck('sticker_code')->toArray();
+                $differenceArray = array_diff($seriesItemArray, $dbArray);
+                if (count($differenceArray)) {
+                    foreach ($differenceArray as $product_code) {
+                        $this->getsticker($product_code);
+                    }
                 }
-            }
 
-            // อิโมจิ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
-            $seriesItemArray = SeriesItem::where('product_type', 'emoji')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-            $dbArray = Emoji::whereIn('emoji_code', $seriesItemArray)->pluck('emoji_code')->toArray();
-            $differenceArray = array_diff($seriesItemArray, $dbArray);
-            if (count($differenceArray)) {
-                foreach ($differenceArray as $product_code) {
-                    $this->getemoji($product_code);
+                // ธีม :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
+                $seriesItemArray = SeriesItem::where('product_type', 'theme')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+                $dbArray = Theme::whereIn('theme_code', $seriesItemArray)->pluck('theme_code')->toArray();
+                $differenceArray = array_diff($seriesItemArray, $dbArray);
+                if (count($differenceArray)) {
+                    foreach ($differenceArray as $product_code) {
+                        $this->gettheme($product_code);
+                    }
                 }
-            }
 
-            dump($title);
+                // อิโมจิ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
+                $seriesItemArray = SeriesItem::where('product_type', 'emoji')->where('series_id', $seriesId)->pluck('product_code')->toArray();
+                $dbArray = Emoji::whereIn('emoji_code', $seriesItemArray)->pluck('emoji_code')->toArray();
+                $differenceArray = array_diff($seriesItemArray, $dbArray);
+                if (count($differenceArray)) {
+                    foreach ($differenceArray as $product_code) {
+                        $this->getemoji($product_code);
+                    }
+                }
 
-            // else:
-            //     dump('จบ');
-            //     // exit();
-            // endif;
+                dump($title);
+
+                // เปิด 4 บรรทัดนี้ถ้าจะเปลี่ยนเป็นแบบจับทีละลิ้งค์
+            else:
+                dump('จบ');
+                // exit();
+            endif;
 
         }); // endforeach
     }

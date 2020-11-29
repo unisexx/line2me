@@ -48,9 +48,9 @@ class SeriesController extends Controller
                     ],
                     [
                         'product_code' => getProductCodeFromStoreUrl($request->product_code[$i]),
-                        'product_type' => getProductTypeFromStoreUrl($request->product_code[$i]),
-                        'series_id'    => $series->id,
-                        'order'        => ($i + 1),
+                        'product_type' => $request->product_type[$i] ? $request->product_type[$i] : getProductTypeFromStoreUrl($request->product_code[$i]),
+                        'series_id'    => $id,
+                        'order'        => $request->order[$i] ? $request->order[$i] : ($i + 1),
                     ]
                 );
             }
@@ -89,9 +89,9 @@ class SeriesController extends Controller
                     ],
                     [
                         'product_code' => getProductCodeFromStoreUrl($request->product_code[$i]),
-                        // 'product_type' => getProductTypeFromStoreUrl($request->product_code[$i]),
+                        'product_type' => $request->product_type[$i] ? $request->product_type[$i] : getProductTypeFromStoreUrl($request->product_code[$i]),
                         'series_id'    => $id,
-                        'order'        => ($i + 1),
+                        'order'        => $request->order[$i] ? $request->order[$i] : ($i + 1),
                     ]
                 );
             }
