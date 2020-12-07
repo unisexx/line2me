@@ -38,7 +38,7 @@ class SeriesController extends Controller
             }])
             ->with(['emoji' => function ($q) {
                 $q->orderBy('threedays', 'desc');
-            }])->orderBy('order', 'desc')->simplePaginate(90);
+            }])->orderBy('order', 'asc')->simplePaginate(90);
 
         // more
         $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();

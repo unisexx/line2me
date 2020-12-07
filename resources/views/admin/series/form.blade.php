@@ -101,8 +101,9 @@ $(document).ready(function(){
         var html = "";
         html += "<tr>";
         html += "<td></td>";
-        // html += "<td><select class='form-control' name='product_type[]'><option value='sticker'>sticker</option><option value='theme'>theme</option><option value='emoji'>emoji</option></select></td>";
+        html += "<td><select class='form-control' name='product_type[]'><option value='sticker'>sticker</option><option value='theme'>theme</option><option value='emoji'>emoji</option></select></td>";
         html += "<td><input class='form-control' type='text' name='product_code[]'></td>";
+        html += "<td><input class='form-control' type='text' name='order[]'></td>";
         html += "<td><input class='form-control' type='hidden' name='product_item_id[]'><input class='btn btn-sm btn-danger btnDelete' value='ลบ'></td>";
         html += "</tr>";
         $('#rowHere table tbody').append(html);
