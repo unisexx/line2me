@@ -62,6 +62,7 @@ class CrawlerController extends Controller
                     $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
                     $image_path = explode("/", getUrlFromText($imgTxt));
                     $stamp_code = $image_path[6];
+                    $version = str_replace('v', '', $image_path[4]);
                     // dump($imgTxt);
 
                     $data[] = array(
@@ -70,11 +71,14 @@ class CrawlerController extends Controller
                 }
             }
 
+            // dd($version);
+
             // หาเวอร์ชั่นของสติ๊กเกอร์โดยวิเคราะห์จาก url ของรูปสติ๊กเกอร์
             // $image = trim($crawler_page->filter('div.mdCMN08Img > img')->attr('src'));
-            $image = trim($crawler_page->filter('img.FnImage')->attr('src'));
-            $image = explode("/", $image);
-            $version = str_replace('v', '', $image[4]);
+            // $image = trim($crawler_page->filter('.mdCMN38Img > img.FnImage')->attr('src'));
+            // dd($image);
+            // $image = explode("/", $image);
+            // $version = str_replace('v', '', $image[4]);
 
             /**
              * ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
@@ -102,7 +106,9 @@ class CrawlerController extends Controller
             $hassound = @$productInfo['hasSound'];
             $validdays = $productInfo['validDays'];
             $stickerresourcetype = @$productInfo['stickerResourceType'];
-            $price = @@(int) $productInfo['price'][0]['price'];
+            $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
+            // $price = @@(int) $productInfo['price'][0]['price'];
+            $price = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
             /***************************************************************** */
 
@@ -128,7 +134,6 @@ class CrawlerController extends Controller
             $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
             $sticker_code = $sticker_code;
             $created = date("Y-m-d H:i:s");
-            $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
             $stamp_start = reset($data)['stamp_code'];
             $stamp_end = end($data)['stamp_code'];
 
@@ -245,7 +250,7 @@ class CrawlerController extends Controller
                 $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
                 $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
                 $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-                $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT));
+                $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
                 // insert ลง db
                 DB::table('themes')->insert(
@@ -291,7 +296,7 @@ class CrawlerController extends Controller
             $creator_name = trim($crawler_page->filter('.mdCMN38Item01Author')->text());
             $detail = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
             $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-            $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT));
+            $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
             // insert ลง db
             DB::table('emojis')->insert(
@@ -622,32 +627,8 @@ class CrawlerController extends Controller
             // รหัสธีม
             $theme_code = $row['id'];
 
-            // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ายังไม่มีให้ทำงานต่อ
-            $rs = Theme::select('id')->where('theme_code', $theme_code)->first();
-            if (empty($rs->id)) {
-
-                $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
-
-                // dd(getCountry($crawler_page->filter('p.mdCMN38Item01Price')->text()));
-
-                $data[] = [
-                    'theme_code' => $theme_code,
-                    'title'      => trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
-                    'detail'     => trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
-                    'author'     => trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
-                    'credit'     => trim($crawler_page->filter('p.mdCMN09Copy')->text()),
-                    'created_at' => date("Y-m-d H:i:s"),
-                    'updated_at' => date("Y-m-d H:i:s"),
-                    'category'   => $categoryArray[$row['subtype']],
-                    'country'    => getCountry($crawler_page->filter('p.mdCMN38Item01Price')->text()),
-                    'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-                    'status'     => 1,
-                ];
-            }
+            $this->gettheme($theme_code);
         }
-
-        DB::table('themes')->insert($data);
-        dump($data);
     }
 
     /**
@@ -933,16 +914,92 @@ class CrawlerController extends Controller
         }
     }
 
-    public function getConvert2Bath($price)
+    public function getConvert2Bath($price, $country)
     {
-        $Bath = array(
-            '120' => '30', // jp
-            '250' => '60', // jp
-            '370' => '90', // jp
-            '490' => '120',
-            '610' => '150', // jp
-        );
+        if ($country == 'th') {
+            $Bath = array(
+                '30'  => '30',
+                '60'  => '60',
+                '90'  => '90',
+                '120' => '120',
+                '150' => '150',
+            );
+        } elseif ($country == 'jp') {
+            $Bath = array(
+                '120' => '30', // jp
+                '250' => '60', // jp
+                '370' => '90', // jp
+                '490' => '120',
+                '610' => '150', // jp
+            );
+        } elseif ($country == 'tw') {
+            $Bath = array(
+                '30'  => '30',
+                '60'  => '60',
+                '90'  => '90',
+                '120' => '120',
+                '150' => '150',
+            );
+        }
 
         return $Bath[$price];
+    }
+
+    public function getStickerByAuthor($authorID, $page = null)
+    {
+        // หน้าเพจเป้าหมาย
+        $pageTarget = 'https://store.line.me/stickershop/author/' . $authorID . '?page=' . $page;
+        $crawler = Goutte::request('GET', $pageTarget);
+
+        // foreach
+        $crawler->filter('.mdCMN02Li')->each(function ($node) {
+
+            // หา url ของสติ๊กเกอร์
+            $url = $node->filter('a')->attr('href');
+
+            // เอาลิ้งค์ สติ๊กเกอร์ที่ได้มา หาค่า sticker_code
+            $sticker_code = explode("/", $url);
+            $sticker_code = $sticker_code[3];
+            // dump($sticker_code);
+            $this->getsticker($sticker_code);
+
+            // exit();
+        }); // endforeach
+
+        // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
+        if (isset($page) && $page != 1) {
+            $page = $page - 1;
+            $page_redirect = url('admin/get-sticker-by-author/' . $authorID . '/' . $page);
+            echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
+        }
+    }
+
+    public function getThemeByAuthor($authorID, $page = null)
+    {
+        // หน้าเพจเป้าหมาย
+        $pageTarget = 'https://store.line.me/themeshop/author/' . $authorID . '?page=' . $page;
+        $crawler = Goutte::request('GET', $pageTarget);
+
+        // foreach
+        $crawler->filter('.mdCMN02Li')->each(function ($node) {
+
+            // หา url ของสติ๊กเกอร์
+            $url = $node->filter('a')->attr('href');
+
+            // เอาลิ้งค์ สติ๊กเกอร์ที่ได้มา หาค่า theme_code
+            $theme_code = explode('/', $url);
+            $theme_code = $theme_code[3];
+
+            $this->gettheme($theme_code);
+
+            // exit();
+        }); // endforeach
+
+        // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
+        if (isset($page) && $page != 1) {
+            $page = $page - 1;
+            $page_redirect = url('admin/get-theme-by-author/' . $authorID . '/' . $page);
+            echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
+        }
     }
 }

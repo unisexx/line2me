@@ -15,10 +15,10 @@
 		<div class="col">
 			<select class="custom-select animate-box" data-animate-effect="fadeInLeft" onchange="location = '{{ Request::root() }}/sticker/creator/'+this.value+'/{{ Request::segment(4) }}'">
 			<option value="all" {{ Request::segment(3) == 'all' ? 'selected' : '' }}>ทั้งหมด</option>
-				<option value="thai" {{ Request::segment(3) == 'thai' ? 'selected' : '' }}>ไทย</option>
+				<option value="th" {{ Request::segment(3) == 'th' ? 'selected' : '' }}>ไทย</option>
 				<option value="oversea" {{ Request::segment(3) == 'oversea' ? 'selected' : '' }}>ต่างประเทศ</option>
-				<option value="japan" {{ Request::segment(3) == 'japan' ? 'selected' : '' }}>ญุี่ปุ่น</option>
-				<option value="taiwan" {{ Request::segment(3) == 'taiwan' ? 'selected' : '' }}>ไต้หวัน</option>
+				{{-- <option value="jp" {{ Request::segment(3) == 'jp' ? 'selected' : '' }}>ญุี่ปุ่น</option>
+				<option value="tw" {{ Request::segment(3) == 'tw' ? 'selected' : '' }}>ไต้หวัน</option> --}}
 			</select>
 		</div>
 	</div>

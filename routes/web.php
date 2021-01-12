@@ -123,6 +123,10 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::get('getthemestoresearch/{txtsearch}', 'CrawlerController@getthemestoresearch');
     Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
 
+    // by author
+    Route::get('get-sticker-by-author/{authorId}/{page}', 'CrawlerController@getStickerByAuthor');
+    Route::get('get-theme-by-author/{authorId}/{page}', 'CrawlerController@getThemeByAuthor');
+
     // ปรับปรุงโค้ดใหม่ 2563
     Route::get('getstickerstore63/{type}/{category}/{page}', 'CrawlerController@getstickerstore63');
 
