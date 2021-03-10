@@ -71,8 +71,6 @@ class CrawlerController extends Controller
                 }
             }
 
-            // dd($version);
-
             // หาเวอร์ชั่นของสติ๊กเกอร์โดยวิเคราะห์จาก url ของรูปสติ๊กเกอร์
             // $image = trim($crawler_page->filter('div.mdCMN08Img > img')->attr('src'));
             // $image = trim($crawler_page->filter('.mdCMN38Img > img.FnImage')->attr('src'));
@@ -108,7 +106,7 @@ class CrawlerController extends Controller
             $stickerresourcetype = @$productInfo['stickerResourceType'];
             $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
             // $price = @@(int) $productInfo['price'][0]['price'];
-            $price = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
+            $price = $this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
             /***************************************************************** */
 
@@ -926,11 +924,11 @@ class CrawlerController extends Controller
             );
         } elseif ($country == 'jp') {
             $Bath = array(
-                '120' => '30', // jp
-                '250' => '60', // jp
-                '370' => '90', // jp
+                '120' => '30',
+                '250' => '60',
+                '370' => '90',
                 '490' => '120',
-                '610' => '150', // jp
+                '610' => '150',
             );
         } elseif ($country == 'tw') {
             $Bath = array(
@@ -942,7 +940,38 @@ class CrawlerController extends Controller
             );
         }
 
-        return $Bath[$price];
+        return @$Bath[$price];
+    }
+
+    public function getConvert2Coin($price, $country)
+    {
+        if ($country == 'th') {
+            $Bath = array(
+                '30'  => '50',
+                '60'  => '100',
+                '90'  => '150',
+                '120' => '200',
+                '150' => '250',
+            );
+        } elseif ($country == 'jp') {
+            $Bath = array(
+                '120' => '50',
+                '250' => '100',
+                '370' => '150',
+                '490' => '200',
+                '610' => '250',
+            );
+        } elseif ($country == 'tw') {
+            $Bath = array(
+                '30'  => '50',
+                '60'  => '100',
+                '90'  => '150',
+                '120' => '200',
+                '150' => '250',
+            );
+        }
+
+        return @$Bath[$price];
     }
 
     public function getStickerByAuthor($authorID, $page = null)

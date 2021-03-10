@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Series;
 use App\Models\SeriesItem;
+use OpenGraph;
 use SEO;
+use SEOMeta;
 
 class SeriesController extends Controller
 {
@@ -15,7 +17,7 @@ class SeriesController extends Controller
         if (!empty($keyword)) {
             $rs = $rs->where('title', 'LIKE', "%$keyword%");
         }
-        $rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
+        $rs = $rs->orderBY('hilight', 'desc')->orderBy('id', 'desc')->simplePaginate(30);
 
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์แนะนำชุดน่าสนใจ');
 
@@ -45,6 +47,13 @@ class SeriesController extends Controller
 
         // SEO
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์แนะนำชุด' . $rs->title);
+        SEO::setDescription('ขายสติ๊กเกอร์ไลน์ลิขสิทธิ์ของแท้ ไม่มีหาย ติดต่อไลน์ไอดี ratasak1234');
+        SEO::opengraph()->setUrl(url()->current());
+        SEO::addImages($rs->image);
+        SEO::twitter()->setSite('@line2me_th');
+        SEOMeta::setKeywords(str_replace(" ", ", ", $rs->title) .','. str_replace(" ", ", ", $rs->sub_title). ', line, sticker, theme, emoji, creator, animation, sound, popup, ไลน์, สติ๊กเกอร์, ธีม, อิโมจิ, ครีเอเทอร์, ดุ๊กดิ๊ก, มีเสียง, ป๊อปอัพ, เติมคำ, รีวิว, รวมชุด, แนะนำ');
+        OpenGraph::addProperty('image:width', '240');
+        OpenGraph::addProperty('image:height', '240');
 
         return view('series.detail', compact('rs', 'series_items', 'more_series'));
     }

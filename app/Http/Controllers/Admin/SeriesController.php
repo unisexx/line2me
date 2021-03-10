@@ -22,7 +22,7 @@ class SeriesController extends Controller
         $rs = Series::select('*');
 
         if (!empty($keyword)) {
-            $rs = $rs->where('title', 'LIKE', "%$keyword%");
+            $rs = $rs->where('title', 'LIKE', "%$keyword%")->orWhere('sub_title', 'LIKE', "%$keyword%");
         }
 
         $rs = $rs->orderBY('hilight', 'desc')->orderBy('id', 'desc')->simplePaginate(30);
@@ -62,7 +62,7 @@ class SeriesController extends Controller
         set_notify('success', 'บันทึกข้อมูลสำเร็จ');
         // return redirect()->back();
 
-        return redirect('admin/series');
+        return redirect('admin/series/'.$series->id.'/edit');
     }
 
     public function edit($id)
@@ -79,7 +79,12 @@ class SeriesController extends Controller
         $rs->update($requestData);
 
         // ลบรายการ
-        SeriesItem::where('series_id', $id)->whereNotIn('id', $request->product_item_id)->delete();
+        if($request->product_item_id){
+            SeriesItem::where('series_id', $id)->whereNotIn('id', $request->product_item_id)->delete();
+        }
+
+        // fastAdd
+        $this->fastAdd($request, $id);
 
         if (isset($request->product_code)) {
             foreach ($request->product_code as $i => $item) {
@@ -89,9 +94,9 @@ class SeriesController extends Controller
                     ],
                     [
                         'product_code' => getProductCodeFromStoreUrl($request->product_code[$i]),
-                        'product_type' => $request->product_type[$i] ? $request->product_type[$i] : getProductTypeFromStoreUrl($request->product_code[$i]),
+                        'product_type' => $this->getProductType($request->product_code[$i]),
                         'series_id'    => $id,
-                        'order'        => $request->order[$i] ? $request->order[$i] : ($i + 1),
+                        'order'        => $i + 1,
                     ]
                 );
             }
@@ -111,6 +116,34 @@ class SeriesController extends Controller
         set_notify('success', 'ลบข้อมูลสำเร็จ');
 
         return redirect('admin/series');
+    }
+
+    public function getProductType($product_code){
+        if (is_numeric($product_code)) { // sticker
+            $product_type = 'sticker';
+        }elseif(strpos($product_code, '-') !== false){ // theme
+            $product_type = 'theme';
+        }else{ // emoji
+            $product_type = 'emoji';
+        }
+        return @$product_type;
+    }
+
+    public function fastAdd($request, $id){
+        if($request->fast){
+            $line = preg_split('/\r\n|[\r\n]/', $request->fast);
+
+            foreach ($line as $i => $item) {
+                SeriesItem::create(
+                    [
+                        'series_id'    => $id,
+                        'product_code' => getProductCodeFromStoreUrl($item),
+                        'product_type' => $this->getProductType($item),
+                        'order'        => 0,
+                    ]
+                );
+            }
+        }
     }
 
 }

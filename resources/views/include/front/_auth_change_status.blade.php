@@ -1,5 +1,5 @@
 @auth
-<div style="position: fixed; top:3em; right:0em;">
+<div style="position: fixed; top:3em; left:0em;">
     <input class="switch_status" type="checkbox" data-toggle="toggle" data-table="<?php echo @$table?>" data-switch-id="<?php echo @$var->id?>" <?php echo @$var->status == '1' ? 'checked' : '' ;?> data-onstyle="success" data-offstyle="danger">
 </div>
 @endauth

@@ -13,7 +13,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <!-- form start -->
-            <form class="form-inline" method="GET" action="{{ url('/admin/sticker') }}" accept-charset="UTF-8" role="search">
+            <form class="form-inline" method="GET" action="{{ url('/admin/series') }}" accept-charset="UTF-8" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" id="search" placeholder="ชื่อ, รหัส" name="search" value="{{ request('search') }}">
                 </div>
