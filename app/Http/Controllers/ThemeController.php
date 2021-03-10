@@ -7,6 +7,8 @@ use App\Models\Theme;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use Cache;
+use DB;
 
 class ThemeController extends Controller
 {
@@ -70,11 +72,11 @@ class ThemeController extends Controller
     public function getProduct($id)
     {
         // cache file
-        // $data['rs'] = Cache::rememberForever('theme_'.$id, function() use ($id) {
-        //     return DB::table('themes')->find($id);
-        // });
+        $data['rs'] = Cache::rememberForever('theme_'.$id, function() use ($id) {
+            return DB::table('themes')->find($id);
+        });
 
-        $data['rs'] = Theme::findOrFail($id);
+        // $data['rs'] = Theme::findOrFail($id);
 
         // if (empty($data['rs'])) {
         //     return abort(404);

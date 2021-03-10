@@ -135,3 +135,6 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     // แบบจับทีละหน้า
     // Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
 });
+
+// cache flush
+Route::get('cf', 'HomeController@cacheFlush');

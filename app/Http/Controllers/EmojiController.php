@@ -7,6 +7,8 @@ use App\Models\Emoji;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use Cache;
+use DB;
 
 class EmojiController extends Controller
 {
@@ -70,11 +72,11 @@ class EmojiController extends Controller
     public function getProduct($id)
     {
         // cache file
-        // $data['rs'] = Cache::rememberForever('emoji_'.$id, function() use ($id) {
-        //     return DB::table('emojis')->find($id);
-        // });
+        $data['rs'] = Cache::rememberForever('emoji_'.$id, function() use ($id) {
+            return DB::table('emojis')->find($id);
+        });
 
-        $data['rs'] = Emoji::findOrFail($id);
+        // $data['rs'] = Emoji::findOrFail($id);
 
         // if (empty($data['rs'])) {
         //     return abort(404);

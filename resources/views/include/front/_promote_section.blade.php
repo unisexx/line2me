@@ -1,6 +1,40 @@
 @php
 // สติ๊กเกอร์ไลน์โปรโมท
-$sticker_promote = DB::table('promotes')
+// $sticker_promote = DB::table('promotes')
+// 	->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
+// 	->select('stickers.*')
+// 	->where('promotes.product_type', '=', 'sticker')
+// 	->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+// 	->inRandomOrder()
+// 	->take(30)
+// 	->get();
+
+// ธีมไลน์โปรโมท
+// $theme_promote = DB::table('promotes')
+// 	->join('themes', 'promotes.product_code', '=', 'themes.id')
+// 	->select('themes.*')
+// 	->where('promotes.product_type', '=', 'theme')
+// 	->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+// 	->inRandomOrder()
+// 	->take(30)
+// 	->get();
+
+// อิโมจิไลน์โปรโมท
+// $emoji_promote = DB::table('promotes')
+// 	->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
+// 	->select('emojis.*')
+// 	->where('promotes.product_type', '=', 'emoji')
+// 	->where('promotes.end_date', '>=', Carbon::now()->toDateString())
+// 	->inRandomOrder()
+// 	->take(30)
+// 	->get();
+
+// editorpick
+// $series = App\Models\Series::where('status', 1)->take(3)->inRandomOrder()->get();
+
+
+$sticker_promote = Cache::remember('sticker_promote', config('calculations.cache_time'), function() {
+	return DB::table('promotes')
 	->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
 	->select('stickers.*')
 	->where('promotes.product_type', '=', 'sticker')
@@ -8,9 +42,10 @@ $sticker_promote = DB::table('promotes')
 	->inRandomOrder()
 	->take(30)
 	->get();
+});
 
-// ธีมไลน์โปรโมท
-$theme_promote = DB::table('promotes')
+$theme_promote = Cache::remember('theme_promote', config('calculations.cache_time'), function() {
+	return DB::table('promotes')
 	->join('themes', 'promotes.product_code', '=', 'themes.id')
 	->select('themes.*')
 	->where('promotes.product_type', '=', 'theme')
@@ -18,9 +53,10 @@ $theme_promote = DB::table('promotes')
 	->inRandomOrder()
 	->take(30)
 	->get();
+});
 
-// อิโมจิไลน์โปรโมท
-$emoji_promote = DB::table('promotes')
+$emoji_promote = Cache::remember('emoji_promote', config('calculations.cache_time'), function() {
+	return DB::table('promotes')
 	->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
 	->select('emojis.*')
 	->where('promotes.product_type', '=', 'emoji')
@@ -28,9 +64,11 @@ $emoji_promote = DB::table('promotes')
 	->inRandomOrder()
 	->take(30)
 	->get();
+});
 
-// editorpick
-$series = App\Models\Series::where('status', 1)->take(3)->inRandomOrder()->get();
+$series = Cache::remember('editor_pick', now()->addMinutes(3), function() {
+	return App\Models\Series::where('status', 1)->take(3)->inRandomOrder()->get();
+});
 @endphp
 
 @if(count($sticker_promote) != 0)

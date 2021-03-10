@@ -7,6 +7,9 @@ use App\Models\Sticker;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use DB;
+use Cache;
+// use Carbon;
 
 class StickerController extends Controller
 {
@@ -82,9 +85,9 @@ class StickerController extends Controller
     public function getProduct($id = null)
     {
         // ใช้ Cache File
-        // $data['rs'] = Cache::rememberForever('stickers_'.$id, function() use ($id) {
-        //     return DB::table('stickers')->where('sticker_code',$id)->first();
-        // });
+        $data['rs'] = Cache::rememberForever('stickers_'.$id, function() use ($id) {
+            return DB::table('stickers')->where('sticker_code',$id)->first();
+        });
         // $data['rs'] = Cache::remember('stickers_'.$id, 60, function() use ($id) {
         //     return DB::table('stickers')->where('sticker_code',$id)->first();
         // });
@@ -98,7 +101,7 @@ class StickerController extends Controller
         //     Cache::store('redis')->put('stickers_'.$id, $data['rs'], 10);
         // }
 
-        $data['rs'] = Sticker::where('sticker_code', $id)->firstOrFail();
+        // $data['rs'] = Sticker::where('sticker_code', $id)->firstOrFail();
 
         if (empty($data['rs'])) {
             return abort(404);
