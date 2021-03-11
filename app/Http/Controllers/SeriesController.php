@@ -8,6 +8,7 @@ use App\Models\SeriesItem;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use Cache;
 
 class SeriesController extends Controller
 {
@@ -29,18 +30,34 @@ class SeriesController extends Controller
         // $rs = Series::with('seriesItem.sticker', 'seriesItem.theme', 'seriesItem.emoji')->findOrFail($id);
         // $rs->touch();
 
-        $rs = Series::findOrFail($id);
-        $rs->touch();
-        $series_items = SeriesItem::where('series_id', $id)
-            ->with(['sticker' => function ($q) {
-                $q->orderBy('threedays', 'desc');
-            }])
-            ->with(['theme' => function ($q) {
-                $q->orderBy('threedays', 'desc');
-            }])
-            ->with(['emoji' => function ($q) {
-                $q->orderBy('threedays', 'desc');
-            }])->orderBy('order', 'asc')->simplePaginate(90);
+        // $rs = Series::findOrFail($id);
+        // $rs->touch();
+        // $series_items = SeriesItem::where('series_id', $id)
+        //     ->with(['sticker' => function ($q) {
+        //         $q->orderBy('threedays', 'desc');
+        //     }])
+        //     ->with(['theme' => function ($q) {
+        //         $q->orderBy('threedays', 'desc');
+        //     }])
+        //     ->with(['emoji' => function ($q) {
+        //         $q->orderBy('threedays', 'desc');
+        //     }])->orderBy('order', 'asc')->simplePaginate(90);
+
+        $rs = Cache::remember('series_'.$id, config('calculations.cache_time'), function() use ($id) {
+            return Series::findOrFail($id);
+        });
+        $series_items = Cache::remember('series_items_'.$id, config('calculations.cache_time'), function() use ($id) {
+            return SeriesItem::where('series_id', $id)
+                        ->with(['sticker' => function ($q) {
+                            $q->orderBy('threedays', 'desc');
+                        }])
+                        ->with(['theme' => function ($q) {
+                            $q->orderBy('threedays', 'desc');
+                        }])
+                        ->with(['emoji' => function ($q) {
+                            $q->orderBy('threedays', 'desc');
+                        }])->orderBy('order', 'asc')->simplePaginate(90);
+        });
 
         // more
         $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();
