@@ -39,14 +39,16 @@ https://line.me/ti/p/~ratasak1234
     <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ">
 
     <textarea name="fast" style="width:100%;" rows='10' placeholder="เพิ่มแบบด่วน"></textarea>
+
+    
     <div id="rowHere">
         <table id="simpleList" class="table table-bordered">
             <tbody>
                 @if(@$rs->seriesItem)
                 @foreach(@$rs->seriesItem as $row)
                 <tr>
+                    <td width="90"><input class='btn btn-sm btn-danger btnDelete' value='ลบ' style="width:90px; height:90px;"></td>
                     <td>
-                        <div><input class='btn btn-sm btn-danger btnDelete' value='ลบ' style="width:620px;"></div>
                         @if($row->product_type == 'sticker')
                             <a href="{{ url('sticker/'.@$row->sticker->sticker_code) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="90"></a> {{ @$row->sticker->title_th }}
                             @if(@$row->sticker->id == '')

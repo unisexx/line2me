@@ -46,7 +46,7 @@ class SeriesController extends Controller
         $rs = Cache::remember('series_'.$id, config('calculations.cache_time'), function() use ($id) {
             return Series::findOrFail($id);
         });
-        $series_items = Cache::remember('series_items_'.$id, config('calculations.cache_time'), function() use ($id) {
+        $series_items = Cache::remember('series_items_'.$id.'_'.@$_GET['page'], config('calculations.cache_time'), function() use ($id) {
             return SeriesItem::where('series_id', $id)
                         ->with(['sticker' => function ($q) {
                             $q->orderBy('threedays', 'desc');
