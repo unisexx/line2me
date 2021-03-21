@@ -4,6 +4,7 @@
 @include('include.front._auth_change_status', ['table' => 'emojis', 'var' => $rs])
 
 <div class="fh5co-narrow-content">
+	@include('include.front._breadcrumb')
 
 	<div class="d-flex animate-box" data-animate-effect="fadeInLeft">
 

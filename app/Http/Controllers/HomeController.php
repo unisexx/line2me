@@ -478,5 +478,8 @@ class HomeController extends Controller
 
     public function cacheFlush(){
         Cache::flush();
+        echo "<script>";
+        echo "window.top.close();";
+        echo "</script>";
     }
 }

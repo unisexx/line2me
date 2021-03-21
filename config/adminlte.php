@@ -152,14 +152,21 @@ return [
             'icon'        => 'file',
         ],
         [
-            'text'        => 'Crawler',
+            'text'        => 'Series',
+            'url'         => 'admin/series',
+            'icon'        => 'file',
+        ],
+        'Other',
+        [
+            'text'        => 'ดึงข้อมูล',
             'url'         => 'admin/crawler',
             'icon'        => 'file',
         ],
         [
-            'text'        => 'Series',
-            'url'         => 'admin/series',
+            'text'        => 'ล้างแคชไฟล์',
+            'url'         => 'cf',
             'icon'        => 'file',
+            'target'      => '_blank',
         ],
         // 'ACCOUNT SETTINGS',
         // [
