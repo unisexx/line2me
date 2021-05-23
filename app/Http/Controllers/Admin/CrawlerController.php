@@ -59,10 +59,10 @@ class CrawlerController extends Controller
             for ($i = 0; $i < 40; $i++) {
                 // check node empty
                 if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
-                    $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
+                    $imgTxt     = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
                     $image_path = explode("/", getUrlFromText($imgTxt));
                     $stamp_code = $image_path[6];
-                    $version = str_replace('v', '', $image_path[4]);
+                    $version    = str_replace('v', '', $image_path[4]);
                     // dump($imgTxt);
 
                     $data[] = array(
@@ -95,16 +95,16 @@ class CrawlerController extends Controller
             // dd(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
             // dd(@money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())));
 
-            $title_th = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
-            $title_en = $productInfo['title']['en'];
-            $author_th = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
-            $author_en = $productInfo['author']['en'];
-            $onsale = $productInfo['onSale'];
-            $hasanimation = @$productInfo['hasAnimation'];
-            $hassound = @$productInfo['hasSound'];
-            $validdays = $productInfo['validDays'];
+            $title_th            = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
+            $title_en            = $productInfo['title']['en'];
+            $author_th           = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
+            $author_en           = $productInfo['author']['en'];
+            $onsale              = $productInfo['onSale'];
+            $hasanimation        = @$productInfo['hasAnimation'];
+            $hassound            = @$productInfo['hasSound'];
+            $validdays           = $productInfo['validDays'];
             $stickerresourcetype = @$productInfo['stickerResourceType'];
-            $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
+            $country             = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
             // $price = @@(int) $productInfo['price'][0]['price'];
             $price = $this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
@@ -127,13 +127,13 @@ class CrawlerController extends Controller
 
             /***************************************************************** */
 
-            $category = $sticker_code > 1000000 ? 'creator' : 'official';
-            $detail = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-            $credit = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
+            $category     = $sticker_code > 1000000 ? 'creator' : 'official';
+            $detail       = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
+            $credit       = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
             $sticker_code = $sticker_code;
-            $created = date("Y-m-d H:i:s");
-            $stamp_start = reset($data)['stamp_code'];
-            $stamp_end = end($data)['stamp_code'];
+            $created      = date("Y-m-d H:i:s");
+            $stamp_start  = reset($data)['stamp_code'];
+            $stamp_end    = end($data)['stamp_code'];
 
             // dump($productInfo);
             // dump($price);
@@ -171,6 +171,11 @@ class CrawlerController extends Controller
         // else {
         //     dump("มีสติ๊กเกอร์ชุดนี้ในระบบแล้ว!!!");
         // }
+
+        // สั่งให้ปิด tab เลย
+        if (@$_GET['closetab'] == 1) {
+            echo "<script>window.close();</script>";
+        }
     }
 
     public function getStickerTypeByIcon($crawler_page, $key)
@@ -196,28 +201,28 @@ class CrawlerController extends Controller
 
         $data = [];
         if (@$txt == 'animation-sound-sticker-icon') {
-            $data['hasanimation'] = 1;
-            $data['hassound'] = 1;
+            $data['hasanimation']        = 1;
+            $data['hassound']            = 1;
             $data['stickerresourcetype'] = 'ANIMATION_SOUND';
         } elseif (@txt == 'animation-sticker-icon') {
-            $data['hasanimation'] = 1;
-            $data['hassound'] = 0;
+            $data['hasanimation']        = 1;
+            $data['hassound']            = 0;
             $data['stickerresourcetype'] = 'ANIMATION';
         } elseif (@$txt == 'popup-sticker-icon') {
-            $data['hasanimation'] = 0;
-            $data['hassound'] = 0;
+            $data['hasanimation']        = 0;
+            $data['hassound']            = 0;
             $data['stickerresourcetype'] = 'POPUP';
         } elseif (@$txt == 'sound-sticker-icon') {
-            $data['hasanimation'] = 0;
-            $data['hassound'] = 1;
+            $data['hasanimation']        = 0;
+            $data['hassound']            = 1;
             $data['stickerresourcetype'] = 'SOUND';
         } elseif (@$txt == 'popup-sound-sticker-icon') {
-            $data['hasanimation'] = 0;
-            $data['hassound'] = 0;
+            $data['hasanimation']        = 0;
+            $data['hassound']            = 0;
             $data['stickerresourcetype'] = 'POPUP_SOUND';
         } else {
-            $data['hasanimation'] = 0;
-            $data['hassound'] = 0;
+            $data['hasanimation']        = 0;
+            $data['hassound']            = 0;
             $data['stickerresourcetype'] = 'STATIC';
         }
 
@@ -243,11 +248,11 @@ class CrawlerController extends Controller
             // ถ้า node ไม่ empty
             if ($crawler_page->filter('p.mdCMN38Item01Ttl')->count() > 0) {
 
-                $title = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
-                $detail = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-                $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-                $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
-                $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
+                $title    = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
+                $detail   = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
+                $author   = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
+                $credit   = trim($crawler_page->filter('p.mdCMN09Copy')->text());
+                $country  = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
                 $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
                 // insert ลง db
@@ -272,6 +277,11 @@ class CrawlerController extends Controller
         } else {
             dump("มีธีมชุดนี้ในระบบแล้ว!!!");
         } // endif
+
+        // สั่งให้ปิด tab เลย
+        if (@$_GET['closetab'] == 1) {
+            echo "<script>window.close();</script>";
+        }
     }
 
     /**
@@ -290,11 +300,11 @@ class CrawlerController extends Controller
 
             $crawler_page = Goutte::request('GET', 'https://store.line.me/emojishop/product/' . $emoji_code . '/th');
 
-            $title = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
+            $title        = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
             $creator_name = trim($crawler_page->filter('.mdCMN38Item01Author')->text());
-            $detail = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
-            $country = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-            $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
+            $detail       = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
+            $country      = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
+            $price_th     = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
             // insert ลง db
             DB::table('emojis')->insert(
@@ -316,6 +326,11 @@ class CrawlerController extends Controller
         } else {
             dump("มีอิโมจิชุดนี้ในระบบแล้ว!!!");
         } // endif
+
+        // สั่งให้ปิด tab เลย
+        if (@$_GET['closetab'] == 1) {
+            echo "<script>window.close();</script>";
+        }
     }
 
     /**
@@ -329,11 +344,11 @@ class CrawlerController extends Controller
         if ($type == 1) {
             // official
             $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'official';
+            $category   = 'official';
         } elseif ($type == 2) {
             // creator
             $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'creator';
+            $category   = 'creator';
         }
 
         $crawler = Goutte::request('GET', $pageTarget);
@@ -356,7 +371,7 @@ class CrawlerController extends Controller
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
-            $page = $page - 1;
+            $page          = $page - 1;
             $page_redirect = url('admin/getstickerstore/' . $type . '/' . $cat . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
@@ -373,11 +388,11 @@ class CrawlerController extends Controller
         if ($type == 1) {
             // official
             $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'official';
+            $category   = 'official';
         } elseif ($type == 2) {
             // creator
             $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'creator';
+            $category   = 'creator';
         }
 
         $crawler = Goutte::request('GET', $pageTarget);
@@ -400,7 +415,7 @@ class CrawlerController extends Controller
 
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
 
-                $title = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
+                $title  = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
                 $detail = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
                 $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
                 $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
@@ -430,7 +445,7 @@ class CrawlerController extends Controller
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
-            $page = $page - 1;
+            $page          = $page - 1;
             $page_redirect = url('admin/getthemestore/' . $type . '/' . $cat . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
@@ -447,11 +462,11 @@ class CrawlerController extends Controller
         if ($type == 1) {
             // official
             $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'official';
+            $category   = 'official';
         } elseif ($type == 2) {
             // creator
             $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'creator';
+            $category   = 'creator';
         }
 
         $crawler = Goutte::request('GET', $pageTarget);
@@ -477,12 +492,12 @@ class CrawlerController extends Controller
                 $crawler_page = Goutte::request('GET', 'https://store.line.me/emojishop/product/' . $emoji_code . '/th');
 
                 // dd($crawler_page);
-                $title = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
+                $title        = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
                 $creator_name = trim($crawler_page->filter('.mdCMN38Item01Author')->text());
-                $detail = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
-                $country = "gb";
-                $txtprice = trim($crawler_page->filter('.mdCMN38Item01Price')->text());
-                $price = (int) filter_var($txtprice, FILTER_SANITIZE_NUMBER_INT);
+                $detail       = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
+                $country      = "gb";
+                $txtprice     = trim($crawler_page->filter('.mdCMN38Item01Price')->text());
+                $price        = (int) filter_var($txtprice, FILTER_SANITIZE_NUMBER_INT);
                 // dd($txtprice);
 
                 // insert ลง db
@@ -509,7 +524,7 @@ class CrawlerController extends Controller
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
-            $page = $page - 1;
+            $page          = $page - 1;
             $page_redirect = url('admin/getemojistore/' . $type . '/' . $cat . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
@@ -527,8 +542,8 @@ class CrawlerController extends Controller
         $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q = array('query' => $txtSearch);
-        $api = 'https://store.line.me/api/search/sticker?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
+        $q    = array('query' => $txtSearch);
+        $api  = 'https://store.line.me/api/search/sticker?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
@@ -550,7 +565,7 @@ class CrawlerController extends Controller
                 for ($i = 0; $i < 40; $i++) {
                     // check node empty
                     if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
-                        $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
+                        $imgTxt     = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
                         $image_path = explode("/", getUrlFromText($imgTxt));
                         $stamp_code = $image_path[6];
                         // dd($stamp_code);
@@ -562,13 +577,13 @@ class CrawlerController extends Controller
                 }
 
                 // หาเวอร์ชั่นของสติ๊กเกอร์โดยวิเคราะห์จาก url ของรูปสติ๊กเกอร์
-                $image = trim($crawler_page->filter('img.FnImage')->attr('src'));
-                $image = explode("/", $image);
+                $image   = trim($crawler_page->filter('img.FnImage')->attr('src'));
+                $image   = explode("/", $image);
                 $version = str_replace('v', '', $image[4]);
 
                 // ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
                 $metaUrl = 'http://dl.stickershop.line.naver.jp/products/0/0/' . $version . '/' . $sticker_code . '/LINEStorePC/productInfo.meta';
-                $meta = json_decode(file_get_contents($metaUrl), true);
+                $meta    = json_decode(file_get_contents($metaUrl), true);
                 // dump($meta);
 
                 $data[] = [
@@ -613,8 +628,8 @@ class CrawlerController extends Controller
         $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q = array('query' => $txtSearch);
-        $api = 'https://store.line.me/api/search/theme?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
+        $q    = array('query' => $txtSearch);
+        $api  = 'https://store.line.me/api/search/theme?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
@@ -641,8 +656,8 @@ class CrawlerController extends Controller
         $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q = array('query' => $txtSearch);
-        $api = 'https://store.line.me/api/search/emoji?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
+        $q    = array('query' => $txtSearch);
+        $api  = 'https://store.line.me/api/search/emoji?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
@@ -683,11 +698,11 @@ class CrawlerController extends Controller
         if ($type == 1) {
             // official
             $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'official';
+            $category   = 'official';
         } elseif ($type == 2) {
             // creator
             $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category = 'creator';
+            $category   = 'creator';
         }
 
         $crawler = Goutte::request('GET', $pageTarget);
@@ -767,7 +782,7 @@ class CrawlerController extends Controller
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
-            $page = $page - 1;
+            $page          = $page - 1;
             $page_redirect = url('admin/getstickerstore63/' . $type . '/' . $cat . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
@@ -777,7 +792,7 @@ class CrawlerController extends Controller
     {
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me/editorspick/th?page=' . $page;
-        $crawler = Goutte::request('GET', $pageTarget);
+        $crawler    = Goutte::request('GET', $pageTarget);
 
         // foreach วนลูปหา หัวข้อของ editorpick
         $crawler->filter('.mdCMN02Li')->each(function ($node) use ($link_number) {
@@ -785,9 +800,9 @@ class CrawlerController extends Controller
             /**
              * ประกาศตัวแปร
              */
-            $url = $node->filter('a')->attr('href');
-            $image = $node->filter('img')->attr('src');
-            $title = $node->filter('img')->attr('alt');
+            $url       = $node->filter('a')->attr('href');
+            $image     = $node->filter('img')->attr('src');
+            $title     = $node->filter('img')->attr('alt');
             $sub_title = $node->filter('img')->attr('title');
             // dump($url);
             // dump($sub_title);
@@ -822,7 +837,7 @@ class CrawlerController extends Controller
 
                 // สติ๊กเกอร์ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
                 $seriesItemArray = SeriesItem::where('product_type', 'sticker')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-                $dbArray = Sticker::whereIn('sticker_code', $seriesItemArray)->pluck('sticker_code')->toArray();
+                $dbArray         = Sticker::whereIn('sticker_code', $seriesItemArray)->pluck('sticker_code')->toArray();
                 $differenceArray = array_diff($seriesItemArray, $dbArray);
                 if (count($differenceArray)) {
                     foreach ($differenceArray as $product_code) {
@@ -832,7 +847,7 @@ class CrawlerController extends Controller
 
                 // ธีม :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
                 $seriesItemArray = SeriesItem::where('product_type', 'theme')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-                $dbArray = Theme::whereIn('theme_code', $seriesItemArray)->pluck('theme_code')->toArray();
+                $dbArray         = Theme::whereIn('theme_code', $seriesItemArray)->pluck('theme_code')->toArray();
                 $differenceArray = array_diff($seriesItemArray, $dbArray);
                 if (count($differenceArray)) {
                     foreach ($differenceArray as $product_code) {
@@ -842,7 +857,7 @@ class CrawlerController extends Controller
 
                 // อิโมจิ :: ค้นหาและบันทึกที่ยังไม่มีในดาค้าเบส
                 $seriesItemArray = SeriesItem::where('product_type', 'emoji')->where('series_id', $seriesId)->pluck('product_code')->toArray();
-                $dbArray = Emoji::whereIn('emoji_code', $seriesItemArray)->pluck('emoji_code')->toArray();
+                $dbArray         = Emoji::whereIn('emoji_code', $seriesItemArray)->pluck('emoji_code')->toArray();
                 $differenceArray = array_diff($seriesItemArray, $dbArray);
                 if (count($differenceArray)) {
                     foreach ($differenceArray as $product_code) {
@@ -866,7 +881,7 @@ class CrawlerController extends Controller
     {
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me' . $url . '?page=' . $page;
-        $crawler = Goutte::request('GET', $pageTarget);
+        $crawler    = Goutte::request('GET', $pageTarget);
 
         // foreach วนลูปหา item ของหน้า
         $crawler->filter('.mdCMN02Li')->each(function ($node, $i) use ($seriesId) {
@@ -875,10 +890,10 @@ class CrawlerController extends Controller
             /**
              * ประกาศตัวแปร
              */
-            $series_id = $seriesId;
+            $series_id    = $seriesId;
             $product_code = getProductCodeFromStoreUrl($this->getRealLink($node->filter('a')->attr('href')));
             $product_type = getProductTypeFromStoreUrl($this->getRealLink($node->filter('a')->attr('href')));
-            $order = ($i + 1);
+            $order        = ($i + 1);
             // dd($product_type);
 
             // บันทึกลงฐานข้อมูล
@@ -978,7 +993,7 @@ class CrawlerController extends Controller
     {
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me/stickershop/author/' . $authorID . '?page=' . $page;
-        $crawler = Goutte::request('GET', $pageTarget);
+        $crawler    = Goutte::request('GET', $pageTarget);
 
         // foreach
         $crawler->filter('.mdCMN02Li')->each(function ($node) {
@@ -997,7 +1012,7 @@ class CrawlerController extends Controller
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
-            $page = $page - 1;
+            $page          = $page - 1;
             $page_redirect = url('admin/get-sticker-by-author/' . $authorID . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }
@@ -1007,7 +1022,7 @@ class CrawlerController extends Controller
     {
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me/themeshop/author/' . $authorID . '?page=' . $page;
-        $crawler = Goutte::request('GET', $pageTarget);
+        $crawler    = Goutte::request('GET', $pageTarget);
 
         // foreach
         $crawler->filter('.mdCMN02Li')->each(function ($node) {
@@ -1026,7 +1041,7 @@ class CrawlerController extends Controller
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
-            $page = $page - 1;
+            $page          = $page - 1;
             $page_redirect = url('admin/get-theme-by-author/' . $authorID . '/' . $page);
             echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
         }

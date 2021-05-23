@@ -15,6 +15,7 @@
 		<div class="sticker-infomation">
 			<h3>{{ $rs->title }}</h3>
 			<ul>
+				<li>รหัสสินค้า : {{ $rs->id }}</li>
 				<li>ราคา : {{ $rs->price }} บาท</li>
 				<li>ประเภท : {{ $rs->category }}</li>
 				<li>ประเทศ : {{ @countryName($rs->country) }}</li>
@@ -31,6 +32,7 @@
 	<!-- ปุ่มสั่งซื้อ -->
 
 	@if($rs->detail) <p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p> @endif
+	<p><small>รหัสสินค้า : {{ $rs->id }}</small></p>
 
 	<div class="animate-box" data-animate-effect="fadeInLeft">
 

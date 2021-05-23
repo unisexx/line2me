@@ -19,6 +19,7 @@
 // 	->take(30)
 // 	->get();
 
+
 // อิโมจิไลน์โปรโมท
 // $emoji_promote = DB::table('promotes')
 // 	->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
@@ -34,36 +35,15 @@
 
 
 $sticker_promote = Cache::remember('sticker_promote', config('calculations.cache_time'), function() {
-	return DB::table('promotes')
-	->join('stickers', 'promotes.product_code', '=', 'stickers.sticker_code')
-	->select('stickers.*')
-	->where('promotes.product_type', '=', 'sticker')
-	->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-	->inRandomOrder()
-	->take(30)
-	->get();
+	return App\Models\Promote::where('product_type', '=', 'sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->orderBy('id', 'desc')->get();
 });
 
 $theme_promote = Cache::remember('theme_promote', config('calculations.cache_time'), function() {
-	return DB::table('promotes')
-	->join('themes', 'promotes.product_code', '=', 'themes.id')
-	->select('themes.*')
-	->where('promotes.product_type', '=', 'theme')
-	->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-	->inRandomOrder()
-	->take(30)
-	->get();
+	return App\Models\Promote::where('product_type', '=', 'theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->orderBy('id', 'desc')->get();
 });
 
 $emoji_promote = Cache::remember('emoji_promote', config('calculations.cache_time'), function() {
-	return DB::table('promotes')
-	->join('emojis', 'promotes.product_code', '=', 'emojis.emoji_code')
-	->select('emojis.*')
-	->where('promotes.product_type', '=', 'emoji')
-	->where('promotes.end_date', '>=', Carbon::now()->toDateString())
-	->inRandomOrder()
-	->take(30)
-	->get();
+	return App\Models\Promote::where('product_type', '=', 'emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->orderBy('id', 'desc')->get();
 });
 
 $series = Cache::remember('editor_pick', now()->addMinutes(3), function() {
@@ -79,17 +59,7 @@ $series = Cache::remember('editor_pick', now()->addMinutes(3), function() {
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
-		<div class="work-item text-center">
-			{!! new_icon($row->created_at) !!}
-			<a href="{{ url('sticker/'.$row->sticker_code) }}">
-				<div class="sticker-image-cover">
-					<img src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $row->version }}/{{ $row->sticker_code }}/android/main.png" alt="สติ๊กเกอร์ไลน์ {{ $row->title_th }}" class="img-fluid">
-					{!! getStickerResourctTypeIcon($row->stickerresourcetype) !!}
-				</div>
-				<h3 class="fh5co-work-title">{{ $row->title_th }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ convert_line_coin_2_money($row->price) }} บาท</p>
-			</a>
-		</div>
+			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row->sticker))
 		@endforeach
 	</div>
 </div>
@@ -103,19 +73,11 @@ $series = Cache::remember('editor_pick', now()->addMinutes(3), function() {
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_promote as $row)
-		<div class="work-item text-center">
-			{!! new_icon($row->created_at) !!}
-			<a href="{{ url('emoji/'.$row->id) }}">
-				<img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $row->title }}" class="img-fluid">
-				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
-			</a>
-		</div>
+			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row->emoji))
 		@endforeach
 	</div>
 </div>
 @endif
-
 
 @if(count($theme_promote) != 0)
 <div class="fh5co-narrow-content">
@@ -125,14 +87,7 @@ $series = Cache::remember('editor_pick', now()->addMinutes(3), function() {
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_promote as $row)
-		<div class="work-item text-center">
-			{!! new_icon($row->created_at) !!}
-			<a href="{{ url('theme/'.$row->id) }}">
-				<img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->theme_code }}/1/WEBSTORE/icon_198x278.png" alt="ธีมไลน์ {{ $row->title }}" class="img-fluid">
-				<h3 class="fh5co-work-title">{{ $row->title }}</h3>
-				<p>{{ ucfirst($row->country) }}, {{ $row->price }} บาท</p>
-			</a>
-		</div>
+			@include('include.front.__product_item', array('type'=>'theme','row'=>$row->theme))
 		@endforeach
 	</div>
 </div>

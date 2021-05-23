@@ -48,7 +48,6 @@
 {{ $rs->detail }}
 
 สามารถดูลายสติ๊กเกอร์ได้ที่ 
-http://line.me/S/sticker/{{ $rs->sticker_code }}
 http://www.line2me.in.th/sticker/{{ $rs->sticker_code }}
 
 หากเพื่อนๆคนไหนสนใจทักเข้ามาได้เลยครับที่ไลน์ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน

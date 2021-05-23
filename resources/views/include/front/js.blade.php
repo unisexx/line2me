@@ -16,6 +16,16 @@
 <script src="nitro_theme/js/jquery.countTo.js"></script>
 <!-- MAIN JS -->
 <script src="nitro_theme/js/main.js"></script>
+<!-- VenoBox -->
+<script src="js/venobox/venobox.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.venobox').venobox({
+        infinigall:true,
+        // frameheight: '89vh'
+    }); 
+});
+</script>
 
 <script>
 $('ducument').ready(function(){
@@ -65,7 +75,7 @@ function playAnimate(thisObj){
 
         $(thisObj).attr("src", $(thisObj).data('animation'))
             .css({"opacity":"1","width":"calc(25%)"})
-            .closest('li').siblings().find('img').css({"opacity":"0.4","width":"calc(25% - 6px)"});
+            .closest('li').siblings().find('img').css({"opacity":"1","width":"calc(25% - 6px)"});
 
     }else{
 
@@ -74,3 +84,28 @@ function playAnimate(thisObj){
     }
 }
 </script>
+
+<!-- Messenger ปลั๊กอินแชท Code -->
+<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+    FB.init({
+    xfbml            : true,
+    version          : 'v10.0'
+    });
+};
+
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/th_TH/sdk/xfbml.customerchat.js';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Your ปลั๊กอินแชท code -->
+<div class="fb-customerchat"
+attribution="biz_inbox"
+page_id="619024168129948">
+</div>

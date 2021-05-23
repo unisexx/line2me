@@ -19,7 +19,7 @@ class SeriesController extends Controller
 
         $keyword = $request->get('search');
 
-        $rs = Series::select('*');
+        $rs = Series::with('seriesItem')->select('*');
 
         if (!empty($keyword)) {
             $rs = $rs->where('title', 'LIKE', "%$keyword%")->orWhere('sub_title', 'LIKE', "%$keyword%");
@@ -38,7 +38,7 @@ class SeriesController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        $series = Series::create($requestData);
+        $series      = Series::create($requestData);
 
         if (isset($request->product_code)) {
             foreach ($request->product_code as $i => $item) {
@@ -62,12 +62,12 @@ class SeriesController extends Controller
         set_notify('success', 'บันทึกข้อมูลสำเร็จ');
         // return redirect()->back();
 
-        return redirect('admin/series/'.$series->id.'/edit');
+        return redirect('admin/series/' . $series->id . '/edit');
     }
 
     public function edit($id)
     {
-        $rs = Series::findOrFail($id);
+        $rs = Series::with('seriesItem.sticker', 'seriesItem.theme', 'seriesItem.emoji')->findOrFail($id);
 
         return view('admin.series.edit', compact('rs'));
     }
@@ -75,11 +75,11 @@ class SeriesController extends Controller
     public function update(Request $request, $id)
     {
         $requestData = $request->all();
-        $rs = Series::findOrFail($id);
+        $rs          = Series::findOrFail($id);
         $rs->update($requestData);
 
         // ลบรายการ
-        if($request->product_item_id){
+        if ($request->product_item_id) {
             SeriesItem::where('series_id', $id)->whereNotIn('id', $request->product_item_id)->delete();
         }
 
@@ -118,19 +118,21 @@ class SeriesController extends Controller
         return redirect('admin/series');
     }
 
-    public function getProductType($product_code){
+    public function getProductType($product_code)
+    {
         if (is_numeric($product_code)) { // sticker
             $product_type = 'sticker';
-        }elseif(strpos($product_code, '-') !== false){ // theme
+        } elseif (strpos($product_code, '-') !== false) { // theme
             $product_type = 'theme';
-        }else{ // emoji
+        } else { // emoji
             $product_type = 'emoji';
         }
         return @$product_type;
     }
 
-    public function fastAdd($request, $id){
-        if($request->fast){
+    public function fastAdd($request, $id)
+    {
+        if ($request->fast) {
             $line = preg_split('/\r\n|[\r\n]/', $request->fast);
 
             foreach ($line as $i => $item) {

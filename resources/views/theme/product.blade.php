@@ -15,6 +15,7 @@
 		<div class="sticker-infomation">
 			<h3>{{ $rs->title }}</h3>
 			<ul>
+				<li>รหัสสินค้า : {{ $rs->id }}</li>
 				<li>ราคา : {{ $rs->price }} บาท</li>
 				<li>ประเภท : {{ $rs->category }}</li>
 				<li>ประเทศ : {{ @countryName($rs->country) }}</li>
@@ -32,12 +33,14 @@
 
 	@if($rs->detail)
 		<p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p>
-		<p class="text-muted"><small>*บางส่วนของธีมอาจแสดงผลไม่ถูกต้องบน LINE เวอร์ชั่นที่คุณใช้อยู่</small></p>
+		<p class="text-muted"><small>***บางส่วนของธีมอาจแสดงผลไม่ถูกต้องบน LINE เวอร์ชั่นที่คุณใช้อยู่*** | รหัสสินค้า : {{ $rs->id }}</small></p>
 	@endif
 
 	<div class="d-flex flex-xl-wrap flex-lg-nowrap animate-box theme-image-detail-wrap" data-animate-effect="fadeInLeft">
 		@for($x = 1; $x <= 5; $x++)
+		<a href="http://sdl-shop.line.naver.jp/themeshop/v1/products/li/st/kr/{{ $rs->theme_code }}/1/ANDROID/th/preview_00{{ $x }}_720x1232.png" class="venobox" data-gall="themeDetail" title="ธีมไลน์ {{ $rs->title }}">
 			<img class="align-self-baseline theme-image-detail" src="http://sdl-shop.line.naver.jp/themeshop/v1/products/li/st/kr/{{ $rs->theme_code }}/1/ANDROID/th/preview_00{{ $x }}_720x1232.png" alt="ธีมไลน์ {{ $rs->title }}">
+		</a>
 		@endfor
 	</div>
 

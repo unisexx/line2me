@@ -19,6 +19,7 @@
 		<div class="sticker-infomation">
 			<h3>{{ $rs->title_th }} {{ getStickerResourctTypeName($rs->stickerresourcetype) }}</h3>
 			<ul>
+				<li>รหัสสินค้า : {{ $rs->sticker_code }}</li>
 				<li>ราคา : {{ convert_line_coin_2_money($rs->price) }} บาท</li>
 				<li>ประเภท : {{ $rs->category }}</li>
 				<li>ประเทศ : {{ @countryName($rs->country) }}</li>
@@ -37,7 +38,7 @@
 	@if($rs->detail)
 		<p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p>
 	@endif
-	<p class="animate-box" data-animate-effect="fadeInLeft"><small>*** โปรดแตะที่ตัวสติ๊กเกอร์เพื่อดูตัวอย่าง หรือฟังเสียง (ถ้าเป็นสติ๊กเกอร์แบบมีเสียง) ***</small></p>
+	<p class="animate-box" data-animate-effect="fadeInLeft"><small>*** โปรดแตะที่ตัวสติ๊กเกอร์เพื่อดูตัวอย่าง หรือฟังเสียง (ถ้าเป็นสติ๊กเกอร์แบบมีเสียง) *** | รหัสสินค้า : {{ $rs->sticker_code }}</small></p>
 
 	<div class="animate-box" data-animate-effect="fadeInLeft">
 		@if($rs->stamp_start === null)
@@ -70,10 +71,14 @@
 						}
 					@endphp
 						<li class="sticker-stamp-list">
-							<img class="sticker-stamp playAnimate" src="https://stickershop.line-scdn.net/stickershop/v1/sticker/{{ $x }}/android/sticker.png;compress=true" data-animation="{{ $data_animation }}">
+							{{-- <a href="{{ $data_animation }}" class="venobox" data-gall="stickerDetail" title="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}"> --}}
+								<img class="sticker-stamp playAnimate" src="https://stickershop.line-scdn.net/stickershop/v1/sticker/{{ $x }}/android/sticker.png;compress=true" data-animation="{{ $data_animation }}">
+							{{-- </a> --}}
+							{{-- @if($rs->stickerresourcetype == 'SOUND' || $rs->stickerresourcetype == 'POPUP_SOUND') --}}
 							<audio preload="metadata">
 								<source src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/android/sound/{{ $x }}.m4a" type="audio/mpeg">
 							</audio>
+							{{-- @endif --}}
 						</li>
 					@endfor
 				</ul>

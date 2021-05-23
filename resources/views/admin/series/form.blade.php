@@ -36,8 +36,8 @@ https://line.me/ti/p/~ratasak1234
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-    <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ">
-
+    {{-- <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ"> --}}
+    <input id="updateData" class="btn btn-warning" type="button" value="อัพเดทที่ยังไม่มีทั้งหมด"> <i class="fas fa-sync"></i>
     <textarea name="fast" style="width:100%;" rows='10' placeholder="เพิ่มแบบด่วน"></textarea>
 
     
@@ -52,17 +52,17 @@ https://line.me/ti/p/~ratasak1234
                         @if($row->product_type == 'sticker')
                             <a href="{{ url('sticker/'.@$row->sticker->sticker_code) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="90"></a> {{ @$row->sticker->title_th }}
                             @if(@$row->sticker->id == '')
-                                <a href="{{ url('admin/getsticker/'.$row->product_code) }}" class="btn btn-sm btn-warning" target="_blank">อัพเดท</a>
+                                <a href="{{ url('admin/getsticker/'.$row->product_code.'?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                             @endif
                         @elseif($row->product_type == 'emoji')
                             <a href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="90"></a> {{ @$row->emoji->title }}
                             @if(@$row->emoji->id == '')
-                                <a href="{{ url('admin/getemoji/'.$row->product_code) }}" class="btn btn-sm btn-warning" target="_blank">อัพเดท</a>
+                                <a href="{{ url('admin/getemoji/'.$row->product_code.'?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                             @endif
                         @elseif($row->product_type == 'theme')
                             <a href="{{ url('theme/'.@$row->theme->id) }}" target="_blank"><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png" height="90"></a> {{ @$row->theme->title }}
                             @if(@$row->theme->id == '')
-                                <a href="{{ url('admin/gettheme/'.$row->product_code) }}" class="btn btn-sm btn-warning" target="_blank">อัพเดท</a>
+                                <a href="{{ url('admin/gettheme/'.$row->product_code.'?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                             @endif
                         @endif
                     </td>
@@ -120,5 +120,16 @@ function fixWidthHelper(e, ui) {
     });
     return ui;
 }
+</script>
+
+<script>
+// ajax updated series data
+$(document).on('click', "#updateData", function () {
+    $('.fa-sync').addClass('fa-spin');
+    $('.getData').each(function(){
+        var href = $(this).attr('href');
+        window.open(href, "_blank");
+    });
+});
 </script>
 @endpush

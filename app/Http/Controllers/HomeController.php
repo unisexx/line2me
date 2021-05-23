@@ -8,11 +8,11 @@ use App\Models\Promote;
 use App\Models\Series;
 use App\Models\Sticker;
 use App\Models\Theme;
+use Cache;
 use Carbon;
 use DB;
 use SEO;
 use SEOMeta;
-use Cache;
 
 class HomeController extends Controller
 {
@@ -49,18 +49,18 @@ class HomeController extends Controller
         // $data['theme_promote'] = Promote::where('product_type', '=', 'theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->inRandomOrder()->get();
         // $data['emoji_promote'] = Promote::where('product_type', '=', 'emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->inRandomOrder()->get();
 
-        $data['sticker_promote'] = Cache::remember('home_sticker_promote', config('calculations.cache_time'), function() {
-            return Promote::where('product_type', '=', 'sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->inRandomOrder()->get();
+        $data['sticker_promote'] = Cache::remember('home_sticker_promote', config('calculations.cache_time'), function () {
+            return Promote::where('product_type', '=', 'sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->orderBy('id', 'desc')->get();
         });
-        $data['theme_promote'] = Cache::remember('home_theme_promote', config('calculations.cache_time'), function() {
-            return Promote::where('product_type', '=', 'theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->inRandomOrder()->get();
+        $data['theme_promote'] = Cache::remember('home_theme_promote', config('calculations.cache_time'), function () {
+            return Promote::where('product_type', '=', 'theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->orderBy('id', 'desc')->get();
         });
-        $data['emoji_promote'] = Cache::remember('home_emoji_promote', config('calculations.cache_time'), function() {
-            return Promote::where('product_type', '=', 'emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->inRandomOrder()->get();
+        $data['emoji_promote'] = Cache::remember('home_emoji_promote', config('calculations.cache_time'), function () {
+            return Promote::where('product_type', '=', 'emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->orderBy('id', 'desc')->get();
         });
 
         // $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
-        $new_arrival = Cache::remember('home_new_arrival', config('calculations.cache_time'), function() {
+        $new_arrival = Cache::remember('home_new_arrival', config('calculations.cache_time'), function () {
             return NewArrival::orderBy('id', 'desc')->first();
         });
         // สตื๊กเกอร์ไลน์อัพเดท
@@ -68,11 +68,11 @@ class HomeController extends Controller
         //     ->where('status', 1)
         //     ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
         //     ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
-        $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function() use ($new_arrival) {
+        $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function () use ($new_arrival) {
             return Sticker::where('category', 'official')
-                    ->where('status', 1)
-                    ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
-                    ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
+                ->where('status', 1)
+                ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
+                ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
         });
 
         // ธีมไลน์อัพเดท
@@ -80,11 +80,11 @@ class HomeController extends Controller
         //     ->where('status', 1)
         //     ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
         //     ->get();
-        $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function() use ($new_arrival) {
+        $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function () use ($new_arrival) {
             return Theme::where('category', 'official')
-                    ->where('status', 1)
-                    ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
-                    ->get();
+                ->where('status', 1)
+                ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
+                ->get();
         });
 
         // อิโมจิอัพเดท
@@ -92,19 +92,18 @@ class HomeController extends Controller
         //     ->where('status', 1)
         //     ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
         //     ->get();
-        $data['emoji_update'] = Cache::remember('home_emoji_update', config('calculations.cache_time'), function() use ($new_arrival) {
+        $data['emoji_update'] = Cache::remember('home_emoji_update', config('calculations.cache_time'), function () use ($new_arrival) {
             return Emoji::where('category', 'official')
-                    ->where('status', 1)
-                    ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
-                    ->get();
+                ->where('status', 1)
+                ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
+                ->get();
         });
 
         // editorpick
         // $data['series'] = Series::where('status', 1)->take(3)->inRandomOrder()->get();
-        $data['series'] = Cache::remember('home_series', config('calculations.cache_time'), function() {
+        $data['series'] = Cache::remember('home_series', config('calculations.cache_time'), function () {
             return Series::where('status', 1)->take(3)->inRandomOrder()->get();
         });
-
 
         // สติ๊กเกอร์ไลน์ทางการ (ไทย)
         // $data['sticker_official_thai'] = Sticker::where('status', 1)
@@ -115,15 +114,15 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['sticker_official_thai'] = Cache::remember('home_sticker_official_thai', config('calculations.cache_time'), function() {
+        $data['sticker_official_thai'] = Cache::remember('home_sticker_official_thai', config('calculations.cache_time'), function () {
             return Sticker::where('status', 1)
-                        ->where('category', 'official')
-                        ->where(function ($q) {
-                            $q->where('country', 'gb')->orWhere('country', 'th');
-                        })
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->where('country', 'gb')->orWhere('country', 'th');
+                })
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // สติ๊กเกอร์ไลน์ทางการ (ต่างประเทศ)
@@ -135,15 +134,15 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['sticker_official_oversea'] = Cache::remember('home_sticker_official_oversea', config('calculations.cache_time'), function() {
+        $data['sticker_official_oversea'] = Cache::remember('home_sticker_official_oversea', config('calculations.cache_time'), function () {
             return Sticker::where('status', 1)
-                        ->where('category', 'official')
-                        ->where(function ($q) {
-                            $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
-                        })
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                })
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // สติ๊กเกอร์ไลน์ครีเอเตอร์
@@ -152,12 +151,12 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['sticker_creator'] = Cache::remember('home_sticker_creator', config('calculations.cache_time'), function() {
+        $data['sticker_creator'] = Cache::remember('home_sticker_creator', config('calculations.cache_time'), function () {
             return Sticker::where('category', 'creator')
-                    ->where('status', 1)
-                    ->orderBy('threedays', 'desc')
-                    ->take(12)
-                    ->get();
+                ->where('status', 1)
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // ธีมไลน์ทางการ (ไทย)
@@ -169,15 +168,15 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['theme_official_thai'] = Cache::remember('home_theme_official_thai', config('calculations.cache_time'), function() {
+        $data['theme_official_thai'] = Cache::remember('home_theme_official_thai', config('calculations.cache_time'), function () {
             return Theme::where('category', 'official')
-                        ->where('status', 1)
-                        ->where(function ($q) {
-                            $q->where('country', 'gb')->orWhere('country', 'th');
-                        })
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('status', 1)
+                ->where(function ($q) {
+                    $q->where('country', 'gb')->orWhere('country', 'th');
+                })
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // ธีมไลน์ทางการ (ต่างประเทศ)
@@ -189,15 +188,15 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['theme_official_oversea'] = Cache::remember('home_theme_official_oversea', config('calculations.cache_time'), function() {
+        $data['theme_official_oversea'] = Cache::remember('home_theme_official_oversea', config('calculations.cache_time'), function () {
             return Theme::where('category', 'official')
-                        ->where('status', 1)
-                        ->where(function ($q) {
-                            $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
-                        })
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('status', 1)
+                ->where(function ($q) {
+                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                })
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // ธีมไลน์ครีเอเตอร์
@@ -206,12 +205,12 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['theme_creator'] = Cache::remember('home_theme_creator', config('calculations.cache_time'), function() {
+        $data['theme_creator'] = Cache::remember('home_theme_creator', config('calculations.cache_time'), function () {
             return Theme::where('category', 'creator')
-                        ->where('status', 1)
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('status', 1)
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // อิโมจิทางการ (ไทย)
@@ -223,15 +222,15 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['emoji_official_thai'] = Cache::remember('home_emoji_official_thai', config('calculations.cache_time'), function() {
+        $data['emoji_official_thai'] = Cache::remember('home_emoji_official_thai', config('calculations.cache_time'), function () {
             return Emoji::where('category', 'official')
-                        ->where('status', 1)
-                        ->where(function ($q) {
-                            $q->where('country', 'gb')->orWhere('country', 'th');
-                        })
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('status', 1)
+                ->where(function ($q) {
+                    $q->where('country', 'gb')->orWhere('country', 'th');
+                })
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // อิโมจิทางการ (ต่างประเทศ)
@@ -243,15 +242,15 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['emoji_official_oversea'] = Cache::remember('home_emoji_official_oversea', config('calculations.cache_time'), function() {
+        $data['emoji_official_oversea'] = Cache::remember('home_emoji_official_oversea', config('calculations.cache_time'), function () {
             return Emoji::where('category', 'official')
-                        ->where('status', 1)
-                        ->where(function ($q) {
-                            $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
-                        })
-                        ->orderBy('threedays', 'desc')
-                        ->take(12)
-                        ->get();
+                ->where('status', 1)
+                ->where(function ($q) {
+                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                })
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         // อิโมจิครีเอเตอร์
@@ -260,12 +259,12 @@ class HomeController extends Controller
         //     ->orderBy('threedays', 'desc')
         //     ->take(12)
         //     ->get();
-        $data['emoji_creator'] = Cache::remember('home_emoji_creator', config('calculations.cache_time'), function() {
+        $data['emoji_creator'] = Cache::remember('home_emoji_creator', config('calculations.cache_time'), function () {
             return Emoji::where('category', 'creator')
-                    ->where('status', 1)
-                    ->orderBy('threedays', 'desc')
-                    ->take(12)
-                    ->get();
+                ->where('status', 1)
+                ->orderBy('threedays', 'desc')
+                ->take(12)
+                ->get();
         });
 
         return view('home', $data);
@@ -476,7 +475,8 @@ class HomeController extends Controller
         });
     }
 
-    public function cacheFlush(){
+    public function cacheFlush()
+    {
         Cache::flush();
         echo "<script>";
         echo "window.top.close();";
