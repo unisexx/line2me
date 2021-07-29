@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Promote;
 use App\Models\Series;
 use Cache;
+use Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
