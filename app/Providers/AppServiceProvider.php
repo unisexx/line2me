@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
         );
 
         View::share('serie_promote',
-            Cache::remember('editor_pick', now()->addMinutes(3), function () {
+            Cache::remember('editor_pick', now()->addMinutes(5), function () {
                 return Series::where('status', 1)->take(3)->inRandomOrder()->get();
             })
         );
