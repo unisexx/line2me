@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sticker;
+use Cache;
+use DB;
+use Illuminate\Support\Facades\Redis;
 use OpenGraph;
 use SEO;
 use SEOMeta;
-use DB;
-use Cache;
+
 // use Carbon;
 
 class StickerController extends Controller
@@ -36,11 +38,11 @@ class StickerController extends Controller
             ->where(function ($q) use ($country) {
                 // ประเทศ : thai, oversea
                 if ($country == 'othercountry') {
-                    $q->whereNotIn('country', ['gb','th','jp','tw','id']);
-                } elseif($country == 'oversea') {
-                    $q->whereNotIn('country', ['gb','th']);
-                } elseif($country == 'thai' || $country == 'th') {
-                    $q->whereIn('country', ['gb','th']);
+                    $q->whereNotIn('country', ['gb', 'th', 'jp', 'tw', 'id']);
+                } elseif ($country == 'oversea') {
+                    $q->whereNotIn('country', ['gb', 'th']);
+                } elseif ($country == 'thai' || $country == 'th') {
+                    $q->whereIn('country', ['gb', 'th']);
                 } else {
                     $q->where('country', $country);
                 }
@@ -68,10 +70,10 @@ class StickerController extends Controller
             ->where('status', 1)
             ->where(function ($q) use ($country) {
                 // ประเทศ : thai, oversea
-                if($country == 'all'){
+                if ($country == 'all') {
 
-                } elseif($country == 'oversea') {
-                    $q->whereNotIn('country', ['gb','th']);
+                } elseif ($country == 'oversea') {
+                    $q->whereNotIn('country', ['gb', 'th']);
                 } else {
                     $q->where('country', $country);
                 }
@@ -84,22 +86,31 @@ class StickerController extends Controller
 
     public function getProduct($id = null)
     {
+        // Redis::set('CacheTest', 'asdfasdfasdf');
+        // $data = Redis::get('CacheTest');
+        // dd($data);
+
         // ใช้ Cache File
-        $data['rs'] = Cache::rememberForever('stickers_'.$id, function() use ($id) {
-            return DB::table('stickers')->where('sticker_code',$id)->first();
-        });
+        // $data['rs'] = Cache::rememberForever('stickers_' . $id, function () use ($id) {
+        //     return DB::table('stickers')->where('sticker_code', $id)->first();
+        // });
+
         // $data['rs'] = Cache::remember('stickers_'.$id, 60, function() use ($id) {
         //     return DB::table('stickers')->where('sticker_code',$id)->first();
         // });
 
         // ใช้ Redis Cache
-        // $redis = Redis::get('laravel:stickers_'.$id);
-        // if ($redis) {
-        //     $data['rs'] = unserialize($redis);
-        // }else{
-        //     $data['rs'] = DB::table('stickers')->where('sticker_code',$id)->first();
-        //     Cache::store('redis')->put('stickers_'.$id, $data['rs'], 10);
-        // }
+        $redis = Redis::get('stickers_' . $id);
+        dump($redis);
+
+        if ($redis) {
+            $data['rs'] = json_decode($redis);
+        } else {
+            $data['rs'] = DB::table('stickers')->where('sticker_code', $id)->first();
+            // Cache::store('redis')->put('stickers_' . $id, json_encode($data['rs']), "ex", 1000);
+            // dd($data['rs']);
+            Redis::set('stickers_' . $id, json_encode($data['rs']), "ex", 1000);
+        }
 
         // $data['rs'] = Sticker::where('sticker_code', $id)->firstOrFail();
 

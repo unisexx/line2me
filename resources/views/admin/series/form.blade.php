@@ -30,19 +30,30 @@ https://line.me/ti/p/~ratasak1234
         </div>
         <div class="form-group">
             <label for="status">เปิด / ปิดการใช้งาน</label>
-            <input name="status" type="hidden" value="0" checked="chedked" />
-            <input name="status" type="checkbox" id="status" checked value="1" {!! (@$rs->status == '1') ? 'checked="checked"' : '' !!} />
+            <select name="status" class="form-control" style="width:auto;">
+                <option value="1" {!! (@$rs->status == '1') ? 'selected' : '' !!}>เปิด</option>
+                <option value="" {!! (@$rs->status == '') ? 'selected' : '' !!}>ปิด</option>
+            </select>
         </div>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
     {{-- <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ"> --}}
+    <input id="openLink" class="btn btn-danger" type="button" value="เปิดลิ้งค์ทั้งหมด">
     <input id="updateData" class="btn btn-warning" type="button" value="อัพเดทที่ยังไม่มีทั้งหมด"> <i class="fas fa-sync"></i>
     <textarea name="fast" style="width:100%;" rows='10' placeholder="เพิ่มแบบด่วน"></textarea>
 
     
     <div id="rowHere">
         <table id="simpleList" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Produce Code</th>
+                </tr>
+            </thead>
             <tbody>
                 @if(@$rs->seriesItem)
                 @foreach(@$rs->seriesItem as $row)
@@ -50,17 +61,26 @@ https://line.me/ti/p/~ratasak1234
                     <td width="90"><input class='btn btn-sm btn-danger btnDelete' value='ลบ' style="width:90px; height:90px;"></td>
                     <td>
                         @if($row->product_type == 'sticker')
-                            <a href="{{ url('sticker/'.@$row->sticker->sticker_code) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="90"></a> {{ @$row->sticker->title_th }}
+                            {{ @$row->sticker->sticker_code }}
+                        @elseif($row->product_type == 'emoji')
+                            {{ @$row->emoji->id }}
+                        @elseif($row->product_type == 'theme')
+                            {{ @$row->theme->id }}
+                        @endif
+                    </td>
+                    <td>
+                        @if($row->product_type == 'sticker')
+                            <a class="frontlink" href="{{ url('sticker/'.@$row->sticker->sticker_code) }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="90"></a> {{ @$row->sticker->title_th }}
                             @if(@$row->sticker->id == '')
                                 <a href="{{ url('admin/getsticker/'.$row->product_code.'?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                             @endif
                         @elseif($row->product_type == 'emoji')
-                            <a href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="90"></a> {{ @$row->emoji->title }}
+                            <a class="frontlink" href="{{ url('emoji/'.@$row->emoji->id) }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="90"></a> {{ @$row->emoji->title }}
                             @if(@$row->emoji->id == '')
                                 <a href="{{ url('admin/getemoji/'.$row->product_code.'?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                             @endif
                         @elseif($row->product_type == 'theme')
-                            <a href="{{ url('theme/'.@$row->theme->id) }}" target="_blank"><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png" height="90"></a> {{ @$row->theme->title }}
+                            <a class="frontlink" href="{{ url('theme/'.@$row->theme->id) }}" target="_blank"><img src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png" height="90"></a> {{ @$row->theme->title }}
                             @if(@$row->theme->id == '')
                                 <a href="{{ url('admin/gettheme/'.$row->product_code.'?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                             @endif
@@ -131,5 +151,29 @@ $(document).on('click', "#updateData", function () {
         window.open(href, "_blank");
     });
 });
+
+$(document).on('click', "#openLink", function () {
+    $('.frontlink').each(function(){
+        var href = $(this).attr('href');
+        window.open(href, "_blank");
+    });
+});
+</script>
+
+<script>
+$('th').click(function(){
+    var table = $(this).parents('table').eq(0)
+    var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+    this.asc = !this.asc
+    if (!this.asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+})
+function comparer(index) {
+    return function(a, b) {
+        var valA = getCellValue(a, index), valB = getCellValue(b, index)
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+    }
+}
+function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
 </script>
 @endpush

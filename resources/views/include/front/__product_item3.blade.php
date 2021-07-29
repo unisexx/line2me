@@ -1,13 +1,13 @@
 @php
-    if($row->country == "th"){
-        $color = '#eee';
-    }elseif($row->country == "jp"){
-        $color = '#f788a35e';
-    }elseif($row->country == "tw"){
-        $color = '#5c9ed55e';
-    }elseif($row->country == "id"){
-        $color = '#d7ad725e';
-    }
+    // if($row->country == "th"){
+    //     $color = '#eee';
+    // }elseif($row->country == "jp"){
+    //     $color = '#f788a35e';
+    // }elseif($row->country == "tw"){
+    //     $color = '#5c9ed55e';
+    // }elseif($row->country == "id"){
+    //     $color = '#d7ad725e';
+    // }
 @endphp
 
 

@@ -25,7 +25,7 @@ class SeriesController extends Controller
             $rs = $rs->where('title', 'LIKE', "%$keyword%")->orWhere('sub_title', 'LIKE', "%$keyword%");
         }
 
-        $rs = $rs->orderBY('hilight', 'desc')->orderBy('id', 'desc')->simplePaginate(30);
+        $rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
 
         return view('admin.series.index', compact('rs'));
     }
@@ -76,6 +76,7 @@ class SeriesController extends Controller
     {
         $requestData = $request->all();
         $rs          = Series::findOrFail($id);
+        $rs->touch();
         $rs->update($requestData);
 
         // ลบรายการ
