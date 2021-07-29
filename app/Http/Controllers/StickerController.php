@@ -91,26 +91,26 @@ class StickerController extends Controller
         // dd($data);
 
         // ใช้ Cache File
-        // $data['rs'] = Cache::rememberForever('stickers_' . $id, function () use ($id) {
-        //     return DB::table('stickers')->where('sticker_code', $id)->first();
-        // });
+        $data['rs'] = Cache::rememberForever('stickers_' . $id, function () use ($id) {
+            return DB::table('stickers')->where('sticker_code', $id)->first();
+        });
 
         // $data['rs'] = Cache::remember('stickers_'.$id, 60, function() use ($id) {
         //     return DB::table('stickers')->where('sticker_code',$id)->first();
         // });
 
         // ใช้ Redis Cache
-        $redis = Redis::get('stickers_' . $id);
-        dump($redis);
+        // $redis = Redis::get('stickers_' . $id);
+        // dump($redis);
 
-        if ($redis) {
-            $data['rs'] = json_decode($redis);
-        } else {
-            $data['rs'] = DB::table('stickers')->where('sticker_code', $id)->first();
-            // Cache::store('redis')->put('stickers_' . $id, json_encode($data['rs']), "ex", 1000);
-            // dd($data['rs']);
-            Redis::set('stickers_' . $id, json_encode($data['rs']), "ex", 1000);
-        }
+        // if ($redis) {
+        //     $data['rs'] = json_decode($redis);
+        // } else {
+        //     $data['rs'] = DB::table('stickers')->where('sticker_code', $id)->first();
+        //     // Cache::store('redis')->put('stickers_' . $id, json_encode($data['rs']), "ex", 1000);
+        //     // dd($data['rs']);
+        //     Redis::set('stickers_' . $id, json_encode($data['rs']), "ex", 1000);
+        // }
 
         // $data['rs'] = Sticker::where('sticker_code', $id)->firstOrFail();
 
