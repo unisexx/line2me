@@ -3,12 +3,12 @@ if (!function_exists('clean_url')) {
     function clean_url($text)
     {
         setlocale(LC_ALL, "Thai");
-        $text = strtolower($text);
-        $code_entities_match = array(' ', '--', '&quot;', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?', '[', ']', '\\', ';', "'", ',', '.', '/', '*', '+', '~', '`', '=');
+        $text                  = strtolower($text);
+        $code_entities_match   = array(' ', '--', '&quot;', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?', '[', ']', '\\', ';', "'", ',', '.', '/', '*', '+', '~', '`', '=');
         $code_entities_replace = array('-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-        $text = str_replace($code_entities_match, $code_entities_replace, $text);
-        $text = @ereg_replace('(--)+', '', $text);
-        $text = @ereg_replace('(-)$', '', $text);
+        $text                  = str_replace($code_entities_match, $code_entities_replace, $text);
+        $text                  = @ereg_replace('(--)+', '', $text);
+        $text                  = @ereg_replace('(-)$', '', $text);
 
         return $text;
     }
@@ -20,7 +20,7 @@ if (!function_exists('generateUniqueSlug')) {
         //and here you put all your logic that solve the problem
         $temp = clean_url($title, '-');
         if (!App\Models\Page::all()->where('slug', $temp)->isEmpty()) {
-            $i = 1;
+            $i       = 1;
             $newslug = $temp . '-' . $i;
             while (!App\Models\Page::all()->where('slug', $newslug)->isEmpty()) {
                 $i++;
@@ -102,9 +102,9 @@ if (!function_exists('get_sticker_img_url')) {
 if (!function_exists('new_icon')) {
     function new_icon($created)
     {
-        $end = Carbon::parse($created);
-        $now = Carbon::now();
-        $length = $end->diffInDays($now);
+        $end      = Carbon::parse($created);
+        $now      = Carbon::now();
+        $length   = $end->diffInDays($now);
         $new_icon = $length < 7 ? '<div class="new-product">New</div>' : '';
 
         return $new_icon;
@@ -114,9 +114,9 @@ if (!function_exists('new_icon')) {
 if (!function_exists('new_badge')) {
     function new_badge($created)
     {
-        $end = Carbon::parse($created);
-        $now = Carbon::now();
-        $length = $end->diffInDays($now);
+        $end      = Carbon::parse($created);
+        $now      = Carbon::now();
+        $length   = $end->diffInDays($now);
         $new_icon = $length < 7 ? '<span class="badge badge-danger">New</span>' : '';
 
         return $new_icon;
@@ -186,9 +186,9 @@ if (!function_exists('notify_message')) {
     function notify_message($message)
     {
         define('LINE_API', "https://notify-api.line.me/api/notify");
-        $token = "fgpdbSIKtGe7oFP6kHK7HNs9gAwmErkViRwnMzBajnj";
-        $queryData = array('message' => $message);
-        $queryData = http_build_query($queryData, '', '&');
+        $token         = "fgpdbSIKtGe7oFP6kHK7HNs9gAwmErkViRwnMzBajnj";
+        $queryData     = array('message' => $message);
+        $queryData     = http_build_query($queryData, '', '&');
         $headerOptions = array(
             'http' => array(
                 'method'  => 'POST',
@@ -199,8 +199,8 @@ if (!function_exists('notify_message')) {
             ),
         );
         $context = stream_context_create($headerOptions);
-        $result = file_get_contents(LINE_API, false, $context);
-        $res = json_decode($result);
+        $result  = file_get_contents(LINE_API, false, $context);
+        $res     = json_decode($result);
 
         return $res;
     }
@@ -366,5 +366,52 @@ if (!function_exists('countryFlag')) {
         );
 
         return @$countryArray[$txt];
+    }
+}
+
+if (!function_exists('viewCounter')) {
+    function viewCounter()
+    {
+        $productType = Request::segment(1);
+        $productID   = Request::segment(2);
+
+        // Sticker
+        if (Session::get('stickerArray')) {
+            if (Route::getCurrentRoute()->getActionName() == 'App\Http\Controllers\StickerController@getProduct') {
+                if (!in_array($productID, Session::get('stickerArray')) && $productType == 'sticker') {
+                    Session::push('stickerArray', $productID);
+                    DB::table('stickers')->where('sticker_code', $productID)->increment('threedays', 1);
+                }}
+        } else {
+            Session::push('stickerArray', Session::getId());
+        }
+
+        // Theme
+        if (Session::get('themeArray')) {
+            if (Route::getCurrentRoute()->getActionName() == 'App\Http\Controllers\ThemeController@getProduct') {
+                if (!in_array($productID, Session::get('themeArray')) && $productType == 'theme') {
+                    Session::push('themeArray', $productID);
+                    DB::table('themes')->where('id', $productID)->increment('threedays', 1);
+                }
+            }
+        } else {
+            Session::push('themeArray', Session::getId());
+        }
+
+        // Emoji
+        if (Session::get('emojiArray')) {
+            if (Route::getCurrentRoute()->getActionName() == 'App\Http\Controllers\EmojiController@getProduct') {
+                if (!in_array($productID, Session::get('emojiArray')) && $productType == 'emoji') {
+                    Session::push('emojiArray', $productID);
+                    DB::table('emojis')->where('id', $productID)->increment('threedays', 1);
+                }
+            }
+        } else {
+            Session::push('emojiArray', Session::getId());
+        }
+
+        // dump(Session::get('stickerArray'));
+        // dump(Session::get('themeArray'));
+        // dump(Session::get('emojiArray'));
     }
 }

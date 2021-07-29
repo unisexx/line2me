@@ -21,10 +21,11 @@
             @yield('content')
 		</div>
     </div>
-    
+    @php
+        viewCounter();
+    @endphp
     <!-- JavaScripts -->
     @include('include.front.js')
     @stack('js')
 </body>
 </html>
-
