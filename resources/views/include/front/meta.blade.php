@@ -40,11 +40,6 @@
 
 <!-- Animate.css -->
 <!-- <link rel="stylesheet" href="nitro_theme/css/animate.css"> -->
-<style>
-.js .animate-box{
-    opacity:1 !important;
-}
-</style>
 
 <!-- Icomoon Icon Fonts-->
 <!-- <link rel="stylesheet" href="nitro_theme/css/icomoon.css"> -->
@@ -88,11 +83,3 @@
     ga('create', 'UA-11835891-6', 'auto');
     ga('send', 'pageview');
 </script>
-
-<style>
-    span.flag{
-        width: 20px !important;
-        height: 13px !important;
-        border: 1px solid lightgray;
-    }
-</style>

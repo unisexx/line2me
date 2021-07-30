@@ -1853,3 +1853,14 @@ p.fh5co-work-title {
 @media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3) {
     /* Styles */
 }
+
+/* Custom Style */
+.js .animate-box{
+    opacity:1 !important;
+}
+
+span.flag{
+    width: 20px !important;
+    height: 13px !important;
+    border: 1px solid lightgray;
+}
