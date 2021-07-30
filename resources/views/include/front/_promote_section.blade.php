@@ -45,14 +45,16 @@
 		<h2 class="fh5co-heading">แนะนำจากทางร้าน</h2>
 		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
 	</div>
-	<div class="row mb-5">
-		@foreach($serie_promote as $row)
-		<div class="col pl-2 pr-2">
-			<a href="{{ url('series/'. $row->id) }}">
-				<img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
-			</a>
-		</div>
-		@endforeach
-	</div>
+	@foreach ($serie_promote->chunk(3) as $chunk)
+        <div class="row mb-5">
+            @foreach($chunk as $row)
+            <div class="col pl-2 pr-2">
+                <a href="{{ url('series/'. $row->id) }}">
+                    <img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
+                </a>
+            </div>
+            @endforeach
+        </div>
+    @endforeach
 </div>
 

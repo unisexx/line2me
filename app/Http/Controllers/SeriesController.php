@@ -65,7 +65,7 @@ class SeriesController extends Controller
         });
 
         // more
-        $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();
+        // $more_series = Series::where('id', '!=', $id)->take(3)->inRandomOrder()->get();
 
         // SEO
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์แนะนำชุด' . $rs->title);
