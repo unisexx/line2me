@@ -50,4 +50,7 @@
 </div>
 @endif 
 
+
+@include('include.front._promote_section')
+
 @endsection
