@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Theme;
+use Cache;
+use DB;
 use OpenGraph;
 use SEO;
 use SEOMeta;
-use Cache;
-use DB;
 
 class ThemeController extends Controller
 {
@@ -37,9 +37,9 @@ class ThemeController extends Controller
 
                 // ประเทศ : thai, oversea
                 if ($country == 'thai') {
-                    $q->whereIn('country', ['gb','th']);
+                    $q->whereIn('country', ['gb', 'th']);
                 } elseif ($country == 'oversea') {
-                    $q->whereNotIn('country', ['gb','th']);
+                    $q->whereNotIn('country', ['gb', 'th']);
                 }
 
             })
@@ -72,7 +72,7 @@ class ThemeController extends Controller
     public function getProduct($id)
     {
         // cache file
-        $data['rs'] = Cache::rememberForever('theme_'.$id, function() use ($id) {
+        $data['rs'] = Cache::rememberForever('theme_' . $id, function () use ($id) {
             return DB::table('themes')->find($id);
         });
 
@@ -94,5 +94,10 @@ class ThemeController extends Controller
         OpenGraph::addProperty('image:height', '278');
 
         return view('theme.product', $data);
+    }
+
+    public function getProductRedirect($id = null)
+    {
+        return redirect('theme/' . $id);
     }
 }

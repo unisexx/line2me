@@ -131,4 +131,9 @@ class StickerController extends Controller
 
         return view('sticker.product', $data);
     }
+
+    public function getProductRedirect($id = null)
+    {
+        return redirect('sticker/' . $id);
+    }
 }

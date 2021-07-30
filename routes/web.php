@@ -62,16 +62,19 @@ Route::get('new_arrival/{param}', 'NewArrivalController@getDetail');
 Route::get('new_arrival2/{param}', 'NewArrivalController@getDetail2');
 
 // sticker
+Route::get('sticker/product/{id}', 'StickerController@getProductRedirect');
 Route::get('sticker/{id}', 'StickerController@getProduct');
 Route::get('sticker/official/{country}/{type}', 'StickerController@getOfficial');
 Route::get('sticker/creator/{country}/{type}', 'StickerController@getCreator');
 
 // theme
+Route::get('theme/product/{id}', 'ThemeController@getProductRedirect');
 Route::get('theme/{id}', 'ThemeController@getProduct');
 Route::get('theme/official/{country}/{type}', 'ThemeController@getOfficial');
 Route::get('theme/creator/{type}', 'ThemeController@getCreator');
 
 // emoji
+Route::get('emoji/product/{id}', 'EmojiController@getProductRedirect');
 Route::get('emoji/{id}', 'EmojiController@getProduct');
 Route::get('emoji/official/{country}/{type}', 'EmojiController@getOfficial');
 Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
