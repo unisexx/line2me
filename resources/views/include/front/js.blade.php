@@ -32,17 +32,6 @@ $('ducument').ready(function(){
     // ใส่ class img-fluid ให้รูปในหน้า Page เพื่อทำ responsive
     $('.pageContent img').attr('class', 'img-fluid');
 
-    // อัพเดทยอดวิว
-    // var productType = "{{ Request::segment(1) }}";
-    // var productID = "{{ Request::segment(2) }}";
-
-    // if(productType == 'sticker' || productType == 'theme' || productType == 'emoji'){
-    //     $.ajax({
-    //         url: '{{ url("ajax/updateviewcount") }}',
-    //         data:{ productType : productType, productID : productID }
-    //     });
-    // }
-
     // เปิด sticker stamp animation ตอนคลิก
     $('.playAnimate').click(function(){
         playAnimate($(this));
@@ -75,27 +64,3 @@ function playAnimate(thisObj){
     }
 }
 </script>
-
-<!-- Messenger ปลั๊กอินแชท Code -->
-{{-- <div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function() {
-    FB.init({
-    xfbml            : true,
-    version          : 'v10.0'
-    });
-};
-
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/th_TH/sdk/xfbml.customerchat.js';
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-customerchat"
-attribution="biz_inbox"
-page_id="619024168129948">
-</div> --}}

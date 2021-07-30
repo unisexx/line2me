@@ -13,7 +13,7 @@ return [
     |
      */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name'            => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     |
      */
 
-    'env' => env('APP_ENV', 'production'),
+    'env'             => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
      */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug'           => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,9 +52,9 @@ return [
     |
      */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url'             => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url'       => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +67,7 @@ return [
     |
      */
 
-    'timezone' => 'Asia/Bangkok',
+    'timezone'        => 'Asia/Bangkok',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
      */
 
-    'locale' => 'en',
+    'locale'          => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +106,7 @@ return [
     |
      */
 
-    'faker_locale' => 'en_US',
+    'faker_locale'    => 'en_US',
 
     /*
     |--------------------------------------------------------------------------
@@ -119,9 +119,9 @@ return [
     |
      */
 
-    'key' => env('APP_KEY'),
+    'key'             => env('APP_KEY'),
 
-    'cipher' => 'AES-256-CBC',
+    'cipher'          => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
@@ -134,7 +134,7 @@ return [
     |
      */
 
-    'providers' => [
+    'providers'       => [
 
         /*
          * Laravel Framework Service Providers...
@@ -193,7 +193,7 @@ return [
     |
      */
 
-    'aliases' => [
+    'aliases'         => [
 
         'App'          => Illuminate\Support\Facades\App::class,
         'Arr'          => Illuminate\Support\Arr::class,
@@ -232,15 +232,15 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
 
         // other Facades ommited
-        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
-        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
-        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'SEOMeta'      => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph'    => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'      => Artesaos\SEOTools\Facades\TwitterCard::class,
         // or
-        'SEO'       => Artesaos\SEOTools\Facades\SEOTools::class,
+        'SEO'          => Artesaos\SEOTools\Facades\SEOTools::class,
 
-        'Carbon' => 'Carbon\Carbon',
+        'Carbon'       => 'Carbon\Carbon',
 
-        'Imgur' => Yish\Imgur\Facades\Upload::class,
+        'Imgur'        => Yish\Imgur\Facades\Upload::class,
 
     ],
 
