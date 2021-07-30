@@ -1,12 +1,12 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-11835891-8"></script>
+{{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11835891-8"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'UA-11835891-8');
-</script>
+</script> --}}
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,7 +77,7 @@
 <script src="js/respond.min.js"></script>
 <![endif]-->
 
-<script data-ad-client="ca-pub-6990472968806237" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+{{-- <script data-ad-client="ca-pub-6990472968806237" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> --}}
 
 {{-- GOOGLE ANALYTICS --}}
 <script>

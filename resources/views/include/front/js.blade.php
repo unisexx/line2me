@@ -77,7 +77,7 @@ function playAnimate(thisObj){
 </script>
 
 <!-- Messenger ปลั๊กอินแชท Code -->
-<div id="fb-root"></div>
+{{-- <div id="fb-root"></div>
 <script>
 window.fbAsyncInit = function() {
     FB.init({
@@ -95,8 +95,7 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<!-- Your ปลั๊กอินแชท code -->
 <div class="fb-customerchat"
 attribution="biz_inbox"
 page_id="619024168129948">
-</div>
+</div> --}}

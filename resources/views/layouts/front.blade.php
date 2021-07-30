@@ -17,7 +17,7 @@
         <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
         @include('include.front.header')
 		<div id="fh5co-main">
-            @include('include.front._google_custom_search')
+            {{-- @include('include.front._google_custom_search') --}}
             @yield('content')
 		</div>
     </div>

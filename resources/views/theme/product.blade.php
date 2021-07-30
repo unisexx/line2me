@@ -1,7 +1,7 @@
 @extends('layouts.front')
 
 @section('content')
-@include('include.front._auth_change_status', ['table' => 'themes', 'var' => $rs])
+{{-- @include('include.front._auth_change_status', ['table' => 'themes', 'var' => $rs]) --}}
 
 <div class="fh5co-narrow-content">
 	@include('include.front._breadcrumb')
