@@ -14,11 +14,16 @@ class SeriesController extends Controller
 {
     public function getIndex()
     {
-        $rs = Series::select('*')->where('status', 1);
-        if (!empty($keyword)) {
-            $rs = $rs->where('title', 'LIKE', "%$keyword%");
-        }
-        $rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
+        $page = !empty(request('page')) ? request('page') : 1;
+        $rs   = Cache::remember('series_index_page_' . @$page, config('calculations.cache_time'), function () {
+            return Series::select('*')->where('status', 1)->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
+        });
+
+        // $rs = Series::select('*')->where('status', 1);
+        // if (!empty($keyword)) {
+        //     $rs = $rs->where('title', 'LIKE', "%$keyword%");
+        // }
+        // $rs = $rs->orderBY('hilight', 'desc')->orderBy('updated_at', 'desc')->simplePaginate(30);
 
         SEO::setTitle('รวมสติ๊กเกอร์ไลน์แนะนำชุดน่าสนใจ');
 
