@@ -114,9 +114,9 @@ https://line.me/ti/p/~ratasak1234
 $(document).ready(function(){
     $( "tbody" ).sortable({
         helper: fixWidthHelper,
-        // update: function( ) {
-        //     alert('drop');
-        // }
+        update: function( ) {
+            console.log('drop');
+        }
     }).disableSelection();
 
     $('.addRow').click(function(){
