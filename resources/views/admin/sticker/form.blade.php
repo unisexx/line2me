@@ -43,21 +43,21 @@
     </div>
     <div class="form-group">
         <textarea class="form-control" rows="10">แนะนำสติ๊กเกอร์ครีเอเทอร์ไทยยอดนิยม 
-
+.
 {{ $rs->title_th }}
 {{ $rs->detail }}
-
+.
 สามารถดูลายสติ๊กเกอร์ได้ที่ 
 http://www.line2me.in.th/sticker/{{ $rs->sticker_code }}
-
+.
 หากเพื่อนๆคนไหนสนใจทักเข้ามาได้เลยครับที่ไลน์ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
 http://line.me/ti/p/~ratasak1234
-
+.
 ขอบคุณมากครับ ^^
-
+.
 ===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
 https://line2me.in.th/series/24
-
+.
 ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS
 #line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
     </div>
