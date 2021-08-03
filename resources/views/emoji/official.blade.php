@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="fh5co-narrow-content">
-	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">อิโมจิไลน์ทางการ{{ Request::segment(3) == 'thai' ? 'ไทย' : 'ต่างประเทศ' }}</h2>
+	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">อิโมจิไลน์ทางการ{{ Request::segment(3) == 'th' ? 'ไทย' : 'ต่างประเทศ' }}</h2>
 
 	<div class="row mb-3">
 		<div class="col">

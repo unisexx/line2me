@@ -210,26 +210,11 @@ if (!function_exists('getCountryTh')) {
     function getCountryTh($txt)
     {
         $countryArray = array(
-            'thai'      => 'ไทย',
-            'japan'     => 'ญี่ปุ่น',
-            'taiwan'    => 'ไต้หวัน',
-            'indonesia' => 'อินโดนีเซีย',
-            'oversea'   => 'ต่างประเทศ',
-        );
-
-        return @$countryArray[$txt];
-    }
-}
-
-if (!function_exists('getCountryTh')) {
-    function getCountryTh($txt)
-    {
-        $countryArray = array(
-            'thai'      => 'ไทย',
-            'japan'     => 'ญี่ปุ่น',
-            'taiwan'    => 'ไต้หวัน',
-            'indonesia' => 'อินโดนีเซีย',
-            'oversea'   => 'ต่างประเทศ',
+            'th'      => 'ไทย',
+            'jp'      => 'ญี่ปุ่น',
+            'tw'      => 'ไต้หวัน',
+            'id'      => 'อินโดนีเซีย',
+            'oversea' => 'ต่างประเทศ',
         );
 
         return @$countryArray[$txt];

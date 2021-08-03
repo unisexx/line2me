@@ -1,9 +1,9 @@
 @extends('layouts.front')
 
 @section('content')
-
+{{-- @dd(Request::segment(3)) --}}
 <div class="fh5co-narrow-content">
-	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">สติ๊กเกอร์ไลน์ทางการ{{ getCountryTh(Request::segment(3)) }}</h2>
+	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">สติ๊กเกอร์ไลน์ทางการ{{ @getCountryTh(Request::segment(3)) }}</h2>
 
 	<div class="row mb-3">
 		<div class="col">
@@ -14,11 +14,11 @@
 		</div>
 		<div class="col">
 			<select class="custom-select animate-box" data-animate-effect="fadeInLeft" onchange="location = '{{ Request::root() }}/sticker/official/'+this.value+'/{{ Request::segment(4) }}'">
-				<option value="th" {{ Request::segment(3) == 'thai' ? 'selected' : '' }}>ไทย</option>
+				<option value="th" {{ Request::segment(3) == 'th' ? 'selected' : '' }}>ไทย</option>
 				<option value="oversea" {{ Request::segment(3) == 'oversea' ? 'selected' : '' }}>ต่างประเทศ</option>
-				<option value="jp" {{ Request::segment(3) == 'japan' ? 'selected' : '' }}>ญุี่ปุ่น</option>
-				<option value="tw" {{ Request::segment(3) == 'taiwan' ? 'selected' : '' }}>ไต้หวัน</option>
-				<option value="id" {{ Request::segment(3) == 'indonesia' ? 'selected' : '' }}>อินโดนีเซีย</option>
+				<option value="jp" {{ Request::segment(3) == 'jp' ? 'selected' : '' }}>ญุี่ปุ่น</option>
+				<option value="tw" {{ Request::segment(3) == 'tw' ? 'selected' : '' }}>ไต้หวัน</option>
+				<option value="id" {{ Request::segment(3) == 'id' ? 'selected' : '' }}>อินโดนีเซีย</option>
 				<option value="othercountry" {{ Request::segment(3) == 'othercountry' ? 'selected' : '' }}>อื่นๆ</option>
 			</select>
 		</div>

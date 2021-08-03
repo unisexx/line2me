@@ -20,8 +20,8 @@ class EmojiController extends Controller
     public function getOfficial($country, $type)
     {
         // SEO
-        SEO::setTitle('อีโมจิไลน์ทางการ' . ($country == 'thai' ? 'ไทย' : 'ต่างประเทศ') . 'ยอดนิยม');
-        SEO::setDescription('รวมอิโมจิไลน์ทางการ' . ($country == 'thai' ? 'ไทย' : 'ต่างประเทศ') . 'ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+        SEO::setTitle('อีโมจิไลน์ทางการ' . ($country == 'th' ? 'ไทย' : 'ต่างประเทศ') . 'ยอดนิยม');
+        SEO::setDescription('รวมอิโมจิไลน์ทางการ' . ($country == 'th' ? 'ไทย' : 'ต่างประเทศ') . 'ขายดี แนะนำ ฮิตๆ ยอดนิยม');
 
         if ($type == 'top') {
             $orderByField = 'threedays';
@@ -36,7 +36,7 @@ class EmojiController extends Controller
             ->where(function ($q) use ($country) {
 
                 // ประเทศ : thai, oversea
-                if ($country == 'thai') {
+                if ($country == 'th') {
                     $q->whereIn('country', ['gb', 'th']);
                 } elseif ($country == 'oversea') {
                     $q->whereNotIn('country', ['gb', 'th']);

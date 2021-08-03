@@ -21,8 +21,8 @@ class StickerController extends Controller
     public function getOfficial($country, $type)
     {
         // SEO
-        SEO::setTitle('สติ๊กเกอร์ไลน์ทางการ' . ($country == 'thai' ? 'ไทย' : 'ต่างประเทศ') . 'ยอดนิยม');
-        SEO::setDescription('รวมสติ๊กเกอร์ไลน์ทางการ' . ($country == 'thai' ? 'ไทย' : 'ต่างประเทศ') . 'ขายดี แนะนำ ฮิตๆ ยอดนิยม');
+        SEO::setTitle('สติ๊กเกอร์ไลน์ทางการ' . @getCountryTh($country) . ($type == 'top' ? 'ยอดนิยม' : 'ใหม่ล่าสุด'));
+        SEO::setDescription('รวมสติ๊กเกอร์ไลน์ทางการ' . @getCountryTh($country) . 'ขายดีแนะนำ' . ($type == 'top' ? 'ยอดนิยม' : 'ใหม่ล่าสุด'));
 
         // ประเภท : top, new
         if ($type == 'top') {
@@ -41,7 +41,7 @@ class StickerController extends Controller
                     $q->whereNotIn('country', ['gb', 'th', 'jp', 'tw', 'id']);
                 } elseif ($country == 'oversea') {
                     $q->whereNotIn('country', ['gb', 'th']);
-                } elseif ($country == 'thai' || $country == 'th') {
+                } elseif ($country == 'th') {
                     $q->whereIn('country', ['gb', 'th']);
                 } else {
                     $q->where('country', $country);

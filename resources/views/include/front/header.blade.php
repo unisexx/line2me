@@ -6,13 +6,13 @@
             <li class="fh5co-active"><a href="home">หน้าแรก</a></li>
             <li><a href="{{ url('new_arrival') }}">อัพเดทล่าสุดประจำสัปดาห์</a></li>
             <li><a href="{{ url('series') }}">แนะนำจากทางร้าน <i class="fas fa-star fa-spin" style="color:#dc3545;"></i></a></li>
-            <li><a href="{{ url('sticker/official/thai/top') }}">สติ๊กเกอร์ไลน์ทางการไทย</a></li>
+            <li><a href="{{ url('sticker/official/th/top') }}">สติ๊กเกอร์ไลน์ทางการไทย</a></li>
             <li><a href="{{ url('sticker/official/oversea/top') }}">สติ๊กเกอร์ไลน์ต่างประเทศ</a></li>
             <li><a href="{{ url('sticker/creator/all/top') }}">สติ๊กเกอร์ไลน์ครีเอเตอร์</a></li>
-            <li><a href="{{ url('emoji/official/thai/top') }}">อิโมจิทางการไทย</a></li>
+            <li><a href="{{ url('emoji/official/th/top') }}">อิโมจิทางการไทย</a></li>
             <li><a href="{{ url('emoji/official/oversea/top') }}">อิโมจิทางการต่างประเทศ</a></li>
             <li><a href="{{ url('emoji/creator/top') }}">อิโมจิครีเอเตอร์</a></li>
-            <li><a href="{{ url('theme/official/thai/top') }}">ธีมไลน์ทางการไทย</a></li>
+            <li><a href="{{ url('theme/official/th/top') }}">ธีมไลน์ทางการไทย</a></li>
             <li><a href="{{ url('theme/official/oversea/top') }}">ธีมไลน์ทางการต่างประเทศ</a></li>
             <li><a href="{{ url('theme/creator/top') }}">ธีมไลน์ครีเอเตอร์</a></li>
             <li><a href="{{ url('aboutus') }}">เกี่ยวกับเรา</a></li>
