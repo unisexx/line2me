@@ -40,6 +40,8 @@ class EmojiController extends Controller
                     $q->whereIn('country', ['gb', 'th']);
                 } elseif ($country == 'oversea') {
                     $q->whereNotIn('country', ['gb', 'th']);
+                } else {
+                    $q->where('country', $country);
                 }
 
             })

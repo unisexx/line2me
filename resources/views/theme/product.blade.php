@@ -36,9 +36,9 @@
 	@if($rs->detail)
 	<p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p>
 	@endif
-	<p class="text-muted"><small>*** <a href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}"
-				target="_blank"><i class="far fa-star"></i></a>บางส่วนของธีมอาจแสดงผลไม่ถูกต้องบน LINE
-			เวอร์ชั่นที่คุณใช้อยู่*** | รหัสสินค้า :
+	<p class="text-muted"><small><a href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}"
+				target="_blank">*** </a>บางส่วนของธีมอาจแสดงผลไม่ถูกต้องบน LINE
+			เวอร์ชั่นที่คุณใช้อยู่ *** | รหัสสินค้า :
 			T-{{ $rs->id }}</small></p>
 
 	<div class="d-flex flex-xl-wrap flex-lg-nowrap animate-box theme-image-detail-wrap"

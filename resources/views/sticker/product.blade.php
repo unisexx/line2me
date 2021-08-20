@@ -43,8 +43,8 @@
 	@if($rs->detail)
 	<p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p>
 	@endif
-	<p class="animate-box" data-animate-effect="fadeInLeft"><small>*** <a
-				href="https://line.me/S/sticker/{{ $rs->sticker_code }}" target="_blank"><i class="far fa-star"></i></a>
+	<p class="animate-box" data-animate-effect="fadeInLeft"><small> <a
+				href="https://line.me/S/sticker/{{ $rs->sticker_code }}" target="_blank">*** </a>
 			โปรดแตะที่ตัวสติ๊กเกอร์เพื่อดูตัวอย่าง
 			หรือฟังเสียง (ถ้าเป็นสติ๊กเกอร์แบบมีเสียง) *** | รหัสสินค้า : S-{{ $rs->sticker_code }}</small></p>
 

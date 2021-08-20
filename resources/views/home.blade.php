@@ -111,7 +111,7 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการไทย</h2>
-		<p class="text-right read-more-text"><a href="{{ url('sticker/official/thai/top') }}">ดูทั้งหมด ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('sticker/official/th/top') }}">ดูทั้งหมด ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_official_thai as $row)
@@ -148,7 +148,7 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">อิโมจิไลน์ทางการไทย</h2>
-		<p class="text-right read-more-text"><a href="{{ url('emoji/official/thai/top') }}">ดูทั้งหมด ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('emoji/official/th/top') }}">ดูทั้งหมด ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_official_thai as $row)
@@ -184,7 +184,7 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">ธีมไลน์ทางการไทย</h2>
-		<p class="text-right read-more-text"><a href="{{ url('theme/official/thai/top') }}">ดูทั้งหมด ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('theme/official/th/top') }}">ดูทั้งหมด ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_official_thai as $row)

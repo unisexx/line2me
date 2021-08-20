@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="fh5co-narrow-content">
-	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">สติ๊กเกอร์ไลน์ครีเอเตอร์</h2>
+	<h2 class="fh5co-heading animate-box" data-animate-effect="fadeInLeft">สติ๊กเกอร์ไลน์ครีเอเตอร์{{ @getCountryTh(Request::segment(3)) }}</h2>
 
 	<div class="row mb-3">
 		<div class="col">

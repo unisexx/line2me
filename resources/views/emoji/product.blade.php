@@ -34,8 +34,7 @@
 	<!-- ปุ่มสั่งซื้อ -->
 
 	@if($rs->detail) <p class="sticker-detail animate-box" data-animate-effect="fadeInLeft">{{ $rs->detail }}</p> @endif
-	<p><small><a href="https://line.me/S/emoji/?id={{ $rs->emoji_code }}&ref=gnsh_sticonDetail" target="_blank"><i
-					class="far fa-star"></i></a> รหัสสินค้า : E-{{ $rs->id }}</small></p>
+	<p><small><a href="https://line.me/S/emoji/?id={{ $rs->emoji_code }}&ref=gnsh_sticonDetail" target="_blank">*** </a> รหัสสินค้า : E-{{ $rs->id }}</small></p>
 
 	<div class="animate-box" data-animate-effect="fadeInLeft">
 
