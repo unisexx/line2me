@@ -9,6 +9,7 @@ use DB;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use Session;
 
 class ThemeController extends Controller
 {
@@ -76,11 +77,23 @@ class ThemeController extends Controller
             return DB::table('themes')->find($id);
         });
 
+        if (empty($data['rs'])) {
+            return abort(404);
+        }
+
         // $data['rs'] = Theme::findOrFail($id);
 
         // if (empty($data['rs'])) {
         //     return abort(404);
         // }
+
+        // ประวัติดูย้อนหลัง
+        if (Session::get('themeArray')) {
+            if (!in_array($data['rs']->id, Session::get('themeArray'))) {
+                Session::push('lastSeenThemes', [$data['rs']->id, $data['rs']->theme_code, $data['rs']->title]);
+            }
+        }
+        // dump(Session::get('lastSeenThemes'));
 
         // SEO
         SEO::setTitle('ธีมไลน์ ' . $data['rs']->title);

@@ -9,6 +9,7 @@ use DB;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use Session;
 
 class EmojiController extends Controller
 {
@@ -78,11 +79,23 @@ class EmojiController extends Controller
             return DB::table('emojis')->find($id);
         });
 
+        if (empty($data['rs'])) {
+            return abort(404);
+        }
+
         // $data['rs'] = Emoji::findOrFail($id);
 
         // if (empty($data['rs'])) {
         //     return abort(404);
         // }
+
+        // ประวัติดูย้อนหลัง
+        if (Session::get('emojiArray')) {
+            if (!in_array($data['rs']->id, Session::get('emojiArray'))) {
+                Session::push('lastSeenEmojis', [$data['rs']->id, $data['rs']->emoji_code, $data['rs']->title]);
+            }
+        }
+        // dump(Session::get('lastSeenEmojis'));
 
         // SEO
         SEO::setTitle('อิโมจิไลน์ ' . $data['rs']->title);

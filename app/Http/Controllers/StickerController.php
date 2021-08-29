@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Redis;
 use OpenGraph;
 use SEO;
 use SEOMeta;
+use Session;
 
 // use Carbon;
 
@@ -117,6 +118,14 @@ class StickerController extends Controller
         if (empty($data['rs'])) {
             return abort(404);
         }
+
+        // ประวัติดูย้อนหลัง
+        if (Session::get('stickerArray')) {
+            if (!in_array($data['rs']->sticker_code, Session::get('stickerArray'))) {
+                Session::push('lastSeenStickers', [$data['rs']->sticker_code, $data['rs']->title_th]);
+            }
+        }
+        // dump(Session::get('lastSeenStickers'));
 
         // SEO
         SEO::setTitle('สติ๊กเกอร์ไลน์ ' . $data['rs']->title_th);
