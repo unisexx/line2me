@@ -33,7 +33,7 @@ Route::get('test-email', 'JobController@enqueue');
 // home
 Route::get('/', 'HomeController@index');
 Route::get('home', 'HomeController@index');
-Route::get('xxx', 'HomeController@xxx');
+// Route::get('xxx', 'HomeController@xxx');
 
 // ajax
 Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
@@ -138,6 +138,9 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     // แบบจับทีละหน้า
     // Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
 });
+
+// redirect product code 2 url
+Route::get('c/{product_code}', 'HomeController@code2url');
 
 // cache flush
 Route::get('cf', 'HomeController@cacheFlush');

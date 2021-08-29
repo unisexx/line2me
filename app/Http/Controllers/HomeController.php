@@ -466,13 +466,31 @@ class HomeController extends Controller
     //     echo phpinfo();
     // }
 
-    public function xxx()
+    // public function xxx()
+    // {
+    //     Emoji::where('status', 'approve')->chunk(100, function ($emojis) {
+    //         foreach ($emojis as $emoji) {
+    //             $emoji->update(['status' => 1]);
+    //         }
+    //     });
+    // }
+
+    // product code redirect 2 url
+    public function code2url($product_code)
     {
-        Emoji::where('status', 'approve')->chunk(100, function ($emojis) {
-            foreach ($emojis as $emoji) {
-                $emoji->update(['status' => 1]);
-            }
-        });
+        $data = explode('-', $product_code);
+
+        if (strtolower($data[0]) == 's') {
+            $url = 'https://line.me/S/sticker/' . $data[1];
+        } elseif (strtolower($data[0]) == 't') {
+            $rs  = DB::table('themes')->find($data[1]);
+            $url = 'https://line.me/S/shop/theme/detail?id=' . $rs->theme_code;
+        } elseif (strtolower($data[0]) == 'e') {
+            $rs  = DB::table('emojis')->find($data[1]);
+            $url = 'https://line.me/S/emoji/?id=' . $rs->emoji_code;
+        }
+
+        return redirect(@$url);
     }
 
     public function cacheFlush()
