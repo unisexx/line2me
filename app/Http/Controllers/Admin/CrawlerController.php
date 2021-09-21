@@ -274,9 +274,9 @@ class CrawlerController extends Controller
                 dump($title);
 
             }
-        } else {
-            dump("มีธีมชุดนี้ในระบบแล้ว!!!");
-        } // endif
+            // } else {
+            //     dump("มีธีมชุดนี้ในระบบแล้ว!!!");
+        }
 
         // สั่งให้ปิด tab เลย
         if (@$_GET['closetab'] == 1) {
@@ -323,8 +323,8 @@ class CrawlerController extends Controller
             );
 
             dump($title);
-        } else {
-            dump("มีอิโมจิชุดนี้ในระบบแล้ว!!!");
+            // } else {
+            //     dump("มีอิโมจิชุดนี้ในระบบแล้ว!!!");
         } // endif
 
         // สั่งให้ปิด tab เลย
@@ -383,7 +383,7 @@ class CrawlerController extends Controller
      * cat : top, new, top_creators, new_creators
      * Page: หน้าที่จะเข้าไปดึงข้อมูล
      */
-    public static function getthemestore($type, $cat, $page = null)
+    public function getthemestore($type, $cat, $page = null)
     {
         if ($type == 1) {
             // official
@@ -407,38 +407,41 @@ class CrawlerController extends Controller
             $theme_code = explode('/', $url);
             $theme_code = $theme_code[3];
 
-            // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
-            $rs = Theme::select('id')->where('theme_code', $theme_code)->first();
+            // dump($theme_code);
+            $this->gettheme($theme_code);
 
-            // ถ้ายังไม่มีค่าใน DB
-            if (empty($rs->id)) {
+            // // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
+            // $rs = Theme::select('id')->where('theme_code', $theme_code)->first();
 
-                $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
+            // // ถ้ายังไม่มีค่าใน DB
+            // if (empty($rs->id)) {
 
-                $title  = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
-                $detail = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-                $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-                $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
+            //     $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
 
-                // insert ลง db
-                DB::table('themes')->insert(
-                    [
-                        'theme_code' => $theme_code,
-                        'title'      => $title,
-                        'slug'       => Str::slug($title, '-'),
-                        'detail'     => $detail,
-                        'author'     => $author,
-                        'credit'     => $credit,
-                        'created_at' => date("Y-m-d H:i:s"),
-                        'category'   => $category,
-                        'country'    => 'th',
-                        'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-                        'status'     => 1,
-                    ]
-                );
+            //     $title  = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
+            //     $detail = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
+            //     $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
+            //     $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
 
-                dump($title);
-            } // endif
+            //     // insert ลง db
+            //     DB::table('themes')->insert(
+            //         [
+            //             'theme_code' => $theme_code,
+            //             'title'      => $title,
+            //             'slug'       => Str::slug($title, '-'),
+            //             'detail'     => $detail,
+            //             'author'     => $author,
+            //             'credit'     => $credit,
+            //             'created_at' => date("Y-m-d H:i:s"),
+            //             'category'   => $category,
+            //             'country'    => 'th',
+            //             'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT),
+            //             'status'     => 1,
+            //         ]
+            //     );
+
+            //     dump($title);
+            // } // endif
 
             // exit();
         }); // endforeach
