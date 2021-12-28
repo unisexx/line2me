@@ -5,8 +5,9 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
+
 <head>
-    <base href="{{ url('/') }}/"  />
+    <base href="{{ url('/') }}/" />
     <!-- Meta & Css -->
     @include('include.front.meta')
     @stack('css')
@@ -15,17 +16,19 @@
 <body id="app-layout">
     <div id="fh5co-page">
         <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+        @include('include.front._svg_background')
         @include('include.front.header')
-		<div id="fh5co-main">
+        <div id="fh5co-main">
             {{-- @include('include.front._google_custom_search') --}}
             @yield('content')
-		</div>
+        </div>
     </div>
     @php
-        viewCounter();
+    viewCounter();
     @endphp
     <!-- JavaScripts -->
     @include('include.front.js')
     @stack('js')
 </body>
+
 </html>

@@ -63,6 +63,8 @@ class HomeController extends Controller
         $new_arrival = Cache::remember('home_new_arrival', config('calculations.cache_time'), function () {
             return NewArrival::orderBy('id', 'desc')->first();
         });
+        $data['new_arrival_note'] = $new_arrival->note;
+
         // สตื๊กเกอร์ไลน์อัพเดท
         // $data['sticker_update'] = Sticker::where('category', 'official')
         //     ->where('status', 1)

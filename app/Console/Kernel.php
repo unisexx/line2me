@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\GenerateSitemap::class,
-        Commands\DeleteStickerView::class,
+        // Commands\DeleteStickerView::class,
         Commands\CacheFlush::class,
     ];
 
@@ -28,10 +28,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('cron:sitemap-generate')->hourly()->runInBackground();
-        $schedule->command('cron:delete-stickerview')->weekly()->runInBackground();
-        $schedule->command('cron:crawler')->everyFiveMinutes()->runInBackground();
-        $schedule->command('cron:cache-flush')->twiceDaily(1, 13)->runInBackground();
+        // $schedule->command('cron:delete-stickerview')->weekly()->runInBackground();
+        $schedule->command('cron:crawler')->everyFiveMinutes()->appendOutputTo(storage_path('logs/crawler.log'))->runInBackground();
+        $schedule->command('cron:cache-flush')->twiceDaily(1, 13)->appendOutputTo(storage_path('logs/cache-flush.log'))->runInBackground();
+        $schedule->command('cron:sitemap-generate')->hourly()->appendOutputTo(storage_path('logs/sitemap-generate.log'))->runInBackground();
 
         // $schedule->call(function () {
         //     DB::delete("DELETE FROM sticker_views WHERE created < DATE_SUB(NOW(), INTERVAL 7 DAY)");

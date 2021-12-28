@@ -39,23 +39,24 @@ class Crawler extends Command
     public function handle()
     {
         // Sticker
-        echo CrawlerController::getstickerstore('1', 'new', '1');
-        echo CrawlerController::getstickerstore('1', 'top', '1');
-        echo CrawlerController::getstickerstore('2', 'new_creators', '1');
-        echo CrawlerController::getstickerstore('2', 'top_creators', '1');
-        echo CrawlerController::getstickerstore('2', 'new_top_creators', '1');
+        $crawler = new CrawlerController();
+        echo $crawler->getstickerstore('1', 'new', '1');
+        echo $crawler->getstickerstore('1', 'top', '1');
+        echo $crawler->getstickerstore('2', 'new_creators', '1');
+        echo $crawler->getstickerstore('2', 'top_creators', '1');
+        echo $crawler->getstickerstore('2', 'new_top_creators', '1');
 
         // Theme
-        echo CrawlerController::getthemestore('1', 'top', '1');
-        echo CrawlerController::getthemestore('1', 'new', '1');
-        echo CrawlerController::getthemestore('2', 'top_creators', '1');
-        echo CrawlerController::getthemestore('2', 'new_creators', '1');
+        echo $crawler->getthemestore('1', 'top', '1');
+        echo $crawler->getthemestore('1', 'new', '1');
+        echo $crawler->getthemestore('2', 'top_creators', '1');
+        echo $crawler->getthemestore('2', 'new_creators', '1');
 
         // Emoji
-        echo CrawlerController::getemojistore('1', 'new', '1');
-        echo CrawlerController::getemojistore('1', 'top', '1');
-        echo CrawlerController::getemojistore('2', 'top_creators', '1');
-        echo CrawlerController::getemojistore('2', 'new_top_creators', '1');
-        echo CrawlerController::getemojistore('2', 'new_creators', '1');
+        echo $crawler->getemojistore('1', 'new', '1');
+        echo $crawler->getemojistore('1', 'top', '1');
+        echo $crawler->getemojistore('2', 'top_creators', '1');
+        echo $crawler->getemojistore('2', 'new_top_creators', '1');
+        echo $crawler->getemojistore('2', 'new_creators', '1');
     }
 }

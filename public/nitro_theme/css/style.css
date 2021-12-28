@@ -13,7 +13,7 @@
 *
 * ======================================================= */
 body {
-    font-family: "Kanit", sans-serif;
+    font-family: "Sarabun", sans-serif;
     font-weight: 300;
     font-size: 20px;
     line-height: 1.6;
@@ -96,6 +96,17 @@ figure {
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#fh5co-aside::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#fh5co-aside {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 #fh5co-aside.border {
@@ -252,12 +263,26 @@ figure {
     color: #da1212;
 }
 
+#fh5co-aside{
+    background-color: #EDF2F9;
+    /* background: url('/image/svg/dot.svg') no-repeat top left fixed !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important; */
+}
+
 #fh5co-main {
     width: 85%;
     float: right;
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
+    /* background: url('/image/svg/hero-bg.svg') no-repeat top left fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; */
 }
 
 @media screen and (max-width: 1200px) {
@@ -342,7 +367,7 @@ body.offcanvas .fh5co-nav-toggle {
 
 .work-item a p {
     font-size: 14px;
-    color: #cccccc;
+    /* color: #cccccc; */
     margin-bottom: 0;
 }
 

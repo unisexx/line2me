@@ -15,47 +15,29 @@ use Illuminate\Support\Str;
 
 class CrawlerController extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         return view('admin.crawler.index');
     }
 
-    public function getTest()
-    {
-        $crawler = Goutte::request('GET', 'https://yabeline.tw/Homepage.php');
-        print_r($crawler);
-    }
-
     /**
-     *
-     *
      * ดึงสติ๊กเกอร์ไลน์จากเว็บ store.line ตาม sticker_code ที่กรอกข้อมูล
-     *
      */
     public function getsticker($sticker_code)
     {
-        // dd($sticker_code);
-
         // นำ sticker_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
         $rs = Sticker::select('id')->where('sticker_code', $sticker_code)->first();
 
-        // ถ้ายังไม่มีค่าใน DB
+        /**
+         * ถ้ายังไม่มีค่าใน DB
+         */
         if (empty($rs->id)) {
 
             $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
 
-            // หา stamp_start & stamp_end
+            /**
+             * หา stamp_start & stamp_end
+             */
             for ($i = 0; $i < 40; $i++) {
                 // check node empty
                 if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
@@ -71,17 +53,13 @@ class CrawlerController extends Controller
                 }
             }
 
-            // หาเวอร์ชั่นของสติ๊กเกอร์โดยวิเคราะห์จาก url ของรูปสติ๊กเกอร์
-            // $image = trim($crawler_page->filter('div.mdCMN08Img > img')->attr('src'));
-            // $image = trim($crawler_page->filter('.mdCMN38Img > img.FnImage')->attr('src'));
-            // dd($image);
-            // $image = explode("/", $image);
-            // $version = str_replace('v', '', $image[4]);
+            if (empty($version)) {
+                return false;
+            }
 
             /**
              * ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
              */
-            // dd('http://dl.stickershop.line.naver.jp/products/0/0/' . $version . '/' . $sticker_code . '/LINEStorePC/productInfo.meta');
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -90,87 +68,36 @@ class CrawlerController extends Controller
             curl_close($ch);
             $productInfo = json_decode($result, true);
 
-            // dd(@(int) $productInfo['price'][0]['price']);
-            // dd($productInfo);
-            // dd(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-            // dd(@money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())));
-
-            $title_th            = @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'];
-            $title_en            = $productInfo['title']['en'];
-            $author_th           = @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'];
-            $author_en           = $productInfo['author']['en'];
-            $onsale              = $productInfo['onSale'];
-            $hasanimation        = @$productInfo['hasAnimation'];
-            $hassound            = @$productInfo['hasSound'];
-            $validdays           = $productInfo['validDays'];
-            $stickerresourcetype = @$productInfo['stickerResourceType'];
-            $country             = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-            // $price = @@(int) $productInfo['price'][0]['price'];
-            $price = $this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
-
-            /***************************************************************** */
-
             /**
-             * ใช้ในกรณีที่ดึงค่าจาก meta ไม่ได้
+             * insert ลง db
              */
-            // $title_th = @trim($crawler_page->filter('[data-test="sticker-name-title"]')->text());
-            // $title_en = $title_th;
-            // $author_th = @trim($crawler_page->filter('[data-test="sticker-author"]')->text());
-            // $author_en = $author_th;
-            // $onsale = 1;
-            // $validdays = 0;
-
-            // $hasanimation = $this->getStickerTypeByIcon($crawler_page, 'hasanimation');
-            // $hassound = $this->getStickerTypeByIcon($crawler_page, 'hassound');
-            // $stickerresourcetype = $this->getStickerTypeByIcon($crawler_page, 'stickerresourcetype');
-            // $price = @th_2_coin(@(int) @trim($crawler_page->filter('[data-test="sticker-price"]')->text()));
-
-            /***************************************************************** */
-
-            $category     = $sticker_code > 1000000 ? 'creator' : 'official';
-            $detail       = @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-            $credit       = @trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-            $sticker_code = $sticker_code;
-            $created      = date("Y-m-d H:i:s");
-            $stamp_start  = reset($data)['stamp_code'];
-            $stamp_end    = end($data)['stamp_code'];
-
-            // dump($productInfo);
-            // dump($price);
-
-            // insert ลง db
             DB::table('stickers')->insert(
                 [
-                    'sticker_code'        => $sticker_code,
-                    'version'             => $version,
-                    'title_th'            => $title_th,
-                    'title_en'            => $title_en,
-                    'detail'              => $detail,
-                    'author_th'           => $author_th,
-                    'author_en'           => $author_en,
-                    'credit'              => $credit,
+                    'sticker_code'        => @$sticker_code,
+                    'version'             => @$version,
+                    'title_th'            => @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'],
+                    'title_en'            => @$productInfo['title']['en'],
+                    'detail'              => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                    'author_th'           => @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'],
+                    'author_en'           => @$productInfo['author']['en'],
+                    'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
                     'created_at'          => date("Y-m-d H:i:s"),
-                    'category'            => $category,
-                    'country'             => $country,
-                    'price'               => $price,
+                    'category'            => @$sticker_code > 1000000 ? 'creator' : 'official',
+                    'country'             => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
+                    'price'               => @(int) $productInfo['price'][0]['price'],
                     'status'              => 1,
-                    'onsale'              => $onsale,
-                    'validdays'           => $validdays,
-                    'hasanimation'        => $hasanimation,
-                    'hassound'            => $hassound,
-                    'stickerresourcetype' => $stickerresourcetype,
-                    'stamp_start'         => $stamp_start,
-                    'stamp_end'           => $stamp_end,
+                    'onsale'              => @$productInfo['onSale'],
+                    'validdays'           => @$productInfo['validDays'],
+                    'hasanimation'        => @$productInfo['hasAnimation'],
+                    'hassound'            => @$productInfo['hasSound'],
+                    'stickerresourcetype' => @$productInfo['stickerResourceType'],
+                    'stamp_start'         => @reset($data)['stamp_code'],
+                    'stamp_end'           => @end($data)['stamp_code'],
                 ]
             );
-
             unset($data);
-
-            dump($title_th);
+            dump($sticker_code);
         }
-        // else {
-        //     dump("มีสติ๊กเกอร์ชุดนี้ในระบบแล้ว!!!");
-        // }
 
         // สั่งให้ปิด tab เลย
         if (@$_GET['closetab'] == 1) {
@@ -178,104 +105,38 @@ class CrawlerController extends Controller
         }
     }
 
-    public function getStickerTypeByIcon($crawler_page, $key)
-    {
-        if ($crawler_page->filter('.MdIcoAni_b')->count() > 0) {
-            @$txt = @trim($crawler_page->filter('.MdIcoAni_b')->attr('data-test'));
-        }
-        if ($crawler_page->filter('.MdIcoFlashAni_s')->count() > 0) {
-            @$txt = @trim($crawler_page->filter('.MdIcoFlashAni_s')->attr('data-test'));
-        }
-        if ($crawler_page->filter('.MdIcoSound_b')->count() > 0) {
-            @$txt = @trim($crawler_page->filter('.MdIcoSound_b')->attr('data-test'));
-        }
-        if ($crawler_page->filter('.MdIcoFlash_b')->count() > 0) {
-            @$txt = @trim($crawler_page->filter('.MdIcoFlash_b')->attr('data-test'));
-        }
-        if ($crawler_page->filter('.MdIcoPlay_b')->count() > 0) {
-            @$txt = @trim($crawler_page->filter('.MdIcoPlay_b')->attr('data-test'));
-        }
-        if ($crawler_page->filter('.MdIcoPlay_s')->count() > 0) {
-            @$txt = @trim($crawler_page->filter('.MdIcoPlay_s')->attr('data-test'));
-        }
-
-        $data = [];
-        if (@$txt == 'animation-sound-sticker-icon') {
-            $data['hasanimation']        = 1;
-            $data['hassound']            = 1;
-            $data['stickerresourcetype'] = 'ANIMATION_SOUND';
-        } elseif (@txt == 'animation-sticker-icon') {
-            $data['hasanimation']        = 1;
-            $data['hassound']            = 0;
-            $data['stickerresourcetype'] = 'ANIMATION';
-        } elseif (@$txt == 'popup-sticker-icon') {
-            $data['hasanimation']        = 0;
-            $data['hassound']            = 0;
-            $data['stickerresourcetype'] = 'POPUP';
-        } elseif (@$txt == 'sound-sticker-icon') {
-            $data['hasanimation']        = 0;
-            $data['hassound']            = 1;
-            $data['stickerresourcetype'] = 'SOUND';
-        } elseif (@$txt == 'popup-sound-sticker-icon') {
-            $data['hasanimation']        = 0;
-            $data['hassound']            = 0;
-            $data['stickerresourcetype'] = 'POPUP_SOUND';
-        } else {
-            $data['hasanimation']        = 0;
-            $data['hassound']            = 0;
-            $data['stickerresourcetype'] = 'STATIC';
-        }
-
-        return $data[$key];
-    }
-
     /**
-     *
-     *
      * ดึงธีมไลน์จากเว็บ store.line ตาม theme_code ที่กรอกข้อมูล
-     *
      */
-    public function gettheme($theme_code)
+    public function gettheme($theme_code, $category = 'creator')
     {
         // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
         $rs = Theme::select('id')->where('theme_code', $theme_code)->first();
 
         // ถ้ายังไม่มีค่าใน DB
         if (empty($rs->id)) {
-
             $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
 
             // ถ้า node ไม่ empty
             if ($crawler_page->filter('p.mdCMN38Item01Ttl')->count() > 0) {
 
-                $title    = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
-                $detail   = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-                $author   = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-                $credit   = trim($crawler_page->filter('p.mdCMN09Copy')->text());
-                $country  = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-                $price_th = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
-
                 // insert ลง db
                 DB::table('themes')->insert(
                     [
                         'theme_code' => $theme_code,
-                        'title'      => $title,
-                        'detail'     => $detail,
-                        'author'     => $author,
-                        'credit'     => $credit,
-                        'created_at' => date("Y-m-d H:i:s"),
-                        'category'   => 'creator',
-                        'country'    => $country,
-                        'price'      => $price_th,
+                        'title'      => @trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
+                        'detail'     => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                        'author'     => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
+                        'credit'     => @trim($crawler_page->filter('p.mdCMN09Copy')->text()),
+                        'created_at' => @date("Y-m-d H:i:s"),
+                        'category'   => $category,
+                        'country'    => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
+                        'price'      => @$this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
                         'status'     => 1,
                     ]
                 );
-
-                dump($title);
-
+                dump($theme_code);
             }
-            // } else {
-            //     dump("มีธีมชุดนี้ในระบบแล้ว!!!");
         }
 
         // สั่งให้ปิด tab เลย
@@ -285,46 +146,33 @@ class CrawlerController extends Controller
     }
 
     /**
-     *
-     *
      * ดึงอิโมจิไลน์จากเว็บ store.line ตาม emoji_code ที่กรอกข้อมูล
-     *
      */
-    public function getemoji($emoji_code)
+    public function getemoji($emoji_code, $category = 'creator')
     {
         // นำ emoji_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
         $rs = Emoji::select('id')->where('emoji_code', $emoji_code)->first();
 
         // ถ้ายังไม่มีค่าใน DB
         if (empty($rs->id)) {
-
             $crawler_page = Goutte::request('GET', 'https://store.line.me/emojishop/product/' . $emoji_code . '/th');
-
-            $title        = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
-            $creator_name = trim($crawler_page->filter('.mdCMN38Item01Author')->text());
-            $detail       = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
-            $country      = @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()));
-            $price_th     = $this->getConvert2Bath((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), $country);
 
             // insert ลง db
             DB::table('emojis')->insert(
                 [
                     'emoji_code'   => $emoji_code,
-                    'title'        => $title,
-                    'detail'       => $detail,
-                    'creator_name' => $creator_name,
+                    'title'        => trim($crawler_page->filter('.mdCMN38Item01Ttl')->text()),
+                    'detail'       => trim($crawler_page->filter('.mdCMN38Item01Txt')->text()),
+                    'creator_name' => trim($crawler_page->filter('.mdCMN38Item01Author')->text()),
                     'created_at'   => date("Y-m-d H:i:s"),
-                    'category'     => 'creator',
-                    'country'      => $country,
-                    'slug'         => Str::slug($title, '-'),
-                    'price'        => $price_th,
+                    'category'     => $category,
+                    'country'      => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
+                    'price'        => $this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
                     'status'       => 1,
                 ]
             );
 
-            dump($title);
-            // } else {
-            //     dump("มีอิโมจิชุดนี้ในระบบแล้ว!!!");
+            dump($emoji_code);
         } // endif
 
         // สั่งให้ปิด tab เลย
@@ -341,20 +189,12 @@ class CrawlerController extends Controller
      */
     public function getstickerstore($type, $cat, $page = null)
     {
-        if ($type == 1) {
-            // official
-            $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'official';
-        } elseif ($type == 2) {
-            // creator
-            $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'creator';
-        }
+        $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
 
         $crawler = Goutte::request('GET', $pageTarget);
 
         // foreach
-        $crawler->filter('.mdCMN02Li')->each(function ($node) use ($category) {
+        $crawler->filter('.mdCMN02Li')->each(function ($node) {
 
             // หา url ของสติ๊กเกอร์
             $url = $node->filter('a')->attr('href');
@@ -362,11 +202,8 @@ class CrawlerController extends Controller
             // เอาลิ้งค์ สติ๊กเกอร์ที่ได้มา หาค่า sticker_code
             $sticker_code = explode("/", $url);
             $sticker_code = $sticker_code[3];
-            // dump($sticker_code);
 
             $this->getsticker($sticker_code);
-
-            // exit();
         }); // endforeach
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
@@ -385,15 +222,8 @@ class CrawlerController extends Controller
      */
     public function getthemestore($type, $cat, $page = null)
     {
-        if ($type == 1) {
-            // official
-            $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'official';
-        } elseif ($type == 2) {
-            // creator
-            $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'creator';
-        }
+        $pageTarget = 'https://store.line.me/themeshop/showcase/' . $cat . '/th?page=' . $page;
+        $category   = $type == 1 ? 'official' : 'creator';
 
         $crawler = Goutte::request('GET', $pageTarget);
 
@@ -407,43 +237,7 @@ class CrawlerController extends Controller
             $theme_code = explode('/', $url);
             $theme_code = $theme_code[3];
 
-            // dump($theme_code);
-            $this->gettheme($theme_code);
-
-            // // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
-            // $rs = Theme::select('id')->where('theme_code', $theme_code)->first();
-
-            // // ถ้ายังไม่มีค่าใน DB
-            // if (empty($rs->id)) {
-
-            //     $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
-
-            //     $title  = trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text());
-            //     $detail = trim($crawler_page->filter('p.mdCMN38Item01Txt')->text());
-            //     $author = trim($crawler_page->filter('a.mdCMN38Item01Author')->text());
-            //     $credit = trim($crawler_page->filter('p.mdCMN09Copy')->text());
-
-            //     // insert ลง db
-            //     DB::table('themes')->insert(
-            //         [
-            //             'theme_code' => $theme_code,
-            //             'title'      => $title,
-            //             'slug'       => Str::slug($title, '-'),
-            //             'detail'     => $detail,
-            //             'author'     => $author,
-            //             'credit'     => $credit,
-            //             'created_at' => date("Y-m-d H:i:s"),
-            //             'category'   => $category,
-            //             'country'    => 'th',
-            //             'price'      => (int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT),
-            //             'status'     => 1,
-            //         ]
-            //     );
-
-            //     dump($title);
-            // } // endif
-
-            // exit();
+            $this->gettheme($theme_code, $category);
         }); // endforeach
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
@@ -460,17 +254,10 @@ class CrawlerController extends Controller
      * Cat : top, new, top_creators, new_top_creators, new_creators
      * Page: หน้าที่จะเข้าไปดึงข้อมูล
      */
-    public static function getemojistore($type, $cat, $page = null)
+    public function getemojistore($type, $cat, $page = null)
     {
-        if ($type == 1) {
-            // official
-            $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'official';
-        } elseif ($type == 2) {
-            // creator
-            $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'creator';
-        }
+        $pageTarget = 'https://store.line.me/emojishop/showcase/' . $cat . '/th?page=' . $page;
+        $category   = $type == 1 ? 'official' : 'creator';
 
         $crawler = Goutte::request('GET', $pageTarget);
 
@@ -484,45 +271,7 @@ class CrawlerController extends Controller
             $emoji_code = explode("/", $url);
             $emoji_code = $emoji_code[3];
 
-            // dd($emoji_code);
-
-            // นำ emoji_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
-            $rs = Emoji::select('id')->where('emoji_code', $emoji_code)->first();
-
-            // ถ้ายังไม่มีค่าใน DB
-            if (empty($rs->id)) {
-
-                $crawler_page = Goutte::request('GET', 'https://store.line.me/emojishop/product/' . $emoji_code . '/th');
-
-                // dd($crawler_page);
-                $title        = trim($crawler_page->filter('.mdCMN38Item01Ttl')->text());
-                $creator_name = trim($crawler_page->filter('.mdCMN38Item01Author')->text());
-                $detail       = trim($crawler_page->filter('.mdCMN38Item01Txt')->text());
-                $country      = "gb";
-                $txtprice     = trim($crawler_page->filter('.mdCMN38Item01Price')->text());
-                $price        = (int) filter_var($txtprice, FILTER_SANITIZE_NUMBER_INT);
-                // dd($txtprice);
-
-                // insert ลง db
-                DB::table('emojis')->insert(
-                    [
-                        'emoji_code'   => $emoji_code,
-                        'title'        => $title,
-                        'detail'       => $detail,
-                        'creator_name' => $creator_name,
-                        'created_at'   => date("Y-m-d H:i:s"),
-                        'category'     => $category,
-                        'country'      => $country,
-                        'slug'         => Str::slug($title, '-'),
-                        'price'        => $price,
-                        'status'       => 1,
-                    ]
-                );
-
-                dump($title);
-            } // endif
-
-            // exit();
+            $this->getemoji($emoji_code, $category);
         }); // endforeach
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
@@ -535,9 +284,6 @@ class CrawlerController extends Controller
 
     /**
      * ดึงสติ๊กเกอร์ไลน์จากเว็บ store.line ตามคำค้นหา
-     *
-     *
-     *
      */
     public function getstickerstoresearch($txtSearch)
     {
@@ -696,101 +442,6 @@ class CrawlerController extends Controller
         dump($data);
     }
 
-    public static function getstickerstore63($type, $cat, $page = null)
-    {
-        if ($type == 1) {
-            // official
-            $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'official';
-        } elseif ($type == 2) {
-            // creator
-            $pageTarget = 'https://store.line.me/stickershop/showcase/' . $cat . '/th?page=' . $page;
-            $category   = 'creator';
-        }
-
-        $crawler = Goutte::request('GET', $pageTarget);
-
-        // foreach
-        $crawler->filter('.mdCMN02Li')->each(function ($node) use ($category) {
-
-            // หา url ของสติ๊กเกอร์
-            $url = $node->filter('a')->attr('href');
-
-            // เอาลิ้งค์ สติ๊กเกอร์ที่ได้มา หาค่า sticker_code
-            $sticker_code = explode("/", $url);
-            $sticker_code = $sticker_code[3];
-            // dump($sticker_code);
-
-            $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
-            // dd($crawler_page);
-
-            // หา stamp_start & stamp_end
-            for ($i = 0; $i < 40; $i++) {
-                // check node empty
-                if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->count() != 0) {
-                    $imgTxt = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq($i)->attr('style');
-                    // dd($imgTxt);
-                    $image_path = explode("/", getUrlFromText($imgTxt));
-                    $stamp_code = $image_path[6];
-
-                    $data[] = array(
-                        'stamp_code' => $stamp_code,
-                    );
-                }
-            }
-
-            // ดึงข้อมูลสติ๊กเกอร์จาก meta ไฟล์
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_URL, 'http://dl.stickershop.line.naver.jp/products/0/0/1/' . $sticker_code . '/LINEStorePC/productInfo.meta');
-            $result = curl_exec($ch);
-            curl_close($ch);
-            $productInfo = json_decode($result, true);
-
-            // dump($productInfo);
-            // dump($price);
-
-            // insert ลง db
-            DB::table('stickers')->insertOrIgnore(
-                [
-                    'sticker_code'        => $sticker_code,
-                    'version'             => 1,
-                    'title_th'            => @$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en'],
-                    'title_en'            => @$productInfo['title']['en'],
-                    'detail'              => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
-                    'author_th'           => @$productInfo['author']['th'] ? $productInfo['author']['th'] : $productInfo['author']['en'],
-                    'author_en'           => @$productInfo['author']['en'],
-                    'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
-                    'created_at'          => date("Y-m-d H:i:s"),
-                    'category'            => $category,
-                    'country'             => "th",
-                    'price'               => @th_2_coin(substr(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), 0, -3)),
-                    'status'              => 1,
-                    'onsale'              => $productInfo['onSale'],
-                    'validdays'           => $productInfo['validDays'],
-                    'hasanimation'        => @$productInfo['hasAnimation'],
-                    'hassound'            => @$productInfo['hasSound'],
-                    'stickerresourcetype' => @$productInfo['stickerResourceType'],
-                    'stamp_start'         => @reset($data)['stamp_code'],
-                    'stamp_end'           => @end($data)['stamp_code'],
-                ]
-            );
-
-            unset($data);
-            dump(@$productInfo['title']['th'] ? $productInfo['title']['th'] : $productInfo['title']['en']);
-
-            // exit();
-        }); // endforeach
-
-        // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
-        if (isset($page) && $page != 1) {
-            $page          = $page - 1;
-            $page_redirect = url('admin/getstickerstore63/' . $type . '/' . $cat . '/' . $page);
-            echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
-        }
-    }
-
     public function getEditorPick($page = null, $link_number = null)
     {
         // หน้าเพจเป้าหมาย
@@ -830,8 +481,6 @@ class CrawlerController extends Controller
                 // หาไอดีล่าสุด
                 // dd(DB::getPdo()->lastInsertId());
                 $seriesId = $series->id;
-
-                // dd($seriesId);
 
                 // บันทึก series item ตามหน้าที่ scrap
                 for ($i = 0; $i <= 10; $i++) {
@@ -965,9 +614,9 @@ class CrawlerController extends Controller
     {
         if ($country == 'th') {
             $Bath = array(
-                '30'  => '50',
-                '60'  => '100',
-                '90'  => '150',
+                '35'  => '50',
+                '69'  => '100',
+                '99'  => '150',
                 '120' => '200',
                 '150' => '250',
             );

@@ -1,8 +1,10 @@
 @extends('layouts.front') @section('content')
 
-<div class="fh5co-narrow-content single-item mb-4 owl-carousel owl-theme">
-	<div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid" src="{{ url('image/free_promote.png') }}" alt="โปรโมทสติ๊กเกอร์ไลน์"></a></div>
-  	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}" alt="line2me.in.th"></a></div>
+<div class="fh5co-narrow-content single-item mb-4 {{-- owl-carousel owl-theme --}}">
+	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}"
+				alt="line2me.in.th"></a></div>
+	{{-- <div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid"
+				src="{{ url('image/free_promote.png') }}" alt="โปรโมทสติ๊กเกอร์ไลน์"></a></div> --}}
 </div>
 
 
@@ -10,11 +12,12 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ขายดีแนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก
+				></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row->sticker))
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row->sticker))
 		@endforeach
 	</div>
 </div>
@@ -28,7 +31,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_promote as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row->emoji))
+		@include('include.front.__product_item', array('type'=>'emoji','row'=>$row->emoji))
 		@endforeach
 	</div>
 </div>
@@ -42,7 +45,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_promote as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row->theme))
+		@include('include.front.__product_item', array('type'=>'theme','row'=>$row->theme))
 		@endforeach
 	</div>
 </div>
@@ -56,7 +59,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_update as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -70,7 +73,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_update as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -84,7 +87,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_update as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -96,16 +99,17 @@
 		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
 	</div>
 	@foreach ($series->chunk(3) as $chunk)
-        <div class="row mb-5">
-            @foreach($chunk as $row)
-            <div class="col pl-2 pr-2">
-                <a href="{{ url('series/'. $row->id) }}">
-                    <img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
-                </a>
-            </div>
-            @endforeach
-        </div>
-    @endforeach
+	<div class="row mb-5">
+		@foreach($chunk as $row)
+		<div class="col pl-2 pr-2">
+			<a href="{{ url('series/'. $row->id) }}">
+				<img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}"
+					title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
+			</a>
+		</div>
+		@endforeach
+	</div>
+	@endforeach
 </div>
 
 <div class="fh5co-narrow-content">
@@ -115,7 +119,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_official_thai as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -128,7 +132,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_official_oversea as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -140,7 +144,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_creator as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -152,7 +156,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_official_thai as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -164,7 +168,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_official_oversea as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -176,7 +180,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_creator as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -188,7 +192,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_official_thai as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -200,7 +204,7 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_official_oversea as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
 		@endforeach
 	</div>
 </div>
@@ -212,16 +216,16 @@
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_creator as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
+		@include('include.front.__product_item', array('type'=>'theme','row'=>$row))
 		@endforeach
 	</div>
 </div>
-
 @endsection
 
 @push('css')
 <style>
-	.owl-prev, .owl-next{
+	.owl-prev,
+	.owl-next {
 		color: #869791 !important;
 	}
 </style>
@@ -229,7 +233,7 @@
 
 @push('js')
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
 	$('.owl-carousel').owlCarousel({
 		loop: true,
 		margin: 10,
