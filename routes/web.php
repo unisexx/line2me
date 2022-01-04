@@ -54,6 +54,9 @@ Route::get('page/view/{id}', 'PageController@getView');
 Route::get('search', 'HomeController@search');
 Route::get('search/{param}', 'HomeController@search');
 
+// google custom search
+Route::get('google-search-result', 'HomeController@googleSearchResult')->name('google-search-result');
+
 // Route::get('search2', 'HomeController@search2');
 
 // new arrival
@@ -134,9 +137,9 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::get('getstickerstore63/{type}/{category}/{page}', 'CrawlerController@getstickerstore63');
 
     // แบบจับทีละลิ้งค์
-    Route::any('geteditorpick/{page}/{link_number}', 'CrawlerController@getEditorPick');
+    // Route::any('geteditorpick/{page}/{link_number}', 'CrawlerController@getEditorPick');
     // แบบจับทีละหน้า
-    // Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
+    Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
 });
 
 // redirect product code 2 url

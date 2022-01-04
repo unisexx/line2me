@@ -2,7 +2,8 @@
     <hr>
     <div class="row">
         <div class="col-sm-12">
-            <button class="btn btn-light btn-block btn-sm" data-clipboard-text="{{ Request::url() }}">
+            <button class="btn btn-light btn-block btn-sm border border-secondary"
+                data-clipboard-text="{{ Request::url() }}">
                 <i class="fas fa-link"></i> คัดลอกลิ้งค์
             </button>
         </div>

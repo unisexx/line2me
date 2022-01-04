@@ -57,6 +57,15 @@ if (!function_exists('deleteDuplicate')) {
     }
 }
 
+if (!function_exists('convert_line_coin_2_money_full')) {
+    function convert_line_coin_2_money_full($coin)
+    {
+        $bath = array('250' => '168', '200' => '138', '150' => '99', '100' => '69', '50' => '35', '10' => '10', '2' => '2');
+
+        return @$bath[$coin];
+    }
+}
+
 if (!function_exists('convert_line_coin_2_money')) {
     function convert_line_coin_2_money($coin)
     {

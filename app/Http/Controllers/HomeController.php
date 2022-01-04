@@ -502,4 +502,9 @@ class HomeController extends Controller
         echo "window.top.close();";
         echo "</script>";
     }
+
+    public function googleSearchResult()
+    {
+        return view('home.google-search-result');
+    }
 }

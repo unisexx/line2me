@@ -6,7 +6,7 @@
 <div class="fh5co-narrow-content">
     @include('include.front._breadcrumb')
 
-    <div class="d-flex animate-box" data-animate-effect="fadeInLeft">
+    <div class="d-flex animate-box bg-white-faded p-3 rounded" data-animate-effect="fadeInLeft">
 
         <div class="sticker-image-cover">
             <img class="img-fluid playAnimate"
@@ -24,18 +24,7 @@
             {!! getStickerResourctTypeIcon($rs->stickerresourcetype) !!}
         </div>
 
-        <div class="sticker-infomation">
-            <h3>{{ $rs->title_th }} {{ getStickerResourctTypeName($rs->stickerresourcetype) }}</h3>
-            <ul>
-                <li>รหัสสินค้า : S-{{ $rs->sticker_code }}</li>
-                <li>ราคา : {{ convert_line_coin_2_money($rs->price) }} บาท</li>
-                <li>ประเภท : {{ $rs->category }}</li>
-                <li>ประเทศ : {{ @countryName($rs->country) }}</li>
-                @if ($rs->status == 0)
-                <li>สถานะ : <span class="badge badge-danger">เลิกจำหน่าย</span></li>
-                @endif
-            </ul>
-        </div>
+        @include('include.front._sticker_infomation', ['type' => 'sticker', 'rs' => $rs])
 
     </div>
 

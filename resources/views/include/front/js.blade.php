@@ -24,11 +24,11 @@
 <script src="js/venobox/venobox.min.js"></script>
 <script>
     $(document).ready(function(){
-    $('.venobox').venobox({
-        infinigall:true,
-        // frameheight: '89vh'
-    }); 
-});
+        $('.venobox').venobox({
+            infinigall:true,
+            // frameheight: '89vh'
+        }); 
+    });
 </script>
 
 <script>
@@ -85,10 +85,13 @@ function playAnimate(thisObj){
         e.clearSelection();
 
         Toastify({
-            text: "Copied Link Success!!",
+            text: "คัดลอกลิ้งค์แล้ว",
             gravity: "top",
             position: "center",
-            duration: 3000
+            duration: 2000,
+            style: {
+                background: "black",
+            },
         }).showToast();
     });
 

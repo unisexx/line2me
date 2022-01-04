@@ -2,11 +2,12 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์แนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม
+				อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
-			@include('include.front.__product_item', array('type'=>'sticker','row'=>$row->sticker))
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row->sticker))
 		@endforeach
 	</div>
 </div>
@@ -16,11 +17,12 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">อิโมจิไลน์แนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม
+				อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($emoji_promote as $row)
-			@include('include.front.__product_item', array('type'=>'emoji','row'=>$row->emoji))
+		@include('include.front.__product_item', array('type'=>'emoji','row'=>$row->emoji))
 		@endforeach
 	</div>
 </div>
@@ -30,11 +32,12 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">ธีมไลน์แนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
+		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ ธีม
+				อิโมจิไลน์ของท่านอ่านรายละเอียดที่นี่จ้า ></a></p>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($theme_promote as $row)
-			@include('include.front.__product_item', array('type'=>'theme','row'=>$row->theme))
+		@include('include.front.__product_item', array('type'=>'theme','row'=>$row->theme))
 		@endforeach
 	</div>
 </div>
@@ -46,15 +49,15 @@
 		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
 	</div>
 	@foreach ($serie_promote->chunk(3) as $chunk)
-        <div class="row mb-5">
-            @foreach($chunk as $row)
-            <div class="col pl-2 pr-2">
-                <a href="{{ url('series/'. $row->id) }}">
-                    <img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
-                </a>
-            </div>
-            @endforeach
-        </div>
-    @endforeach
+	<div class="row mb-2">
+		@foreach($chunk as $row)
+		<div class="col pl-2 pr-2">
+			<a href="{{ url('series/'. $row->id) }}">
+				<img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}"
+					title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">
+			</a>
+		</div>
+		@endforeach
+	</div>
+	@endforeach
 </div>
-

@@ -2,7 +2,7 @@
 
 <div class="fh5co-narrow-content single-item mb-4 {{-- owl-carousel owl-theme --}}">
 	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}"
-				alt="line2me.in.th"></a></div>
+				alt="line2me.in.th" style="width:100%;"></a></div>
 	{{-- <div><a href="https://line2me.in.th/page/view/22" target="_blank"><img class="img-fluid"
 				src="{{ url('image/free_promote.png') }}" alt="โปรโมทสติ๊กเกอร์ไลน์"></a></div> --}}
 </div>
@@ -12,8 +12,11 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ขายดีแนะนำ</h2>
-		<p class="text-right read-more-text"><a href="{{ url('page/view/8') }}">สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก
-				></a></p>
+		{{-- <p class="text-right read-more-text"><a href="{{ url('page/view/8') }}"><span
+					class="simple-highlight">สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก</span></a></p> --}}
+	</div>
+	<div><a href="{{ url('page/view/8') }}"><span class="hilight_yellow text-dark"><i class="fas fa-star fa-spin"
+					style="color:#dc3545;"></i> <u>สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก</u></span></a>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
@@ -57,6 +60,7 @@
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่</h2>
 	</div>
+	<div><span class="hilight_green">{!! @$new_arrival_note !!}</span></div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_update as $row)
 		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
@@ -99,7 +103,7 @@
 		<p class="text-right read-more-text"><a href="{{ url('series') }}">ดูทั้งหมด ></a></p>
 	</div>
 	@foreach ($series->chunk(3) as $chunk)
-	<div class="row mb-5">
+	<div class="row mb-2">
 		@foreach($chunk as $row)
 		<div class="col pl-2 pr-2">
 			<a href="{{ url('series/'. $row->id) }}">

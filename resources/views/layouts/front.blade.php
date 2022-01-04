@@ -19,7 +19,7 @@
         @include('include.front._svg_background')
         @include('include.front.header')
         <div id="fh5co-main">
-            {{-- @include('include.front._google_custom_search') --}}
+            @include('include.front._google_custom_search')
             @yield('content')
         </div>
     </div>

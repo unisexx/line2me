@@ -118,7 +118,7 @@
 
 <style>
     #fh5co-main {
-        background: url('/image/bg/above_clouds.png');
+        background: url('/image/bg/above_clouds-min.png');
         background-repeat: no-repeat;
         background-size: contain;
         background-position: top center;
