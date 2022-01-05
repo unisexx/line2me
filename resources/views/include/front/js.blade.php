@@ -100,3 +100,7 @@ function playAnimate(thisObj){
         // console.error('Trigger:', e.trigger);
     });
 </script>
+
+
+{{-- side-js --}}
+{{-- <script type="text/javascript" src="{{ asset('js/jquery.side.min.js') }}"></script> --}}
