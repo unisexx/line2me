@@ -12,11 +12,10 @@
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ขายดีแนะนำ</h2>
-		{{-- <p class="text-right read-more-text"><a href="{{ url('page/view/8') }}"><span
-					class="simple-highlight">สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก</span></a></p> --}}
 	</div>
 	<div><a href="{{ url('page/view/8') }}"><span class="hilight_yellow text-dark"><i class="fas fa-star fa-spin"
-					style="color:#dc3545;"></i> <u>สนใจโปรโมทสติ๊กเกอร์ไลน์ราคาถูกมากคลิก</u></span></a>
+					style="color:#dc3545; margin-right:5px;"></i> <u>สนใจโปรโมทสติ๊กเกอร์ไลน์ ธีม
+					อิโมจิคลิ๊ก...</u></span></a>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
 		@foreach($sticker_promote as $row)
