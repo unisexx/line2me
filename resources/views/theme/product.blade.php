@@ -27,8 +27,7 @@
     @endif
     <p class="text-muted"><small><a href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}"
                 target="_blank">*** </a>บางส่วนของธีมอาจแสดงผลไม่ถูกต้องบน LINE
-            เวอร์ชั่นที่คุณใช้อยู่ *** | รหัสสินค้า :
-            T-{{ $rs->id }}</small></p>
+            เวอร์ชั่นที่คุณใช้อยู่ *** <br>T-{{ $rs->id }}</small></p>
 
     <div class="d-flex flex-xl-wrap flex-lg-nowrap animate-box theme-image-detail-wrap"
         data-animate-effect="fadeInLeft">
