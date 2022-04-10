@@ -82,7 +82,7 @@
 
 
 {{-- SnowFlake --}}
-<div class="snowflakes" aria-hidden="true">
+{{-- <div class="snowflakes" aria-hidden="true">
     <div class="snowflake">
         ❅
     </div>
@@ -113,7 +113,7 @@
     <div class="snowflake">
         ❄
     </div>
-</div>
+</div> --}}
 
 
 <style>
@@ -129,7 +129,7 @@
     }
 
     /* customizable snowflake styling */
-    .snowflake {
+    /* .snowflake {
         color: #fff;
         font-size: 1em;
         font-family: Arial;
@@ -266,5 +266,5 @@
         left: 90%;
         -webkit-animation-delay: 3s, 1.5s;
         animation-delay: 3s, 1.5s
-    }
+    } */
 </style>

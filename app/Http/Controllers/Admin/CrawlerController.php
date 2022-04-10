@@ -36,7 +36,7 @@ class CrawlerController extends Controller
             $crawler_page = Goutte::request('GET', 'https://store.line.me/stickershop/product/' . $sticker_code . '/th');
 
             /**
-             * หา stamp_start & stamp_end
+             * หา stamp_start & stamp_end  & version
              */
             for ($i = 0; $i < 40; $i++) {
                 // check node empty
@@ -52,6 +52,29 @@ class CrawlerController extends Controller
                     );
                 }
             }
+
+            /**
+             * หา stamp json
+             */
+            $stamp = $crawler_page->filter('ul.FnStickerList > li.FnStickerPreviewItem')->each(function ($node) {
+                $imgTxt = $node->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->attr('style');
+                $image_path = explode("/", getUrlFromText($imgTxt));
+                $stamp_code = $image_path[6];
+                // dump($stamp_code);
+                // dd('exit');
+                return $stamp_code;
+            }); 
+
+            /**
+             * หา version ของ รูป
+             */
+            // if ($crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq(0)->count() != 0) {
+            //     $imgTxt     = $crawler_page->filter('div.mdCMN09LiInner.FnImage > span.mdCMN09Image:last-child')->eq(0)->attr('style');
+            //     $image_path = explode("/", getUrlFromText($imgTxt));
+            //     $version    = str_replace('v', '', $image_path[4]);
+            // }
+
+            // dd(json_encode($stamp));
 
             if (empty($version)) {
                 return false;
@@ -93,6 +116,7 @@ class CrawlerController extends Controller
                     'stickerresourcetype' => @$productInfo['stickerResourceType'],
                     'stamp_start'         => @reset($data)['stamp_code'],
                     'stamp_end'           => @end($data)['stamp_code'],
+                    'stamp'=> json_encode(@$stamp),
                 ]
             );
             unset($data);
@@ -451,6 +475,8 @@ class CrawlerController extends Controller
         // foreach วนลูปหา หัวข้อของ editorpick
         $crawler->filter('.mdCMN02Li')->each(function ($node) use ($link_number) {
 
+            // dump($node->filter('a')->attr('href'));
+
             /**
              * ประกาศตัวแปร
              */
@@ -462,8 +488,8 @@ class CrawlerController extends Controller
             // dump($sub_title);
 
             // เปิด 2 บรรทัดนี้ถ้าจะเปลี่ยนเป็นแบบจับทีละลิ้งค์
-            // $url_number = explode("/", $url)[3];
-            // if ($link_number == $url_number):
+            $url_number = explode("/", $url)[3];
+            if ($link_number == $url_number):
 
             // บันทึกลงฐานข้อมูล
             $series = Series::updateOrCreate(
@@ -519,11 +545,10 @@ class CrawlerController extends Controller
 
             dump($title);
 
-            // เปิด 4 บรรทัดนี้ถ้าจะเปลี่ยนเป็นแบบจับทีละลิ้งค์
-            // else:
-            //     dump('จบ');
-            // exit();
-            // endif;
+            // เปิด 3 บรรทัดนี้ถ้าจะเปลี่ยนเป็นแบบจับทีละลิ้งค์
+            else:
+                dump('จบ');
+            endif;
 
         }); // endforeach
     }

@@ -27,7 +27,7 @@
 	<div class="animate-box" data-animate-effect="fadeInLeft">
 		<ul class="list-unstyled row">
 		@foreach($sticker as $row)
-			<li class="col-md-2 col-sm-3 col-4">
+			<li class="col-md-2 col-sm-3 col-4 mt-1 mb-1">
 				@include('include.front.__product_item2', array('type'=>'sticker','row'=>$row))
 			</li>
 		@endforeach

@@ -137,9 +137,9 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::get('getstickerstore63/{type}/{category}/{page}', 'CrawlerController@getstickerstore63');
 
     // แบบจับทีละลิ้งค์
-    // Route::any('geteditorpick/{page}/{link_number}', 'CrawlerController@getEditorPick');
+    Route::any('geteditorpick/{page}/{link_number}', 'CrawlerController@getEditorPick');
     // แบบจับทีละหน้า
-    Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
+    // Route::any('geteditorpick/{page}', 'CrawlerController@getEditorPick');
 });
 
 // redirect product code 2 url

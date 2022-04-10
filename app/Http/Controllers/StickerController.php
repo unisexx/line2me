@@ -93,7 +93,7 @@ class StickerController extends Controller
 
         // ใช้ Cache File
         $data['rs'] = Cache::rememberForever('stickers_' . $id, function () use ($id) {
-            return DB::table('stickers')->where('sticker_code', $id)->first();
+            return Sticker::where('sticker_code', $id)->first();
         });
 
         // $data['rs'] = Cache::remember('stickers_'.$id, 60, function() use ($id) {
@@ -138,7 +138,11 @@ class StickerController extends Controller
         OpenGraph::addProperty('image:width', '240');
         OpenGraph::addProperty('image:height', '240');
 
-        return view('sticker.product', $data);
+        if(@$_GET['view'] == 1){
+            return view('sticker.product-view', $data);
+        }else{
+            return view('sticker.product', $data);
+        }
     }
 
     public function getProductRedirect($id = null)

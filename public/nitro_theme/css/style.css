@@ -264,7 +264,7 @@ figure {
 }
 
 #fh5co-aside{
-    background-color: #EDF2F9;
+    background-color: #F9FAFB;
     /* background: url('/image/svg/dot.svg') no-repeat top left fixed !important;
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
@@ -359,13 +359,13 @@ body.offcanvas .fh5co-nav-toggle {
     transition: 0.5s;
 }
 
-.work-item a h3 {
+.work-item a h3, .work-item2 a h3 {
     font-size: 20px;
     color: #000;
     margin-bottom: 10px;
 }
 
-.work-item a p {
+.work-item a p, .work-item2 a p {
     font-size: 14px;
     color: red;
     margin-bottom: 0;
@@ -1514,7 +1514,7 @@ p.fh5co-work-title {
         margin-bottom: 0px;
     }
 
-    .work-item a h3 {
+    .work-item a h3, .work-item2 a h3 {
         font-size: 10px;
         font-weight: normal;
         margin-bottom: 0px;
@@ -1524,7 +1524,7 @@ p.fh5co-work-title {
         margin-bottom: 0px;
     }
 
-    .work-item a p {
+    .work-item a p, .work-item2 a p {
         font-size: 6px;
     }
 
@@ -1593,7 +1593,7 @@ p.fh5co-work-title {
 
 /* ขนาดจอ laptop ----------- */
 @media only screen and (min-device-width: 1280px) {
-    .work-item a h3 {
+    .work-item a h3, .work-item2 a h3 {
         font-size: 16px;
         font-weight: normal;
         margin-bottom: 0px;
@@ -1614,7 +1614,7 @@ p.fh5co-work-title {
         width: 150px;
     }
 
-    .work-item a h3 {
+    .work-item a h3, .work-item2 a h3 {
         font-size: 16px;
         font-weight: normal;
         margin-bottom: 0px;
@@ -1665,7 +1665,7 @@ p.fh5co-work-title {
         margin-bottom: 0px;
     }
 
-    .work-item a h3 {
+    .work-item a h3, .work-item2 a h3 {
         font-size: 10px;
         font-weight: normal;
         margin-bottom: 0px;
@@ -1675,7 +1675,7 @@ p.fh5co-work-title {
         margin-bottom: 0px;
     }
 
-    .work-item a p {
+    .work-item a p, .work-item2 a p {
         font-size: 6px;
     }
 

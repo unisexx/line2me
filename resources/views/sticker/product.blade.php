@@ -42,61 +42,32 @@
     </p>
 
     <div class="animate-box" data-animate-effect="fadeInLeft">
-        @if ($rs->stamp_start === null)
-
-        <img class="img-fluid"
-            src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/LINEStorePC/preview.png"
-            alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}">
-
-        @else
-
-        @php
-        $stamp_count = $rs->stamp_end - $rs->stamp_start;
-        @endphp
-
-        <!-- ถ้าจำนวน stamp มากกว่า 40 แสดงว่ามี stamp ซ้อนกันกับชุดอื่น ให้แสดงเป็นรูปใหญ่แทน -->
-        @if ($stamp_count > 40)
-
-        <img class="img-fluid"
-            src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/LINEStorePC/preview.png"
-            alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}">
-
-        @else
-
+        {{-- @dd($rs->stamp) --}}
+        @if(!empty($rs->stamp))
         <ul class="list-inline">
-            @for ($x = $rs->stamp_start; $x <= $rs->stamp_end; $x++)
-                @php
-                if (in_array($rs->stickerresourcetype, ['SOUND','STATIC','NAME_TEXT','PER_STICKER_TEXT'])) {
-                $data_animation = 'https://stickershop.line-scdn.net/stickershop/v1/sticker/' . $x .
-                '/android/sticker.png;compress=true';
-                } elseif (in_array($rs->stickerresourcetype, ['POPUP','POPUP_SOUND'])) {
-                $data_animation = 'https://stickershop.line-scdn.net/stickershop/v1/sticker/' . $x .
-                '/IOS/sticker_popup.png;compress=true';
-                } else {
-                $data_animation = 'https://stickershop.line-scdn.net/stickershop/v1/sticker/' . $x .
-                '/IOS/sticker_animation@2x.png;compress=true';
-                }
-                @endphp
-
-                <li class="sticker-stamp-list">
-
-                    <img class="sticker-stamp playAnimate"
-                        src="https://stickershop.line-scdn.net/stickershop/v1/sticker/{{ $x }}/android/sticker.png;compress=true"
-                        data-animation="{{ $data_animation }}">
-
-                    @if(in_array($rs->stickerresourcetype, ['SOUND','POPUP_SOUND','ANIMATION_SOUND']))
-                    <audio preload="metadata">
-                        <source
-                            src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/android/sound/{{ $x }}.m4a"
-                            type="audio/mpeg">
-                    </audio>
-                    @endif
-                </li>
+            @foreach ($rs->stamp as $item)
+            @include('sticker._sticker_item')
+            @endforeach
+        </ul>
+        @elseif (!empty($rs->stamp_start))
+        <?php
+            $stamp_count = $rs->stamp_end - $rs->stamp_start;
+        ?>
+        @if ($stamp_count > 40)
+        <img class="img-fluid"
+            src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/LINEStorePC/preview.png"
+            alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}">
+        @else
+        <ul class="list-inline">
+            @for ($item = $rs->stamp_start; $item <= $rs->stamp_end; $item++)
+                @include('sticker._sticker_item')
                 @endfor
         </ul>
-
         @endif
-
+        @else
+        <img class="img-fluid"
+            src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/LINEStorePC/preview.png"
+            alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}">
         @endif
     </div>
 

@@ -12,7 +12,7 @@
     </div>
     <ul class="list-unstyled row">
         @foreach($series_items->where('product_type','sticker') as $row)
-        <li class="col-md-2 col-sm-3 col-4">
+        <li class="col-md-2 col-sm-3 col-4 mt-1 mb-1">
             @include('include.front.__product_item2', array('type'=>'sticker','row'=>$row->sticker))
         </li>
         @endforeach
@@ -27,7 +27,7 @@
     </div>
     <ul class="list-unstyled row">
         @foreach($series_items->where('product_type','emoji') as $row)
-        <li class="col-md-2 col-sm-3 col-4">
+        <li class="col-md-2 col-sm-3 col-4 mt-1 mb-1">
             @include('include.front.__product_item2', array('type'=>'emoji','row'=>$row->emoji))
         </li>
         @endforeach
@@ -42,7 +42,7 @@
     </div>
     <ul class="list-unstyled row">
         @foreach(@$series_items->where('product_type','theme') as $row)
-        <li class="col-md-2 col-sm-3 col-4">
+        <li class="col-md-2 col-sm-3 col-4 mt-1 mb-1">
             @include('include.front.__product_item2', array('type'=>'theme','row'=>$row->theme))
         </li>
         @endforeach

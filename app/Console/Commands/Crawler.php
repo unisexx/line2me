@@ -40,23 +40,23 @@ class Crawler extends Command
     {
         // Sticker
         $crawler = new CrawlerController();
-        echo $crawler->getstickerstore('1', 'new', '1');
+        // echo $crawler->getstickerstore('1', 'new', '1');
         echo $crawler->getstickerstore('1', 'top', '1');
-        echo $crawler->getstickerstore('2', 'new_creators', '1');
+        // echo $crawler->getstickerstore('2', 'new_creators', '1');
         echo $crawler->getstickerstore('2', 'top_creators', '1');
         echo $crawler->getstickerstore('2', 'new_top_creators', '1');
 
         // Theme
         echo $crawler->getthemestore('1', 'top', '1');
-        echo $crawler->getthemestore('1', 'new', '1');
+        // echo $crawler->getthemestore('1', 'new', '1');
         echo $crawler->getthemestore('2', 'top_creators', '1');
-        echo $crawler->getthemestore('2', 'new_creators', '1');
+        // echo $crawler->getthemestore('2', 'new_creators', '1');
 
         // Emoji
-        echo $crawler->getemojistore('1', 'new', '1');
+        // echo $crawler->getemojistore('1', 'new', '1');
         echo $crawler->getemojistore('1', 'top', '1');
         echo $crawler->getemojistore('2', 'top_creators', '1');
         echo $crawler->getemojistore('2', 'new_top_creators', '1');
-        echo $crawler->getemojistore('2', 'new_creators', '1');
+        // echo $crawler->getemojistore('2', 'new_creators', '1');
     }
 }

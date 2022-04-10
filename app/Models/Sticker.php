@@ -20,6 +20,10 @@ class Sticker extends Model
     */
     protected $primaryKey = 'id';
 
+    protected $casts = [
+        'stamp' => 'array',
+    ];
+
     /**
      * Attributes that should be mass-assignable.
      *
@@ -46,6 +50,7 @@ class Sticker extends Model
         'threedays',
         'stamp_start',
         'stamp_end',
+        'stamp',
     );
 
     public function promote()

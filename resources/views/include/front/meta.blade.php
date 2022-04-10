@@ -64,7 +64,7 @@
 <link rel="stylesheet" href="nitro_theme/css/owl.theme.default.min.css">
 
 <!-- Theme style  -->
-<link rel="stylesheet" href="{{ asset('nitro_theme/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('nitro_theme/css/style.css?v=0.1') }}">
 
 {{-- Country Flag --}}
 <link rel="stylesheet" href="{{ asset('country-frag/css/flags.css') }}">

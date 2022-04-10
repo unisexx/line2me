@@ -13,7 +13,7 @@
     <ul class="list-unstyled row">
     @foreach($sticker as $row)
         <li class="col-md-2 col-sm-3 col-4">
-            @include('include.front.__product_item2', array('type'=>'sticker','row'=>$row))
+            @include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
         </li>
     @endforeach
     </ul>
@@ -28,7 +28,7 @@
     <ul class="list-unstyled row">
     @foreach($emoji as $row)
         <li class="col-md-2 col-sm-3 col-4">
-            @include('include.front.__product_item2', array('type'=>'emoji','row'=>$row))
+            @include('include.front.__product_item', array('type'=>'emoji','row'=>$row))
         </li>
     @endforeach
     </ul>
@@ -43,7 +43,7 @@
     <ul class="list-unstyled row">
     @foreach($theme as $row)
         <li class="col-md-2 col-sm-3 col-4">
-            @include('include.front.__product_item2', array('type'=>'theme','row'=>$row))
+            @include('include.front.__product_item', array('type'=>'theme','row'=>$row))
         </li>
     @endforeach
     </ul>
