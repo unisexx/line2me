@@ -5,7 +5,7 @@
 
 <div class="fh5co-narrow-content border-gradient border-gradient-shopee">
 
-    <div class="d-flex justify-content-around animate-box bg-white-faded p-3" data-animate-effect="fadeInLeft">
+    <div class="d-flex justify-content-center animate-box bg-white-faded p-3" data-animate-effect="fadeInLeft">
 
         <div class="sticker-image-cover">
             <img class="playAnimate"
@@ -32,6 +32,9 @@
             <ul>
                 <li>
                     <h2>รหัสสินค้า : S-{{ $rs->sticker_code }}</h2>
+                </li>
+                <li>
+                    <h2>ราคา : {{ convert_line_coin_2_money_full($rs->price) }} บาท</h2>
                 </li>
             </ul>
         </div>

@@ -33,8 +33,8 @@
     </div>
     <div class="form-group">
         <label for="status">เปิด / ปิดการใช้งาน</label>
-        <input name="status" type="hidden" value="draft" checked="chedked" />
-        <input name="status" type="checkbox" id="status" checked value="approve" {!! (@$rs->status == 'approve' || empty($rs->id)) ? 'checked="checked"' : '' !!} />
+        <input name="status" type="hidden" value="0" checked="chedked" />
+        <input name="status" type="checkbox" id="status" checked value="1" {!! (@$rs->status == 'approve' || empty($rs->id)) ? 'checked="checked"' : '' !!} />
     </div>
     <div class="form-group">
         <textarea class="form-control" rows="10">ทางผมได้นำสติกเกอร์ไลน์ {{ $rs->title_th }} ขึ้นตำแหน่งโปรโมทเรียบร้อยครับผม โดยสติกเกอร์ตำแหน่งนี้จะหมดอายุในวันที่ {{ @DBToDate($rs->promote->end_date) }} ขอบคุณมากครับ
