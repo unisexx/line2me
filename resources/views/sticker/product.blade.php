@@ -42,10 +42,9 @@
     </p>
 
     <div class="animate-box" data-animate-effect="fadeInLeft">
-        {{-- @dd($rs->stamp) --}}
         @if(!empty($rs->stamp))
         <ul class="list-inline">
-            @foreach ($rs->stamp as $item)
+            @foreach (json_decode($rs->stamp) as $item)
             @include('sticker._sticker_item')
             @endforeach
         </ul>
