@@ -4,8 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -36,6 +35,19 @@ class Kernel extends ConsoleKernel
         // $schedule->call(function () {
         //     DB::delete("DELETE FROM sticker_views WHERE created < DATE_SUB(NOW(), INTERVAL 7 DAY)");
         // })->daily();
+
+        // reset viewcount sticker, theme, emoji
+        $schedule->call(function () {
+            DB::update("update stickers set threedays = CEILING(threedays/2)");
+        })->dailyAt('2:00')->appendOutputTo(storage_path('logs/threedays_sticker.log'))->runInBackground();
+
+        $schedule->call(function () {
+            DB::update("update themes set threedays = CEILING(threedays/2)");
+        })->dailyAt('3:00')->appendOutputTo(storage_path('logs/threedays_theme.log'))->runInBackground();
+
+        $schedule->call(function () {
+            DB::update("update emojis set threedays = CEILING(threedays/2)");
+        })->dailyAt('4:00')->appendOutputTo(storage_path('logs/threedays_emoji.log'))->runInBackground();
     }
 
     /**

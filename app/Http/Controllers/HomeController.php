@@ -74,7 +74,7 @@ class HomeController extends Controller
             return Sticker::where('category', 'official')
                 ->where('status', 1)
                 ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
-                ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
+                ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
         });
 
         // ธีมไลน์อัพเดท
