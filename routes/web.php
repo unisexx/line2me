@@ -130,6 +130,7 @@ Route::namespace ('Admin')->prefix('admin')->group(function () {
     Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
 
     // by author
+    // http://line2me.in.th.test/admin/get-sticker-by-author/164/1
     Route::get('get-sticker-by-author/{authorId}/{page}', 'CrawlerController@getStickerByAuthor');
     Route::get('get-theme-by-author/{authorId}/{page}', 'CrawlerController@getThemeByAuthor');
 

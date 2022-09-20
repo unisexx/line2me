@@ -69,17 +69,21 @@ class StickerController extends Controller
         $data['sticker'] = new Sticker;
         $data['sticker'] = $data['sticker']
             ->where('status', 1)
+            ->where('category', 'creator')
             ->where(function ($q) use ($country) {
                 // ประเทศ : thai, oversea
                 if ($country == 'all') {
 
+                } elseif ($country == 'othercountry') {
+                    $q->whereNotIn('country', ['gb', 'th', 'jp', 'tw', 'id']);
                 } elseif ($country == 'oversea') {
                     $q->whereNotIn('country', ['gb', 'th']);
+                } elseif ($country == 'th') {
+                    $q->whereIn('country', ['gb', 'th']);
                 } else {
                     $q->where('country', $country);
                 }
             })
-            ->where('category', 'creator')
             ->orderBy($orderByField, 'desc')
             ->simplePaginate(30);
         return view('sticker.creator', $data);
@@ -138,9 +142,9 @@ class StickerController extends Controller
         OpenGraph::addProperty('image:width', '240');
         OpenGraph::addProperty('image:height', '240');
 
-        if(@$_GET['view'] == 1){
+        if (@$_GET['view'] == 1) {
             return view('sticker.product-view', $data);
-        }else{
+        } else {
             return view('sticker.product', $data);
         }
     }

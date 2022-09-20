@@ -11,12 +11,12 @@
         <li>
             ราคา :
             @if($rs->price == 50)
-            <span class="pl-2 text-danger">฿{{ convert_line_coin_2_money_full($rs->price) }} <b>(พิเศษซื้อชุด 35 บาท
+            <span class="pl-2 text-danger">{{ convert_line_coin_2_money_full($rs->price) }} บาท <b>(พิเศษซื้อชุด 35 บาท
                     ชุดใดก็ได้ 2 ชุดลดทันที 5
                     บาท)</b></span>
             @else
-            <small class="text-muted"><del>฿{{ convert_line_coin_2_money_full($rs->price) }}</del></small>
-            <span class="pl-2 text-danger"><b>฿{{ convert_line_coin_2_money($rs->price) }} มีเวลาจำกัด</b></span>
+            <small class="text-muted"><del>{{ convert_line_coin_2_money_full($rs->price) }} บาท</del></small>
+            <span class="pl-2 text-danger"><b>ลดราคาเหลือ {{ convert_line_coin_2_money($rs->price) }} บาท</b></span>
             @endif
         </li>
         <li>ประเภท : {{ $rs->category }}</li>
