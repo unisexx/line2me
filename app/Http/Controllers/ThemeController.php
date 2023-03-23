@@ -106,7 +106,13 @@ class ThemeController extends Controller
         OpenGraph::addProperty('image:width', '198');
         OpenGraph::addProperty('image:height', '278');
 
-        return view('theme.product', $data);
+        if (@$_GET['view'] == 1) {
+            return view('theme.product-view', $data);
+        } elseif (@$_GET['view'] == 'tiktok') {
+            return view('theme.product-tiktok', $data);
+        } else {
+            return view('theme.product', $data);
+        }
     }
 
     public function getProductRedirect($id = null)

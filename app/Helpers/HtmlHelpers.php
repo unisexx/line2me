@@ -195,7 +195,8 @@ if (!function_exists('notify_message')) {
     function notify_message($message)
     {
         define('LINE_API', "https://notify-api.line.me/api/notify");
-        $token         = "fgpdbSIKtGe7oFP6kHK7HNs9gAwmErkViRwnMzBajnj";
+        $token         = "j0me5N8gkvfeq26A9ga7dJhALfzUOtBB6cd5eS9tJeR";
+        $message = "Hello"; //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
         $queryData     = array('message' => $message);
         $queryData     = http_build_query($queryData, '', '&');
         $headerOptions = array(
@@ -266,7 +267,6 @@ if (!function_exists('getProductTypeFromStoreUrl')) {
             } elseif ($arr[3] == 'themeshop') {
                 return 'theme';
             }
-
         } else {
             return $url;
         }
@@ -375,7 +375,8 @@ if (!function_exists('viewCounter')) {
                 if (!in_array($productID, Session::get('stickerArray')) && $productType == 'sticker') {
                     Session::push('stickerArray', $productID);
                     DB::table('stickers')->where('sticker_code', $productID)->increment('threedays', 1);
-                }}
+                }
+            }
         } else {
             Session::push('stickerArray', Session::getId());
         }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Series extends Model
 {
-    protected $table = 'series';
+    protected $table    = 'series';
     protected $fillable = array('title', 'sub_title', 'hilight', 'url', 'image', 'status');
 
     // this is a recommended way to declare event handlers
@@ -22,7 +22,9 @@ class Series extends Model
 
     public function seriesItem()
     {
-        return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id')->orderBy('order', 'asc');
+        return $this->hasMany('App\Models\SeriesItem', 'series_id', 'id')
+            ->orderByRaw("FIELD(product_type,'sticker','emoji','theme') asc")
+            ->orderBy('id', 'desc');
     }
 
     public function seriesItemFirst()
