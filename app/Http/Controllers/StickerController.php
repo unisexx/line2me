@@ -144,6 +144,8 @@ class StickerController extends Controller
 
         if (@$_GET['view'] == 1) {
             return view('sticker.product-view', $data);
+        } elseif (@$_GET['view'] == 'tiktok') {
+            return view('sticker.product-tiktok', $data);
         } else {
             return view('sticker.product', $data);
         }

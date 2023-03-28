@@ -21,16 +21,19 @@ https://line.me/ti/p/~ratasak1234
 <div class="box-body">
     <div class="form-group">
         <label for="title">ชื่อ Series</label>
-        <div><input name="title" type="text" class="form-control" value="{{ @$rs->title }}" placeholder="หัวข้อหลัก">
+        <div><input name="title" type="text" class="form-control" value="{{ @$rs->title }}"
+                placeholder="หัวข้อหลัก">
         </div>
         <div><input name="sub_title" type="text" class="form-control" value="{{ @$rs->sub_title }}"
                 placeholder="หัวข้อรอง"></div>
-        <div><input name="image" type="text" class="form-control" value="{{ @$rs->image }}" placeholder="ลิ้งค์รูป">
+        <div><input name="image" type="text" class="form-control" value="{{ @$rs->image }}"
+                placeholder="ลิ้งค์รูป">
         </div>
         <div class="checkbox">
             <label>
                 <input name="hilight" type="hidden" value="0" checked>
-                <input name="hilight" type="checkbox" value="1" @if (@$rs->hilight == 1) checked @endif> ไฮไลท์
+                <input name="hilight" type="checkbox" value="1" @if (@$rs->hilight == 1) checked @endif>
+                ไฮไลท์
             </label>
         </div>
         <div class="form-group">
@@ -44,7 +47,8 @@ https://line.me/ti/p/~ratasak1234
 
     <button type="submit" class="btn btn-primary">Submit</button>
     {{-- <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ"> --}}
-    <input id="openLink" class="btn btn-danger" type="button" value="เปิดลิ้งค์ทั้งหมด">
+    <input id="openLink" class="btn btn-danger" type="button" value="เปิดลิ้งค์ทั้งหมด Youtube">
+    <input id="openLinkTT" class="btn btn-danger" type="button" value="เปิดลิ้งค์ทั้งหมด Tiktok">
     <input id="updateData" class="btn btn-warning" type="button" value="อัพเดทที่ยังไม่มีทั้งหมด"> <i
         class="fas fa-sync"></i>
     <textarea name="fast" style="width:100%;" rows='10' placeholder="เพิ่มแบบด่วน"></textarea>
@@ -78,7 +82,7 @@ https://line.me/ti/p/~ratasak1234
                             <td>
                                 @if ($row->product_type == 'sticker')
                                     <a class="frontlink"
-                                        href="{{ url('sticker/' . @$row->sticker->sticker_code) }}"
+                                        href="{{ url('sticker/' . @$row->sticker->sticker_code . '?view=') }}"
                                         target="_blank"><img
                                             src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png"
                                             height="90"></a> {{ @$row->sticker->title_th }}
@@ -87,7 +91,7 @@ https://line.me/ti/p/~ratasak1234
                                             class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                                     @endif
                                 @elseif($row->product_type == 'emoji')
-                                    <a class="frontlink" href="{{ url('emoji/' . @$row->emoji->id) }}"
+                                    <a class="frontlink" href="{{ url('emoji/' . @$row->emoji->id . '?view=') }}"
                                         target="_blank"><img
                                             src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png"
                                             height="90"></a> {{ @$row->emoji->title }}
@@ -96,7 +100,7 @@ https://line.me/ti/p/~ratasak1234
                                             class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                                     @endif
                                 @elseif($row->product_type == 'theme')
-                                    <a class="frontlink" href="{{ url('theme/' . @$row->theme->id) }}"
+                                    <a class="frontlink" href="{{ url('theme/' . @$row->theme->id . '?view=') }}"
                                         target="_blank"><img
                                             src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png"
                                             height="90"></a> {{ @$row->theme->title }}
@@ -177,7 +181,16 @@ https://line.me/ti/p/~ratasak1234
 
         $(document).on('click', "#openLink", function() {
             $('.frontlink').each(function() {
-                var href = $(this).attr('href');
+                var href = $(this).attr('href') +
+                    "1";
+                window.open(href, "_blank");
+            });
+        });
+
+        $(document).on('click', "#openLinkTT", function() {
+            $('.frontlink').each(function() {
+                var href = $(this).attr('href') +
+                    "tiktok";
                 window.open(href, "_blank");
             });
         });

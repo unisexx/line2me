@@ -5,7 +5,7 @@
 
     <div class="fh5co-narrow-content border-gradient border-gradient-blue">
 
-        <div class="infoBlock d-flex justify-content-start animate-box bg-white-faded p-3" data-animate-effect="fadeInLeft">
+        <div class="infoBlock d-flex justify-content-start animate-box bg-white-faded px-3" data-animate-effect="fadeInLeft">
 
             <div class="sticker-image-cover">
                 <img class="playAnimate"
@@ -67,8 +67,11 @@
 
 @push('css')
     <style>
-        body #fh5co-main {
+        body {
             /* background-image: none; */
+            /* border: 1px solid rgb(209, 209, 209); */
+            width: 864px;
+            height: 1702px;
         }
 
         .fh5co-narrow-content:first-child {
@@ -81,8 +84,9 @@
         }
 
         body .sticker-stamp {
-            max-width: 185px;
-            /* max-height: 183px; */
+            margin: 4px 5px;
+            max-width: 162px;
+            max-height: 183px;
         }
 
         @media only screen and (min-width: 1224px) {
@@ -97,21 +101,11 @@
         }
 
         body .animate-box:first-child {
-            border-bottom: 15px solid #48D0F2;
-        }
-
-        .border-gradient {
-            border: 10px solid;
-            border-image-slice: 1;
-            border-width: 25px;
+            /* border-bottom: 15px solid #48D0F2; */
         }
 
         .border-gradient-green {
             border-image-source: linear-gradient(to left, #00C853, #B2FF59);
-        }
-
-        .border-gradient-blue {
-            border-image-source: linear-gradient(to left, #B2EDFB, #48D0F2);
         }
 
         .border-gradient-shopee {
@@ -123,23 +117,23 @@
             background-repeat: no-repeat;
             /* background-size: contain; */
             background-position: top center;
-        }
-
-        body .sticker-stamp {
-            /* width: calc(25% - 6px); */
-            margin: 4px 0;
+            width: 100% !important;
         }
 
         ul.list-inline {
-            height: 727px;
+            /* height: 727px; */
         }
 
         .infoBlock {
-            height: 287px;
+            /* height: 287px; */
         }
 
         h3 {
-            font-size: 50px !important;
+            font-size: 30px !important;
+        }
+
+        .sticker-infomation ul {
+            /* display: none; */
         }
     </style>
 @endpush
