@@ -58,7 +58,7 @@ https://line.me/ti/p/~ratasak1234
         <table id="simpleList" class="table table-bordered">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th><input id="delAll" class="btn btn-danger" type="button" value="ลบทั้งหมด"></th>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Produce Code</th>
@@ -193,6 +193,10 @@ https://line.me/ti/p/~ratasak1234
                     "tiktok";
                 window.open(href, "_blank");
             });
+        });
+
+        $(document).on('click', "#delAll", function() {
+            $(".btnDelete:not(:first)").trigger("click");
         });
     </script>
 

@@ -148,3 +148,4 @@ Route::get('c/{product_code}', 'HomeController@code2url');
 
 // cache flush
 Route::get('cf', 'HomeController@cacheFlush');
+Route::get('cf2', 'HomeController@cacheFlush2');
