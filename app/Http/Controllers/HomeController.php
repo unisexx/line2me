@@ -503,6 +503,13 @@ class HomeController extends Controller
         echo "</script>";
     }
 
+    public function cacheFlush2()
+    {
+        Cache::flush();
+
+        return redirect('home');
+    }
+
     public function googleSearchResult()
     {
         return view('home.google-search-result');
