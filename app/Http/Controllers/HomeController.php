@@ -104,7 +104,7 @@ class HomeController extends Controller
         // editorpick
         // $data['series'] = Series::where('status', 1)->take(3)->inRandomOrder()->get();
         $data['series'] = Cache::remember('home_series', config('calculations.cache_time'), function () {
-            return Series::where('status', 1)->take(6)->inRandomOrder()->get();
+            return Series::where('status', 1)->where('hilight', 1)->take(9)->inRandomOrder()->get();
         });
 
         // สติ๊กเกอร์ไลน์ทางการ (ไทย)
