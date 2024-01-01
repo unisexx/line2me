@@ -60,20 +60,20 @@ class HomeController extends Controller
         });
 
         // $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
-        $new_arrival = Cache::remember('home_new_arrival', config('calculations.cache_time'), function () {
-            return NewArrival::orderBy('id', 'desc')->first();
-        });
-        $data['new_arrival_note'] = $new_arrival->note;
+        // $new_arrival = Cache::remember('home_new_arrival', config('calculations.cache_time'), function () {
+        //     return NewArrival::orderBy('id', 'desc')->first();
+        // });
+        // $data['new_arrival_note'] = $new_arrival->note;
 
         // สตื๊กเกอร์ไลน์อัพเดท
         // $data['sticker_update'] = Sticker::where('category', 'official')
         //     ->where('status', 1)
         //     ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
         //     ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
-        $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function () use ($new_arrival) {
+        $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function () {
             return Sticker::where('category', 'official')
                 ->where('status', 1)
-                ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
+                ->where('created_at', '>', now()->subDays(30)->endOfDay())
                 ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
         });
 
@@ -82,10 +82,10 @@ class HomeController extends Controller
         //     ->where('status', 1)
         //     ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
         //     ->get();
-        $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function () use ($new_arrival) {
+        $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function () {
             return Theme::where('category', 'official')
                 ->where('status', 1)
-                ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
+                ->where('created_at', '>', now()->subDays(30)->endOfDay())
                 ->get();
         });
 
@@ -94,10 +94,10 @@ class HomeController extends Controller
         //     ->where('status', 1)
         //     ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
         //     ->get();
-        $data['emoji_update'] = Cache::remember('home_emoji_update', config('calculations.cache_time'), function () use ($new_arrival) {
+        $data['emoji_update'] = Cache::remember('home_emoji_update', config('calculations.cache_time'), function () {
             return Emoji::where('category', 'official')
                 ->where('status', 1)
-                ->whereBetween('created_at', [$new_arrival->start_date, $new_arrival->end_date])
+                ->where('created_at', '>', now()->subDays(30)->endOfDay())
                 ->get();
         });
 
@@ -513,5 +513,29 @@ class HomeController extends Controller
     public function googleSearchResult()
     {
         return view('home.google-search-result');
+    }
+
+    public function testnotify(){
+        $receipt = array();
+        array_push($receipt, 'GJVCpZq2yFINxVW9uxzlAKd5A6zBkzJUUQhd2Aw6hAg'); // เดียร์
+
+        foreach ($receipt as $tokens) {
+				$LINE_API = "https://notify-api.line.me/api/notify";
+				//$queryData = array('message' => $message, 'stickerPackageId' => '789', 'stickerId' => '10855');
+				$queryData = array('message' => '(ทดสอบระบบ ส่ง Line Notify)');
+		        $queryData = http_build_query($queryData,'','&');
+		        $headerOptions = array(
+		                'http'=>array(
+		                        'method'=>'POST',
+		                        'header'=> "Content-Type: application/x-www-form-urlencoded\r\n"
+		                                          ."Authorization: Bearer ".$tokens."\r\n"
+		                                          ."Content-Length: ".strlen($queryData)."\r\n",
+		                        'content' => $queryData
+		                )
+		        );
+		        $context = stream_context_create($headerOptions);
+		        $result = file_get_contents($LINE_API,FALSE,$context);
+		        $res = json_decode($result);
+		}
     }
 }

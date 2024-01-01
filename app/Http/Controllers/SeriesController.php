@@ -77,6 +77,6 @@ class SeriesController extends Controller
         OpenGraph::addProperty('image:width', '240');
         OpenGraph::addProperty('image:height', '240');
 
-        return view('series.detail', compact('rs', 'series_items', 'more_series'));
+        return view('series.detail', @compact('rs', 'series_items', 'more_series'));
     }
 }
