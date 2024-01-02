@@ -514,4 +514,28 @@ class HomeController extends Controller
     {
         return view('home.google-search-result');
     }
+
+    public function testnotify(){
+        $receipt = array();
+        array_push($receipt, 'GJVCpZq2yFINxVW9uxzlAKd5A6zBkzJUUQhd2Aw6hAg'); // เดียร์
+
+        foreach ($receipt as $tokens) {
+				$LINE_API = "https://notify-api.line.me/api/notify";
+				//$queryData = array('message' => $message, 'stickerPackageId' => '789', 'stickerId' => '10855');
+				$queryData = array('message' => '(ทดสอบระบบ ส่ง Line Notify)');
+		        $queryData = http_build_query($queryData,'','&');
+		        $headerOptions = array(
+		                'http'=>array(
+		                        'method'=>'POST',
+		                        'header'=> "Content-Type: application/x-www-form-urlencoded\r\n"
+		                                          ."Authorization: Bearer ".$tokens."\r\n"
+		                                          ."Content-Length: ".strlen($queryData)."\r\n",
+		                        'content' => $queryData
+		                )
+		        );
+		        $context = stream_context_create($headerOptions);
+		        $result = file_get_contents($LINE_API,FALSE,$context);
+		        $res = json_decode($result);
+		}
+    }
 }
