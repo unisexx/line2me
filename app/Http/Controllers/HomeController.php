@@ -74,7 +74,8 @@ class HomeController extends Controller
             return Sticker::where('category', 'official')
                 ->where('status', 1)
                 ->where('created_at', '>', now()->subDays(30)->endOfDay())
-                ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
+                ->orderBy('created_at', 'desc')->get();
+                // ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
         });
 
         // ธีมไลน์อัพเดท

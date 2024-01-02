@@ -1,5 +1,6 @@
 @extends('layouts.front') @section('content')
 
+
 <div class="fh5co-narrow-content single-item mb-4 {{-- owl-carousel owl-theme --}}">
 	<div><a href="https://line.me/R/ti/p/HuNn5V9sfP"><img class="img-fluid" src="{{ url('image/banner.jpg') }}"
 				alt="line2me.in.th" style="width:100%;"></a></div>
@@ -54,14 +55,77 @@
 @endif
 
 
-@if(count($sticker_update) != 0)
+@php
+	$th = $sticker_update->filter(function($value, $key) {
+		if($value['country'] == 'th') {
+			return $value;
+		}
+	});
+
+	$jp = $sticker_update->filter(function($value, $key) {
+		if($value['country'] == 'jp') {
+			return $value;
+		}
+	});
+
+	$tw = $sticker_update->filter(function($value, $key) {
+		if($value['country'] == 'tw') {
+			return $value;
+		}
+	});
+
+	$id = $sticker_update->filter(function($value, $key) {
+		if($value['country'] == 'id') {
+			return $value;
+		}
+	});
+@endphp
+@if(count($th) != 0)
 <div class="fh5co-narrow-content">
 	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
-		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่</h2>
+		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (ไทย)</h2>
 	</div>
-	<div><span class="hilight_green">{!! @$new_arrival_note !!}</span></div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($sticker_update as $row)
+		@foreach($th as $row)
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@endforeach
+	</div>
+</div>
+@endif
+
+@if(count($jp) != 0)
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (ญี่ปุ่น)</h2>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($jp as $row)
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@endforeach
+	</div>
+</div>
+@endif
+
+@if(count($tw) != 0)
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (ไต้หวัน)</h2>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($tw as $row)
+		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
+		@endforeach
+	</div>
+</div>
+@endif
+
+@if(count($id) != 0)
+<div class="fh5co-narrow-content">
+	<div class="d-flex justify-content-between align-items-baseline animate-box" data-animate-effect="fadeInLeft">
+		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (อินโดนีเซีย)</h2>
+	</div>
+	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
+		@foreach($id as $row)
 		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
