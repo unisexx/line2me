@@ -86,7 +86,7 @@
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (ไทย)</h2>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($th as $row)
+		@foreach($th->take(18) as $row)
 		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
@@ -99,7 +99,7 @@
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (ญี่ปุ่น)</h2>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($jp as $row)
+		@foreach($jp->take(18) as $row)
 		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
@@ -112,7 +112,7 @@
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (ไต้หวัน)</h2>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($tw as $row)
+		@foreach($tw->take(18) as $row)
 		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
@@ -125,7 +125,7 @@
 		<h2 class="fh5co-heading">สติ๊กเกอร์ไลน์ทางการมาใหม่ (อินโดนีเซีย)</h2>
 	</div>
 	<div class="animate-box d-flex flex-md-wrap flex-sm-nowrap" data-animate-effect="fadeInLeft">
-		@foreach($id as $row)
+		@foreach($id->take(18) as $row)
 		@include('include.front.__product_item', array('type'=>'sticker','row'=>$row))
 		@endforeach
 	</div>
