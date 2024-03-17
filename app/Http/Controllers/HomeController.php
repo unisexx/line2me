@@ -73,9 +73,9 @@ class HomeController extends Controller
         $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function () {
             return Sticker::where('category', 'official')
                 ->where('status', 1)
-                ->where('created_at', '>', now()->subDays(30)->endOfDay())
+                ->where('created_at', '>', now()->subDays(7)->endOfDay())
                 ->orderBy('created_at', 'desc')->get();
-                // ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
+            // ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
         });
 
         // ธีมไลน์อัพเดท
@@ -86,7 +86,7 @@ class HomeController extends Controller
         $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function () {
             return Theme::where('category', 'official')
                 ->where('status', 1)
-                ->where('created_at', '>', now()->subDays(30)->endOfDay())
+                ->where('created_at', '>', now()->subDays(7)->endOfDay())
                 ->get();
         });
 
@@ -98,7 +98,7 @@ class HomeController extends Controller
         $data['emoji_update'] = Cache::remember('home_emoji_update', config('calculations.cache_time'), function () {
             return Emoji::where('category', 'official')
                 ->where('status', 1)
-                ->where('created_at', '>', now()->subDays(30)->endOfDay())
+                ->where('created_at', '>', now()->subDays(7)->endOfDay())
                 ->get();
         });
 
@@ -516,27 +516,28 @@ class HomeController extends Controller
         return view('home.google-search-result');
     }
 
-    public function testnotify(){
-        $receipt = array();
+    public function testnotify()
+    {
+        $receipt = [];
         array_push($receipt, 'GJVCpZq2yFINxVW9uxzlAKd5A6zBkzJUUQhd2Aw6hAg'); // เดียร์
 
         foreach ($receipt as $tokens) {
-				$LINE_API = "https://notify-api.line.me/api/notify";
-				//$queryData = array('message' => $message, 'stickerPackageId' => '789', 'stickerId' => '10855');
-				$queryData = array('message' => '(ทดสอบระบบ ส่ง Line Notify)');
-		        $queryData = http_build_query($queryData,'','&');
-		        $headerOptions = array(
-		                'http'=>array(
-		                        'method'=>'POST',
-		                        'header'=> "Content-Type: application/x-www-form-urlencoded\r\n"
-		                                          ."Authorization: Bearer ".$tokens."\r\n"
-		                                          ."Content-Length: ".strlen($queryData)."\r\n",
-		                        'content' => $queryData
-		                )
-		        );
-		        $context = stream_context_create($headerOptions);
-		        $result = file_get_contents($LINE_API,FALSE,$context);
-		        $res = json_decode($result);
-		}
+            $LINE_API = "https://notify-api.line.me/api/notify";
+            //$queryData = array('message' => $message, 'stickerPackageId' => '789', 'stickerId' => '10855');
+            $queryData     = ['message' => '(ทดสอบระบบ ส่ง Line Notify)'];
+            $queryData     = http_build_query($queryData, '', '&');
+            $headerOptions = [
+                'http' => [
+                    'method'  => 'POST',
+                    'header'  => "Content-Type: application/x-www-form-urlencoded\r\n"
+                    . "Authorization: Bearer " . $tokens . "\r\n"
+                    . "Content-Length: " . strlen($queryData) . "\r\n",
+                    'content' => $queryData,
+                ],
+            ];
+            $context = stream_context_create($headerOptions);
+            $result  = file_get_contents($LINE_API, false, $context);
+            $res     = json_decode($result);
+        }
     }
 }
