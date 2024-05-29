@@ -540,4 +540,9 @@ class HomeController extends Controller
             $res     = json_decode($result);
         }
     }
+
+    public function home2()
+    {
+        return view('home2.index');
+    }
 }

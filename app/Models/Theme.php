@@ -14,10 +14,10 @@ class Theme extends Model
     protected $table = 'themes';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -25,7 +25,7 @@ class Theme extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'theme_code',
         'category',
         'country',
@@ -36,6 +36,8 @@ class Theme extends Model
         'price',
         'slug',
         'status',
-    );
-    
+        'section',
+        'ok',
+    ];
+
 }

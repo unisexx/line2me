@@ -4,8 +4,8 @@ if (!function_exists('clean_url')) {
     {
         setlocale(LC_ALL, "Thai");
         $text                  = strtolower($text);
-        $code_entities_match   = array(' ', '--', '&quot;', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?', '[', ']', '\\', ';', "'", ',', '.', '/', '*', '+', '~', '`', '=');
-        $code_entities_replace = array('-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+        $code_entities_match   = [' ', '--', '&quot;', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}', '|', ':', '"', '<', '>', '?', '[', ']', '\\', ';', "'", ',', '.', '/', '*', '+', '~', '`', '='];
+        $code_entities_replace = ['-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
         $text                  = str_replace($code_entities_match, $code_entities_replace, $text);
         $text                  = @ereg_replace('(--)+', '', $text);
         $text                  = @ereg_replace('(-)$', '', $text);
@@ -60,7 +60,7 @@ if (!function_exists('deleteDuplicate')) {
 if (!function_exists('convert_line_coin_2_money_full')) {
     function convert_line_coin_2_money_full($coin)
     {
-        $bath = array('250' => '179', '200' => '138', '150' => '99', '100' => '69', '85' => '59', '50' => '35', '10' => '10', '2' => '2');
+        $bath = ['250' => '179', '200' => '138', '150' => '99', '100' => '69', '85' => '59', '50' => '35', '10' => '10', '2' => '2'];
 
         return @$bath[$coin];
     }
@@ -69,7 +69,7 @@ if (!function_exists('convert_line_coin_2_money_full')) {
 if (!function_exists('convert_line_coin_2_money')) {
     function convert_line_coin_2_money($coin)
     {
-        $bath = array('250' => '170', '200' => '130', '150' => '95', '100' => '65', '85' => '55', '50' => '35', '10' => '6', '2' => '1');
+        $bath = ['250' => '170', '200' => '130', '150' => '95', '100' => '65', '85' => '55', '50' => '35', '10' => '6', '2' => '1'];
 
         return @$bath[$coin];
     }
@@ -78,7 +78,7 @@ if (!function_exists('convert_line_coin_2_money')) {
 if (!function_exists('th_2_coin')) {
     function th_2_coin($bath)
     {
-        $coin = array('1' => '2', '6' => '10', '30' => '50', '60' => '100', '59' => '85', '90' => '150', '120' => '200', '150' => '250');
+        $coin = ['1' => '2', '6' => '10', '30' => '50', '60' => '100', '59' => '85', '90' => '150', '120' => '200', '150' => '250'];
 
         return $coin[$bath];
     }
@@ -87,7 +87,7 @@ if (!function_exists('th_2_coin')) {
 if (!function_exists('money2country')) {
     function money2country($currency)
     {
-        $country = array('￥' => 'jp', 'THB' => 'th', 'NT$' => 'tw', 'Rp' => 'id', '$' => 'us');
+        $country = ['￥' => 'jp', 'THB' => 'th', 'NT$' => 'tw', 'Rp' => 'id', '$' => 'us'];
 
         return $country[$currency];
     }
@@ -196,18 +196,18 @@ if (!function_exists('notify_message')) {
     {
         define('LINE_API', "https://notify-api.line.me/api/notify");
         $token         = "j0me5N8gkvfeq26A9ga7dJhALfzUOtBB6cd5eS9tJeR";
-        $message = "Hello"; //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
-        $queryData     = array('message' => $message);
+        $message       = "Hello"; //ข้อความที่ต้องการส่ง สูงสุด 1000 ตัวอักษร
+        $queryData     = ['message' => $message];
         $queryData     = http_build_query($queryData, '', '&');
-        $headerOptions = array(
-            'http' => array(
+        $headerOptions = [
+            'http' => [
                 'method'  => 'POST',
                 'header'  => "Content-Type: application/x-www-form-urlencoded\r\n"
                 . "Authorization: Bearer " . $token . "\r\n"
                 . "Content-Length: " . strlen($queryData) . "\r\n",
                 'content' => $queryData,
-            ),
-        );
+            ],
+        ];
         $context = stream_context_create($headerOptions);
         $result  = file_get_contents(LINE_API, false, $context);
         $res     = json_decode($result);
@@ -219,13 +219,13 @@ if (!function_exists('notify_message')) {
 if (!function_exists('getCountryTh')) {
     function getCountryTh($txt)
     {
-        $countryArray = array(
+        $countryArray = [
             'th'      => 'ไทย',
             'jp'      => 'ญี่ปุ่น',
             'tw'      => 'ไต้หวัน',
             'id'      => 'อินโดนีเซีย',
             'oversea' => 'ต่างประเทศ',
-        );
+        ];
 
         return @$countryArray[$txt];
     }
@@ -291,7 +291,7 @@ if (!function_exists('deleteDuplicateSeriesItem')) {
 if (!function_exists('countryName')) {
     function countryName($txt)
     {
-        $countryArray = array(
+        $countryArray = [
             'jp' => 'ญี่ปุ่น',
             'gb' => 'ทั่วไป',
             'kr' => 'เกาหลี',
@@ -307,7 +307,7 @@ if (!function_exists('countryName')) {
             'mx' => 'เม็กซิโก',
             'id' => 'อินโดนีเซีย',
             'hk' => 'ฮ่องกง',
-        );
+        ];
 
         return @$countryArray[$txt];
     }
@@ -341,7 +341,7 @@ if (!function_exists('countryName')) {
 if (!function_exists('countryFlag')) {
     function countryFlag($txt)
     {
-        $countryArray = array(
+        $countryArray = [
             'jp' => '<span class="flag flag-jp" alt="ญี่ปุ่น"></span>',
             'gb' => '',
             'kr' => '<span class="flag flag-kr" alt="เกาหลี"></span>',
@@ -357,7 +357,7 @@ if (!function_exists('countryFlag')) {
             'mx' => '<span class="flag flag-mx" alt="เม็กซิโก"></span>',
             'id' => '<span class="flag flag-id" alt="อินโดนีเซีย"></span>',
             'hk' => '<span class="flag flag-hk" alt="ฮ่องกง"></span>',
-        );
+        ];
 
         return @$countryArray[$txt];
     }
@@ -408,5 +408,14 @@ if (!function_exists('viewCounter')) {
         // dump(Session::get('stickerArray'));
         // dump(Session::get('themeArray'));
         // dump(Session::get('emojiArray'));
+    }
+
+    function generateThemeUrl($uuid, $section = false)
+    {
+        $section      = !empty($section) ? $section : 1;
+        $baseUrl      = 'https://shop.line-scdn.net/themeshop/v1/products/';
+        $formattedUrl = $baseUrl . substr($uuid, 0, 2) . '/' . substr($uuid, 2, 2) . '/' . substr($uuid, 4, 2) . '/' . $uuid . '/' . $section . '/WEBSTORE/icon_198x278.png';
+
+        return $formattedUrl;
     }
 }

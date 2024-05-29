@@ -100,7 +100,7 @@ Route::get('getthemestoresearch/{txtsearch}', 'CrawlerController@getthemestorese
 Route::get('getemojistoresearch/{txtsearch}', 'CrawlerController@getemojistoresearch');
 
 // admin
-Route::namespace ('Admin')->prefix('admin')->group(function () {
+Route::namespace('Admin')->prefix('admin')->group(function () {
 
     Route::get('ajax/changestatus', 'AjaxController@changestatus')->name('changestatus');
     Route::get('ajax/changecountry', 'AjaxController@changecountry')->name('changecountry');
@@ -149,3 +149,10 @@ Route::get('c/{product_code}', 'HomeController@code2url');
 // cache flush
 Route::get('cf', 'HomeController@cacheFlush');
 Route::get('cf2', 'HomeController@cacheFlush2');
+
+// Theme Scrape
+Route::get('/theme_scrape/{uuid}', 'ScraperController@themeScrape');
+Route::get('/update-themes', 'ScraperController@updateAllThemes');
+
+// new HomePage
+Route::get('/home2', 'HomeController@home2');
