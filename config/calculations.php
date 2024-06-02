@@ -1,2 +1,2 @@
-<?php 
-	return [ 'cache_time' => now()->addMinutes(60) ];
+<?php
+return ['cache_time' => now()->addMinutes(60)];

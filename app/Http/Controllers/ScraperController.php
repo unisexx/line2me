@@ -56,10 +56,10 @@ class ScraperController extends Controller
         $client     = new Client();
         $results    = [];
         $count      = 0;
-        $maxUpdates = 10; // กำหนดจำนวนสูงสุดของการอัพเดท
+        $maxUpdates = 30; // กำหนดจำนวนสูงสุดของการอัพเดท
 
         // ดึง 10 เรคคอร์ดแรกที่มีค่า ok เป็น null
-        $themes = Theme::whereNull('ok')->take($maxUpdates)->get();
+        $themes = Theme::whereNull('ok')->where('category', 'official')->take($maxUpdates)->get();
 
         foreach ($themes as $theme) {
             $uuid    = $theme->theme_code;

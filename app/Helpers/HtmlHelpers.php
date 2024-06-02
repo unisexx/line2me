@@ -1,4 +1,5 @@
 <?php
+
 if (!function_exists('clean_url')) {
     function clean_url($text)
     {

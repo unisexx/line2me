@@ -543,6 +543,22 @@ class HomeController extends Controller
 
     public function home2()
     {
-        return view('home2.index');
+        $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function () {
+            return Sticker::where('category', 'official')
+                ->where('status', 1)
+                ->where('created_at', '>', now()->subDays(7)->endOfDay())
+                ->orderBy('created_at', 'desc')->get();
+            // ->orderByRaw("FIELD(country,'th','id','jp','tw','hk') asc")->get();
+        });
+
+        return view('home2.index', $data);
+    }
+
+    public function detail2($id = null)
+    {
+        $data['rs'] = Cache::rememberForever('stickers_' . $id, function () use ($id) {
+            return Sticker::where('sticker_code', $id)->first();
+        });
+        return view('home2.detail', $data);
     }
 }

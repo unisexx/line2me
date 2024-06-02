@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\HomeController;
 use Spatie\Sitemap\SitemapGenerator;
 
 /*
@@ -31,8 +32,8 @@ Auth::routes();
 Route::get('test-email', 'JobController@enqueue');
 
 // home
-Route::get('/', 'HomeController@index');
-Route::get('home', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
+// Route::get('home', 'HomeController@index');
 Route::get('testnotify', 'HomeController@testnotify');
 
 // ajax
@@ -65,26 +66,26 @@ Route::get('new_arrival/{param}', 'NewArrivalController@getDetail');
 Route::get('new_arrival2/{param}', 'NewArrivalController@getDetail2');
 
 // sticker
-Route::get('sticker/product/{id}', 'StickerController@getProductRedirect');
-Route::get('sticker/{id}', 'StickerController@getProduct');
-Route::get('sticker/official/{country}/{type}', 'StickerController@getOfficial');
-Route::get('sticker/creator/{country}/{type}', 'StickerController@getCreator');
+// Route::get('sticker/product/{id}', 'StickerController@getProductRedirect');
+// Route::get('sticker/{id}', 'StickerController@getProduct');
+// Route::get('sticker/official/{country}/{type}', 'StickerController@getOfficial');
+// Route::get('sticker/creator/{country}/{type}', 'StickerController@getCreator');
 
 // theme
-Route::get('theme/product/{id}', 'ThemeController@getProductRedirect');
-Route::get('theme/{id}', 'ThemeController@getProduct');
-Route::get('theme/official/{country}/{type}', 'ThemeController@getOfficial');
-Route::get('theme/creator/{type}', 'ThemeController@getCreator');
+// Route::get('theme/product/{id}', 'ThemeController@getProductRedirect');
+// Route::get('theme/{id}', 'ThemeController@getProduct');
+// Route::get('theme/official/{country}/{type}', 'ThemeController@getOfficial');
+// Route::get('theme/creator/{type}', 'ThemeController@getCreator');
 
 // emoji
-Route::get('emoji/product/{id}', 'EmojiController@getProductRedirect');
-Route::get('emoji/{id}', 'EmojiController@getProduct');
-Route::get('emoji/official/{country}/{type}', 'EmojiController@getOfficial');
-Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
+// Route::get('emoji/product/{id}', 'EmojiController@getProductRedirect');
+// Route::get('emoji/{id}', 'EmojiController@getProduct');
+// Route::get('emoji/official/{country}/{type}', 'EmojiController@getOfficial');
+// Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
 
 // series
 Route::get('series', 'SeriesController@getIndex');
-Route::get('series/{id}', 'SeriesController@getDetail');
+// Route::get('series/{id}', 'SeriesController@getDetail');
 
 //Crawler
 Route::get('getsticker/{sticker_code}', 'CrawlerController@getsticker');
@@ -155,4 +156,13 @@ Route::get('/theme_scrape/{uuid}', 'ScraperController@themeScrape');
 Route::get('/update-themes', 'ScraperController@updateAllThemes');
 
 // new HomePage
-Route::get('/home2', 'HomeController@home2');
+Route::get('/', 'FrontendController@home');
+Route::get('/home', 'FrontendController@home');
+Route::get('/sticker/{id}', 'FrontendController@stickerDetail');
+Route::get('/theme/{id}', 'FrontendController@themeDetail');
+Route::get('/emoji/{id}', 'FrontendController@emojiDetail');
+Route::get('/search', 'FrontendController@search');
+Route::get('/stickers/{category?}/{country?}/{type?}', 'FrontendController@stickerMore');
+Route::get('/themes/{category?}/{country?}/{type?}', 'FrontendController@themeMore');
+Route::get('/emojis/{category?}/{country?}/{type?}', 'FrontendController@emojiMore');
+Route::get('/series/{id}', 'FrontendController@seriesDetail');
