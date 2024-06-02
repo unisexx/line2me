@@ -37,19 +37,25 @@
                 <div class="d-flex align-items-start">
                     <!-- Left Image Column -->
                     <div class="me-3 fixed-width-240">
-                        <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $rs->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $rs->title }}">
+                        <img class="animated-sticker" src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $rs->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $rs->title }}">
                     </div>
                     <!-- Right Content Column -->
                     <div class="w-100">
                         <h3>{{ @$rs->title }}</h3>
-                        <p>{{ @$rs->detail }}</p>
+                        <p class="d-none d-md-block">{{ @$rs->detail }}</p>
                         <p class="mb-1"><strong><a class="no-style" rel="nofollow" href="https://line.me/S/emoji/?id={{ $rs->emoji_code }}" target="_blank">ร</a>หัสสินค้า: </strong> e-{{ @$rs->id }}</span></p>
                         <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $rs->country }}"></span></p>
                         <h4>Price: <span class="text-danger">{{ convert_line_coin_2_money($rs->price) }}</span>THB</h4>
-                        <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
+                        <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom d-none d-md-block">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
                     </div>
                 </div>
+                <div class="w-100 mt-3 d-md-none">
+                    <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
+                </div>
                 <hr class="custom-hr">
+                <div class="w-100 d-md-none">
+                    <p>{{ @$rs->detail }}</p>
+                </div>
                 <div class="row mt-4">
                     @for ($x = 1; $x <= 50; $x++)
                         <div class="col-2 col-md-2 text-center mb-3">

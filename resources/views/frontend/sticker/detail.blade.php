@@ -36,7 +36,7 @@
             <div class="col-lg-8 mx-auto">
                 <div class="d-flex align-items-start">
                     <!-- Left Image Column -->
-                    <div class="me-3 fixed-width-240 position-relative">
+                    <div class="me-3 position-relative">
                         <img class="animated-sticker" src="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}" data-animation="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}">
 
                         @if (in_array($rs->stickerresourcetype, ['SOUND', 'POPUP_SOUND', 'ANIMATION_SOUND']))
@@ -50,14 +50,20 @@
                     <!-- Right Content Column -->
                     <div class="w-100">
                         <h3>{{ @$rs->title_th }}</h3>
-                        <p>{{ @$rs->detail }}</p>
+                        <p class="d-none d-md-block">{{ @$rs->detail }}</p>
                         <p class="mb-1"><strong><a class="no-style" rel="nofollow" href="https://line.me/S/sticker/{{ $rs->sticker_code }}" target="_blank">ร</a>หัสสินค้า: </strong> S-{{ @$rs->sticker_code }}</span></p>
                         <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $rs->country }}"></span></p>
                         <h4>Price: <span class="text-danger">{{ convert_line_coin_2_money($rs->price) }}</span>THB</h4>
-                        <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
+                        <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom d-none d-md-block">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
                     </div>
                 </div>
+                <div class="w-100 mt-3 d-md-none">
+                    <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
+                </div>
                 <hr class="custom-hr">
+                <div class="w-100 d-md-none">
+                    <p>{{ @$rs->detail }}</p>
+                </div>
                 <div class="row mt-4">
                     @if (!empty($rs->stamp))
                         @foreach ($rs->stamp as $item)
@@ -79,6 +85,33 @@
                                 @endif
                             </div>
                         @endforeach
+                    @elseif (!empty($rs->stamp_start))
+                        @php
+                            $stamp_count = $rs->stamp_end - $rs->stamp_start;
+                        @endphp
+                        @if ($stamp_count > 40)
+                            <img class="img-fluid" src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/LINEStorePC/preview.png" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}">
+                        @else
+                            @for ($item = $rs->stamp_start; $item <= $rs->stamp_end; $item++)
+                                @php
+                                    if (in_array($rs->stickerresourcetype, ['SOUND', 'STATIC', 'NAME_TEXT', 'PER_STICKER_TEXT'])) {
+                                        $data_animation = 'https://stickershop.line-scdn.net/stickershop/v1/sticker/' . $item . '/android/sticker.png;compress=true';
+                                    } elseif (in_array($rs->stickerresourcetype, ['POPUP', 'POPUP_SOUND'])) {
+                                        $data_animation = 'https://stickershop.line-scdn.net/stickershop/v1/sticker/' . $item . '/IOS/sticker_popup.png;compress=true';
+                                    } else {
+                                        $data_animation = 'https://stickershop.line-scdn.net/stickershop/v1/sticker/' . $item . '/IOS/sticker_animation@2x.png;compress=true';
+                                    }
+                                @endphp
+                                <div class="col-3 col-md-3 text-center mb-3 no-padding">
+                                    <img class="sticker-stamp playAnimate img-fluid" src="https://stickershop.line-scdn.net/stickershop/v1/sticker/{{ $item }}/android/sticker.png;compress=true" data-animation="{{ $data_animation }}" role="button">
+                                    @if (in_array($rs->stickerresourcetype, ['SOUND', 'POPUP_SOUND', 'ANIMATION_SOUND']))
+                                        <audio preload="metadata">
+                                            <source src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/android/sound/{{ $item }}.m4a" type="audio/mpeg">
+                                        </audio>
+                                    @endif
+                                </div>
+                            @endfor
+                        @endif
                     @else
                         <img class="img-fluid" src="https://sdl-stickershop.line.naver.jp/products/0/0/{{ $rs->version }}/{{ $rs->sticker_code }}/LINEStorePC/preview.png" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}">
                     @endif

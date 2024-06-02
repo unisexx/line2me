@@ -19,7 +19,7 @@ class FrontendController extends Controller
             return Sticker::where('category', 'official')
                 ->where('status', 1)
                 ->where('created_at', '>', now()->subDays(7)->endOfDay())
-                ->orderBy('created_at', 'desc')->get();
+                ->orderBy('id', 'desc')->get();
         });
 
         $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function () {

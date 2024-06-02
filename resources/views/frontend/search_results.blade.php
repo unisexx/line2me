@@ -29,14 +29,14 @@
     </section>
 
     <div class="container">
-        <h2 class="text-center mb-4">ผลลัพธ์การค้นหา</h2>
+        <h2 class="text-center mb-4">ผลลัพธ์การค้นหา: {{ @$_GET['query'] }}</h2>
         @if ($results->isEmpty())
             <p class="text-center">ไม่พบผลลัพธ์การค้นหาสำหรับคำว่า "{{ request()->input('query') }}"</p>
         @else
             <div class="row">
                 @foreach ($results as $sticker)
-                    <div class="col-md-2 mb-4">
-                        <div class="card p-1 h-100">
+                    <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100">
                             <div class="position-relative">
                                 <img src="{{ get_sticker_img_url($sticker->stickerresourcetype, $sticker->version, $sticker->sticker_code) }}" class="card-img-top" alt="{{ $sticker->title_th }}">
                                 {!! getStickerResourctTypeIcon($sticker->stickerresourcetype) !!}
@@ -44,6 +44,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ $sticker->title_th }}</h5>
+                                <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
                                 <a href="{{ url('sticker/' . $sticker->sticker_code) }}" class="btn btn-primary hidden-link">View</a>
                             </div>
                         </div>

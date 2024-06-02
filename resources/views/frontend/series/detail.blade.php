@@ -22,7 +22,7 @@
             <div class="row">
                 @foreach ($series_items->where('product_type', 'sticker') as $item)
                     <div class="col-md-2 mb-4">
-                        <div class="card p-1 h-100">
+                        <div class="card h-100">
                             <div class="position-relative">
                                 <img src="{{ get_sticker_img_url($item->sticker->stickerresourcetype, $item->sticker->version, $item->sticker->sticker_code) }}" class="card-img-top animated-sticker img-fluid" alt="{{ $item->sticker->title_th }}">
                                 {!! getStickerResourctTypeIcon($item->sticker->stickerresourcetype) !!}

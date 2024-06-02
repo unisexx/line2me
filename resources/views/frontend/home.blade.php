@@ -6,7 +6,7 @@
         <div class="container">
             <img src="{{ asset('image/hero.png') }}" alt="Hero Image">
             <h1 class="display-4">Welcome to line2me Stickers Shop</h1>
-            <p class="lead">ขายสติกเกอร์ไลน์ ของแท้ ไม่หมดอายุ เชื่อถือได้ เป็นร้านค้าที่ได้รับอนุญาตอย่างเป็นทางการจากทางไลน์ (Verified Resellers)</p>
+            <p class="lead">ขายสติกเกอร์ไลน์ของแท้ ไม่หมดอายุ มีเครดิตเชื่อถือได้100% เป็นร้านค้าที่ได้รับอนุญาตอย่างเป็นทางการจากทางไลน์ (Verified Resellers) เปิดร้านขายมากว่า 10 ปี</p>
             <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-primary btn-lg">แอดไลน์ไอดี ratasak1234</a>
         </div>
     </section>
@@ -32,37 +32,37 @@
         <div class="container">
             <h2 class="text-center mb-4">หมวดหมู่</h2>
             <div class="row text-center">
-                <div class="col-md-2 col-sm-4 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <a href="{{ url('stickers/official/th/top') }}" class="category-link">
                         <img src="{{ asset('image/1.png') }}" alt="Category 1" class="category-img">
                         <h5>สติกเกอร์ไลน์ไทย</h5>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <a href="{{ url('stickers/official/oversea/top') }}" class="category-link">
                         <img src="{{ asset('image/2.png') }}" alt="Category 2" class="category-img">
                         <h5>สติกเกอร์ไลน์ต่างประเทศ</h5>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <a href="{{ url('themes/official/th/top') }}" class="category-link">
                         <img src="{{ asset('image/3.png') }}" alt="Category 3" class="category-img">
                         <h5>ธีมไลน์ไทย</h5>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <a href="{{ url('themes/official/oversea/top') }}" class="category-link">
                         <img src="{{ asset('image/4.png') }}" alt="Category 4" class="category-img">
                         <h5>ธีมไลน์ต่างประเทศ</h5>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <a href="{{ url('emojis/official/th/top') }}" class="category-link">
                         <img src="{{ asset('image/5.png') }}" alt="Category 5" class="category-img">
                         <h5>อิโมจิไลน์ไทย</h5>
                     </a>
                 </div>
-                <div class="col-md-2 col-sm-4 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <a href="{{ url('emojis/official/oversea/top') }}" class="category-link">
                         <img src="{{ asset('image/6.png') }}" alt="Category 6" class="category-img">
                         <h5>อิโมจิไลน์ต่างประเทศ</h5>
@@ -80,7 +80,7 @@
             <div class="row">
                 @if (isset($sticker_promote))
                     @foreach ($sticker_promote as $item)
-                        <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                             <div class="card h-100">
                                 <div class="position-relative">
                                     <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="card-img-top">
@@ -102,7 +102,7 @@
 
     <section class="categories">
         <div class="container">
-            <h2 class="text-center mb-4">สติ๊กเกอร์ไลน์อัพเดทล่าสุด</h2>
+            <h2 class="text-center mb-4">สติ๊กเกอร์ไลน์อัพเดทประจำสัปดาห์</h2>
             @php
                 $counter = 0;
             @endphp
@@ -117,14 +117,14 @@
                     <div class="row">
                 @endif
 
-                <div class="col-6 mt-2 product-card">
+                <div class="col-12 col-md-6 mt-2 product-card">
                     <div class="card h-100">
                         <div class="row g-0">
-                            <div class="col-4 col-md-4 p-2 position-relative">
+                            <div class="col-5 col-md-4 p-2 position-relative">
                                 <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
                                 {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
                             </div>
-                            <div class="col-8 col-md-8">
+                            <div class="col-7 col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $item->title_th }}</h5>
                                     <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $item->country }}"></span></p>
@@ -154,10 +154,10 @@
     <!-- Categories Section -->
     <section class="categories">
         <div class="container">
-            <h2 class="text-center mb-4">ธีมไลน์อัพเดทล่าสุด</h2>
+            <h2 class="text-center mb-4">ธีมไลน์อัพเดทประจำสัปดาห์</h2>
             <div class="row">
                 @foreach ($theme_update as $item)
-                    <div class="col-md-2 col-sm-6 mb-4">
+                    <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                         <div class="card h-100">
                             <div class="position-relative">
                                 <img src="{{ generateThemeUrl($item->theme_code, @$item->section) }}" alt="ธีมไลน์ {{ $item->title }}" class="card-img-top">
@@ -178,10 +178,10 @@
     <!-- Categories Section -->
     <section class="categories">
         <div class="container">
-            <h2 class="text-center mb-4">อิโมจิไลน์อัพเดทล่าสุด</h2>
+            <h2 class="text-center mb-4">อิโมจิไลน์อัพเดทประจำสัปดาห์</h2>
             <div class="row">
                 @foreach ($emoji_update as $item)
-                    <div class="col-md-2 col-sm-6 mb-4">
+                    <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                         <div class="card h-100">
                             <div class="position-relative">
                                 <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $item->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $item->title }}" class="card-img-top">
@@ -205,7 +205,7 @@
             <h2 class="text-center mb-4">แนะนำจากทางร้าน</h2>
             <div class="row">
                 @foreach ($series as $row)
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+                    <div class="col-12 col-lg-4 col-md-4 col-sm-6 mb-4">
                         <div class="col pl-2 pr-2">
                             <a href="{{ url('series/' . $row->id) }}">
                                 <img class="img-fluid" src="{{ @$row->image ?? 'https://dummyimage.com/526x250/fff' }}" title="{{ @$row->title }}" alt="{{ @$row->sub_title }}">

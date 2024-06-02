@@ -218,6 +218,10 @@
         .sticker-stamp {
             width: 200px;
         }
+
+        .animated-sticker {
+            width: 180px;
+        }
     }
 
     @media (min-width: 577px) and (max-width: 768px) {

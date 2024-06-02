@@ -58,7 +58,7 @@
         <h2 class="text-center mb-4">ธีมไลน์</h2>
         <div class="row">
             @foreach ($rs as $item)
-                <div class="col-md-2 col-sm-6 mb-4">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="card h-100">
                         <div class="position-relative">
                             <img src="{{ generateThemeUrl($item->theme_code, @$item->section) }}" alt="ธีมไลน์ {{ $item->title }}" class="card-img-top">

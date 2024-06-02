@@ -61,8 +61,8 @@
         <h2 class="text-center mb-4">สติกเกอร์ไลน์</h2>
         <div class="row">
             @foreach ($rs as $item)
-                <div class="col-md-2 mb-4">
-                    <div class="card p-1 h-100">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100">
                         <div class="position-relative">
                             <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" class="card-img-top animated-sticker img-fluid" alt="{{ $item->title_th }}">
                             {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
