@@ -1,3 +1,6 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 <style>
     .hero {
         padding: 60px 0;
@@ -95,12 +98,6 @@
         background-color: #008F47;
         border-color: #006837;
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .animated-sticker {
-        width: 240px;
-        /* คุณสามารถปรับขนาดตามต้องการ */
-        height: auto;
     }
 
     .no-padding {
@@ -219,7 +216,7 @@
             width: 200px;
         }
 
-        .animated-sticker {
+        .product-cover-img {
             width: 180px;
         }
     }
@@ -252,5 +249,38 @@
         right: 20px;
         display: none;
         z-index: 100;
+    }
+
+    .testimonial-card {
+        position: relative;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-top: 60px;
+        /* เพิ่มระยะห่างด้านบนเพื่อให้มีที่สำหรับไอคอนแมว */
+        background-color: #f8f9fa;
+    }
+
+    .testimonial-card::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        /* ปรับตำแหน่งของแหลม */
+        left: 70px;
+        /* ปรับตำแหน่งของแหลม */
+        border-width: 0 10px 10px 10px;
+        border-style: solid;
+        border-color: transparent transparent #ddd transparent;
+    }
+
+    .cat-icon {
+        position: absolute;
+        top: -50px;
+        /* ปรับตำแหน่งตามต้องการ */
+        left: 10%;
+        transform: translateX(-50%);
+        width: 50px;
+        /* ขนาดของไอคอนแมว */
+        height: 50px;
     }
 </style>

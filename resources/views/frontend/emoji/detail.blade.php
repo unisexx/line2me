@@ -37,7 +37,7 @@
                 <div class="d-flex align-items-start">
                     <!-- Left Image Column -->
                     <div class="me-3 fixed-width-240">
-                        <img class="animated-sticker" src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $rs->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $rs->title }}">
+                        <img class="product-cover-img" src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $rs->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $rs->title }}">
                     </div>
                     <!-- Right Content Column -->
                     <div class="w-100">

@@ -20,7 +20,7 @@
                     <a class="nav-link" href="{{ url('/emojis') }}">อิโมจิไลน์</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/series') }}">รวมชุด</a>
+                    <a class="nav-link" href="{{ url('/series') }}">แนะนำจากทางร้าน</a>
                 </li>
             </ul>
         </div>

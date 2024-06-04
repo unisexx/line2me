@@ -37,7 +37,7 @@
                 <div class="d-flex align-items-start">
                     <!-- Left Image Column -->
                     <div class="me-3 fixed-width-240">
-                        <img src="{{ generateThemeUrl($rs->theme_code, @$rs->section) }}" alt="ธีมไลน์ {{ $rs->title }}">
+                        <img class="product-cover-img" src="{{ generateThemeUrl($rs->theme_code, @$rs->section) }}" alt="ธีมไลน์ {{ $rs->title }}">
                     </div>
                     <!-- Right Content Column -->
                     <div class="w-100">

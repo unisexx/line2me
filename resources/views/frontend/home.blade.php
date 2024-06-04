@@ -6,19 +6,47 @@
         <div class="container">
             <img src="{{ asset('image/hero.png') }}" alt="Hero Image">
             <h1 class="display-4">Welcome to line2me Stickers Shop</h1>
-            <p class="lead">ขายสติกเกอร์ไลน์ของแท้ ไม่หมดอายุ มีเครดิตเชื่อถือได้100% เป็นร้านค้าที่ได้รับอนุญาตอย่างเป็นทางการจากทางไลน์ (Verified Resellers) เปิดร้านขายมากว่า 10 ปี</p>
-            <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-primary btn-lg">แอดไลน์ไอดี ratasak1234</a>
+            <p class="lead">ขายสติกเกอร์ไลน์ของแท้ ไม่หมดอายุ มีเครดิตเชื่อถือได้100% เป็นร้านค้าที่ได้รับอนุญาตอย่างเป็นทางการจากทางไลน์ (Verified Resellers) เปิดร้านขายมากว่า 12 ปีแล้วจ้า~ <img class="animated-sticker" src="https://stickershop.line-scdn.net/sticonshop/v1/sticon/64817945b74fae74142e71c2/iPhone/031_animation.png?1717424106504" width="50px"><img class="animated-sticker"
+                    src="https://stickershop.line-scdn.net/sticonshop/v1/sticon/64817945b74fae74142e71c2/iPhone/036_animation.png?1717424106504" width="50px"></p>
+            {{-- <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-primary btn-lg">แอดไลน์ไอดี ratasak1234</a> --}}
+            <a href="https://line.me/ti/p/~ratasak1234" class="btn custom-btn-blue btn-lg btn-primary" target="_blank">แอดไลน์ไอดี ratasak1234</a>
+            <style>
+                .custom-btn-blue {
+                    /* background-color: #3285fd; */
+                    /* สีพื้นหลัง */
+                    border: none;
+                    /* ไม่มีขอบ */
+                    /* color: white; */
+                    /* สีตัวอักษร */
+                    padding: 10px 20px;
+                    /* ระยะห่างภายใน */
+                    font-size: 18px;
+                    /* ขนาดตัวอักษร */
+                    border-radius: 30px;
+                    /* มุมโค้งมน */
+                    transition: background-color 0.3s, transform 0.3s;
+                    /* การเปลี่ยนแปลงที่นุ่มนวล */
+                }
+
+                .custom-btn-blue:hover {
+                    /* background-color: #3285fd; */
+                    /* สีพื้นหลังเมื่อ hover */
+                    transform: scale(1.05);
+                    /* ขยายขนาดเมื่อ hover */
+                    /* color: white; */
+                }
+            </style>
         </div>
     </section>
 
     <!-- Categories Section -->
-    <section class="categories animate__animated animate__bounce" id="search">
+    <section class="categories wow animate__animated animate__flipInX" id="search">
         <div class="container">
             <h2 class="text-center mb-4">ค้นหา</h2>
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <form action="{{ url('/search') }}" method="GET" class="d-flex">
-                        <input type="text" name="query" class="form-control form-control-lg me-2" placeholder="ค้นหาสติ๊กเกอร์...">
+                        <input type="text" name="query" class="form-control form-control-lg me-2" placeholder="ค้นหาสติกเกอร์...">
                         <button type="submit" class="btn btn-primary">ค้นหา</button>
                     </form>
                 </div>
@@ -76,7 +104,7 @@
     <!-- Popular Products Section -->
     <section class="products bg-light" id="products">
         <div class="container">
-            <h2 class="text-center mb-4">สติกเกอร์แนะนำ</h2>
+            <h2 class="text-center mb-4">สติกเกอร์ขายดี</h2>
             <div class="row">
                 @if (isset($sticker_promote))
                     @foreach ($sticker_promote as $item)
@@ -227,6 +255,46 @@
             ['text' => 'เป็นลูกค้าประจำของร้านนี้เลยค่ะ สติกเกอร์น่ารักทุกลาย', 'author' => 'คุณ Toto'],
             ['text' => 'ถูกใจมากค่ะ ร้านนี้มีสติกเกอร์หลายแบบที่หายากมาก', 'author' => 'คุณ Yayee'],
             ['text' => 'สั่งง่าย ส่งเร็ว สติกเกอร์น่ารักทุกลาย ราคาก็ไม่แพงด้วย', 'author' => 'คุณ Haikyu2233'],
+            ['text' => 'บริการดีมากค่ะ ส่งสติกเกอร์ไวมากๆ ไม่ต้องรอนานเลย มีสติกเกอร์ให้เลือกเยอะมาก ทั้งไทยและต่างประเทศ ราคาก็ไม่แพงด้วยค่ะ', 'author' => 'คุณกิ๊ฟ'],
+            ['text' => 'ชอบมากค่ะ สติกเกอร์น่ารักทุกแบบเลย ส่งเร็วทันใจ ราคาก็โอเคค่ะ', 'author' => 'คุณหนิง'],
+            ['text' => 'ร้านนี้ดีมากค่ะ สติกเกอร์มีให้เลือกเยอะ บริการรวดเร็วทันใจค่ะ', 'author' => 'คุณแอน'],
+            ['text' => 'สั่งซื้อง่าย ส่งไว สติกเกอร์น่ารักมากๆ ค่ะ', 'author' => 'คุณเบนซ์'],
+            ['text' => 'บริการเป็นกันเอง สติกเกอร์หลากหลาย มีให้เลือกมากมายค่ะ', 'author' => 'คุณปุ๋ย'],
+            ['text' => 'ประทับใจมากค่ะ ร้านนี้มีสติกเกอร์หลากหลาย ส่งไวมากค่ะ', 'author' => 'คุณโม'],
+            ['text' => 'สติกเกอร์น่ารักมากๆ เลยค่ะ บริการดี ส่งเร็ว ราคาก็สมเหตุสมผลค่ะ', 'author' => 'คุณมิ้น'],
+            ['text' => 'ร้านนี้สติกเกอร์เยอะจริงๆ ส่งไวมากค่ะ ชอบมากๆ', 'author' => 'คุณก้อย'],
+            ['text' => 'บริการดี สติกเกอร์มีให้เลือกเยอะ ราคาก็ไม่แพงด้วยค่ะ', 'author' => 'คุณแป้ง'],
+            ['text' => 'ประทับใจมากค่ะ สติกเกอร์สวยงาม ส่งไว ราคาดี', 'author' => 'คุณหลิน'],
+            ['text' => 'สติกเกอร์น่ารักมากๆ บริการเป็นกันเอง ส่งเร็วทันใจค่ะ', 'author' => 'คุณน้ำ'],
+            ['text' => 'ชอบร้านนี้มากค่ะ สติกเกอร์มีให้เลือกเยอะ ส่งไว ราคาดี', 'author' => 'คุณแอม'],
+            ['text' => 'บริการดีมาก สติกเกอร์น่ารัก ส่งไว ประทับใจค่ะ', 'author' => 'คุณจอย'],
+            ['text' => 'ร้านนี้มีสติกเกอร์เยอะมาก ส่งไว บริการดีค่ะ', 'author' => 'คุณหน่อย'],
+            ['text' => 'สติกเกอร์น่ารักมาก ส่งไว ราคาดี ประทับใจค่ะ', 'author' => 'คุณแคท'],
+            ['text' => 'บริการดี สติกเกอร์มีให้เลือกเยอะ ส่งไว ประทับใจมากค่ะ', 'author' => 'คุณตาล'],
+            ['text' => 'ร้านนี้บริการดีมาก สติกเกอร์สวย ส่งไวมากค่ะ', 'author' => 'คุณแนน'],
+            ['text' => 'สติกเกอร์น่ารักมากๆ ส่งไว ราคาดี บริการเยี่ยมค่ะ', 'author' => 'คุณนิด'],
+            ['text' => 'ประทับใจมากค่ะ สติกเกอร์สวย ส่งไว บริการดีมากๆ', 'author' => 'คุณดา'],
+            ['text' => 'ร้านนี้สติกเกอร์เยอะมาก ส่งไว บริการดี ราคาดีค่ะ', 'author' => 'คุณพิม'],
+            ['text' => 'สติกเกอร์น่ารักมากๆ เลยค่ะ ชอบมากๆ ร้านนี้ส่งไวจริงๆ', 'author' => 'คุณน้ำฝน'],
+            ['text' => 'บริการดีมากค่ะ สติกเกอร์เยอะ ส่งไวมากๆ ประทับใจมากค่ะ', 'author' => 'คุณมินนี่'],
+            ['text' => 'สั่งซื้อสติกเกอร์ที่นี่ทุกครั้ง บริการดีเยี่ยมค่ะ', 'author' => 'คุณพิมพ์'],
+            ['text' => 'สติกเกอร์สวยมากๆ เลยค่ะ ส่งเร็วทันใจจริงๆ', 'author' => 'คุณลูกตาล'],
+            ['text' => 'ร้านนี้มีสติกเกอร์ให้เลือกเยอะมาก ส่งไวด้วยค่ะ', 'author' => 'คุณฟ้า'],
+            ['text' => 'บริการเป็นกันเอง สติกเกอร์หลากหลาย น่ารักมากค่ะ', 'author' => 'คุณกานต์'],
+            ['text' => 'สติกเกอร์น่ารักทุกลาย บริการดีมากค่ะ', 'author' => 'คุณบี'],
+            ['text' => 'ส่งไว ราคาดี สติกเกอร์น่ารักทุกแบบค่ะ', 'author' => 'คุณปาล์ม'],
+            ['text' => 'บริการดี สติกเกอร์มีให้เลือกเยอะ ส่งเร็วมากๆ ค่ะ', 'author' => 'คุณแคท'],
+            ['text' => 'ชอบมากค่ะ ร้านนี้บริการดี ส่งไว สติกเกอร์น่ารัก', 'author' => 'คุณจูน'],
+            ['text' => 'ร้านนี้มีสติกเกอร์เยอะมาก ส่งไว บริการดี ราคาดีค่ะ', 'author' => 'คุณเอิร์น'],
+            ['text' => 'บริการดีมาก สติกเกอร์น่ารัก ส่งไว ราคาดีค่ะ', 'author' => 'คุณมิว'],
+            ['text' => 'สติกเกอร์มีให้เลือกเยอะ บริการดี ส่งเร็ว ประทับใจค่ะ', 'author' => 'คุณเล็ก'],
+            ['text' => 'สติกเกอร์สวย ส่งไว ราคาดี ประทับใจมากค่ะ', 'author' => 'คุณเตย'],
+            ['text' => 'ประทับใจมากค่ะ สติกเกอร์น่ารัก ส่งไว บริการดีมากๆ', 'author' => 'คุณแนน'],
+            ['text' => 'ร้านนี้มีสติกเกอร์ให้เลือกเยอะมาก ส่งไว บริการดีค่ะ', 'author' => 'คุณดาว'],
+            ['text' => 'สติกเกอร์น่ารักทุกลาย บริการดี ส่งไวมากค่ะ', 'author' => 'คุณแพร'],
+            ['text' => 'บริการดี สติกเกอร์น่ารัก ส่งไว ราคาดี ประทับใจค่ะ', 'author' => 'คุณลูกน้ำ'],
+            ['text' => 'ร้านนี้บริการดีมาก สติกเกอร์สวย ส่งไวมากค่ะ', 'author' => 'คุณน้ำตาล'],
+            ['text' => 'ประทับใจมากค่ะ สติกเกอร์น่ารัก ส่งไว บริการดีมากๆ', 'author' => 'คุณกิ๊ก'],
         ];
 
         // Step 2: Shuffle the reviews array
@@ -241,10 +309,9 @@
             <div class="row">
                 @foreach ($selected_reviews as $review)
                     <div class="col-md-4 mb-4 reviews-item">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <p class="card-text">"{{ $review['text'] }}" - {{ $review['author'] }}</p>
-                            </div>
+                        <div class="testimonial-card">
+                            <img src="https://stickershop.line-scdn.net/sticonshop/v1/sticon/64817945b74fae74142e71c2/iPhone/022_animation.png" alt="Cat Icon" class="cat-icon animated-sticker">
+                            <p>"{{ $review['text'] }}" - {{ $review['author'] }}</p>
                         </div>
                     </div>
                 @endforeach

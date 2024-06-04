@@ -37,7 +37,7 @@
                 <div class="d-flex align-items-start">
                     <!-- Left Image Column -->
                     <div class="me-3 position-relative">
-                        <img class="animated-sticker" src="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}" data-animation="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}">
+                        <img class="product-cover-img animated-sticker" src="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}" data-animation="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}">
 
                         @if (in_array($rs->stickerresourcetype, ['SOUND', 'POPUP_SOUND', 'ANIMATION_SOUND']))
                             <audio id="mainAudio" class="d-none" controls autoplay preload="metadata">

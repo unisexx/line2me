@@ -30,34 +30,6 @@
 
 @section('content')
     <div class="container">
-        <section class="categories" id="categories">
-            <div class="container">
-                <h2 class="text-center mb-4">หมวดหมู่</h2>
-                <div class="category-list">
-                    <a href="{{ url('/stickers/official/th/top') }}" class="btn btn-primary btn-lg">
-                        สติกเกอร์ไลน์ไทย
-                    </a>
-                    <a href="{{ url('/stickers/official/oversea/top') }}" class="btn btn-primary btn-lg">
-                        สติกเกอร์ไลน์ต่างประเทศ
-                    </a>
-                    <a href="{{ url('/stickers/creator/all/top') }}" class="btn btn-primary btn-lg">
-                        สติกเกอร์ไลน์ครีเอเตอร์
-                    </a>
-                    <a href="{{ url('/stickers/all/jp/top') }}" class="btn btn-primary btn-lg">
-                        สติกเกอร์ไลน์ญี่ปุ่น
-                    </a>
-                    <a href="{{ url('/stickers/all/tw/top') }}" class="btn btn-primary btn-lg">
-                        สติกเกอร์ไลน์ไต้หวัน
-                    </a>
-                    <a href="{{ url('/stickers/all/id/top') }}" class="btn btn-primary btn-lg">
-                        สติกเกอร์ไลน์อินโดนีเซีย
-                    </a>
-                </div>
-            </div>
-        </section>
-
-
-
         <h2 class="text-center mb-4">สติกเกอร์ไลน์</h2>
         <div class="row">
             @foreach ($rs as $item)
@@ -83,6 +55,32 @@
             {{ $rs->appends(['query' => request()->input('query')])->links() }}
         </div>
     </div>
+
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="text-center mb-4">หมวดหมู่</h2>
+            <div class="category-list">
+                <a href="{{ url('/stickers/official/th/top') }}" class="btn btn-primary btn-lg">
+                    สติกเกอร์ไลน์ไทย
+                </a>
+                <a href="{{ url('/stickers/official/oversea/top') }}" class="btn btn-primary btn-lg">
+                    สติกเกอร์ไลน์ต่างประเทศ
+                </a>
+                <a href="{{ url('/stickers/creator/all/top') }}" class="btn btn-primary btn-lg">
+                    สติกเกอร์ไลน์ครีเอเตอร์
+                </a>
+                <a href="{{ url('/stickers/all/jp/top') }}" class="btn btn-primary btn-lg">
+                    สติกเกอร์ไลน์ญี่ปุ่น
+                </a>
+                <a href="{{ url('/stickers/all/tw/top') }}" class="btn btn-primary btn-lg">
+                    สติกเกอร์ไลน์ไต้หวัน
+                </a>
+                <a href="{{ url('/stickers/all/id/top') }}" class="btn btn-primary btn-lg">
+                    สติกเกอร์ไลน์อินโดนีเซีย
+                </a>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @push('css')

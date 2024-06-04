@@ -84,7 +84,7 @@ Route::get('new_arrival2/{param}', 'NewArrivalController@getDetail2');
 // Route::get('emoji/creator/{type}', 'EmojiController@getCreator');
 
 // series
-Route::get('series', 'SeriesController@getIndex');
+// Route::get('series', 'SeriesController@getIndex');
 // Route::get('series/{id}', 'SeriesController@getDetail');
 
 //Crawler
@@ -165,4 +165,5 @@ Route::get('/search', 'FrontendController@search');
 Route::get('/stickers/{category?}/{country?}/{type?}', 'FrontendController@stickerMore');
 Route::get('/themes/{category?}/{country?}/{type?}', 'FrontendController@themeMore');
 Route::get('/emojis/{category?}/{country?}/{type?}', 'FrontendController@emojiMore');
+Route::get('/series', 'FrontendController@seriesMore');
 Route::get('/series/{id}', 'FrontendController@seriesDetail');

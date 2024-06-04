@@ -30,34 +30,6 @@
 
 @section('content')
     <div class="container">
-        <section class="categories" id="categories">
-            <div class="container">
-                <h2 class="text-center mb-4">หมวดหมู่</h2>
-                <div class="category-list">
-                    <a href="{{ url('/emojis/official/th/top') }}" class="btn btn-primary btn-lg">
-                        อิโมจิไลน์ไทย
-                    </a>
-                    <a href="{{ url('/emojis/official/oversea/top') }}" class="btn btn-primary btn-lg">
-                        อิโมจิไลน์ต่างประเทศ
-                    </a>
-                    <a href="{{ url('/emojis/creator/all/top') }}" class="btn btn-primary btn-lg">
-                        อิโมจิไลน์ครีเอเตอร์
-                    </a>
-                    <a href="{{ url('/emojis/all/jp/top') }}" class="btn btn-primary btn-lg">
-                        อิโมจิไลน์ญี่ปุ่น
-                    </a>
-                    <a href="{{ url('/emojis/all/tw/top') }}" class="btn btn-primary btn-lg">
-                        อิโมจิไลน์ไต้หวัน
-                    </a>
-                    <a href="{{ url('/emojis/all/id/top') }}" class="btn btn-primary btn-lg">
-                        อิโมจิไลน์อินโดนีเซีย
-                    </a>
-                </div>
-            </div>
-        </section>
-
-
-
         <h2 class="text-center mb-4">อิโมจิไลน์</h2>
         <div class="row">
             @foreach ($rs as $item)
@@ -82,6 +54,32 @@
             {{ $rs->appends(['query' => request()->input('query')])->links() }}
         </div>
     </div>
+
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="text-center mb-4">หมวดหมู่</h2>
+            <div class="category-list">
+                <a href="{{ url('/emojis/official/th/top') }}" class="btn btn-primary btn-lg">
+                    อิโมจิไลน์ไทย
+                </a>
+                <a href="{{ url('/emojis/official/oversea/top') }}" class="btn btn-primary btn-lg">
+                    อิโมจิไลน์ต่างประเทศ
+                </a>
+                <a href="{{ url('/emojis/creator/all/top') }}" class="btn btn-primary btn-lg">
+                    อิโมจิไลน์ครีเอเตอร์
+                </a>
+                <a href="{{ url('/emojis/all/jp/top') }}" class="btn btn-primary btn-lg">
+                    อิโมจิไลน์ญี่ปุ่น
+                </a>
+                <a href="{{ url('/emojis/all/tw/top') }}" class="btn btn-primary btn-lg">
+                    อิโมจิไลน์ไต้หวัน
+                </a>
+                <a href="{{ url('/emojis/all/id/top') }}" class="btn btn-primary btn-lg">
+                    อิโมจิไลน์อินโดนีเซีย
+                </a>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @push('css')
