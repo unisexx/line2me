@@ -167,3 +167,5 @@ Route::get('/themes/{category?}/{country?}/{type?}', 'FrontendController@themeMo
 Route::get('/emojis/{category?}/{country?}/{type?}', 'FrontendController@emojiMore');
 Route::get('/series', 'FrontendController@seriesMore');
 Route::get('/series/{id}', 'FrontendController@seriesDetail');
+
+Route::get('/getThemeSection', 'FrontendController@getThemeSection');

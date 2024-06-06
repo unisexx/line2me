@@ -283,4 +283,21 @@
         /* ขนาดของไอคอนแมว */
         height: 50px;
     }
+
+
+    .custom-btn-blue {
+        /* background-color: #3285fd; */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 30px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .custom-btn-blue:hover {
+        /* background-color: #3285fd; */
+        transform: scale(1.05);
+        color: white;
+    }
 </style>

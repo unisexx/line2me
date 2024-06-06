@@ -54,11 +54,11 @@
                         <p class="mb-1"><strong><a class="no-style" rel="nofollow" href="https://line.me/S/sticker/{{ $rs->sticker_code }}" target="_blank">ร</a>หัสสินค้า: </strong> S-{{ @$rs->sticker_code }}</span></p>
                         <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $rs->country }}"></span></p>
                         <h4>Price: <span class="text-danger">{{ convert_line_coin_2_money($rs->price) }}</span>THB</h4>
-                        <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom d-none d-md-block">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
+                        <a href="https://line.me/ti/p/~ratasak1234" target="_blank" class="btn custom-btn-blue btn-primary d-none d-md-block">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
                     </div>
                 </div>
                 <div class="w-100 mt-3 d-md-none">
-                    <a href="https://line.me/ti/p/~ratasak1234" class="btn btn-custom">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
+                    <a href="https://line.me/ti/p/~ratasak1234" target="_blank" class="w-100 btn custom-btn-blue btn-primary">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
                 </div>
                 <hr class="custom-hr">
                 <div class="w-100 d-md-none">

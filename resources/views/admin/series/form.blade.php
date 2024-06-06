@@ -1,7 +1,6 @@
 <div class="box-body">
     <div class="form-group">
-        <a href="https://line2me.in.th/series/{{ @$rs->id }}"
-            target="_blank">https://line2me.in.th/series/{{ @$rs->id }}</a>
+        <a href="https://line2me.in.th/series/{{ @$rs->id }}" target="_blank">https://line2me.in.th/series/{{ @$rs->id }}</a>
         <textarea class="form-control" rows="5">รวมสติ๊กเกอร์ไลน์ชุด {{ @$rs->title }}
 .
 สามารถดูทั้งหมดได้ที่
@@ -21,13 +20,10 @@ https://line.me/ti/p/~ratasak1234
 <div class="box-body">
     <div class="form-group">
         <label for="title">ชื่อ Series</label>
-        <div><input name="title" type="text" class="form-control" value="{{ @$rs->title }}"
-                placeholder="หัวข้อหลัก">
+        <div><input name="title" type="text" class="form-control" value="{{ @$rs->title }}" placeholder="หัวข้อหลัก">
         </div>
-        <div><input name="sub_title" type="text" class="form-control" value="{{ @$rs->sub_title }}"
-                placeholder="หัวข้อรอง"></div>
-        <div><input name="image" type="text" class="form-control" value="{{ @$rs->image }}"
-                placeholder="ลิ้งค์รูป">
+        <div><input name="sub_title" type="text" class="form-control" value="{{ @$rs->sub_title }}" placeholder="หัวข้อรอง"></div>
+        <div><input name="image" type="text" class="form-control" value="{{ @$rs->image }}" placeholder="ลิ้งค์รูป">
         </div>
         <div class="checkbox">
             <label>
@@ -49,8 +45,7 @@ https://line.me/ti/p/~ratasak1234
     {{-- <input class="btn btn-warning addRow" type="button" value="เพิ่มรายการ"> --}}
     <input id="openLink" class="btn btn-danger" type="button" value="เปิดลิ้งค์ทั้งหมด Youtube">
     <input id="openLinkTT" class="btn btn-danger" type="button" value="เปิดลิ้งค์ทั้งหมด Tiktok">
-    <input id="updateData" class="btn btn-warning" type="button" value="อัพเดทที่ยังไม่มีทั้งหมด"> <i
-        class="fas fa-sync"></i>
+    <input id="updateData" class="btn btn-warning" type="button" value="อัพเดทที่ยังไม่มีทั้งหมด"> <i class="fas fa-sync"></i>
     <textarea name="fast" style="width:100%;" rows='10' placeholder="เพิ่มแบบด่วน"></textarea>
 
 
@@ -68,8 +63,7 @@ https://line.me/ti/p/~ratasak1234
                 @if (@$rs->seriesItem)
                     @foreach (@$rs->seriesItem as $row)
                         <tr>
-                            <td width="90"><input class='btn btn-sm btn-danger btnDelete' value='ลบ'
-                                    style="width:90px; height:90px;"></td>
+                            <td width="90"><input class='btn btn-sm btn-danger btnDelete' value='ลบ' style="width:90px; height:90px;"></td>
                             <td>
                                 @if ($row->product_type == 'sticker')
                                     {{ @$row->sticker->sticker_code }}
@@ -81,40 +75,25 @@ https://line.me/ti/p/~ratasak1234
                             </td>
                             <td>
                                 @if ($row->product_type == 'sticker')
-                                    <a class="frontlink"
-                                        href="{{ url('sticker/' . @$row->sticker->sticker_code . '?view=') }}"
-                                        target="_blank"><img
-                                            src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png"
-                                            height="90"></a> {{ @$row->sticker->title_th }}
+                                    <a class="frontlink" href="{{ url('sticker/' . @$row->sticker->sticker_code . '?view=') }}" target="_blank"><img src="https://sdl-stickershop.line.naver.jp/products/0/0/1/{{ $row->product_code }}/android/main.png" height="90"></a> {{ @$row->sticker->title_th }}
                                     @if (@$row->sticker->id == '')
-                                        <a href="{{ url('admin/getsticker/' . $row->product_code . '?closetab=1') }}"
-                                            class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
+                                        <a href="{{ url('admin/getsticker/' . $row->product_code . '?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                                     @endif
                                 @elseif($row->product_type == 'emoji')
-                                    <a class="frontlink" href="{{ url('emoji/' . @$row->emoji->id . '?view=') }}"
-                                        target="_blank"><img
-                                            src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png"
-                                            height="90"></a> {{ @$row->emoji->title }}
+                                    <a class="frontlink" href="{{ url('emoji/' . @$row->emoji->id . '?view=') }}" target="_blank"><img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $row->product_code }}/iphone/main.png" height="90"></a> {{ @$row->emoji->title }}
                                     @if (@$row->emoji->id == '')
-                                        <a href="{{ url('admin/getemoji/' . $row->product_code . '?closetab=1') }}"
-                                            class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
+                                        <a href="{{ url('admin/getemoji/' . $row->product_code . '?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                                     @endif
                                 @elseif($row->product_type == 'theme')
-                                    <a class="frontlink" href="{{ url('theme/' . @$row->theme->id . '?view=') }}"
-                                        target="_blank"><img
-                                            src="https://shop.line-scdn.net/themeshop/v1/products/li/st/kr/{{ $row->product_code }}/1/WEBSTORE/icon_198x278.png"
-                                            height="90"></a> {{ @$row->theme->title }}
-                                    @if (@$row->theme->id == '')
-                                        <a href="{{ url('admin/gettheme/' . $row->product_code . '?closetab=1') }}"
-                                            class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
+                                    <a class="frontlink" href="{{ url('theme/' . @$row->theme->id . '?view=') }}" target="_blank"><img src="{{ generateThemeUrl(@$row->theme->theme_code, @$row->theme->section) }}" height="90"></a> {{ @$row->theme->title }}
+                                    @if (@$row->theme->id == '' || @$row->theme->section == '')
+                                        <a href="{{ url('admin/gettheme/' . $row->product_code . '?closetab=1') }}" class="btn btn-sm btn-warning getData" target="_blank">อัพเดท</a>
                                     @endif
                                 @endif
                             </td>
-                            <td><input class='form-control' type='text' name='product_code[]'
-                                    value="{{ $row->product_code }}"></td>
+                            <td><input class='form-control' type='text' name='product_code[]' value="{{ $row->product_code }}"></td>
                             <td>
-                                <input class='form-control' type='hidden' name='product_item_id[]'
-                                    value="{{ $row->id }}">
+                                <input class='form-control' type='hidden' name='product_item_id[]' value="{{ $row->id }}">
                             </td>
                         </tr>
                     @endforeach

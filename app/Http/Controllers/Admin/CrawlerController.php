@@ -47,9 +47,9 @@ class CrawlerController extends Controller
                     $version    = str_replace('v', '', $image_path[4]);
                     // dump($imgTxt);
 
-                    $data[] = array(
+                    $data[] = [
                         'stamp_code' => $stamp_code,
-                    );
+                    ];
                 }
             }
 
@@ -106,7 +106,7 @@ class CrawlerController extends Controller
                     'credit'              => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
                     'created_at'          => date("Y-m-d H:i:s"),
                     'category'            => @$sticker_code > 1000000 ? 'creator' : 'official',
-                    'country'             => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
+                    'country'             => @money2country(preg_replace('/[0-9.,\s]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
                     'price'               => @(int) $productInfo['price'][0]['price'],
                     'status'              => 1,
                     'onsale'              => @$productInfo['onSale'],
@@ -135,30 +135,56 @@ class CrawlerController extends Controller
     public function gettheme($theme_code, $category = 'creator')
     {
         // นำ theme_code มาค้นหาใส DB ว่ามีไหม ถ้ามีอยู่แล้วให้ข้ามไป
-        $rs = Theme::select('id')->where('theme_code', $theme_code)->first();
+        $rs = Theme::where('theme_code', $theme_code)->first();
 
         // ถ้ายังไม่มีค่าใน DB
-        if (empty($rs->id)) {
+        if (empty($rs->section)) {
             $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
 
             // ถ้า node ไม่ empty
             if ($crawler_page->filter('p.mdCMN38Item01Ttl')->count() > 0) {
 
                 // insert ลง db
-                DB::table('themes')->insert(
+                // DB::table('themes')->insert(
+                //     [
+                //         'theme_code' => $theme_code,
+                //         'title'      => @trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
+                //         'detail'     => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                //         'author'     => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
+                //         'credit'     => @trim($crawler_page->filter('p.mdCMN09Copy')->text()),
+                //         'created_at' => @date("Y-m-d H:i:s"),
+                //         'category'   => $category,
+                //         'country'    => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
+                //         'price'      => @$this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
+                //         'status'     => 1,
+                //     ]
+                // );
+
+                $imagePath = $crawler_page->filter('.mdCMN38Img img')->attr('src');
+
+                // ใช้ Regular Expression ในการดึงเฉพาะเลข 234
+                preg_match('/\/(\d+)\/WEBSTORE\/icon_198x278\.png$/', $imagePath, $matches);
+                $imageNumber = $matches[1] ?? null;
+
+                Theme::updateOrCreate(
                     [
                         'theme_code' => $theme_code,
-                        'title'      => @trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
-                        'detail'     => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
-                        'author'     => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
-                        'credit'     => @trim($crawler_page->filter('p.mdCMN09Copy')->text()),
-                        'created_at' => @date("Y-m-d H:i:s"),
+                    ],
+                    [
+                        'title'      => trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
+                        'detail'     => trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
+                        'author'     => trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
+                        'credit'     => trim($crawler_page->filter('p.mdCMN09Copy')->text()),
+                        'created_at' => now(),
                         'category'   => $category,
-                        'country'    => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
-                        'price'      => @$this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
+                        'country'    => money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
+                        'price'      => $this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
                         'status'     => 1,
+                        'section'    => $imageNumber,
+                        'ok'         => 1,
                     ]
                 );
+
                 dump($theme_code);
             }
         }
@@ -312,15 +338,15 @@ class CrawlerController extends Controller
     public function getstickerstoresearch($txtSearch)
     {
         // หมวดหมู่
-        $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
+        $categoryArray = ['GENERAL' => 'official', 'CREATORS' => 'creator'];
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q    = array('query' => $txtSearch);
+        $q    = ['query' => $txtSearch];
         $api  = 'https://store.line.me/api/search/sticker?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
-        $data = array();
+        $data = [];
         foreach ($json['items'] as $row) {
             // dump($row);
 
@@ -343,9 +369,9 @@ class CrawlerController extends Controller
                         $stamp_code = $image_path[6];
                         // dd($stamp_code);
 
-                        $stamp[] = array(
+                        $stamp[] = [
                             'stamp_code' => $stamp_code,
-                        );
+                        ];
                     }
                 }
 
@@ -398,15 +424,15 @@ class CrawlerController extends Controller
     public function getthemestoresearch($txtSearch)
     {
         // หมวดหมู่
-        $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
+        $categoryArray = ['GENERAL' => 'official', 'CREATORS' => 'creator'];
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q    = array('query' => $txtSearch);
+        $q    = ['query' => $txtSearch];
         $api  = 'https://store.line.me/api/search/theme?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
-        $data = array();
+        $data = [];
         foreach ($json['items'] as $row) {
             // dump($row);
 
@@ -426,15 +452,15 @@ class CrawlerController extends Controller
     public function getemojistoresearch($txtSearch)
     {
         // หมวดหมู่
-        $categoryArray = array('GENERAL' => 'official', 'CREATORS' => 'creator');
+        $categoryArray = ['GENERAL' => 'official', 'CREATORS' => 'creator'];
 
         // แปลงคำค้นหา ภาษาไทย ให้เป็น http_build_query ไม่งั้นจะดึงค่าไม่ได้
-        $q    = array('query' => $txtSearch);
+        $q    = ['query' => $txtSearch];
         $api  = 'https://store.line.me/api/search/emoji?' . http_build_query($q) . '&offset=0&limit=50&type=ALL&includeFacets=true';
         $json = json_decode(file_get_contents($api), true);
         // dd($json);
 
-        $data = array();
+        $data = [];
         foreach ($json['items'] as $row) {
             // dump($row);
 
@@ -597,9 +623,10 @@ class CrawlerController extends Controller
          */
         $type = explode("/", $href)[1];
 
-        if ($type == 'stickershop' or $type == 'emojishop') {
+        if ($type == 'stickershop' || $type == 'emojishop') {
             return 'https://store.line.me' . $href;
-        } else { // theme
+        } else {
+            // theme
             return $href;
         }
     }
@@ -607,29 +634,29 @@ class CrawlerController extends Controller
     public function getConvert2Bath($price, $country)
     {
         if ($country == 'th') {
-            $Bath = array(
+            $Bath = [
                 '30'  => '30',
                 '60'  => '60',
                 '90'  => '90',
                 '120' => '120',
                 '150' => '150',
-            );
+            ];
         } elseif ($country == 'jp') {
-            $Bath = array(
+            $Bath = [
                 '120' => '30',
                 '250' => '60',
                 '370' => '90',
                 '490' => '120',
                 '610' => '150',
-            );
+            ];
         } elseif ($country == 'tw') {
-            $Bath = array(
+            $Bath = [
                 '30'  => '30',
                 '60'  => '60',
                 '90'  => '90',
                 '120' => '120',
                 '150' => '150',
-            );
+            ];
         }
 
         return @$Bath[$price];
@@ -638,7 +665,7 @@ class CrawlerController extends Controller
     public function getConvert2Coin($price, $country)
     {
         if ($country == 'th') {
-            $Bath = array(
+            $Bath = [
                 '31'  => '50',
                 '35'  => '50',
                 '65'  => '100',
@@ -646,23 +673,23 @@ class CrawlerController extends Controller
                 '99'  => '150',
                 '120' => '200',
                 '150' => '250',
-            );
+            ];
         } elseif ($country == 'jp') {
-            $Bath = array(
+            $Bath = [
                 '120' => '50',
                 '250' => '100',
                 '370' => '150',
                 '490' => '200',
                 '610' => '250',
-            );
+            ];
         } elseif ($country == 'tw') {
-            $Bath = array(
+            $Bath = [
                 '30'  => '50',
                 '60'  => '100',
                 '90'  => '150',
                 '120' => '200',
                 '150' => '250',
-            );
+            ];
         }
 
         return @$Bath[$price];
@@ -688,7 +715,7 @@ class CrawlerController extends Controller
             // dump($sticker_code);
             // $this->getsticker($sticker_code);
 
-            // exit();
+                // exit();
         }); // endforeach
 
         $this->getStickerArray($stickerCodeArray);
@@ -720,7 +747,7 @@ class CrawlerController extends Controller
             return $array[] = $theme_code;
             // $this->gettheme($theme_code);
 
-            // exit();
+                // exit();
         }); // endforeach
 
         $this->getthemeArray($themeCodeArray);
@@ -742,7 +769,7 @@ class CrawlerController extends Controller
         $differenceArray = array_diff($themeCodeArray, $rs);
         // dump($differenceArray);
 
-        $arrayData = array();
+        $arrayData = [];
         foreach ($differenceArray as $theme_code) {
             // dd($theme_code);
             $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
@@ -782,8 +809,8 @@ class CrawlerController extends Controller
         $differenceArray2 = array_diff($differenceArray, $rs2);
         dump($differenceArray2);
 
-        $arrayDataSticker = array();
-        $arrayDataEmoji   = array();
+        $arrayDataSticker = [];
+        $arrayDataEmoji   = [];
         foreach ($differenceArray2 as $sticker_code) {
 
             if (Str::length($sticker_code) != 24) {
@@ -801,9 +828,9 @@ class CrawlerController extends Controller
                         $version    = str_replace('v', '', $image_path[4]);
                         // dump($imgTxt);
 
-                        $data[] = array(
+                        $data[] = [
                             'stamp_code' => $stamp_code,
-                        );
+                        ];
                     }
                 }
 
