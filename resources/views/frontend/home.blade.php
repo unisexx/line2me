@@ -107,56 +107,72 @@
             <h2 class="text-center mb-4">สติ๊กเกอร์ไลน์อัพเดทประจำสัปดาห์</h2>
             @php
                 $counter = 0;
-            @endphp
-            @php
                 $order = ['th', 'jp', 'tw', 'id'];
-
+                $countryNames = [
+                    'th' => 'ประเทศไทย',
+                    'jp' => 'ญี่ปุ่น',
+                    'tw' => 'ไต้หวัน',
+                    'id' => 'อินโดนีเซีย',
+                ];
                 $grouped = $sticker_update->groupBy('country');
-
                 $sortedStickerUpdate = collect($order)
                     ->map(function ($country) use ($grouped) {
                         return $grouped->get($country, collect())->sortByDesc('id');
                     })
                     ->collapse();
-
             @endphp
-            @foreach ($sortedStickerUpdate as $item)
-                @if ($counter % 2 == 0)
-                    <div class="row">
-                @endif
 
-                <div class="col-12 col-md-6 mt-2 product-card">
-                    <div class="card h-100 {{ new_icon($item->created_at) }}">
-                        <div class="row g-0">
-                            <div class="col-5 col-md-4 p-2 position-relative">
-                                <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
-                                {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $item->title_th }}</h5>
-                                    <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $item->country }}"></span></p>
-                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
-                                    <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary stretched-link">View</a>
+            @foreach ($order as $country)
+                @if ($grouped->has($country))
+                    <div class="country-section">
+                        <h3 class="mt-4">{{ $countryNames[$country] }}</h3>
+                        @foreach ($grouped[$country]->sortByDesc('id') as $item)
+                            @if ($counter % 2 == 0)
+                                <div class="row">
+                            @endif
+
+                            <div class="col-12 col-md-6 mt-2 product-card">
+                                <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                    <div class="row g-0">
+                                        <div class="col-5 col-md-4 p-2 position-relative">
+                                            <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
+                                            {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
+                                        </div>
+                                        <div class="col-7 col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $item->title_th }}</h5>
+                                                <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $item->country }}"></span></p>
+                                                <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                                <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary stretched-link">View</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                @php
-                    $counter++;
-                @endphp
+                            @php
+                                $counter++;
+                            @endphp
 
-                @if ($counter % 2 == 0)
-        </div> <!-- Close row -->
+                            @if ($counter % 2 == 0)
+                    </div> <!-- Close row -->
+                @endif
+            @endforeach
+
+            @if ($counter % 2 != 0)
+        </div> <!-- Close last row if it's not closed -->
+        @endif
+
+        @php
+            $counter = 0; // Reset counter for next country
+        @endphp
+        </div> <!-- Close country-section -->
         @endif
         @endforeach
-
-        @if ($counter % 2 != 0)
-            </div> <!-- Close last row if it's not closed -->
-        @endif
+        </div>
     </section>
+
+
 
 
     <!-- Categories Section -->
@@ -243,10 +259,8 @@
             ['text' => 'ประทับใจมากค่ะ ร้านนี้มีสติกเกอร์หลากหลาย ส่งไวมากค่ะ', 'author' => 'คุณโม'],
             ['text' => 'สติกเกอร์น่ารักมากๆ เลยค่ะ บริการดี ส่งเร็ว ราคาก็สมเหตุสมผลค่ะ', 'author' => 'คุณมิ้น'],
             ['text' => 'ร้านนี้สติกเกอร์เยอะจริงๆ ส่งไวมากค่ะ ชอบมากๆ', 'author' => 'คุณก้อย'],
-            ['text' => 'บริการดี สติกเกอร์มีให้เลือกเยอะ ราคาก็ไม่แพงด้วยค่ะ', 'author' => 'คุณแป้ง'],
             ['text' => 'สติกเกอร์น่ารักมากๆ บริการเป็นกันเอง ส่งเร็วทันใจค่ะ', 'author' => 'คุณน้ำ'],
             ['text' => 'บริการดีมาก สติกเกอร์น่ารัก ส่งไว ประทับใจค่ะ', 'author' => 'คุณจอย'],
-            ['text' => 'บริการดี สติกเกอร์มีให้เลือกเยอะ ส่งไว ประทับใจมากค่ะ', 'author' => 'คุณตาล'],
             ['text' => 'ร้านนี้บริการดีมาก สติกเกอร์สวย ส่งไวมากค่ะ', 'author' => 'คุณแนน'],
             ['text' => 'ประทับใจมากค่ะ สติกเกอร์สวย ส่งไว บริการดีมากๆ', 'author' => 'คุณดา'],
             ['text' => 'สติกเกอร์น่ารักมากๆ เลยค่ะ ชอบมากๆ ร้านนี้ส่งไวจริงๆ', 'author' => 'คุณน้ำฝน'],
@@ -260,7 +274,6 @@
             ['text' => 'บริการดี สติกเกอร์มีให้เลือกเยอะ ส่งเร็วมากๆ ค่ะ', 'author' => 'คุณแคท'],
             ['text' => 'ชอบมากค่ะ ร้านนี้บริการดี ส่งไว สติกเกอร์น่ารัก', 'author' => 'คุณจูน'],
             ['text' => 'ร้านนี้มีสติกเกอร์เยอะมาก ส่งไว บริการดี ราคาดีค่ะ', 'author' => 'คุณเอิร์น'],
-            ['text' => 'บริการดีมาก สติกเกอร์น่ารัก ส่งไว ราคาดีค่ะ', 'author' => 'คุณมิว'],
             ['text' => 'สติกเกอร์มีให้เลือกเยอะ บริการดี ส่งเร็ว ประทับใจค่ะ', 'author' => 'คุณเล็ก'],
             ['text' => 'สติกเกอร์น่ารักทุกลาย บริการดี ส่งไวมากค่ะ', 'author' => 'คุณแพร'],
             ['text' => 'ร้านนี้บริการดีมาก สติกเกอร์สวย ส่งไวมากค่ะ', 'author' => 'คุณน้ำตาล'],

@@ -1,6 +1,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+<!-- Venobox CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.3/venobox.min.css" />
 <style>
     .hero {
         padding: 60px 0;
@@ -322,7 +324,91 @@
         color: #ffffff;
         padding: 5px 10px;
         font-weight: bold;
-        border-radius: 5px;
+        /* border-radius: 5px;
+        border-top-left-radius: 5px; */
         z-index: 9;
     }
+
+    .country-section {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    /* แบบที่ 0: เส้น */
+    /*
+    .country-section::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        margin-top: 20px;
+    } */
+
+    /* แบบที่ 1: เส้นลายจุด */
+    .country-section::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        border-bottom: 2px dotted #feb47b;
+        margin-top: 40px;
+    }
+
+    /* แบบที่ 2: เส้นสีสลับ */
+    /* .country-section::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 4px;
+        background: repeating-linear-gradient(45deg,
+                #ff7e5f,
+                #ff7e5f 10px,
+                #feb47b 10px,
+                #feb47b 20px);
+        margin-top: 40px;
+    } */
+
+    /* แบบที่ 3: เส้นที่มีไอคอน */
+    /* .country-section::after {
+        content: "🌟";
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 24px;
+        color: #feb47b;
+        margin-top: 20px;
+    } */
+
+    /* แบบที่ 4: เส้นที่มีเงา */
+    /* .country-section::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: #feb47b;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    } */
+
+    /* แบบที่ 5: เส้นที่มีการไล่เฉดสี */
+    /* .country-section::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, #ff7e5f, #feb47b, #ff7e5f);
+        margin-top: 20px;
+    } */
+
+    /* แบบที่ 6: เส้นแบบแปรงสี */
+    /* .country-section::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+        margin-top: 20px;
+        border-radius: 4px;
+    } */
 </style>

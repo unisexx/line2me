@@ -425,4 +425,13 @@ if (!function_exists('viewCounter')) {
 
         return $formattedUrl;
     }
+
+    function generateThemeUrlDetail($uuid, $imgOrder, $section = false)
+    {
+        $section      = !empty($section) ? $section : 1;
+        $baseUrl      = 'https://shop.line-scdn.net/themeshop/v1/products/';
+        $formattedUrl = $baseUrl . substr($uuid, 0, 2) . '/' . substr($uuid, 2, 2) . '/' . substr($uuid, 4, 2) . '/' . $uuid . '/' . $section . '/ANDROID/th/preview_00' . $imgOrder . '_720x1232.png';
+
+        return $formattedUrl;
+    }
 }

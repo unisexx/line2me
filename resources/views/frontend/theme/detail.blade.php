@@ -43,7 +43,7 @@
                     <div class="w-100">
                         <h3>{{ @$rs->title }}</h3>
                         <p>{{ @$rs->detail }}</p>
-                        <p class="mb-1"><strong><a class="no-style" rel="nofollow" href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}" target="_blank">ร</a>หัสสินค้า: </strong> t-{{ @$rs->id }}</span></p>
+                        <p class="mb-1"><strong><a class="no-style" rel="nofollow" href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}" target="_blank">รหัสสินค้า: </a></strong> t-{{ @$rs->id }}</p>
                         <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $rs->country }}"></span></p>
                         <h4>Price: <span class="text-danger">{{ convert_line_coin_2_money($rs->price) }}</span>THB</h4>
                         <a href="https://line.me/ti/p/~ratasak1234" target="_blank" class="btn custom-btn-blue btn-primary d-none d-md-block">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>
@@ -56,7 +56,9 @@
                 <div class="row mt-4">
                     @for ($x = 2; $x <= 5; $x++)
                         <div class="col-6 col-md-6 text-center mb-3">
-                            <img class="img-fluid" src="http://sdl-shop.line.naver.jp/themeshop/v1/products/li/st/kr/{{ $rs->theme_code }}/1/ANDROID/th/preview_00{{ $x }}_720x1232.png" alt="ธีมไลน์ {{ $rs->title }}" role="button">
+                            <a class="venobox" data-gall="gallery" href="{{ generateThemeUrlDetail($rs->theme_code, $x, @$rs->section) }}">
+                                <img class="img-fluid imgDetail" src="{{ generateThemeUrlDetail($rs->theme_code, $x, @$rs->section) }}" alt="ธีมไลน์ {{ $rs->title }}">
+                            </a>
                         </div>
                     @endfor
                 </div>
@@ -68,3 +70,15 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('.venobox').venobox({
+                infinigall: true,
+                frameheight: '85vh',
+                // share: ['facebook', 'twitter', 'pinterest'] // default: []
+            });
+        });
+    </script>
+@endpush
