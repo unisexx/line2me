@@ -83,7 +83,7 @@
                 @if (isset($sticker_promote))
                     @foreach ($sticker_promote as $item)
                         <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100">
+                            <div class="card h-100 {{ new_icon($item->created_at) }}">
                                 <div class="position-relative">
                                     <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="card-img-top">
                                     <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
@@ -118,6 +118,7 @@
                         return $grouped->get($country, collect())->sortByDesc('id');
                     })
                     ->collapse();
+
             @endphp
             @foreach ($sortedStickerUpdate as $item)
                 @if ($counter % 2 == 0)
@@ -125,7 +126,7 @@
                 @endif
 
                 <div class="col-12 col-md-6 mt-2 product-card">
-                    <div class="card h-100">
+                    <div class="card h-100 {{ new_icon($item->created_at) }}">
                         <div class="row g-0">
                             <div class="col-5 col-md-4 p-2 position-relative">
                                 <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
@@ -165,7 +166,7 @@
             <div class="row">
                 @foreach ($theme_update as $item)
                     <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100">
+                        <div class="card h-100 {{ new_icon($item->created_at) }}">
                             <div class="position-relative">
                                 <img src="{{ generateThemeUrl($item->theme_code, @$item->section) }}" alt="ธีมไลน์ {{ $item->title }}" class="card-img-top">
                                 <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
@@ -189,7 +190,7 @@
             <div class="row">
                 @foreach ($emoji_update as $item)
                     <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100">
+                        <div class="card h-100 {{ new_icon($item->created_at) }}">
                             <div class="position-relative">
                                 <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $item->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $item->title }}" class="card-img-top">
                                 <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>

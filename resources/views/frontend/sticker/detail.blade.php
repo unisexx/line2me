@@ -34,7 +34,7 @@
         <div class="row">
             <!-- Left Column -->
             <div class="col-lg-8 mx-auto">
-                <div class="d-flex align-items-start">
+                <div class="d-flex align-items-start {{ new_icon($rs->created_at) }}">
                     <!-- Left Image Column -->
                     <div class="me-3 position-relative">
                         <img class="product-cover-img animated-sticker" src="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}" data-animation="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}">

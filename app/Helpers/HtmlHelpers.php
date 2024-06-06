@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 if (!function_exists('clean_url')) {
     function clean_url($text)
     {
@@ -110,14 +112,18 @@ if (!function_exists('get_sticker_img_url')) {
 }
 
 if (!function_exists('new_icon')) {
-    function new_icon($created)
+    function new_icon($created_at)
     {
-        $end      = Carbon::parse($created);
-        $now      = Carbon::now();
-        $length   = $end->diffInDays($now);
-        $new_icon = $length < 7 ? '<div class="new-product">New</div>' : '';
+        $created_at = Carbon::parse($created_at);
+        $isNew      = $created_at->diffInDays(Carbon::now()) < 3;
 
-        return $new_icon;
+        if ($isNew) {
+            $txt = ' new-product-card ';
+        } else {
+            $txt = '';
+        }
+
+        return $txt;
     }
 }
 

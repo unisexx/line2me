@@ -34,7 +34,7 @@
         <div class="row">
             <!-- Left Column -->
             <div class="col-lg-8 mx-auto">
-                <div class="d-flex align-items-start">
+                <div class="d-flex align-items-start {{ new_icon($rs->created_at) }}">
                     <!-- Left Image Column -->
                     <div class="me-3 fixed-width-240">
                         <img class="product-cover-img" src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $rs->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $rs->title }}">

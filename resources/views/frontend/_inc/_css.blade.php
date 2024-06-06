@@ -300,4 +300,29 @@
         transform: scale(1.05);
         color: white;
     }
+
+
+    .new-product-card {
+        /* border: 2px solid red; */
+        /* border-image-slice: 1; */
+        /* border-width: 2px; */
+        /* border-image-source: linear-gradient(45deg, red, orange, yellow, green, cyan, blue, violet); */
+        position: relative;
+    }
+
+    .new-product-card::before {
+        content: 'NEW';
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        background: #ff0000;
+        /* background: #28a745 ;
+        background: #fd7e14 ;
+        background: #007bff; */
+        color: #ffffff;
+        padding: 5px 10px;
+        font-weight: bold;
+        border-radius: 5px;
+        z-index: 9;
+    }
 </style>

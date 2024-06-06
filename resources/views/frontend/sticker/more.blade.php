@@ -34,7 +34,7 @@
         <div class="row">
             @foreach ($rs as $item)
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100 {{ new_icon($item->created_at) }}">
                         <div class="position-relative">
                             <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" class="card-img-top animated-sticker img-fluid" alt="{{ $item->title_th }}">
                             {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}

@@ -34,7 +34,7 @@
         <div class="row">
             <!-- Left Column -->
             <div class="col-lg-8 mx-auto">
-                <div class="d-flex align-items-start">
+                <div class="d-flex align-items-start {{ new_icon($rs->created_at) }}">
                     <!-- Left Image Column -->
                     <div class="me-3 fixed-width-240">
                         <img class="product-cover-img" src="{{ generateThemeUrl($rs->theme_code, @$rs->section) }}" alt="ธีมไลน์ {{ $rs->title }}">

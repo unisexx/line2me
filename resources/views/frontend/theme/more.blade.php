@@ -34,7 +34,7 @@
         <div class="row">
             @foreach ($rs as $item)
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100 {{ new_icon($item->created_at) }}">
                         <div class="position-relative">
                             <img src="{{ generateThemeUrl($item->theme_code, @$item->section) }}" alt="ธีมไลน์ {{ $item->title }}" class="card-img-top">
                             <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
