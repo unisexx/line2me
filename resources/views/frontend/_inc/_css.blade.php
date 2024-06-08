@@ -177,31 +177,6 @@
         background-image: url({{ asset('image/ico_nameSticker_m') }})
     }
 
-    .breadcrumb-custom {
-        background: linear-gradient(90deg, #ffdd00, #01dfc0);
-        border-radius: 30px;
-        padding: 10px 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        /* เพิ่มเงา */
-        /* display: inline-block; */
-    }
-
-    .breadcrumb-custom a {
-        color: black;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .breadcrumb-custom a:hover {
-        text-decoration: underline;
-    }
-
-    .breadcrumb-custom .breadcrumb-item+.breadcrumb-item::before {
-        content: ">";
-        color: black;
-        padding: 0 5px;
-    }
-
     .no-style {
         color: inherit;
         text-decoration: none;
@@ -411,4 +386,89 @@
         margin-top: 20px;
         border-radius: 4px;
     } */
+
+    .breadcrumb-custom {
+        /* background: linear-gradient(90deg, #ffdd00, #01dfc0); */
+        /* background: #ffe0cc;
+        border-radius: 30px;
+        padding: 10px 20px; */
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+
+        background: #f1f1f1;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 30px;
+        padding: 10px 20px;
+    }
+
+    .breadcrumb-custom a {
+        color: black;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .breadcrumb-custom a:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumb-custom .breadcrumb-item+.breadcrumb-item::before {
+        content: ">";
+        color: black;
+        padding: 0 5px;
+    }
+
+    .categories {
+        background: #f8f9fa;
+        padding: 40px 0;
+    }
+
+    .btn-category {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        font-size: 1.2rem;
+        text-align: center;
+        border-radius: 10px;
+        /* background: linear-gradient(45deg, #56AB2F, #56AB2F); */
+        /* ไล่สีเขียว */
+        /* color: white; */
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    @property --angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+    }
+
+    @keyframes rotate {
+        to {
+            --angle: 360deg;
+        }
+    }
+
+    .rainbow-border {
+        --angle: 0deg;
+        border: 2px solid;
+        border-image: conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1;
+        animation: 5s rotate linear infinite;
+    }
+
+    .badge {
+        font-size: 0.75em;
+    }
+
+    .hidden-link.stretched-link::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+    }
 </style>

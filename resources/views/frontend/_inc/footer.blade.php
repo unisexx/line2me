@@ -8,5 +8,6 @@
             <a href="#" class="me-2"><img src="twitter-icon.png" alt="Twitter" width="30"></a>
             <a href="#"><img src="instagram-icon.png" alt="Instagram" width="30"></a>
         </p> --}}
+        <button id="return-to-top" class="btn btn-primary">Top</button>
     </div>
 </footer>

@@ -14,10 +14,10 @@ class Emoji extends Model
     protected $table = 'emojis';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -25,7 +25,7 @@ class Emoji extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'emoji_code',
         'title',
         'detail',
@@ -38,6 +38,7 @@ class Emoji extends Model
         'slug',
         'price',
         'status',
-    );
-    
+        'views_last_3_days',
+    ];
+
 }

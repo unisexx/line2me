@@ -35,37 +35,37 @@
             <h2 class="text-center mb-4">หมวดหมู่</h2>
             <div class="row text-center">
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ url('stickers/official/th/top') }}" class="category-link">
+                    <a href="{{ url('stickers/official/th/new') }}" class="category-link">
                         <img src="{{ asset('image/1.png') }}" alt="Category 1" class="category-img">
                         <h5>สติกเกอร์ไลน์ไทย</h5>
                     </a>
                 </div>
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ url('stickers/official/oversea/top') }}" class="category-link">
+                    <a href="{{ url('stickers/official/oversea/new') }}" class="category-link">
                         <img src="{{ asset('image/2.png') }}" alt="Category 2" class="category-img">
                         <h5>สติกเกอร์ไลน์ต่างประเทศ</h5>
                     </a>
                 </div>
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ url('themes/official/th/top') }}" class="category-link">
+                    <a href="{{ url('themes/official/th/new') }}" class="category-link">
                         <img src="{{ asset('image/3.png') }}" alt="Category 3" class="category-img">
                         <h5>ธีมไลน์ไทย</h5>
                     </a>
                 </div>
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ url('themes/official/oversea/top') }}" class="category-link">
+                    <a href="{{ url('themes/official/oversea/new') }}" class="category-link">
                         <img src="{{ asset('image/4.png') }}" alt="Category 4" class="category-img">
                         <h5>ธีมไลน์ต่างประเทศ</h5>
                     </a>
                 </div>
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ url('emojis/official/th/top') }}" class="category-link">
+                    <a href="{{ url('emojis/official/th/new') }}" class="category-link">
                         <img src="{{ asset('image/5.png') }}" alt="Category 5" class="category-img">
                         <h5>อิโมจิไลน์ไทย</h5>
                     </a>
                 </div>
                 <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <a href="{{ url('emojis/official/oversea/top') }}" class="category-link">
+                    <a href="{{ url('emojis/official/oversea/new') }}" class="category-link">
                         <img src="{{ asset('image/6.png') }}" alt="Category 6" class="category-img">
                         <h5>อิโมจิไลน์ต่างประเทศ</h5>
                     </a>
@@ -80,10 +80,25 @@
         <div class="container">
             <h2 class="text-center mb-4">สติกเกอร์ขายดี</h2>
             <div class="row">
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100 rainbow-border">
+                        <div class="position-relative">
+                            <img src="https://i.imgur.com/bvblNHf.png" alt="Promote Your Sticker" class="card-img-top">
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="top: 14px; right: -54px;">
+                                สนใจโปรโมทคลิก
+                            </span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">โปรโมทสติกเกอร์ไลน์ของคุณตำแหน่งนี้!</h5>
+                            <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">100</span> บาท/เดือน</p>
+                            <a href="{{ url('/page/view/8') }}" target="_blank" class="btn btn-primary hidden-link stretched-link mt-auto">สนใจคลิกที่นี่</a>
+                        </div>
+                    </div>
+                </div>
                 @if (isset($sticker_promote))
                     @foreach ($sticker_promote as $item)
                         <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100 {{ new_icon($item->created_at) }}">
+                            <div class="card h-100 rainbow-border {{ new_icon($item->created_at) }}">
                                 <div class="position-relative">
                                     <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="card-img-top">
                                     <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
@@ -318,6 +333,4 @@
             </div>
         </div>
     </section> --}}
-
-    <button id="return-to-top" class="btn btn-primary">Top</button>
 @endsection

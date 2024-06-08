@@ -14,10 +14,10 @@ class Sticker extends Model
     protected $table = 'stickers';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     protected $casts = [
@@ -29,7 +29,7 @@ class Sticker extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'sticker_code',
         'category',
         'country',
@@ -47,15 +47,15 @@ class Sticker extends Model
         'hassound',
         'stickerresourcetype',
         'status',
-        'threedays',
+        'views_last_3_days',
         'stamp_start',
         'stamp_end',
         'stamp',
-    );
+    ];
 
     public function promote()
     {
         return $this->hasOne('App\Models\Promote', 'product_code', 'sticker_code');
     }
-    
+
 }

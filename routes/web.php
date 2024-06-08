@@ -52,8 +52,8 @@ Route::get('viewlineqrcode', 'HomeController@viewlineqrcode');
 Route::get('page/view/{id}', 'PageController@getView');
 
 // search
-Route::get('search', 'HomeController@search');
-Route::get('search/{param}', 'HomeController@search');
+// Route::get('search', 'HomeController@search');
+// Route::get('search/{param}', 'HomeController@search');
 
 // google custom search
 Route::get('google-search-result', 'HomeController@googleSearchResult')->name('google-search-result');
@@ -162,10 +162,11 @@ Route::get('/sticker/{id}', 'FrontendController@stickerDetail');
 Route::get('/theme/{id}', 'FrontendController@themeDetail');
 Route::get('/emoji/{id}', 'FrontendController@emojiDetail');
 Route::get('/search', 'FrontendController@search');
-Route::get('/stickers/{category?}/{country?}/{type?}', 'FrontendController@stickerMore');
-Route::get('/themes/{category?}/{country?}/{type?}', 'FrontendController@themeMore');
-Route::get('/emojis/{category?}/{country?}/{type?}', 'FrontendController@emojiMore');
+Route::get('/stickers/{category?}/{country?}/{order?}', 'FrontendController@stickerMore');
+Route::get('/themes/{category?}/{country?}/{order?}', 'FrontendController@themeMore');
+Route::get('/emojis/{category?}/{country?}/{order?}', 'FrontendController@emojiMore');
 Route::get('/series', 'FrontendController@seriesMore');
 Route::get('/series/{id}', 'FrontendController@seriesDetail');
+Route::get('/page/view/{id}', 'FrontendController@getPageView');
 
 Route::get('/getThemeSection', 'FrontendController@getThemeSection');

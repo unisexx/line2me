@@ -38,6 +38,7 @@ class Theme extends Model
         'status',
         'section',
         'ok',
+        'views_last_3_days',
     ];
 
 }

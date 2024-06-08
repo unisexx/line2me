@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Emoji;
+use App\Models\Page;
 use App\Models\Series;
 use App\Models\SeriesItem;
 use App\Models\Sticker;
 use App\Models\Theme;
 use Cache;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,137 +49,154 @@ class FrontendController extends Controller
         return view('frontend.home', $data);
     }
 
-    public function stickerMore($category = null, $country = null, $type = null)
+    public function stickerMore($category = null, $country = null, $order = null)
     {
         $ogTags = config('opengraph.default');
 
+        // ตรวจสอบกรณีที่มีเฉพาะ $order แต่ไม่มี $category และ $country
+        if (in_array($category, ['new', 'top'])) {
+            $order    = $category;
+            $category = null;
+            $country  = null;
+        }
+
         $rs = Sticker::where('status', 1)
-            ->when($category == 'official', function ($query) {
-                $query->where('category', 'official');
+            ->when($category, function ($query) use ($category) {
+                if ($category == 'official') {
+                    $query->where('category', 'official');
+                } elseif ($category == 'creator') {
+                    $query->where('category', 'creator');
+                }
             })
-            ->when($category == 'creator', function ($query) {
-                $query->where('category', 'creator');
+            ->when($country, function ($query) use ($country) {
+                if ($country == 'oversea') {
+                    $query->where('country', '!=', 'th');
+                } elseif ($country != null) {
+                    $query->where('country', $country);
+                }
             })
-            ->when($country == 'othercountry', function ($query) {
-                $query->whereNotIn('country', ['gb', 'th', 'jp', 'tw', 'id']);
+            ->when($order, function ($query) use ($order) {
+                if ($order == 'top') {
+                    $query->orderBy('views_last_3_days', 'desc');
+                } elseif ($order == 'new') {
+                    $query->orderBy('id', 'desc');
+                }
+            }, function ($query) {
+                $query->orderBy('id', 'desc');
             })
-            ->when($country == 'oversea', function ($query) {
-                $query->whereNotIn('country', ['gb', 'th']);
-            })
-            ->when($country == 'th', function ($query) {
-                $query->whereIn('country', ['gb', 'th']);
-            })
-            ->when($country == 'jp', function ($query) {
-                $query->where('country', 'jp');
-            })
-            ->when($country == 'tw', function ($query) {
-                $query->where('country', 'tw');
-            })
-            ->when($country == 'id', function ($query) {
-                $query->where('country', 'id');
-            })
-            ->orderBy('id', 'desc')
             ->simplePaginate(30);
 
         return view('frontend.sticker.more', [
             'rs'       => $rs,
             'category' => $category,
             'country'  => $country,
-            'type'     => $type,
+            'order'    => $order,
             'ogTags'   => $ogTags,
         ]);
     }
 
-    public function themeMore($category = null, $country = null, $type = null)
+    public function themeMore($category = null, $country = null, $order = null)
     {
         $ogTags = config('opengraph.default');
 
+        // ตรวจสอบกรณีที่มีเฉพาะ $order แต่ไม่มี $category และ $country
+        if (in_array($category, ['new', 'top'])) {
+            $order    = $category;
+            $category = null;
+            $country  = null;
+        }
+
         $rs = Theme::where('status', 1)
-            ->when($category == 'official', function ($query) {
-                $query->where('category', 'official');
+            ->when($category, function ($query) use ($category) {
+                if ($category == 'official') {
+                    $query->where('category', 'official');
+                } elseif ($category == 'creator') {
+                    $query->where('category', 'creator');
+                }
             })
-            ->when($category == 'creator', function ($query) {
-                $query->where('category', 'creator');
+            ->when($country, function ($query) use ($country) {
+                if ($country == 'oversea') {
+                    $query->where('country', '!=', 'th');
+                } elseif ($country != null) {
+                    $query->where('country', $country);
+                }
             })
-            ->when($country == 'othercountry', function ($query) {
-                $query->whereNotIn('country', ['gb', 'th', 'jp', 'tw', 'id']);
+            ->when($order, function ($query) use ($order) {
+                if ($order == 'top') {
+                    $query->orderBy('views_last_3_days', 'desc');
+                } elseif ($order == 'new') {
+                    $query->orderBy('id', 'desc');
+                }
+            }, function ($query) {
+                $query->orderBy('id', 'desc');
             })
-            ->when($country == 'oversea', function ($query) {
-                $query->whereNotIn('country', ['gb', 'th']);
-            })
-            ->when($country == 'th', function ($query) {
-                $query->whereIn('country', ['gb', 'th']);
-            })
-            ->when($country == 'jp', function ($query) {
-                $query->where('country', 'jp');
-            })
-            ->when($country == 'tw', function ($query) {
-                $query->where('country', 'tw');
-            })
-            ->when($country == 'id', function ($query) {
-                $query->where('country', 'id');
-            })
-            ->orderBy('id', 'desc')
             ->simplePaginate(30);
 
         return view('frontend.theme.more', [
             'rs'       => $rs,
             'category' => $category,
             'country'  => $country,
-            'type'     => $type,
+            'order'    => $order,
             'ogTags'   => $ogTags,
         ]);
     }
 
-    public function emojiMore($category = null, $country = null, $type = null)
+    public function emojiMore($category = null, $country = null, $order = null)
     {
         $ogTags = config('opengraph.default');
 
+        // ตรวจสอบกรณีที่มีเฉพาะ $order แต่ไม่มี $category และ $country
+        if (in_array($category, ['new', 'top'])) {
+            $order    = $category;
+            $category = null;
+            $country  = null;
+        }
+
         $rs = Emoji::where('status', 1)
-            ->when($category == 'official', function ($query) {
-                $query->where('category', 'official');
+            ->when($category, function ($query) use ($category) {
+                if ($category == 'official') {
+                    $query->where('category', 'official');
+                } elseif ($category == 'creator') {
+                    $query->where('category', 'creator');
+                }
             })
-            ->when($category == 'creator', function ($query) {
-                $query->where('category', 'creator');
+            ->when($country, function ($query) use ($country) {
+                if ($country == 'oversea') {
+                    $query->where('country', '!=', 'th');
+                } elseif ($country != null) {
+                    $query->where('country', $country);
+                }
             })
-            ->when($country == 'othercountry', function ($query) {
-                $query->whereNotIn('country', ['gb', 'th', 'jp', 'tw', 'id']);
+            ->when($order, function ($query) use ($order) {
+                if ($order == 'top') {
+                    $query->orderBy('views_last_3_days', 'desc');
+                } elseif ($order == 'new') {
+                    $query->orderBy('id', 'desc');
+                }
+            }, function ($query) {
+                $query->orderBy('id', 'desc');
             })
-            ->when($country == 'oversea', function ($query) {
-                $query->whereNotIn('country', ['gb', 'th']);
-            })
-            ->when($country == 'th', function ($query) {
-                $query->whereIn('country', ['gb', 'th']);
-            })
-            ->when($country == 'jp', function ($query) {
-                $query->where('country', 'jp');
-            })
-            ->when($country == 'tw', function ($query) {
-                $query->where('country', 'tw');
-            })
-            ->when($country == 'id', function ($query) {
-                $query->where('country', 'id');
-            })
-            ->orderBy('id', 'desc')
             ->simplePaginate(30);
 
         return view('frontend.emoji.more', [
             'rs'       => $rs,
             'category' => $category,
             'country'  => $country,
-            'type'     => $type,
+            'order'    => $order,
             'ogTags'   => $ogTags,
         ]);
     }
 
     public function stickerDetail($id = null)
     {
-        // บันทึกการเข้าชม
-        $this->recordProductView('sticker', $id);
-
         $data['rs'] = Cache::rememberForever('stickers_' . $id, function () use ($id) {
             return Sticker::where('sticker_code', $id)->first();
         });
+
+        // บันทึก log การเข้าชม
+        if (!empty($data['rs']->sticker_code)) {
+            $this->recordProductView('sticker', $data['rs']->sticker_code);
+        }
 
         $data['ogTags'] = [
             'og:title'       => 'สติกเกอร์ไลน์ ' . $data['rs']->title_th . ' | line2me.in.th',
@@ -190,12 +209,14 @@ class FrontendController extends Controller
 
     public function themeDetail($id = null)
     {
-        // บันทึกการเข้าชม
-        $this->recordProductView('theme', $id);
-
         $data['rs'] = Cache::rememberForever('theme_' . $id, function () use ($id) {
             return Theme::find($id);
         });
+
+        // บันทึก log การเข้าชม
+        if (!empty($data['rs']->theme_code)) {
+            $this->recordProductView('theme', $data['rs']->theme_code);
+        }
 
         $data['ogTags'] = [
             'og:title'       => 'ธีมไลน์ ' . $data['rs']->title . ' | line2me.in.th',
@@ -208,12 +229,14 @@ class FrontendController extends Controller
 
     public function emojiDetail($id = null)
     {
-        // บันทึกการเข้าชม
-        $this->recordProductView('emoji', $id);
-
         $data['rs'] = Cache::rememberForever('emoji_' . $id, function () use ($id) {
             return Emoji::where('emoji_code', $id)->first();
         });
+
+        // บันทึก log การเข้าชม
+        if (!empty($data['rs']->emoji_code)) {
+            $this->recordProductView('emoji', $data['rs']->emoji_code);
+        }
 
         $data['ogTags'] = [
             'og:title'       => 'อิโมจิไลน์ ' . $data['rs']->title . ' | line2me.in.th',
@@ -242,26 +265,48 @@ class FrontendController extends Controller
 
     public function recordProductView($type, $productCode)
     {
-        $today = date('Y-m-d');
+        $ipAddress = request()->ip();
+        $today     = Carbon::today();
 
-        $existingView = DB::table('product_views')
+        // ตรวจสอบว่ามี record ที่ตรงกับเงื่อนไขหรือไม่
+        $viewExists = DB::table('product_views')
             ->where('product_code', $productCode)
-            ->where('view_date', $today)
-            ->first();
+            ->where('type', $type)
+            ->where('ip_address', $ipAddress)
+            ->whereDate('view_date', $today)
+            ->exists();
 
-        if ($existingView) {
-            DB::table('product_views')
-                ->where('id', $existingView->id)
-                ->increment('view_count');
-        } else {
+        // ถ้าไม่มี ให้สร้าง record ใหม่
+        if (!$viewExists) {
             DB::table('product_views')->insert([
                 'product_code' => $productCode,
                 'type'         => $type,
+                'ip_address'   => $ipAddress,
                 'view_date'    => $today,
-                'view_count'   => 1,
                 'created_at'   => now(),
                 'updated_at'   => now(),
             ]);
+
+            $threeDaysAgo = Carbon::now()->subDays(3);
+            $viewsCount   = DB::table('product_views')->where('type', $type)->where('product_code', $productCode)
+                ->where('view_date', '>=', $threeDaysAgo)
+                ->count();
+
+            // อัพเดทยอดวิวตาราง sticker
+            if ($type == 'sticker') {
+                Sticker::where('sticker_code', $productCode)->update(['views_last_3_days' => $viewsCount]);
+            }
+
+            // อัพเดทยอดวิวตาราง theme
+            if ($type == 'theme') {
+                Theme::where('theme_code', $productCode)->update(['views_last_3_days' => $viewsCount]);
+            }
+
+            // อัพเดทยอดวิวตาราง emoji
+            if ($type == 'emoji') {
+                Emoji::where('emoji_code', $productCode)->update(['views_last_3_days' => $viewsCount]);
+            }
+
         }
     }
 
@@ -279,25 +324,35 @@ class FrontendController extends Controller
 
     public function seriesDetail($id)
     {
-        $ogTags = config('opengraph.default');
-
         $rs = Cache::remember('series_' . $id, config('calculations.cache_time'), function () use ($id) {
             return Series::findOrFail($id);
         });
         $series_items = Cache::remember('series_items_' . $id . '_' . @$_GET['page'], config('calculations.cache_time'), function () use ($id) {
             return SeriesItem::where('series_id', $id)
                 ->with(['sticker' => function ($q) {
-                    $q->orderBy('threedays', 'desc');
+                    $q->orderBy('views_last_3_days', 'desc');
                 }])
                 ->with(['theme' => function ($q) {
-                    $q->orderBy('threedays', 'desc');
+                    $q->orderBy('views_last_3_days', 'desc');
                 }])
                 ->with(['emoji' => function ($q) {
-                    $q->orderBy('threedays', 'desc');
+                    $q->orderBy('views_last_3_days', 'desc');
                 }])->orderBy('order', 'asc')->simplePaginate(120);
         });
 
+        $ogTags = [
+            'og:title'       => 'รวมสติกเกอร์ไลน์ชุด ' . $rs->title . ' | line2me.in.th',
+            'og:description' => 'รวมสติกเกอร์ไลน์ชุด' . $rs->title,
+            'og:image'       => $rs->image,
+        ];
+
         return view('frontend.series.detail', @compact('rs', 'series_items', 'more_series', 'ogTags'));
+    }
+
+    public function getPageView($id)
+    {
+        // $data['rs'] = Page::find($id);
+        return view('frontend.page.view');
     }
 
     public function getThemeSection()
