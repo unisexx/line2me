@@ -38,6 +38,8 @@
                         <label for="exampleSelect1" class="form-label">หมวดหมู่</label>
                         <select class="form-select" id="exampleSelect1" onchange="redirectToSelectedURL()">
                             <option value="{{ url('themes') }}" {{ request()->segment(2) == null ? 'selected' : '' }}>ทั้งหมด</option>
+                            <option value="{{ url('themes/all/th') }}" {{ request()->segment(2) == 'all' && request()->segment(3) == 'th' ? 'selected' : '' }}>ธีมไลน์ไทย</option>
+                            <option value="{{ url('themes/all/oversea') }}" {{ request()->segment(2) == 'all' && request()->segment(3) == 'oversea' ? 'selected' : '' }}>ธีมไลน์ต่างประเทศ</option>
                             <option value="{{ url('themes/official/th') }}" {{ request()->segment(2) == 'official' && request()->segment(3) == 'th' ? 'selected' : '' }}>ธีมไลน์ทางการไทย</option>
                             <option value="{{ url('themes/official/oversea') }}" {{ request()->segment(2) == 'official' && request()->segment(3) == 'oversea' ? 'selected' : '' }}>ธีมไลน์ทางการต่างประเทศ</option>
                             <option value="{{ url('themes/creator/th') }}" {{ request()->segment(2) == 'creator' && request()->segment(3) == 'th' ? 'selected' : '' }}>ธีมไลน์ครีเอเตอร์ไทย</option>

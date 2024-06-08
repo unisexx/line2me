@@ -38,6 +38,8 @@
                         <label for="exampleSelect1" class="form-label">หมวดหมู่</label>
                         <select class="form-select" id="exampleSelect1" onchange="redirectToSelectedURL()">
                             <option value="{{ url('emojis') }}" {{ request()->segment(2) == null ? 'selected' : '' }}>ทั้งหมด</option>
+                            <option value="{{ url('emojis/all/th') }}" {{ request()->segment(2) == 'all' && request()->segment(3) == 'th' ? 'selected' : '' }}>อิโมจิไลน์ไทย</option>
+                            <option value="{{ url('emojis/all/oversea') }}" {{ request()->segment(2) == 'all' && request()->segment(3) == 'oversea' ? 'selected' : '' }}>อิโมจิไลน์ต่างประเทศ</option>
                             <option value="{{ url('emojis/official/th') }}" {{ request()->segment(2) == 'official' && request()->segment(3) == 'th' ? 'selected' : '' }}>อิโมจิไลน์ทางการไทย</option>
                             <option value="{{ url('emojis/official/oversea') }}" {{ request()->segment(2) == 'official' && request()->segment(3) == 'oversea' ? 'selected' : '' }}>อิโมจิไลน์ทางการต่างประเทศ</option>
                             <option value="{{ url('emojis/creator/th') }}" {{ request()->segment(2) == 'creator' && request()->segment(3) == 'th' ? 'selected' : '' }}>อิโมจิไลน์ครีเอเตอร์ไทย</option>

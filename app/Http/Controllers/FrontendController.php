@@ -66,6 +66,8 @@ class FrontendController extends Controller
                     $query->where('category', 'official');
                 } elseif ($category == 'creator') {
                     $query->where('category', 'creator');
+                } elseif ($category == 'all') {
+                    $query->whereIn('category', ['official', 'creator']);
                 }
             })
             ->when($country, function ($query) use ($country) {
@@ -112,6 +114,8 @@ class FrontendController extends Controller
                     $query->where('category', 'official');
                 } elseif ($category == 'creator') {
                     $query->where('category', 'creator');
+                } elseif ($category == 'all') {
+                    $query->whereIn('category', ['official', 'creator']);
                 }
             })
             ->when($country, function ($query) use ($country) {
@@ -158,6 +162,8 @@ class FrontendController extends Controller
                     $query->where('category', 'official');
                 } elseif ($category == 'creator') {
                     $query->where('category', 'creator');
+                } elseif ($category == 'all') {
+                    $query->whereIn('category', ['official', 'creator']);
                 }
             })
             ->when($country, function ($query) use ($country) {

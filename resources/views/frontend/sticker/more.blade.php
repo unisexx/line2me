@@ -38,6 +38,8 @@
                         <label for="exampleSelect1" class="form-label">หมวดหมู่</label>
                         <select class="form-select" id="exampleSelect1" onchange="redirectToSelectedURL()">
                             <option value="{{ url('stickers') }}" {{ request()->segment(2) == null ? 'selected' : '' }}>ทั้งหมด</option>
+                            <option value="{{ url('stickers/all/th') }}" {{ request()->segment(2) == 'all' && request()->segment(3) == 'th' ? 'selected' : '' }}>สติกเกอร์ไลน์ไทย</option>
+                            <option value="{{ url('stickers/all/oversea') }}" {{ request()->segment(2) == 'all' && request()->segment(3) == 'oversea' ? 'selected' : '' }}>สติกเกอร์ไลน์ต่างประเทศ</option>
                             <option value="{{ url('stickers/official/th') }}" {{ request()->segment(2) == 'official' && request()->segment(3) == 'th' ? 'selected' : '' }}>สติกเกอร์ไลน์ทางการไทย</option>
                             <option value="{{ url('stickers/official/oversea') }}" {{ request()->segment(2) == 'official' && request()->segment(3) == 'oversea' ? 'selected' : '' }}>สติกเกอร์ไลน์ทางการต่างประเทศ</option>
                             <option value="{{ url('stickers/creator/th') }}" {{ request()->segment(2) == 'creator' && request()->segment(3) == 'th' ? 'selected' : '' }}>สติกเกอร์ไลน์ครีเอเตอร์ไทย</option>
