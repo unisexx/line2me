@@ -33,7 +33,7 @@
         @if ($rs_sticker->isEmpty() && $rs_emoji->isEmpty() && $rs_theme->isEmpty())
             <p class="text-center">ไม่พบผลลัพธ์การค้นหาสำหรับคำว่า "{{ request()->input('query') }}"</p>
         @else
-            @if (!empty($rs_sticker))
+            @if (!$rs_sticker->isEmpty())
                 <h3 class="mt-5 mb-4">สติกเกอร์</h3>
                 <div class="row">
                     @foreach ($rs_sticker as $sticker)
@@ -55,7 +55,7 @@
                 </div>
             @endif
 
-            @if (!empty($rs_emoji))
+            @if (!$rs_emoji->isEmpty())
                 <h3 class="mt-5 mb-4">อิโมจิ</h3>
                 <div class="row">
                     @foreach ($rs_emoji as $item)
@@ -76,7 +76,7 @@
                 </div>
             @endif
 
-            @if (!empty($rs_theme))
+            @if (!$rs_theme->isEmpty())
                 <h3 class="mt-5 mb-4">ธีม</h3>
                 <div class="row">
                     @foreach ($rs_theme as $item)

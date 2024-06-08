@@ -260,7 +260,7 @@ class FrontendController extends Controller
         $rs_emoji   = Emoji::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
 
         // ส่งผลลัพธ์การค้นหาไปยัง view พร้อมกับข้อมูลการแบ่งหน้า
-        return view('frontend.search_results', compact('rs_sticker', 'rs_theme', 'rs_emoji', 'ogTags'));
+        return view('frontend.search.search_results', compact('rs_sticker', 'rs_theme', 'rs_emoji', 'ogTags'));
     }
 
     public function recordProductView($type, $productCode)

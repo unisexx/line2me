@@ -144,22 +144,6 @@ class CrawlerController extends Controller
             // ถ้า node ไม่ empty
             if ($crawler_page->filter('p.mdCMN38Item01Ttl')->count() > 0) {
 
-                // insert ลง db
-                // DB::table('themes')->insert(
-                //     [
-                //         'theme_code' => $theme_code,
-                //         'title'      => @trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
-                //         'detail'     => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
-                //         'author'     => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
-                //         'credit'     => @trim($crawler_page->filter('p.mdCMN09Copy')->text()),
-                //         'created_at' => @date("Y-m-d H:i:s"),
-                //         'category'   => $category,
-                //         'country'    => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
-                //         'price'      => @$this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
-                //         'status'     => 1,
-                //     ]
-                // );
-
                 $imagePath = $crawler_page->filter('.mdCMN38Img img')->attr('src');
 
                 // ใช้ Regular Expression ในการดึงเฉพาะเลข 234
@@ -763,41 +747,9 @@ class CrawlerController extends Controller
 
     public function getThemeArray($themeCodeArray, $category = 'creator')
     {
-        // dump($themeCodeArray);
-        $rs = Theme::select('theme_code')->whereIn('theme_code', $themeCodeArray)->pluck('theme_code')->toArray();
-        // dump($rs);
-        $differenceArray = array_diff($themeCodeArray, $rs);
-        // dump($differenceArray);
-
-        $arrayData = [];
-        foreach ($differenceArray as $theme_code) {
-            // dd($theme_code);
-            $crawler_page = Goutte::request('GET', 'https://store.line.me/themeshop/product/' . $theme_code . '/th');
-
-            // ถ้า node ไม่ empty
-            if ($crawler_page->filter('p.mdCMN38Item01Ttl')->count() > 0) {
-
-                // insert ลง db
-                $arrayData[] = [
-                    'theme_code' => $theme_code,
-                    'title'      => @trim($crawler_page->filter('p.mdCMN38Item01Ttl')->text()),
-                    'detail'     => @trim($crawler_page->filter('p.mdCMN38Item01Txt')->text()),
-                    'author'     => @trim($crawler_page->filter('a.mdCMN38Item01Author')->text()),
-                    'credit'     => @trim($crawler_page->filter('p.mdCMN09Copy')->text()),
-                    'created_at' => @date("Y-m-d H:i:s"),
-                    'category'   => $category,
-                    'country'    => @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text())),
-                    'price'      => @$this->getConvert2Coin((int) filter_var(trim($crawler_page->filter('p.mdCMN38Item01Price')->text()), FILTER_SANITIZE_NUMBER_INT), @money2country(preg_replace('/[0-9]+/', '', $crawler_page->filter('p.mdCMN38Item01Price')->text()))),
-                    'status'     => 1,
-                ];
-
-                dump($theme_code);
-
-            }
+        foreach ($themeCodeArray as $theme_code) {
+            $this->gettheme($theme_code, $category = 'creator');
         }
-        // dd($arrayData);
-
-        Theme::insert($arrayData);
     }
 
     public function getStickerArray($stickerCodeArray)
