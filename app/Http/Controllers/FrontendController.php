@@ -258,12 +258,32 @@ class FrontendController extends Controller
         $ogTags = config('opengraph.default');
 
         $query   = $request->input('query');
+        $type    = $request->input('type');
         $perPage = 30; // กำหนดจำนวนรายการต่อหน้า
 
-        // ใช้ Full-Text Search พร้อมกับการแบ่งหน้า
-        $rs_sticker = Sticker::whereRaw("MATCH(title_th, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
-        $rs_theme   = Theme::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
-        $rs_emoji   = Emoji::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
+        // คิวรี่พื้นฐาน
+        $rs_sticker = null;
+        $rs_theme   = null;
+        $rs_emoji   = null;
+
+        // เช็คประเภทการค้นหาและปรับคิวรี่ให้ใช้ paginate
+        if ($type === 'sticker') {
+            $rs_sticker = Sticker::whereRaw("MATCH(title_th, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->paginate($perPage);
+        } else {
+            $rs_sticker = Sticker::whereRaw("MATCH(title_th, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
+        }
+
+        if ($type === 'theme') {
+            $rs_theme = Theme::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->paginate($perPage);
+        } else {
+            $rs_theme = Theme::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
+        }
+
+        if ($type === 'emoji') {
+            $rs_emoji = Emoji::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->paginate($perPage);
+        } else {
+            $rs_emoji = Emoji::whereRaw("MATCH(title, detail) AGAINST(? IN BOOLEAN MODE)", [$query])->take(12)->get();
+        }
 
         // ส่งผลลัพธ์การค้นหาไปยัง view พร้อมกับข้อมูลการแบ่งหน้า
         return view('frontend.search.search_results', compact('rs_sticker', 'rs_theme', 'rs_emoji', 'ogTags'));

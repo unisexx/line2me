@@ -471,4 +471,20 @@
         right: 0;
         z-index: 1;
     }
+
+
+    .btn-more {
+        background-color: #ff6f61;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 25px;
+        padding: 10px 20px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-more:hover {
+        background-color: #ff3f31;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+    }
 </style>

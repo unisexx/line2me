@@ -6,7 +6,7 @@
             <ol class="breadcrumb breadcrumb-custom">
                 <li class="breadcrumb-item"><a href="{{ url('/') }}">หน้าแรก</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('/search') }}">ค้นหา</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ @$_GET['query'] }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ request()->input('query') }}</li>
             </ol>
         </nav>
     </div>
@@ -20,7 +20,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <form action="{{ url('/search') }}" method="GET" class="d-flex">
-                        <input type="text" name="query" class="form-control form-control-lg me-2" placeholder="ค้นหาสติ๊กเกอร์..." value="{{ @$_GET['query'] }}">
+                        <input type="text" name="query" class="form-control form-control-lg me-2" placeholder="ค้นหาสติ๊กเกอร์..." value="{{ request()->input('query') }}">
                         <button type="submit" class="btn btn-primary">ค้นหา</button>
                     </form>
                 </div>
@@ -29,11 +29,15 @@
     </section>
 
     <div class="container">
-        <h2 class="text-center mb-4">ผลลัพธ์การค้นหา: {{ @$_GET['query'] }}</h2>
+        <h2 class="text-center mb-4">ผลลัพธ์การค้นหา: {{ request()->input('query') }}</h2>
         @if ($rs_sticker->isEmpty() && $rs_emoji->isEmpty() && $rs_theme->isEmpty())
             <p class="text-center">ไม่พบผลลัพธ์การค้นหาสำหรับคำว่า "{{ request()->input('query') }}"</p>
         @else
-            @if (!$rs_sticker->isEmpty())
+            @php
+                $type = request()->input('type');
+            @endphp
+
+            @if (!$rs_sticker->isEmpty() && ($type === 'sticker' || is_null($type)))
                 <h3 class="mt-5 mb-4">สติกเกอร์</h3>
                 <div class="row">
                     @foreach ($rs_sticker as $sticker)
@@ -53,9 +57,20 @@
                         </div>
                     @endforeach
                 </div>
+
+                <!-- Add "ดูเพิ่มเติม" button or pagination links -->
+                <div class="text-center mt-4">
+                    @if ($type === 'sticker')
+                        <div class="d-flex justify-content-center">
+                            {{ $rs_sticker->appends(request()->except('page'))->links() }}
+                        </div>
+                    @else
+                        <a href="{{ request()->fullUrlWithQuery(['type' => 'sticker']) }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+                    @endif
+                </div>
             @endif
 
-            @if (!$rs_emoji->isEmpty())
+            @if (!$rs_emoji->isEmpty() && ($type === 'emoji' || is_null($type)))
                 <h3 class="mt-5 mb-4">อิโมจิ</h3>
                 <div class="row">
                     @foreach ($rs_emoji as $item)
@@ -74,9 +89,20 @@
                         </div>
                     @endforeach
                 </div>
+
+                <!-- Add "ดูเพิ่มเติม" button or pagination links -->
+                <div class="text-center mt-4">
+                    @if ($type === 'emoji')
+                        <div class="d-flex justify-content-center">
+                            {{ $rs_emoji->appends(request()->except('page'))->links() }}
+                        </div>
+                    @else
+                        <a href="{{ request()->fullUrlWithQuery(['type' => 'emoji']) }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+                    @endif
+                </div>
             @endif
 
-            @if (!$rs_theme->isEmpty())
+            @if (!$rs_theme->isEmpty() && ($type === 'theme' || is_null($type)))
                 <h3 class="mt-5 mb-4">ธีม</h3>
                 <div class="row">
                     @foreach ($rs_theme as $item)
@@ -94,6 +120,17 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+
+                <!-- Add "ดูเพิ่มเติม" button or pagination links -->
+                <div class="text-center mt-4 mb-4">
+                    @if ($type === 'theme')
+                        <div class="d-flex justify-content-center">
+                            {{ $rs_theme->appends(request()->except('page'))->links() }}
+                        </div>
+                    @else
+                        <a href="{{ request()->fullUrlWithQuery(['type' => 'theme']) }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+                    @endif
                 </div>
             @endif
         @endif

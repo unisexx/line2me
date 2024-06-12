@@ -192,25 +192,6 @@
         </div>
     </section>
 
-    <style>
-        .btn-more {
-            background-color: #ff6f61;
-            color: #fff;
-            font-weight: bold;
-            border-radius: 25px;
-            padding: 10px 20px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-
-        .btn-more:hover {
-            background-color: #ff3f31;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-decoration: none;
-        }
-    </style>
-
-
-
 
     <!-- Categories Section -->
     <section class="categories">
@@ -232,6 +213,10 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <!-- Add "ดูเพิ่มเติม" button -->
+            <div class="text-center mt-4">
+                <a href="{{ url('themes/all/th/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
             </div>
         </div>
     </section>
@@ -256,6 +241,10 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <!-- Add "ดูเพิ่มเติม" button -->
+            <div class="text-center mt-4">
+                <a href="{{ url('emojis/all/th/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
             </div>
         </div>
     </section>
