@@ -115,7 +115,7 @@ if (!function_exists('new_icon')) {
     function new_icon($created_at)
     {
         $created_at = Carbon::parse($created_at);
-        $isNew      = $created_at->diffInDays(Carbon::now()) < 3;
+        $isNew      = $created_at->diffInDays(Carbon::now()) < 7;
 
         if ($isNew) {
             $txt = ' new-product-card ';

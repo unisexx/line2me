@@ -158,7 +158,7 @@
                                                 <h5 class="card-title">{{ $item->title_th }}</h5>
                                                 <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $item->country }}"></span></p>
                                                 <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
-                                                <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary stretched-link">View</a>
+                                                <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
                                             </div>
                                         </div>
                                     </div>
@@ -178,6 +178,11 @@
         </div> <!-- Close last row if it's not closed -->
         @endif
 
+        <!-- Add "ดูเพิ่มเติม" button -->
+        <div class="text-center mt-4">
+            <a href="{{ url('stickers/all/' . $country . '/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+        </div>
+
         @php
             $counter = 0; // Reset counter for next country
         @endphp
@@ -186,6 +191,23 @@
         @endforeach
         </div>
     </section>
+
+    <style>
+        .btn-more {
+            background-color: #ff6f61;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 25px;
+            padding: 10px 20px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-more:hover {
+            background-color: #ff3f31;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+        }
+    </style>
 
 
 
