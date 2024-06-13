@@ -22,7 +22,7 @@
             <div class="row">
                 @foreach ($series_items->where('product_type', 'sticker') as $item)
                     <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100">
+                        <div class="card h-100 @if (request()->is('series/24')) rainbow-border @endif">
                             <div class="position-relative">
                                 <img src="{{ get_sticker_img_url($item->sticker->stickerresourcetype, $item->sticker->version, $item->sticker->sticker_code) }}" class="card-img-top animated-sticker img-fluid" alt="{{ $item->sticker->title_th }}">
                                 {!! getStickerResourctTypeIcon($item->sticker->stickerresourcetype) !!}
@@ -44,7 +44,7 @@
             <div class="row">
                 @foreach ($series_items->where('product_type', 'emoji') as $item)
                     <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100">
+                        <div class="card h-100 @if (request()->is('series/24')) rainbow-border @endif">
                             <div class="position-relative">
                                 <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $item->emoji->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $item->emoji->title }}" class="card-img-top">
                                 <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->emoji->country }}"></span>
@@ -65,7 +65,7 @@
             <div class="row">
                 @foreach ($series_items->where('product_type', 'theme') as $item)
                     <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100">
+                        <div class="card h-100 @if (request()->is('series/24')) rainbow-border @endif">
                             <div class="position-relative">
                                 <img src="{{ generateThemeUrl($item->theme->theme_code, @$item->theme->section) }}" alt="ธีมไลน์ {{ $item->theme->title }}" class="card-img-top">
                                 <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->theme->country }}"></span>
@@ -82,7 +82,7 @@
         @endif
     </div>
 
-    <div class="d-flex flex-wrap justify-content-around">{{ $series_items->appends(@$_GET)->render() }}</div>
+    {{-- <div class="d-flex flex-wrap justify-content-around">{{ $series_items->appends(@$_GET)->render() }}</div> --}}
 
     <!-- Popular Products Section -->
     <section class="products" id="series">

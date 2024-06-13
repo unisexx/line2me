@@ -113,6 +113,10 @@
                     @endforeach
                 @endif
             </div>
+            <!-- Add "ดูเพิ่มเติม" button -->
+            <div class="text-center mt-4">
+                <a href="{{ url('/series/24') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+            </div>
         </div>
     </section>
 
@@ -264,8 +268,15 @@
                     </div>
                 @endforeach
             </div>
+            <!-- Add "ดูเพิ่มเติม" button -->
+            <div class="text-center mt-4">
+                <a href="{{ url('/series') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+            </div>
         </div>
     </section>
+
+    {{-- ประวัติการเข้าชม --}}
+    @include('frontend._partials.view_history')
 
     <!-- Customer Reviews Section -->
     @php

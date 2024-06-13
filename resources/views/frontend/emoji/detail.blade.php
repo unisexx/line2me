@@ -69,5 +69,9 @@
                 @include('frontend._partials.sidebar')
             </div>
         </div>
+        <hr>
     </div>
+
+    {{-- ประวัติการเข้าชม --}}
+    @include('frontend._partials.view_history')
 @endsection

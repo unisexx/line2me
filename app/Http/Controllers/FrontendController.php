@@ -12,6 +12,8 @@ use Cache;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 class FrontendController extends Controller
 {
@@ -202,6 +204,7 @@ class FrontendController extends Controller
         // บันทึก log การเข้าชม
         if (!empty($data['rs']->sticker_code)) {
             $this->recordProductView('sticker', $data['rs']->sticker_code);
+            $this->storeViewHistory('sticker', $data['rs']->sticker_code);
         }
 
         $data['ogTags'] = [
@@ -222,6 +225,7 @@ class FrontendController extends Controller
         // บันทึก log การเข้าชม
         if (!empty($data['rs']->theme_code)) {
             $this->recordProductView('theme', $data['rs']->theme_code);
+            $this->storeViewHistory('theme', $data['rs']->theme_code);
         }
 
         $data['ogTags'] = [
@@ -242,6 +246,7 @@ class FrontendController extends Controller
         // บันทึก log การเข้าชม
         if (!empty($data['rs']->emoji_code)) {
             $this->recordProductView('emoji', $data['rs']->emoji_code);
+            $this->storeViewHistory('emoji', $data['rs']->emoji_code);
         }
 
         $data['ogTags'] = [
@@ -251,6 +256,19 @@ class FrontendController extends Controller
         ];
 
         return view('frontend.emoji.detail', $data);
+    }
+
+    protected function storeViewHistory($type, $id)
+    {
+        $sessionId = Session::getId();
+        $key       = "session:{$sessionId}:viewed_{$type}s";
+
+                                   // เก็บ product_id ใน Redis โดยใช้ list
+        Redis::lrem($key, 0, $id); // ลบรายการที่ซ้ำกัน
+        Redis::lpush($key, $id);   // เพิ่ม product_id เข้าไปที่หัวรายการ
+
+        // เก็บประวัติสูงสุด 12 รายการ
+        Redis::ltrim($key, 0, 11);
     }
 
     public function search(Request $request)
@@ -363,7 +381,7 @@ class FrontendController extends Controller
                 }])
                 ->with(['emoji' => function ($q) {
                     $q->orderBy('views_last_3_days', 'desc');
-                }])->orderBy('order', 'asc')->simplePaginate(120);
+                }])->orderBy('order', 'asc')->get();
         });
 
         $ogTags = [

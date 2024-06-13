@@ -417,7 +417,7 @@
     }
 
     .categories {
-        background: #f8f9fa;
+        /* background: #f8f9fa; */
         padding: 40px 0;
     }
 
