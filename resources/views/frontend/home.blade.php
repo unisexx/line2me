@@ -80,7 +80,7 @@
         <div class="container">
             <h2 class="text-center mb-4">สติกเกอร์ขายดี</h2>
             <div class="row">
-                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                {{-- <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
                     <div class="card h-100 rainbow-border">
                         <div class="position-relative">
                             <img src="https://i.imgur.com/bvblNHf.png" alt="Promote Your Sticker" class="card-img-top">
@@ -94,7 +94,7 @@
                             <a href="{{ url('/page/view/8') }}" target="_blank" class="btn btn-primary hidden-link stretched-link mt-auto">สนใจคลิกที่นี่</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 @if (isset($sticker_promote))
                     @foreach ($sticker_promote as $item)
                         <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">

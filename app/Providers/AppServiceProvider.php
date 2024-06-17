@@ -8,6 +8,7 @@ use App\Models\Series;
 use App\Models\Sticker;
 use Cache;
 use Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -43,8 +44,18 @@ class AppServiceProvider extends ServiceProvider
                 ->pluck('product_code')
                 ->toArray();
 
-            // ดึงข้อมูล sticker โดยใช้ product_code ที่ได้มา
-            return Sticker::whereIn('sticker_code', $productCodeArray)->get();
+            if (empty($productCodeArray)) {
+                return collect();
+            }
+
+            // ดึงข้อมูล sticker โดยใช้ product_code ที่ได้มา และจัดเรียงตามลำดับของ productCodeArray
+            $stickerCodes = implode(',', array_map(function ($code) {
+                return "'" . $code . "'";
+            }, $productCodeArray));
+
+            return Sticker::whereIn('sticker_code', $productCodeArray)
+                ->orderByRaw(DB::raw("FIELD(sticker_code, $stickerCodes)"))
+                ->get();
         });
 
         // แชร์ข้อมูล sticker_promote ไปยังทุกๆ View
