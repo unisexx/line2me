@@ -80,21 +80,6 @@
         <div class="container">
             <h2 class="text-center mb-4">สติกเกอร์ขายดี</h2>
             <div class="row">
-                {{-- <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100 rainbow-border">
-                        <div class="position-relative">
-                            <img src="https://i.imgur.com/bvblNHf.png" alt="Promote Your Sticker" class="card-img-top">
-                            <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="top: 14px; right: -54px;">
-                                สนใจโปรโมทคลิก
-                            </span>
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title text-primary">โปรโมทสติกเกอร์ไลน์ของคุณตำแหน่งนี้!</h5>
-                            <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">100</span> บาท/เดือน</p>
-                            <a href="{{ url('/page/view/8') }}" target="_blank" class="btn btn-primary hidden-link stretched-link mt-auto">สนใจคลิกที่นี่</a>
-                        </div>
-                    </div>
-                </div> --}}
                 @if (isset($sticker_promote))
                     @foreach ($sticker_promote as $item)
                         <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
@@ -112,6 +97,21 @@
                         </div>
                     @endforeach
                 @endif
+                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                    <div class="card h-100 rainbow-border">
+                        <div class="position-relative">
+                            <img src="https://i.imgur.com/bvblNHf.png" alt="Promote Your Sticker" class="card-img-top">
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="top: 14px; right: -54px;">
+                                สนใจโปรโมทคลิก
+                            </span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">โปรโมทสติกเกอร์ไลน์ของคุณตำแหน่งนี้!</h5>
+                            <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">100</span> บาท/เดือน</p>
+                            <a href="{{ url('/page/view/8') }}" target="_blank" class="btn btn-primary hidden-link stretched-link mt-auto">สนใจคลิกที่นี่</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Add "ดูเพิ่มเติม" button -->
             <div class="text-center mt-4">

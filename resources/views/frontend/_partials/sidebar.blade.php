@@ -34,4 +34,21 @@
             </div>
         </div> --}}
     @endforeach
+
+    <div class="col-12 d-none d-md-block product-card">
+        <div class="card h-100 border border-0">
+            <div class="row g-0">
+                <div class="col-md-3 p-2">
+                    <img src="https://i.imgur.com/bvblNHf.png" alt="Promote Your Sticker" class="img-fluid product-img animated-sticker rainbow-border">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">โปรโมทสติกเกอร์ไลน์ของคุณตำแหน่งนี้</h5>
+                        <p class="card-text mt-auto"><strong>Price:</strong> <span class="text-danger">100</span> บาท/เดือน</p>
+                        <a href="{{ url('/page/view/8') }}" target="_blank" class="btn btn-primary hidden-link stretched-link">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endif
