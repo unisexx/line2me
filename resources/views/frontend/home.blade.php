@@ -145,54 +145,71 @@
                 @if ($grouped->has($country))
                     <div class="country-section">
                         <h3 class="mt-4">{{ $countryNames[$country] }}</h3>
-                        @foreach ($grouped[$country]->sortByDesc('id') as $item)
-                            @if ($counter % 2 == 0)
+                        <div class="row">
+                            @foreach ($grouped[$country]->sortByDesc('id') as $item)
+                                {{-- @if ($counter % 2 == 0)
                                 <div class="row">
-                            @endif
+                            @endif --}}
 
-                            <div class="col-12 col-md-6 mt-2 product-card">
-                                <div class="card h-100 {{ new_icon($item->created_at) }}">
-                                    <div class="row g-0">
-                                        <div class="col-5 col-md-4 p-2 position-relative">
-                                            <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
-                                            {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
-                                        </div>
-                                        <div class="col-7 col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $item->title_th }}</h5>
-                                                <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $item->country }}"></span></p>
-                                                <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
-                                                <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                {{-- <div class="col-12 col-md-6 mt-2 product-card">
+                                    <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                        <div class="row g-0">
+                                            <div class="col-5 col-md-4 p-2 position-relative">
+                                                <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
+                                                {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
+                                            </div>
+                                            <div class="col-7 col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ $item->title_th }}</h5>
+                                                    <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $item->country }}"></span></p>
+                                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                                    <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div> --}}
 
-                            @php
+                                <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                                    <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                        <div class="position-relative">
+                                            <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
+                                            {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
+                                            <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $item->title_th }}</h5>
+                                            <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                            <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- @php
                                 $counter++;
                             @endphp
 
                             @if ($counter % 2 == 0)
-                    </div> <!-- Close row -->
+                    </div>
+                @endif --}}
+                            @endforeach
+                        </div>
+
+                        {{-- @if ($counter % 2 != 0)
+                    </div>
+                @endif --}}
+
+                        <!-- Add "ดูเพิ่มเติม" button -->
+                        <div class="text-center mt-4">
+                            <a href="{{ url('stickers/all/' . $country . '/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+                        </div>
+
+                        @php
+                            $counter = 0; // Reset counter for next country
+                        @endphp
+                    </div> <!-- Close country-section -->
                 @endif
             @endforeach
-
-            @if ($counter % 2 != 0)
-        </div> <!-- Close last row if it's not closed -->
-        @endif
-
-        <!-- Add "ดูเพิ่มเติม" button -->
-        <div class="text-center mt-4">
-            <a href="{{ url('stickers/all/' . $country . '/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
-        </div>
-
-        @php
-            $counter = 0; // Reset counter for next country
-        @endphp
-        </div> <!-- Close country-section -->
-        @endif
-        @endforeach
         </div>
     </section>
 
@@ -225,33 +242,151 @@
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories">
-        <div class="container">
-            <h2 class="text-center mb-4">อิโมจิไลน์อัพเดทประจำสัปดาห์</h2>
-            <div class="row">
-                @foreach ($emoji_update as $item)
-                    <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100 {{ new_icon($item->created_at) }}">
-                            <div class="position-relative">
-                                <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $item->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $item->title }}" class="card-img-top">
-                                <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $item->title }}</h5>
-                                <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
-                                <a href="{{ url('emoji/' . $item->emoji_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+    @if (!empty($emoji_update) && count($emoji_update) > 0)
+        <section class="categories">
+            <div class="container">
+                <h2 class="text-center mb-4">อิโมจิไลน์อัพเดทประจำสัปดาห์</h2>
+                <div class="row">
+                    @foreach ($emoji_update as $item)
+                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                <div class="position-relative">
+                                    <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $item->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $item->title }}" class="card-img-top">
+                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->title }}</h5>
+                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                    <a href="{{ url('emoji/' . $item->emoji_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+                <!-- Add "ดูเพิ่มเติม" button -->
+                <div class="text-center mt-4">
+                    <a href="{{ url('emojis/all/th/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+                </div>
             </div>
-            <!-- Add "ดูเพิ่มเติม" button -->
+        </section>
+    @endif
+
+    <section class="products bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">สติกเกอร์ทางการไทย</h2>
+            <div class="row">
+                @if (isset($sticker_official_thai))
+                    @foreach ($sticker_official_thai as $item)
+                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                <div class="position-relative">
+                                    <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
+                                    {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
+                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->title_th }}</h5>
+                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                    <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
             <div class="text-center mt-4">
-                <a href="{{ url('emojis/all/th/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+                <a href="{{ url('/stickers/official/th/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
             </div>
         </div>
     </section>
+
+    <section class="products bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">สติกเกอร์ทางการต่างประเทศ</h2>
+            <div class="row">
+                @if (isset($sticker_official_oversea))
+                    @foreach ($sticker_official_oversea as $item)
+                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                <div class="position-relative">
+                                    <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
+                                    {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
+                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->title_th }}</h5>
+                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                    <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ url('/stickers/official/oversea/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="products bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">สติกเกอร์ครีเอเตอร์ไทย</h2>
+            <div class="row">
+                @if (isset($sticker_creator))
+                    @foreach ($sticker_creator as $item)
+                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                <div class="position-relative">
+                                    <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="img-fluid product-img animated-sticker">
+                                    {!! getStickerResourctTypeIcon($item->stickerresourcetype) !!}
+                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->title_th }}</h5>
+                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                    <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ url('/stickers/creator/th/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="products bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">สติกเกอร์ครีเอเตอร์ต่างประเทศ</h2>
+            <div class="row">
+                @if (isset($sticker_creator_oversea))
+                    @foreach ($sticker_creator_oversea as $item)
+                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
+                            <div class="card h-100 {{ new_icon($item->created_at) }}">
+                                <div class="position-relative">
+                                    <img src="{{ get_sticker_img_url($item->stickerresourcetype, $item->version, $item->sticker_code) }}" alt="{{ $item->title_th }}" class="card-img-top">
+                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $item->title_th }}</h5>
+                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
+                                    <a href="{{ url('sticker/' . $item->sticker_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ url('/stickers/creator/oversea/new') }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- Popular Products Section -->
     <section class="products" id="series">

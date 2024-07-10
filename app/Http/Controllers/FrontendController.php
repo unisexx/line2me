@@ -31,17 +31,59 @@ class FrontendController extends Controller
         $data['theme_update'] = Cache::remember('home_theme_update', config('calculations.cache_time'), function () {
             return Theme::where('category', 'official')
                 ->where('status', 1)
-            // ->where('created_at', '>', now()->subDays(7)->endOfDay())
-                ->orderBy('id', 'desc')
-                ->take(6)->get();
+                ->where('created_at', '>', now()->subDays(7)->endOfDay())
+                ->orderBy('id', 'desc')->get();
         });
 
         $data['emoji_update'] = Cache::remember('home_emoji_update', config('calculations.cache_time'), function () {
             return Emoji::where('category', 'official')
                 ->where('status', 1)
-            // ->where('created_at', '>', now()->subDays(7)->endOfDay())
-                ->orderBy('id', 'desc')
-                ->take(6)->get();
+                ->where('created_at', '>', now()->subDays(7)->endOfDay())
+                ->orderBy('id', 'desc')->get();
+        });
+
+        $data['sticker_official_thai'] = Cache::remember('home_sticker_official_thai', config('calculations.cache_time'), function () {
+            return Sticker::where('status', 1)
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->where('country', 'gb')->orWhere('country', 'th');
+                })
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['sticker_official_oversea'] = Cache::remember('home_sticker_official_oversea', config('calculations.cache_time'), function () {
+            return Sticker::where('status', 1)
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                })
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['sticker_creator'] = Cache::remember('home_sticker_creator', config('calculations.cache_time'), function () {
+            return Sticker::where('category', 'creator')
+                ->where(function ($q) {
+                    $q->where('country', 'gb')->orWhere('country', 'th');
+                })
+                ->where('status', 1)
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['sticker_creator_oversea'] = Cache::remember('home_sticker_creator_oversea', config('calculations.cache_time'), function () {
+            return Sticker::where('category', 'creator')
+                ->where(function ($q) {
+                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                })
+                ->where('status', 1)
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
         });
 
         $data['series'] = Cache::remember('home_series', config('calculations.cache_time'), function () {
