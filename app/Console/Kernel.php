@@ -29,22 +29,22 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // อัพเดท theme section
-        $schedule->command('themes:update')->everyMinute();
+        // $schedule->command('themes:update')->everyMinute();
 
         // $schedule->command('cron:delete-stickerview')->weekly()->runInBackground();
         $schedule->command('cron:crawler')->everyThirtyMinutes()->appendOutputTo(storage_path('logs/crawler.log'))->runInBackground();
         $schedule->command('cron:cache-flush')->twiceDaily(1, 13)->appendOutputTo(storage_path('logs/cache-flush.log'))->runInBackground();
         $schedule->command('cron:sitemap-generate')->daily()->appendOutputTo(storage_path('logs/sitemap-generate.log'))->runInBackground();
 
-        $schedule->command('backup:run')
-            ->dailyAt('02:00')
-            ->withoutOverlapping()
-            ->runInBackground(); // ตั้งเวลาที่ต้องการ เช่น 02:00 น.
+        // $schedule->command('backup:run')
+        //     ->dailyAt('02:00')
+        //     ->withoutOverlapping()
+        //     ->runInBackground(); // ตั้งเวลาที่ต้องการ เช่น 02:00 น.
 
-        $schedule->command('backup:clean')
-            ->dailyAt('03:00')
-            ->withoutOverlapping()
-            ->runInBackground(); // ตั้งเวลาที่ต้องการ เช่น 03:00 น.
+        // $schedule->command('backup:clean')
+        //     ->dailyAt('03:00')
+        //     ->withoutOverlapping()
+        //     ->runInBackground(); // ตั้งเวลาที่ต้องการ เช่น 03:00 น.
 
         $schedule->command('productviews:delete-old')
             ->dailyAt('04:00')

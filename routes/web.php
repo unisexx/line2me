@@ -168,5 +168,5 @@ Route::get('/emojis/{category?}/{country?}/{order?}', 'FrontendController@emojiM
 Route::get('/series', 'FrontendController@seriesMore');
 Route::get('/series/{id}', 'FrontendController@seriesDetail');
 Route::get('/page/view/{id}', 'FrontendController@getPageView');
-
+Route::get('/poster/sticker/{id}', 'FrontendController@getStickerPoster');
 Route::get('/getThemeSection', 'FrontendController@getThemeSection');

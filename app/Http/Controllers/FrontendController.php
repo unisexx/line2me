@@ -46,7 +46,7 @@ class FrontendController extends Controller
             return Sticker::where('status', 1)
                 ->where('category', 'official')
                 ->where(function ($q) {
-                    $q->where('country', 'gb')->orWhere('country', 'th');
+                    $q->where('country', 'th');
                 })
                 ->orderBy('views_last_3_days', 'desc')
                 ->take(12)
@@ -57,7 +57,7 @@ class FrontendController extends Controller
             return Sticker::where('status', 1)
                 ->where('category', 'official')
                 ->where(function ($q) {
-                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                    $q->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
                 })
                 ->orderBy('views_last_3_days', 'desc')
                 ->take(12)
@@ -67,7 +67,7 @@ class FrontendController extends Controller
         $data['sticker_creator'] = Cache::remember('home_sticker_creator', config('calculations.cache_time'), function () {
             return Sticker::where('category', 'creator')
                 ->where(function ($q) {
-                    $q->where('country', 'gb')->orWhere('country', 'th');
+                    $q->where('country', 'th');
                 })
                 ->where('status', 1)
                 ->orderBy('views_last_3_days', 'desc')
@@ -78,7 +78,7 @@ class FrontendController extends Controller
         $data['sticker_creator_oversea'] = Cache::remember('home_sticker_creator_oversea', config('calculations.cache_time'), function () {
             return Sticker::where('category', 'creator')
                 ->where(function ($q) {
-                    $q->where('country', '!=', 'gb')->where('country', '!=', 'th');
+                    $q->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
                 })
                 ->where('status', 1)
                 ->orderBy('views_last_3_days', 'desc')
@@ -116,7 +116,7 @@ class FrontendController extends Controller
             })
             ->when($country, function ($query) use ($country) {
                 if ($country == 'oversea') {
-                    $query->where('country', '!=', 'th');
+                    $query->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
                 } elseif ($country != null) {
                     $query->where('country', $country);
                 }
@@ -164,7 +164,7 @@ class FrontendController extends Controller
             })
             ->when($country, function ($query) use ($country) {
                 if ($country == 'oversea') {
-                    $query->where('country', '!=', 'th');
+                    $query->whereIn('country', ['jp', 'tw']); // ไม่มี th
                 } elseif ($country != null) {
                     $query->where('country', $country);
                 }
@@ -212,7 +212,7 @@ class FrontendController extends Controller
             })
             ->when($country, function ($query) use ($country) {
                 if ($country == 'oversea') {
-                    $query->where('country', '!=', 'th');
+                    $query->whereIn('country', ['jp', 'tw', 'id']); // ไม่มี th
                 } elseif ($country != null) {
                     $query->where('country', $country);
                 }
@@ -446,4 +446,9 @@ class FrontendController extends Controller
         return view('frontend.test.getThemeSection');
     }
 
+    public function getStickerPoster($id)
+    {
+        $rs = Sticker::where('sticker_code', $id)->first();
+        return view('frontend.poster.sticker', @compact('rs'));
+    }
 }

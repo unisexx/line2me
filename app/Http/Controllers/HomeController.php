@@ -507,7 +507,6 @@ class HomeController extends Controller
     public function cacheFlush2()
     {
         Cache::flush();
-
         return redirect('home');
     }
 
