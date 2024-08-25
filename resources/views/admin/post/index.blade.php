@@ -5,6 +5,26 @@
 @stop
 
 @section('content')
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">เพิ่มข้อมูล</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <!-- form start -->
+            <form class="form-inline" method="POST" action="" accept-charset="UTF-8" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <input type="date" class="form-control" placeholder="วันที่เริ่ม" name="start_date" value="{{ old('start_date', request('start_date', date('Y-m-d'))) }}">
+                    <input type="date" class="form-control" placeholder="วันที่สิ้นสุด" name="end_date" value="{{ old('end_date', request('end_date', date('Y-m-d', strtotime('+1 day')))) }}">
+                </div>
+                <button type="submit" class="btn btn-default">บันทึก</button>
+            </form>
+
+        </div>
+    </div>
+
+    {{-- @dd($sticker) --}}
 
     <div class="box box-info">
         <div class="box-header with-border">
@@ -12,130 +32,109 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
+            สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ ({{ ThaiDate(old('start_date', request('start_date', date('Y-m-d')))) }})<br>
+            .<br>
+            @if (isset($sticker) && count($sticker) > 0)
+                ============ สติ๊กเกอร์ไลน์ ============<br>
+                @foreach ($sticker as $item)
+                    - [<?php echo countryName($item->country); ?>] <?php echo $item->title_th; ?> <?= getStickerResourctTypeName($item->stickerresourcetype) ?>
+                    <br>
+                    <a href="https://www.line2me.in.th/poster/sticker/<?= $item->sticker_code ?>" target="_blank">poster</a>
+                    <br>
+                @endforeach
+            @endif
 
-            <div class="form-group">
-            <textarea class="form-control" rows="20">สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ ({{ ThaiDate($new_arrival->start_date) }})
-                .
-@if(count($sticker) != 0)
+            @if (isset($emoji) && count($emoji) > 0)
+                .<br>============ สติ๊กเกอร์ไลน์ ============<br>
+                @foreach ($emoji as $item)
+                    - [<?php echo countryName($item->country); ?>] <?php echo $item->title; ?><br>
+                    https://www.line2me.in.th/emoji/<?= $item->id ?><br>
+                @endforeach
+            @endif
+
+            @if (isset($theme) && count($theme) > 0)
+                .<br>============ ธีมไลน์ ============<br>
+                @foreach ($theme as $item)
+                    - [<?php echo countryName($item->country); ?>] <?php echo $item->title; ?><br>
+                    https://www.line2me.in.th/theme/<?= $item->id ?><br>
+                @endforeach
+            @endif
+
+            .<br>
+            สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่<br>
+            .<br>
+            หากเพื่อนๆสนใจสามารถติดต่อได้ที่ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน<br>
+            https://line.me/ti/p/~ratasak1234<br>
+            .<br>
+            สนใจชุดไหนสอบถามได้เลยนะครับ ^^<br>
+            ขอบคุณมากครับผม<br>
+            .<br>
+            ===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====<br>
+            https://line2me.in.th/series/24<br>
+            .<br>
+            ===== โปรโมชั่นสำหรับครีเอเตอร์ =====<br>
+            สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)<br>
+            https://line2me.in.th/page/view/8<br>
+            .<br>
+            ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS แบบพรีเมี่ยม<br>
+            #line2me #ของแท้ไม่มีหาย #LVS0157
+
+            <div>
+                <textarea rows="20" cols="100">
+                    สติ๊กเกอร์, ธีม และอีโมจิไลน์อัพเดทวันนี้มาแล้วครับ ({{ ThaiDate(old('start_date', request('start_date', date('Y-m-d')))) }})
+                    .
+                    @if (isset($sticker) && count($sticker) > 0)
 ===== สติ๊กเกอร์ไลน์ =====
-<?foreach($sticker as $row):?>
-- [<?php echo countryName($row->country)?>] <?php echo $row->title_th?> <?=getStickerResourctTypeName($row->stickerresourcetype)?>
-
-https://www.line2me.in.th/sticker/<?=$row->sticker_code?>
-
-
-<?endforeach;?>
+                        @foreach ($sticker as $item)
+- [<?php echo countryName($item->country); ?>] <?php echo $item->title_th; ?> <?= getStickerResourctTypeName($item->stickerresourcetype) ?>
+                            
+https://www.line2me.in.th/sticker/<?= $item->sticker_code ?>
+&nbsp;
+@endforeach
 @endif
-.
-@if(count($emoji) != 0)
-===== อีโมจิไลน์ =====
-<?foreach($emoji as $row):?>
-- [<?php echo countryName($row->country)?>] <?php echo $row->title?>
-
-https://www.line2me.in.th/emoji/<?=$row->id?>
-
-
-
-<?endforeach;?>
+                    
+                    @if (isset($emoji) && count($emoji) > 0)
+.&nbsp;
+===== สติ๊กเกอร์ไลน์ =====
+                        @foreach ($emoji as $item)
+- [<?php echo countryName($item->country); ?>] <?php echo $item->title; ?>
+                            
+https://www.line2me.in.th/emoji/<?= $item->id ?>
+&nbsp;
+@endforeach
 @endif
-.
-@if(count($theme) != 0)
+                    
+                    @if (isset($theme) && count($theme) > 0)
+.&nbsp;
 ===== ธีมไลน์ =====
-<?foreach($theme as $row):?>
-- [<?php echo countryName($row->country)?>] <?php echo $row->title?>
-
-https://www.line2me.in.th/theme/<?=$row->id?>
-
-
-
-<?endforeach;?>
+                        @foreach ($theme as $item)
+- [<?php echo countryName($item->country); ?>] <?php echo $item->title; ?>
+                            
+https://www.line2me.in.th/theme/<?= $item->id ?>
+&nbsp;
+@endforeach
 @endif
-.
-.
-สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
-https://line2me.in.th/new_arrival/<?=$new_arrival->id?>
-
-.
-หากเพื่อนๆสนใจสามารถติดต่อได้ที่ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
-https://line.me/ti/p/~ratasak1234
-.
-สนใจชุดไหนสอบถามได้เลยนะครับ ^^
-ขอบคุณมากครับผม
-.
-===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
-https://line2me.in.th/series/24
-.
-===== โปรโมชั่นสำหรับครีเอเตอร์ =====
-สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
-https://line2me.in.th/page/view/8
-.
-ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS แบบพรีเมี่ยม
-#line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
+                    
+                    .
+                    หากเพื่อนๆสนใจสามารถติดต่อได้ที่ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
+                    https://line.me/ti/p/~ratasak1234
+                    .
+                    สนใจชุดไหนสอบถามได้เลยนะครับ ^^
+                    ขอบคุณมากครับผม
+                    .
+                    ===== สติ๊กเกอร์ไลน์ขายดีแนะนำ =====
+                    https://line2me.in.th/series/24
+                    .
+                    ===== โปรโมชั่นสำหรับครีเอเตอร์ =====
+                    สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
+                    https://line2me.in.th/page/view/8
+                    .
+                    ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS แบบพรีเมี่ยม
+                    #line2me #ของแท้ไม่มีหาย #LVS0157
+                    </textarea>
             </div>
-
-
-
-
-            <div class="form-group">
-            <textarea class="form-control" rows="20">
-สติ๊กเกอร์ไลน์แนะนำยอดนิยมมาแล้วจ้า
-.
-@if(count($sticker_promote) != 0)
-<?foreach($sticker_promote as $row):?>
-- <?php echo $row->sticker->title_th?> <?=getStickerResourctTypeName($row->sticker->stickerresourcetype)?>
-
-https://www.line2me.in.th/sticker/<?=$row->sticker->sticker_code?>
-
-
-
-<?endforeach;?>
-@endif
-
-@if(count($emoji_promote) != 0)
-===== อิโมจิไลน์ =====
-<?foreach($emoji_promote as $row):?>
-- <?php echo $row->emoji->title?>
-
-https://www.line2me.in.th/theme/<?=$row->emoji->id?>
-
-
-
-<?endforeach;?>
-@endif
-
-@if(count($theme_promote) != 0)
-===== ธีมไลน์ =====
-<?foreach($theme_promote as $row):?>
-- <?php echo $row->theme->title?>
-
-https://www.line2me.in.th/theme/<?=$row->theme->id?>
-
-
-<?endforeach;?>
-@endif
-.
-.
-สามารถดูลายสติกเกอร์อัพเดททั้งหมดได้ที่
-https://linesticker.in.th
-.
-หากเพื่อนๆสนใจสามารถติดต่อได้ที่ไอดี ratasak1234 หรือจิ้มลิ้งค์ด้านล่างนี้เพื่อแอดไอดีร้าน
-https://line.me/ti/p/~ratasak1234
-.
-สนใจชุดไหนสอบถามได้เลยนะครับ ^^
-ขอบคุณมากครับผม
-.
-===== โปรโมชั่นสำหรับครีเอเตอร์ =====
-สนใจโปรโมทสติ๊กเกอร์ไลน์ของท่านเพื่อเพิ่มยอดขาย (เฉลี่ยวันละ 2.7 บาท)
-https://line2me.in.th/page/view/8
-.
-https://www.line2me.in.th
-.
-ร้านค้าที่ได้รับอนุญาตจาก LINE STICKERS แบบพรีเมี่ยม
-#line2me #ของแท้ไม่มีหาย #LVS0157</textarea>
-            </div>
-
-
         </div>
     </div>
+
 
 @stop

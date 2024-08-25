@@ -5,7 +5,7 @@
         <div class="row">
             <!-- Left Column -->
             <div class="col-lg-10 mx-auto" style="border: 30px solid #ffc107; position:relative;">
-                <img src="{{ asset('image/ratasak1234.jpg') }}" style="position: absolute; right:10px; top:10px; width:180px;">
+                <img src="{{ asset('image/qr.png') }}" style="position: absolute; right:10px; top:10px; width:460px;">
                 <div class="d-flex align-items-start {{-- new_icon($rs->created_at) --}}">
                     <!-- Left Image Column -->
                     <div class="me-3 position-relative">

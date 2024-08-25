@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-use App\Models\Sticker;
-use App\Models\Theme;
 use App\Models\Emoji;
 use App\Models\NewArrival;
 use App\Models\Promote;
-
-use DB;
+use App\Models\Sticker;
+use App\Models\Theme;
 use Carbon;
+use DB;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -33,27 +31,34 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $data['sticker_promote'] = Promote::where('product_type','=','sticker')->where('end_date', '>=', Carbon::now()->toDateString())->with('sticker')->inRandomOrder()->get();
-        $data['theme_promote'] = Promote::where('product_type','=','theme')->where('end_date', '>=', Carbon::now()->toDateString())->with('theme')->inRandomOrder()->get();
-        $data['emoji_promote'] = Promote::where('product_type','=','emoji')->where('end_date', '>=', Carbon::now()->toDateString())->with('emoji')->inRandomOrder()->get();
+                                                                // ตั้งค่า default สำหรับ start_date และ end_date
+        $defaultStartDate = date('Y-m-d');                      // วันนี้
+        $defaultEndDate   = date('Y-m-d', strtotime('+1 day')); // พรุ่งนี้
 
-        // new arrival
-        $data['new_arrival'] = NewArrival::orderBy('id', 'desc')->first();
+        // รับค่าจากฟอร์ม หรือใช้ค่า default
+        $startDate = $request->input('start_date', $defaultStartDate);
+        $endDate   = $request->input('end_date', $defaultEndDate);
 
-        $data['sticker'] = Sticker::where('category','official')
-                            ->where('status', 1)
-                            ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
-                            ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc")->get();
+        // สร้าง query เพื่อกรองวันที่
+        $stickerQuery = Sticker::where('category', 'official')
+            ->where('status', 1)
+            ->orderByRaw("FIELD(country,'th','jp','tw','id','hk') asc");
 
-        $data['theme'] = Theme::where('category','official')
-                            ->where('status', 1)
-                            ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
-                            ->get();
+        $themeQuery = Theme::where('category', 'official')
+            ->where('status', 1);
 
-        $data['emoji'] = Emoji::where('category','official')
-                            ->where('status', 1)
-                            ->whereBetween('created_at', [$data['new_arrival']->start_date, $data['new_arrival']->end_date])
-                            ->get();
+        $emojiQuery = Emoji::where('category', 'official')
+            ->where('status', 1);
+
+        // กรองข้อมูลโดยใช้ช่วงวันที่
+        $stickerQuery->whereBetween('created_at', [$startDate, $endDate]);
+        $themeQuery->whereBetween('created_at', [$startDate, $endDate]);
+        $emojiQuery->whereBetween('created_at', [$startDate, $endDate]);
+
+        // ดึงข้อมูลจาก query
+        $data['sticker'] = $stickerQuery->take(10)->get();
+        $data['theme']   = $themeQuery->take(10)->get();
+        $data['emoji']   = $emojiQuery->take(10)->get();
 
         return view('admin.post.index', $data);
     }

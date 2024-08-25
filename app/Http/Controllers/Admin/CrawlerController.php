@@ -681,6 +681,18 @@ class CrawlerController extends Controller
 
     public function getStickerByAuthor($authorID, $page = null)
     {
+        // ตรวจสอบว่า $authorID มีอยู่ในตาราง author_log แล้วหรือไม่
+        $existingAuthor = DB::table('author_log')->where('author_id', $authorID)->first();
+
+        // ถ้าไม่มี $authorID ในตาราง ให้ทำการบันทึก
+        if (!$existingAuthor) {
+            DB::table('author_log')->insert([
+                'author_id'  => $authorID,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me/stickershop/author/' . $authorID . '?page=' . $page;
         $crawler    = Goutte::request('GET', $pageTarget);
