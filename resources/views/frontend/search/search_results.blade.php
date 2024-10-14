@@ -38,100 +38,37 @@
             @endphp
 
             @if (!$rs_sticker->isEmpty() && ($type === 'sticker' || is_null($type)))
-                <h3 class="mt-5 mb-4">สติกเกอร์</h3>
-                <div class="row">
-                    @foreach ($rs_sticker as $sticker)
-                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100">
-                                <div class="position-relative">
-                                    <img src="{{ get_sticker_img_url($sticker->stickerresourcetype, $sticker->version, $sticker->sticker_code) }}" class="card-img-top" alt="{{ $sticker->title_th }}">
-                                    {!! getStickerResourctTypeIcon($sticker->stickerresourcetype) !!}
-                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $sticker->country }}"></span>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $sticker->title_th }}</h5>
-                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($sticker->price) }}</span> บาท</p>
-                                    <a href="{{ url('sticker/' . $sticker->sticker_code) }}" class="btn btn-primary hidden-link">View</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Add "ดูเพิ่มเติม" button or pagination links -->
-                <div class="text-center mt-4">
-                    @if ($type === 'sticker')
-                        <div class="d-flex justify-content-center">
-                            {{ $rs_sticker->appends(request()->except('page'))->links() }}
-                        </div>
-                    @else
-                        <a href="{{ request()->fullUrlWithQuery(['type' => 'sticker']) }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
-                    @endif
-                </div>
+                <section class="categories">
+                    @include('frontend._inc._sticker-grid', [
+                        'title' => 'สติกเกอร์ไลน์',
+                        'stickers' => $rs_sticker,
+                        'seeMoreUrl' => request()->fullUrlWithQuery(['type' => 'sticker']),
+                        'seeMoreText' => 'ดูเพิ่มเติม',
+                    ])
+                </section>
             @endif
 
             @if (!$rs_emoji->isEmpty() && ($type === 'emoji' || is_null($type)))
-                <h3 class="mt-5 mb-4">อิโมจิ</h3>
-                <div class="row">
-                    @foreach ($rs_emoji as $item)
-                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100">
-                                <div class="position-relative">
-                                    <img src="https://stickershop.line-scdn.net/sticonshop/v1/product/{{ $item->emoji_code }}/iphone/main.png" alt="อิโมจิไลน์ {{ $item->title }}" class="card-img-top">
-                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $item->title }}</h5>
-                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
-                                    <a href="{{ url('emoji/' . $item->emoji_code) }}" class="btn btn-primary hidden-link stretched-link">View</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Add "ดูเพิ่มเติม" button or pagination links -->
-                <div class="text-center mt-4">
-                    @if ($type === 'emoji')
-                        <div class="d-flex justify-content-center">
-                            {{ $rs_emoji->appends(request()->except('page'))->links() }}
-                        </div>
-                    @else
-                        <a href="{{ request()->fullUrlWithQuery(['type' => 'emoji']) }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
-                    @endif
-                </div>
+                <!-- อิโมจิทางการไทย Section -->
+                <section class="categories">
+                    @include('frontend._inc._emoji-grid', [
+                        'title' => 'อิโมจิไลน์',
+                        'emojis' => $rs_emoji,
+                        'seeMoreUrl' => request()->fullUrlWithQuery(['type' => 'emoji']),
+                        'seeMoreText' => 'ดูเพิ่มเติม',
+                    ])
+                </section>
             @endif
 
             @if (!$rs_theme->isEmpty() && ($type === 'theme' || is_null($type)))
-                <h3 class="mt-5 mb-4">ธีม</h3>
-                <div class="row">
-                    @foreach ($rs_theme as $item)
-                        <div class="col-6 col-lg-2 col-md-4 col-sm-6 mb-4">
-                            <div class="card h-100">
-                                <div class="position-relative">
-                                    <img src="{{ generateThemeUrl($item->theme_code, @$item->section) }}" alt="ธีมไลน์ {{ $item->title }}" class="card-img-top">
-                                    <span class="position-absolute positionTopRight flag-icon fi fi-{{ $item->country }}"></span>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $item->title }}</h5>
-                                    <p class="card-text mt-auto"><strong>Price: </strong> <span class="text-danger">{{ @convert_line_coin_2_money($item->price) }}</span> บาท</p>
-                                    <a href="{{ url('theme/' . $item->id) }}" class="btn btn-primary hidden-link stretched-link">View</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Add "ดูเพิ่มเติม" button or pagination links -->
-                <div class="text-center mt-4 mb-4">
-                    @if ($type === 'theme')
-                        <div class="d-flex justify-content-center">
-                            {{ $rs_theme->appends(request()->except('page'))->links() }}
-                        </div>
-                    @else
-                        <a href="{{ request()->fullUrlWithQuery(['type' => 'theme']) }}" class="btn btn-danger btn-more">ดูเพิ่มเติม</a>
-                    @endif
-                </div>
+                <section class="categories">
+                    @include('frontend._inc._theme-grid', [
+                        'title' => 'ธีมไลน์',
+                        'themes' => $rs_theme,
+                        'seeMoreUrl' => request()->fullUrlWithQuery(['type' => 'theme']),
+                        'seeMoreText' => 'ดูเพิ่มเติม',
+                    ])
+                </section>
             @endif
         @endif
     </div>

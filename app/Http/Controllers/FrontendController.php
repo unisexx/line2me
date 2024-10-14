@@ -21,6 +21,9 @@ class FrontendController extends Controller
     {
         $data['ogTags'] = config('opengraph.default');
 
+        /**
+         * ส่วนอัพเดทประจำสัปดาห์
+         */
         $data['sticker_update'] = Cache::remember('home_sticker_update', config('calculations.cache_time'), function () {
             return Sticker::where('category', 'official')
                 ->where('status', 1)
@@ -42,6 +45,9 @@ class FrontendController extends Controller
                 ->orderBy('id', 'desc')->get();
         });
 
+        /**
+         * ส่วนสติกเกอร์ไลน์
+         */
         $data['sticker_official_thai'] = Cache::remember('home_sticker_official_thai', config('calculations.cache_time'), function () {
             return Sticker::where('status', 1)
                 ->where('category', 'official')
@@ -86,6 +92,103 @@ class FrontendController extends Controller
                 ->get();
         });
 
+        /**
+         * ส่วนอิโมจิไลน์
+         */
+        $data['emoji_official_thai'] = Cache::remember('home_emoji_official_thai', config('calculations.cache_time'), function () {
+            return Emoji::where('status', 1)
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->where('country', 'th');
+                })
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['emoji_official_oversea'] = Cache::remember('home_emoji_official_oversea', config('calculations.cache_time'), function () {
+            return Emoji::where('status', 1)
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
+                })
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['emoji_creator'] = Cache::remember('home_emoji_creator', config('calculations.cache_time'), function () {
+            return Emoji::where('category', 'creator')
+                ->where(function ($q) {
+                    $q->where('country', 'th');
+                })
+                ->where('status', 1)
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['emoji_creator_oversea'] = Cache::remember('home_emoji_creator_oversea', config('calculations.cache_time'), function () {
+            return Emoji::where('category', 'creator')
+                ->where(function ($q) {
+                    $q->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
+                })
+                ->where('status', 1)
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        /**
+         * ส่วนธีมไลน์
+         */
+        $data['theme_official_thai'] = Cache::remember('home_theme_official_thai', config('calculations.cache_time'), function () {
+            return Theme::where('status', 1)
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->where('country', 'th');
+                })
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['theme_official_oversea'] = Cache::remember('home_theme_official_oversea', config('calculations.cache_time'), function () {
+            return Theme::where('status', 1)
+                ->where('category', 'official')
+                ->where(function ($q) {
+                    $q->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
+                })
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['theme_creator'] = Cache::remember('home_theme_creator', config('calculations.cache_time'), function () {
+            return Theme::where('category', 'creator')
+                ->where(function ($q) {
+                    $q->where('country', 'th');
+                })
+                ->where('status', 1)
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        $data['theme_creator_oversea'] = Cache::remember('home_theme_creator_oversea', config('calculations.cache_time'), function () {
+            return Theme::where('category', 'creator')
+                ->where(function ($q) {
+                    $q->whereIn('country', ['jp', 'id', 'us', 'kr', 'es', 'in', 'tw', 'cn', 'br', 'my', 'ph', 'mx', 'hk']); // ไม่มี th
+                })
+                ->where('status', 1)
+                ->orderBy('views_last_3_days', 'desc')
+                ->take(12)
+                ->get();
+        });
+
+        /**
+         * ส่วนซีรีย์
+         */
         $data['series'] = Cache::remember('home_series', config('calculations.cache_time'), function () {
             return Series::where('status', 1)->where('hilight', 1)->take(9)->inRandomOrder()->get();
         });
@@ -130,7 +233,7 @@ class FrontendController extends Controller
             }, function ($query) {
                 $query->orderBy('id', 'desc');
             })
-            ->simplePaginate(30);
+            ->simplePaginate(24);
 
         return view('frontend.sticker.more', [
             'rs'       => $rs,
@@ -178,7 +281,7 @@ class FrontendController extends Controller
             }, function ($query) {
                 $query->orderBy('id', 'desc');
             })
-            ->simplePaginate(30);
+            ->simplePaginate(24);
 
         return view('frontend.theme.more', [
             'rs'       => $rs,
@@ -226,7 +329,7 @@ class FrontendController extends Controller
             }, function ($query) {
                 $query->orderBy('id', 'desc');
             })
-            ->simplePaginate(30);
+            ->simplePaginate(24);
 
         return view('frontend.emoji.more', [
             'rs'       => $rs,
@@ -451,4 +554,17 @@ class FrontendController extends Controller
         $rs = Sticker::where('sticker_code', $id)->first();
         return view('frontend.poster.sticker', @compact('rs'));
     }
+
+    public function oneclick()
+    {
+        // ดึงข้อมูล author_id จากตาราง author_log ที่มี type เป็น 'sticker'
+        $stickerAuthorIds = DB::table('author_log')->where('type', 'sticker')->pluck('author_id');
+
+        // ดึงข้อมูล author_id จากตาราง author_log ที่มี type เป็น 'theme'
+        $themeAuthorIds = DB::table('author_log')->where('type', 'theme')->pluck('author_id');
+
+        // ส่งข้อมูล author_id ไปยัง view โดยใช้ compact เพื่อส่งตัวแปร stickerAuthorIds และ themeAuthorIds ไปใน view
+        return view('frontend.oneclick.index', compact('stickerAuthorIds', 'themeAuthorIds'));
+    }
+
 }

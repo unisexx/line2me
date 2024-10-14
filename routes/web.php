@@ -170,3 +170,6 @@ Route::get('/series/{id}', 'FrontendController@seriesDetail');
 Route::get('/page/view/{id}', 'FrontendController@getPageView');
 Route::get('/poster/sticker/{id}', 'FrontendController@getStickerPoster');
 Route::get('/getThemeSection', 'FrontendController@getThemeSection');
+
+// 1 button sccraping ปุ่มเดียวดึงข้อมูล
+Route::get('/oneclick', 'FrontendController@oneclick');

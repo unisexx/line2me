@@ -12,7 +12,7 @@
         <!-- /.box-header -->
         <div class="box-body">
             <!-- form start -->
-            <form class="form-inline" method="POST" action="" accept-charset="UTF-8" enctype="multipart/form-data">
+            <form class="form-inline" method="GET" action="" accept-charset="UTF-8" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <input type="date" class="form-control" placeholder="วันที่เริ่ม" name="start_date" value="{{ old('start_date', request('start_date', date('Y-m-d'))) }}">

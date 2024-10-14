@@ -5,11 +5,11 @@
         <div class="row">
             <!-- Left Column -->
             <div class="col-lg-10 mx-auto" style="border: 30px solid #ffc107; position:relative;">
-                <img src="{{ asset('image/qr.png') }}" style="position: absolute; right:10px; top:10px; width:460px;">
+                {{-- <img src="{{ asset('image/qr.png') }}" style="position: absolute; right:10px; top:45px; width:460px;"> --}}
                 <div class="d-flex align-items-start {{-- new_icon($rs->created_at) --}}">
                     <!-- Left Image Column -->
                     <div class="me-3 position-relative">
-                        <img class="product-cover-img animated-sticker" src="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}" data-animation="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}">
+                        <img class="product-cover-img animated-sticker" src="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" alt="สติ๊กเกอร์ไลน์ {{ $rs->title_th }}" data-animation="{{ get_sticker_img_url($rs->stickerresourcetype, $rs->version, $rs->sticker_code) }}" width="240">
 
                         @if (in_array($rs->stickerresourcetype, ['SOUND', 'POPUP_SOUND', 'ANIMATION_SOUND']))
                             <audio id="mainAudio" class="d-none" controls autoplay preload="metadata">

@@ -302,6 +302,23 @@
         /* border-radius: 5px;
         border-top-left-radius: 5px; */
         z-index: 9;
+        font-size: 0.7rem;
+    }
+
+    /* ลดขนาด new-icon บนมือถือ */
+    @media (max-width: 768px) {
+        .new-product-card::before {
+            padding: 2px 5px;
+            /* ลด padding */
+            font-size: 0.5rem;
+            /* ลดขนาดฟอนต์ */
+        }
+
+        .iconProperty {
+            background-size: 15px 15px;
+            width: 15px;
+            height: 15px;
+        }
     }
 
     .country-section {

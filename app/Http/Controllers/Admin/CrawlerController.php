@@ -682,12 +682,13 @@ class CrawlerController extends Controller
     public function getStickerByAuthor($authorID, $page = null)
     {
         // ตรวจสอบว่า $authorID มีอยู่ในตาราง author_log แล้วหรือไม่
-        $existingAuthor = DB::table('author_log')->where('author_id', $authorID)->first();
+        $existingAuthor = DB::table('author_log')->where('author_id', $authorID)->where('type', 'sticker')->first();
 
         // ถ้าไม่มี $authorID ในตาราง ให้ทำการบันทึก
         if (!$existingAuthor) {
             DB::table('author_log')->insert([
                 'author_id'  => $authorID,
+                'type'       => 'sticker',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -708,24 +709,50 @@ class CrawlerController extends Controller
             $sticker_code = $sticker_code[3];
 
             return $array[] = $sticker_code;
-            // dump($sticker_code);
-            // $this->getsticker($sticker_code);
-
-                // exit();
-        }); // endforeach
+        });
 
         $this->getStickerArray($stickerCodeArray);
+
+        // echo "<script>
+        //     setTimeout(function(){
+        //         window.close();
+        //     }, 1000);
+        // </script>";
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
             $page          = $page - 1;
             $page_redirect = url('admin/get-sticker-by-author/' . $authorID . '/' . $page);
-            echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
+            echo "<script>
+            setTimeout(function(){
+                window.location.href = '" . $page_redirect . "';
+            }, 1000);
+        </script>";
+        } else {
+            // ถ้าหน้าถึงหน้าแรกแล้วหรือไม่มีการ redirect ให้ปิดแท็บ
+            echo "<script>
+            setTimeout(function(){
+                window.close();
+            }, 1000);
+        </script>";
         }
     }
 
     public function getThemeByAuthor($authorID, $page = null)
     {
+        // ตรวจสอบว่า $authorID มีอยู่ในตาราง author_log แล้วหรือไม่
+        $existingAuthor = DB::table('author_log')->where('author_id', $authorID)->where('type', 'theme')->first();
+
+        // ถ้าไม่มี $authorID ในตาราง ให้ทำการบันทึก
+        if (!$existingAuthor) {
+            DB::table('author_log')->insert([
+                'author_id'  => $authorID,
+                'type'       => 'theme',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
         // หน้าเพจเป้าหมาย
         $pageTarget = 'https://store.line.me/themeshop/author/' . $authorID . '?page=' . $page;
         $crawler    = Goutte::request('GET', $pageTarget);
@@ -733,27 +760,34 @@ class CrawlerController extends Controller
         // foreach
         $themeCodeArray = $crawler->filter('.mdCMN02Li')->each(function ($node) {
 
-            // หา url ของสติ๊กเกอร์
+            // หา url ของธีม
             $url = $node->filter('a')->attr('href');
 
-            // เอาลิ้งค์ สติ๊กเกอร์ที่ได้มา หาค่า theme_code
+            // เอาลิ้งค์ ธีมที่ได้มา หาค่า theme_code
             $theme_code = explode('/', $url);
             $theme_code = $theme_code[3];
 
             return $array[] = $theme_code;
-            // $this->gettheme($theme_code);
-
-                // exit();
-        }); // endforeach
+        });
 
         $this->getthemeArray($themeCodeArray);
-        // dd($themeCodeArray);
 
         // ดำเนินการเสร็จทั้งหมดแล้ว ให้ redirect ถ้า $page ยังไม่ถึงหน้าแรก
         if (isset($page) && $page != 1) {
             $page          = $page - 1;
             $page_redirect = url('admin/get-theme-by-author/' . $authorID . '/' . $page);
-            echo "<script>setTimeout(function(){ window.location.href = '" . $page_redirect . "'; }, 1000);</script>";
+            echo "<script>
+            setTimeout(function(){
+                window.location.href = '" . $page_redirect . "';
+            }, 1000);
+        </script>";
+        } else {
+            // ถ้าหน้าถึงหน้าแรกแล้วหรือไม่มีการ redirect ให้ปิดแท็บ
+            echo "<script>
+            setTimeout(function(){
+                window.close();
+            }, 1000);
+        </script>";
         }
     }
 

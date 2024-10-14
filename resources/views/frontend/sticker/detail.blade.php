@@ -125,6 +125,22 @@
         </div>
         <hr>
     </div>
+
+    {{-- หมวดหมู่ --}}
+    @include('frontend._inc._category')
+
+    <hr>
+    <!-- สติกเกอร์ขายดี Section -->
+    <section class="categories">
+        @include('frontend._inc._sticker-grid-promote', [
+            'title' => 'สติกเกอร์ไลน์ขายดี',
+            'stickers' => $sticker_promote,
+            // 'seeMoreUrl' => url('/series/24'),
+            // 'seeMoreText' => 'ดูเพิ่มเติม',
+        ])
+    </section>
+    <hr>
+
     {{-- ประวัติการเข้าชม --}}
     @include('frontend._partials.view_history')
 @endsection
