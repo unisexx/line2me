@@ -43,7 +43,11 @@
                     <div class="w-100">
                         <h3>{{ @$rs->title }}</h3>
                         <p>{{ @$rs->detail }}</p>
-                        <p class="mb-1"><strong><a class="no-style" rel="nofollow" href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}" target="_blank">รหัสสินค้า: </a></strong> t-{{ @$rs->id }}</p>
+                        <p class="mb-1 d-inline">
+                            <strong><a class="no-style" rel="nofollow" href="https://line.me/S/shop/theme/detail?id={{ $rs->theme_code }}" target="_blank">รหัสสินค้า: </a></strong> t-{{ @$rs->id }}
+                        </p>
+                        <!-- Include ปุ่ม Copy Link -->
+                        @include('frontend._inc._copy_link')
                         <p class="mb-1"><strong>ประเทศ: </strong> <span class="fi fi-{{ $rs->country }}"></span></p>
                         <h4>Price: <span class="text-danger">{{ convert_line_coin_2_money($rs->price) }}</span>THB</h4>
                         <a href="https://line.me/ti/p/~ratasak1234" target="_blank" class="btn custom-btn-blue btn-primary d-none d-md-block">สั่งซื้อชุดนี้แอดไลน์ไอดี ratasak1234</a>

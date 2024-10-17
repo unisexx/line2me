@@ -28,6 +28,7 @@
 {{-- <h4 style="font-size:1.75rem;">ประวัติการเข้าชม</h4> --}}
 
 @if ($stickerHistory->isNotEmpty())
+    <hr>
     <!-- Include Sticker Grid -->
     @include('frontend._inc._sticker-grid', [
         'title' => 'ประวัติเข้าชมสติกเกอร์ไลน์',
@@ -37,9 +38,8 @@
     ])
 @endif
 
-<hr>
-
 @if ($themeHistory->isNotEmpty())
+    <hr>
     <!-- Include Theme Grid -->
     @include('frontend._inc._theme-grid', [
         'title' => 'ประวัติเข้าชมธีมไลน์',
@@ -49,9 +49,8 @@
     ])
 @endif
 
-<hr>
-
 @if ($emojiHistory->isNotEmpty())
+    <hr>
     <!-- Include Emoji Grid -->
     @include('frontend._inc._emoji-grid', [
         'title' => 'ประวัติเข้าชมอิโมจิไลน์',

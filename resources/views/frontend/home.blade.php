@@ -309,8 +309,6 @@
         </div>
     </section>
 
-    <hr>
-
     {{-- ประวัติการเข้าชม --}}
     @include('frontend._partials.view_history')
 @endsection
