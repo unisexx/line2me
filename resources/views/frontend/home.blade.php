@@ -29,7 +29,6 @@
     </section>
 
     @include('frontend._inc._category')
-
     <hr>
 
     <!-- สติกเกอร์ขายดี Section -->
@@ -41,44 +40,48 @@
             // 'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- สติ๊กเกอร์ไลน์อัพเดทประจำสัปดาห์ Section -->
-    <section class="categories">
-        @include('frontend._inc._sticker-grid', [
-            'title' => 'สติ๊กเกอร์ไลน์อัพเดทประจำสัปดาห์',
-            'stickers' => $sticker_update,
-            'seeMoreUrl' => url('/stickers/official/th/new'),
-            'seeMoreText' => 'ดูเพิ่มเติม',
-        ])
-    </section>
-
-    <hr>
+    @if (!empty($sticker_update) && count($sticker_update) > 0)
+        <section class="categories">
+            @include('frontend._inc._sticker-grid', [
+                'title' => 'สติ๊กเกอร์ไลน์อัพเดทประจำสัปดาห์',
+                'stickers' => $sticker_update,
+                'seeMoreUrl' => url('/stickers/official/th/new'),
+                'seeMoreText' => 'ดูเพิ่มเติม',
+            ])
+        </section>
+        <hr>
+    @endif
 
     <!-- ธีมไลน์อัพเดทประจำสัปดาห์ Section -->
-    <section class="categories">
-        @include('frontend._inc._theme-grid', [
-            'title' => 'ธีมไลน์อัพเดทประจำสัปดาห์',
-            'themes' => $theme_update,
-            'seeMoreUrl' => url('themes/new'),
-            'seeMoreText' => 'ดูเพิ่มเติม',
-        ])
-    </section>
+    @if (!empty($theme_update) && count($theme_update) > 0)
+        <section class="categories">
+            @include('frontend._inc._theme-grid', [
+                'title' => 'ธีมไลน์อัพเดทประจำสัปดาห์',
+                'themes' => $theme_update,
+                'seeMoreUrl' => url('themes/new'),
+                'seeMoreText' => 'ดูเพิ่มเติม',
+            ])
+        </section>
+        <hr>
+    @endif
 
-    <hr>
 
     <!-- อิโมจิไลน์อัพเดทประจำสัปดาห์ Section -->
-    <section class="categories">
-        @include('frontend._inc._emoji-grid', [
-            'title' => 'อิโมจิไลน์อัพเดทประจำสัปดาห์',
-            'emojis' => $emoji_update,
-            'seeMoreUrl' => url('emojis/new'),
-            'seeMoreText' => 'ดูเพิ่มเติม',
-        ])
-    </section>
+    @if (!empty($emoji_update) && count($emoji_update) > 0)
+        <section class="categories">
+            @include('frontend._inc._emoji-grid', [
+                'title' => 'อิโมจิไลน์อัพเดทประจำสัปดาห์',
+                'emojis' => $emoji_update,
+                'seeMoreUrl' => url('emojis/new'),
+                'seeMoreText' => 'ดูเพิ่มเติม',
+            ])
+        </section>
+        <hr>
+    @endif
 
-    <hr>
 
     <!-- สติกเกอร์ทางการไทย Section -->
     <section class="categories">
@@ -89,7 +92,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- สติกเกอร์ทางการต่างประเทศ Section -->
@@ -101,7 +103,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- สติกเกอร์ครีเอเตอร์ไทย Section -->
@@ -113,7 +114,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- สติกเกอร์ครีเอเตอร์ต่างประเทศ Section -->
@@ -125,7 +125,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- อิโมจิทางการไทย Section -->
@@ -137,7 +136,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- อิโมจิทางการต่างประเทศ Section -->
@@ -149,7 +147,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- อิโมจิครีเอเตอร์ไทย Section -->
@@ -161,7 +158,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- อิโมจิครีเอเตอร์ต่างประเทศ Section -->
@@ -173,7 +169,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- ธีมทางการไทย Section -->
@@ -185,7 +180,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- ธีมทางการต่างประเทศ Section -->
@@ -197,7 +191,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- ธีมครีเอเตอร์ไทย Section -->
@@ -209,7 +202,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- ธีมครีเอเตอร์ต่างประเทศ Section -->
@@ -221,7 +213,6 @@
             'seeMoreText' => 'ดูเพิ่มเติม',
         ])
     </section>
-
     <hr>
 
     <!-- Popular Products Section -->
@@ -246,7 +237,6 @@
             </div>
         </div>
     </section>
-
     <hr>
 
     <!-- Customer Reviews Section -->
