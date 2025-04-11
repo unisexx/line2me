@@ -568,4 +568,41 @@ class FrontendController extends Controller
         return view('frontend.oneclick.index', compact('stickerAuthorIds', 'themeAuthorIds'));
     }
 
+    public function catelog(Request $request)
+    {
+        // ดึงค่าจาก query string เช่น ?days=3 ถ้าไม่ใส่ให้ default = 2
+        $days = (int) $request->input('days', 2);
+
+        $stickers = Sticker::where('category', 'official')
+            ->where('status', 1)
+            ->where('created_at', '>', now()->subDays($days)->endOfDay())
+            ->get()
+            ->map(function ($item) {
+                $item->type = 'sticker';
+                return $item;
+            });
+
+        $themes = Theme::where('category', 'official')
+            ->where('status', 1)
+            ->where('created_at', '>', now()->subDays($days)->endOfDay())
+            ->get()
+            ->map(function ($item) {
+                $item->type = 'theme';
+                return $item;
+            });
+
+        $emojis = Emoji::where('category', 'official')
+            ->where('status', 1)
+            ->where('created_at', '>', now()->subDays($days)->endOfDay())
+            ->get()
+            ->map(function ($item) {
+                $item->type = 'emoji';
+                return $item;
+            });
+
+        $products = $stickers->concat($themes)->concat($emojis);
+
+        return view('frontend.catelog.index', compact('products', 'days'));
+    }
+
 }

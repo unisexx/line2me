@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index(Request $request)
     {
@@ -121,11 +121,14 @@ class SeriesController extends Controller
 
     public function getProductType($product_code)
     {
-        if (is_numeric($product_code)) { // sticker
+        if (is_numeric($product_code)) {
+            // sticker
             $product_type = 'sticker';
-        } elseif (strpos($product_code, '-') !== false) { // theme
+        } elseif (strpos($product_code, '-') !== false) {
+            // theme
             $product_type = 'theme';
-        } else { // emoji
+        } else {
+            // emoji
             $product_type = 'emoji';
         }
         return @$product_type;

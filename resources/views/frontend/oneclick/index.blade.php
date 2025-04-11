@@ -33,7 +33,7 @@
         if (stickerAuthorIds && stickerAuthorIds.length > 0) {
             // สร้างลิงก์สำหรับสติ๊กเกอร์ โดยเพิ่ม 3 ลิงก์ต่อ author_id
             stickerLinks = stickerAuthorIds.flatMap(id => [
-                `http://line2me.in.th.test/admin/get-sticker-by-author/${id}/3`,
+                `http://line2me.in.th.test/admin/get-sticker-by-author/${id}/1`,
             ]);
         } else {
             console.error('stickerAuthorIds ไม่ถูกส่งมาจาก Laravel');
@@ -41,7 +41,7 @@
 
         // ตรวจสอบว่ามีข้อมูล themeAuthorIds หรือไม่ ถ้ามีจะสร้างลิงก์สำหรับธีม
         if (themeAuthorIds && themeAuthorIds.length > 0) {
-            themeLinks = themeAuthorIds.map(id => `http://line2me.in.th.test/admin/get-theme-by-author/${id}/10`);
+            themeLinks = themeAuthorIds.map(id => `http://line2me.in.th.test/admin/get-theme-by-author/${id}/1`);
         } else {
             console.error('themeAuthorIds ไม่ถูกส่งมาจาก Laravel');
         }

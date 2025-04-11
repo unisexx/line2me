@@ -19,51 +19,51 @@ use Spatie\Sitemap\SitemapGenerator;
 // });
 
 // sitemap
-Route::get('sitemap', function () {
-    SitemapGenerator::create('https://line2me.in.th')
-        ->setMaximumCrawlCount(500)
-        ->writeToFile('sitemap.xml');
+// Route::get('sitemap', function () {
+//     SitemapGenerator::create('https://line2me.in.th')
+//         ->setMaximumCrawlCount(500)
+//         ->writeToFile('sitemap.xml');
 
-    return 'sitemap created';
-});
+//     return 'sitemap created';
+// });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('test-email', 'JobController@enqueue');
+// Route::get('test-email', 'JobController@enqueue');
 
 // home
 // Route::get('/', 'HomeController@index');
 // Route::get('home', 'HomeController@index');
-Route::get('testnotify', 'HomeController@testnotify');
+// Route::get('testnotify', 'HomeController@testnotify');
 
 // ajax
-Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
-Route::post('ajaxLinenotify', 'AjaxController@linenotify');
-Route::get('ajaxChangeStatus', 'AjaxController@ajaxChangeStatus');
+// Route::get('ajax/updateviewcount', 'AjaxController@getUpdateviewcount');
+// Route::post('ajaxLinenotify', 'AjaxController@linenotify');
+// Route::get('ajaxChangeStatus', 'AjaxController@ajaxChangeStatus');
 
 // aboutus
-Route::get('aboutus', 'HomeController@aboutus');
+// Route::get('aboutus', 'HomeController@aboutus');
 
 // ดูไลน์ไอดี
-Route::get('viewlineid', 'HomeController@viewlineid');
-Route::get('viewlineqrcode', 'HomeController@viewlineqrcode');
+// Route::get('viewlineid', 'HomeController@viewlineid');
+// Route::get('viewlineqrcode', 'HomeController@viewlineqrcode');
 
 // page
-Route::get('page/view/{id}', 'PageController@getView');
+// Route::get('page/view/{id}', 'PageController@getView');
 
 // search
 // Route::get('search', 'HomeController@search');
 // Route::get('search/{param}', 'HomeController@search');
 
 // google custom search
-Route::get('google-search-result', 'HomeController@googleSearchResult')->name('google-search-result');
+// Route::get('google-search-result', 'HomeController@googleSearchResult')->name('google-search-result');
 
 // Route::get('search2', 'HomeController@search2');
 
 // new arrival
-Route::get('new_arrival', 'NewArrivalController@getIndex');
-Route::get('new_arrival/{param}', 'NewArrivalController@getDetail');
-Route::get('new_arrival2/{param}', 'NewArrivalController@getDetail2');
+// Route::get('new_arrival', 'NewArrivalController@getIndex');
+// Route::get('new_arrival/{param}', 'NewArrivalController@getDetail');
+// Route::get('new_arrival2/{param}', 'NewArrivalController@getDetail2');
 
 // sticker
 // Route::get('sticker/product/{id}', 'StickerController@getProductRedirect');
@@ -145,15 +145,15 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 });
 
 // redirect product code 2 url
-Route::get('c/{product_code}', 'HomeController@code2url');
+// Route::get('c/{product_code}', 'HomeController@code2url');
 
 // cache flush
-Route::get('cf', 'HomeController@cacheFlush');
-Route::get('cf2', 'HomeController@cacheFlush2');
+// Route::get('cf', 'HomeController@cacheFlush');
+// Route::get('cf2', 'HomeController@cacheFlush2');
 
 // Theme Scrape
-Route::get('/theme_scrape/{uuid}', 'ScraperController@themeScrape');
-Route::get('/update-themes', 'ScraperController@updateAllThemes');
+// Route::get('/theme_scrape/{uuid}', 'ScraperController@themeScrape');
+// Route::get('/update-themes', 'ScraperController@updateAllThemes');
 
 // new HomePage
 Route::get('/', 'FrontendController@home');
@@ -170,6 +170,7 @@ Route::get('/series/{id}', 'FrontendController@seriesDetail');
 Route::get('/page/view/{id}', 'FrontendController@getPageView');
 Route::get('/poster/sticker/{id}', 'FrontendController@getStickerPoster');
 Route::get('/getThemeSection', 'FrontendController@getThemeSection');
+Route::get('/catelog', 'FrontendController@catelog');
 
 // 1 button sccraping ปุ่มเดียวดึงข้อมูล
 Route::get('/oneclick', 'FrontendController@oneclick');
